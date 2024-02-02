@@ -1,5 +1,3 @@
-import tkinter as tk
+import GUI
 
-window = tk.Tk()
-
-window.mainloop()
+gui = GUI.GUI()
