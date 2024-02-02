@@ -1,3 +1,3 @@
-import GUI
+import Gui
 
-gui = GUI.GUI()
+gui = Gui.Gui("SpaceShip Game", (800, 700))
