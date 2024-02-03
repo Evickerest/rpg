@@ -118,14 +118,10 @@ class Gui(tk.Tk):
             self.player.stats = 1
             self.update_make_player_gui()
 
-    def startgame(self):
-        self.destroy()
-
-
     def make_player_gui(self):
         self.player = Player(f"{self.name}")
         self.bg_canvas.delete("intro")
-        self.next_text.config(width=50, text="No Next Screen Yet. Closes Game Instead", command=self.startgame)
+        self.next_text.config(width=50, text="Start Game", command=self.startgame)
         self.bg_canvas.create_text(self.width/2-100, self.height-500, font=30, fill="white", justify="center",
                                    text=f"{self.player.name}'s Stats\n\n"
                                         f"Str: {self.player.strength}\n\n"
@@ -133,6 +129,7 @@ class Gui(tk.Tk):
                                         f"Vit: {self.player.vitality}\n\n"
                                         f"Int: {self.player.intelligence}\n\n"
                                         f"Free Points: {self.player.stats}\n\n", tags="init_stats")
+        
 
         str_down = tk.Button(self, font=5, width=1, height=1, text="-", command=self.sub_str)
         self.bg_canvas.create_window(self.width / 2 - 60, self.height - 595, anchor='center',
@@ -161,6 +158,26 @@ class Gui(tk.Tk):
         int_up = tk.Button(self, font=5, width=1, height=1, text="+", command=self.add_int)
         self.bg_canvas.create_window(self.width / 2 - 30, self.height - 445, anchor='center',
                                      window=int_up)
+        
+
+    def startgame(self):
+        self.bg_canvas.destroy()
+
+        self.original_image = Image.open('mainGameBG.jpg').resize((900, 700))
+        self.bg = ImageTk.PhotoImage(self.original_image)
+
+        self.bg_canvas = tk.Canvas(self, width=900, height=700)
+        self.bg_canvas.pack(fill='both', expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+       
+        self.bg_canvas.create_window(0,0)
+
+        self.bg_canvas.create_rectangle(self.width / 2, self.height/2, 50, 50, outline = "black", fill = "white", tags="map")
+     
+
+
+
+
 
 
 # ..
