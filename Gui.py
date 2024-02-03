@@ -188,5 +188,5 @@ class Menu(ttk.Frame):
         super().__init__(parent)
         pass
 
-
-Gui("SpaceShip Game", (900, 700))
+if __name__ == "__main__":
+    Gui("SpaceShip Game", (900, 700))
