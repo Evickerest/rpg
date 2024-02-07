@@ -265,7 +265,7 @@ class Gui(tk.Tk):
             update_text = lambda s=char: self.bg_canvas.insert(text_id, tk.END, s)
             self.bg_canvas.after(delay, update_text)
             delay += delta
-
+        
     
 
 
