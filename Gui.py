@@ -3,6 +3,9 @@ import tkinter as tk
 import ttkbootstrap as ttk
 from PIL import ImageTk, Image
 from character import *
+import time
+from threading import *
+
 
 class Gui(tk.Tk):
     # Default size of the window.
@@ -15,7 +18,8 @@ class Gui(tk.Tk):
         self.width = self.winfo_width()
         self.height = self.winfo_height()
 
-        
+        # Widgets
+        # self.menu = Menu(self)
 
         # Customize screen
         self.original_image = Image.open('bg2.jpeg').resize((900, 700))
@@ -25,8 +29,7 @@ class Gui(tk.Tk):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.bg_canvas.create_text(400, 250, text="Are You Ready for a New Adventure?", 
-                                    font="Time_New_Roman 30", fill='white', anchor="center")
+        self.bg_canvas.create_text(400, 250, text="Are You Ready for a New Adventure?", font="Time_New_Roman 30", fill='white', anchor="center")
         self.user_name = tk.Label(self, text='User Name:', font='Time_New_Roman 15')
         self.user_name_window = self.bg_canvas.create_window(30, 100, anchor='sw', window=self.user_name)
 
@@ -39,8 +42,6 @@ class Gui(tk.Tk):
         self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 20", command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(30, 650, anchor='sw', window=self.exit_button)
 
-        # Widgets
-        self.menu = Menu(self)
         self.mainloop()
 
     def game_intro_gui(self):
@@ -162,19 +163,111 @@ class Gui(tk.Tk):
         
 
     def startgame(self):
+        # Clear previous window
         self.bg_canvas.destroy()
 
-        self.original_image = Image.open('mainGameBG.jpg').resize((900, 700))
+
+        # Create Map Background
+        self.original_image = Image.open('mainGameBG.jpg').resize((300,300))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
+        # Create Canvas and Image
         self.bg_canvas = tk.Canvas(self, width=900, height=700)
         self.bg_canvas.pack(fill='both', expand=True)
-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
-       
-        self.bg_canvas.create_window(0,0)
+        self.bg_canvas.create_image(20, 20, image=self.bg, anchor='nw')
 
-        self.bg_canvas.create_rectangle(self.width / 2, self.height/2, 50, 50, outline = "black", fill = "white", tags="map")
-     
+        # Add Map Buttons
+        area1_button = tk.Button(self, font=5, width=2, height=1, text="A1", command=self.scene_area_1)
+        self.bg_canvas.create_window(250, 250, anchor='nw',window=area1_button, tags="a1")
+
+        area2_button = tk.Button(self, font=5, width=2, height=1, text="A2", command=self.scene_area_2)
+        self.bg_canvas.create_window(175, 175, anchor='nw',window=area2_button, tags="a2")
+
+        area3_button = tk.Button(self, font=5, width=2, height=1, text="A3", command=self.scene_area_3)
+        self.bg_canvas.create_window(100, 50, anchor='nw',window=area3_button, tags="a3")
+
+
+        # Display Stats
+        self.bg_canvas.create_text(170, 500, font=30, fill="black", justify="center",
+                                   text=f"{self.player.name}'s Stats\n\n"
+                                        f"Str: {self.player.strength}\n\n"
+                                        f"Dex: {self.player.dexterity}\n\n"
+                                        f"Vit: {self.player.vitality}\n\n"
+                                        f"Int: {self.player.intelligence}\n\n", tags="game_stats")
+        
+        self.bg_canvas.create_text(350, 100, width=500, font=30, fill="black", justify="left", anchor="w",
+                                   text="\nYou are ready to start cleaning up the wreckage. Which wreckage should you visit first? Choose a location on the map.\n", tags="game_text")
+       
+    def scene_area_1(self):
+        # Animate text to screen
+        self.animate_text("game_text", "\nYou have chosen area 1. \n\nWhen you arrive in Area 1, you notice that most of the ship is up and running. What happened to the crew? Choose were to go on the map.\n")
+
+        # Delete map buttons
+        self.bg_canvas.delete("a1","a2","a3")
+
+        # Add new buttons
+        area1_button = tk.Button(self, font=5, width=7, height=1, text="Pod Bay", command=self.scene_area_1)
+        self.bg_canvas.create_window(50, 250, anchor='nw',window=area1_button, tags="a1")
+
+        area2_button = tk.Button(self, font=5, width=4, height=1, text="Dock", command=self.scene_area_2)
+        self.bg_canvas.create_window(175, 175, anchor='nw',window=area2_button, tags="a2")
+
+        area3_button = tk.Button(self, font=5, width=8, height=1, text="Barracks", command=self.scene_area_3)
+        self.bg_canvas.create_window(100, 50, anchor='nw',window=area3_button, tags="a3")
+
+
+    def scene_area_2(self):
+         # Animate text to screen
+        self.animate_text("game_text", "\nYou have chosen area 2. \n\nWhen you arrive in Area 2, you notice that most of the ship is up and running. What happened to the crew? Choose were to go on the map.\n")
+
+        # Delete map buttons
+        self.bg_canvas.delete("a1","a2","a3")
+
+         # Add new buttons
+        area1_button = tk.Button(self, font=5, width=7, height=1, text="Pod Bay", command=self.scene_area_1)
+        self.bg_canvas.create_window(50, 250, anchor='nw',window=area1_button, tags="a1")
+
+        area2_button = tk.Button(self, font=5, width=4, height=1, text="Dock", command=self.scene_area_2)
+        self.bg_canvas.create_window(175, 175, anchor='nw',window=area2_button, tags="a2")
+
+        area3_button = tk.Button(self, font=5, width=8, height=1, text="Barracks", command=self.scene_area_3)
+        self.bg_canvas.create_window(100, 50, anchor='nw',window=area3_button, tags="a3")
+
+    def scene_area_3(self):
+         # Animate text to screen
+        self.animate_text("game_text", "\nYou have chosen Area 3.\n\nWhen you arrive in Area 3, you notice that most of the ship is up and running. What happened to the crew? Choose were to go on the map.\n")
+
+        # Delete map buttons
+        self.bg_canvas.delete("a1","a2","a3")
+
+         # Add new buttons
+        area1_button = tk.Button(self, font=5, width=7, height=1, text="Pod Bay", command=self.scene_area_1)
+        self.bg_canvas.create_window(50, 250, anchor='nw',window=area1_button, tags="a1")
+
+        area2_button = tk.Button(self, font=5, width=4, height=1, text="Dock", command=self.scene_area_2)
+        self.bg_canvas.create_window(175, 175, anchor='nw',window=area2_button, tags="a2")
+
+        area3_button = tk.Button(self, font=5, width=8, height=1, text="Barracks", command=self.scene_area_3)
+        self.bg_canvas.create_window(100, 50, anchor='nw',window=area3_button, tags="a3")
+
+
+    # text_id is the tag of the .create_text object
+    # Text contains lines to be printed
+    def animate_text(self, text_id, text):
+
+        # Stolen from stackoverflow
+        # Delta controls rate of range (Milliseconds)
+
+        # TODO: Get this thing to print upwards not downwards
+        delta = 25
+        delay = 0
+        for char in text:
+            update_text = lambda s=char: self.bg_canvas.insert(text_id, tk.END, s)
+            self.bg_canvas.after(delay, update_text)
+            delay += delta
+
+    
+
 
 
 
@@ -187,9 +280,7 @@ class Gui(tk.Tk):
 class Menu(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
+        pass
 
-        self.place()
-        
 
-if __name__ == "__main__":
-    Gui("SpaceShip Game", (900, 700))
+Gui("SpaceShip Game", (900, 700))
