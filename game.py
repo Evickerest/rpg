@@ -269,7 +269,7 @@ class Game:
         item = None
         if player.weapon.description == item_name:
             item = player.weapon
-            player.weapon = Weapon(["weapon", "barehanded", 0, 0, 0])
+            player.weapon = Weapon(["weapon", "barehanded", 0, 0, 0, 0])
             player.weapon.condition = ["Regular", 1.0]  # Need to change 1.0 to "1.0"
         else:
             for armor in player.armor:
@@ -455,7 +455,7 @@ class Game:
             Printer.alert("!!!!!! - NO! " + ex.character.name + " HAS FALLEN! - !!!!!!")
 
             ex.character.inventory().append(ex.character.weapon)
-            ex.character.weapon = Weapon(["weapon", "barehanded", 1, 0, 0])
+            ex.character.weapon = Weapon(["weapon", "barehanded", 1, 0, 0, 0])
             ex.character.weapon.condition = ["Regular", 1.0]  # Need to change 1.0 to "1.0"
 
             hands = ex.character.in_inventory("Regular barehanded")

@@ -182,6 +182,10 @@ class Gui(tk.Tk):
         """
         if not Dungeon.ROOM_DETAILS:
             Dungeon.load_room_details()
+        if not Item.ITEMS:
+            Item.load_items()
+        if not Item.CONDITIONS:
+            Item.load_conditions()
         self.a1_details = random.choice(Dungeon.ROOM_DETAILS)
         self.a2_details = random.choice(Dungeon.ROOM_DETAILS)
         self.a3_details = random.choice(Dungeon.ROOM_DETAILS)
@@ -192,6 +196,38 @@ class Gui(tk.Tk):
         self.a1 = Dungeon(self.a1_details[0], self.a1_details[1])
         self.a2 = Dungeon(self.a2_details[0], self.a2_details[1])
         self.a3 = Dungeon(self.a3_details[0], self.a3_details[1])
+
+        # Add shop items
+        if self.a1.shop:
+            self.a1.stock_store()
+        if self.a2.shop:
+            self.a2.stock_store()
+        if self.a3.shop:
+            self.a3.stock_store()
+
+        # Add monsters
+        if self.a1.combat:
+            self.a1.generate()
+        if self.a2.combat:
+            self.a2.generate()
+        if self.a3.combat:
+            self.a3.generate()
+
+        # Add loot
+        if self.a1.loot:
+            self.a1.stock_loot()
+        if self.a2.combat:
+            self.a2.stock_loot()
+        if self.a3.combat:
+            self.a3.stock_loot()
+
+        # Add healing
+        if self.a1.healing:
+            pass
+        if self.a2.healing:
+            pass
+        if self.a3.healing:
+            pass
 
     def start_game(self):
         # Clear previous window
@@ -240,14 +276,12 @@ class Gui(tk.Tk):
         self.rooms_update()
 
         # Animate text to screen
-        self.bg_canvas.after_cancel(str(id(self.animate_text)))
-        self.bg_canvas.update()
         self.animate_text("game_text", f"\nYou have chosen {room_name}. \n\n"
                                        f"When you arrive in {room_name}, you notice that most"
                                        " of the ship is up and running. What happened to the crew? "
                                        "Choose where to go on the map.\n")
         # Delete map buttons
-        self.bg_canvas.delete("a1", "a2", "a3")
+        self.bg_canvas.delete("a1", "a2", "a3", "shop")
 
         # Add new buttons
         area1_button = tk.Button(self, font=5, height=1, text=self.a1.name,
@@ -261,6 +295,7 @@ class Gui(tk.Tk):
         area3_button = tk.Button(self, font=5, height=1, text=self.a3.name,
                                  command=lambda: self.scene_area_1(self.a3.name))
         self.bg_canvas.create_window(100, 50, anchor='nw', window=area3_button, tags="a3")
+
 
     # text_id is the tag of the .create_text object
     # Text contains lines to be printed

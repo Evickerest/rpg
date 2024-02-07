@@ -69,12 +69,14 @@ class Item(abc.ABC):
         except ValueError:
             raise ValueError("The fourth entry in the attribute list can't be turned into an integer through int().")
         self.__attributes = attributes
-        self.__name = attributes[1]
-
         if not Item.CONDITIONS:
             Item.load_conditions()
         condition = random.choice(Item.CONDITIONS)
         self.condition = condition
+
+        self.__name = attributes[1]
+        self.value = int(attributes[5])
+        self.__sell_value = int(self.value * 0.8 + random.randint(0, 10))
 
     @property
     def name(self) -> str:
@@ -128,6 +130,30 @@ class Item(abc.ABC):
             __weight (int): The weight of an item as an integer.
         """
         return self.__weight
+
+    @property
+    def value(self) -> int:
+        """Getter for the __value attribute.
+        Returns:
+            __value (int): The item's base value.
+        """
+        return self.__value
+
+    @value.setter
+    def value(self, base_value: int):
+        """Setter for the __value attribute.
+        Returns:
+            __value (int): Sets the item's value.
+        """
+        self.__value = int(int(base_value) + random.randint(-5, 10))
+
+    @property
+    def sell_value(self) -> int:
+        """Getter for the __sell_value attribute.
+        Returns:
+            __sell_value (int): The item's sell value.
+        """
+        return self.__sell_value
 
     @property
     def attributes(self) -> list:

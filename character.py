@@ -41,10 +41,11 @@ class Character:
         self.base_defense = 0
         self.__inventory: list[Item] = []
         self.__armor: list[Armor] = []
-        self.__weapon = Weapon(["weapon", "barehanded", 0, 0, 0])
+        self.__weapon = Weapon(["weapon", "barehanded", 0, 0, 0, 0])
         self.__weapon.condition = ["Regular", 1.0]  # Need to change the 1.0 to "1.0"
         self.__inventory_weight = 0
         self.__max_weight = 5
+        self.__credits = 0
 
     @property
     def name(self) -> str:
@@ -384,6 +385,22 @@ class Character:
         """
         return self.__max_weight
 
+    @property
+    def credits(self) -> int:
+        """Getter for the __credits attribute.
+        Returns:
+            __credits (int) = Credits on the character.
+        """
+        return self.__credits
+
+    @credits.setter
+    def credits(self, change: int):
+        """Setter for the __credits attribute.
+        Args:
+            change (int): How much to change __credits by.
+        """
+        self.__credits += change
+
     def total_defense(self) -> int:
         """Calculates a character's total defense as a result of their
          base defense and all armor pieces worn.
@@ -551,7 +568,7 @@ class Monster(Character):
         """
         if isinstance(name, str):
             super().__init__(name)
-            self.__gold = randint(1, 10)
+            self.__credits = randint(1, 10)
             if not Item.ITEMS:
                 Item.load_items()
             if not Item.CONDITIONS:
@@ -578,20 +595,20 @@ class Monster(Character):
             return ("LV " + str(self.level) + " " + self.name + " "
                     + str(self.health) + " Health, " + str(self.total_attack())
                     + " Attack and " + str(self.total_defense()) + " Defense.\n It is carrying " +
-                    str(self.__gold) + " gold and an item of " +
+                    str(self.__credits) + " gold and an item of " +
                     str(self.__mon_inv.description) + ".")
         return ("LV " + str(self.level) + " " + self.name + " "
                 + str(self.health) + " Health, " + str(self.total_attack())
                 + " Attack and " + str(self.total_defense()) + " Defense"
-                + " Luck.\n It is carrying " + str(self.__gold) + " gold.")
+                + " Luck.\n It is carrying " + str(self.__credits) + " gold.")
 
     @property
-    def gold(self) -> int:
-        """Getter for the __gold attribute.
+    def credits(self) -> int:
+        """Getter for the __credits attribute.
         Returns:
-            __gold (int): The gold coins a monster is carrying.
+            __credits (int): The credits a monster is carrying.
         """
-        return self.__gold
+        return self.__credits
 
     def lv_up(self):
         while self.xp >= (self.level * 10):
