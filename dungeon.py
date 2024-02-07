@@ -4,14 +4,27 @@ Phuc Le
 11/9/2023
 Version 3.0
 """
+import random
 from random import *
 from character import *
+import random
 
 
 class Dungeon:
     """Contains information about the dungeon room itself and how the rooms
      are connected to one another.
     """
+    ROOM_DETAILS = []
+
+    @staticmethod
+    def load_room_details() -> None:
+        """Static method to load the different room details from a file.
+        """
+        with open('room_names', 'r') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                Dungeon.ROOM_DETAILS.append(row)
+
     def __init__(self, name: str, description: str) -> None:
         """Constructor Method for the Dungeon instance.
         Args:
@@ -40,6 +53,13 @@ class Dungeon:
         self.__monster_list = []
         with open("monster_names") as f:
             self.__monster_list = f.readlines()
+
+        if not Dungeon.ROOM_DETAILS:
+            Dungeon.load_room_details()
+        if not self.__name:
+            details = random.choice(Dungeon.ROOM_DETAILS)
+            self.__name = details[0]
+            self.__description = details[1]
 
     def generate(self) -> None:
         """Generates the Dungeon and fills it with a random number
@@ -93,6 +113,22 @@ class Dungeon:
         if not self.__monsters:
             return "No monsters (whew!)."
         return monster_str
+
+    @property
+    def name(self) -> str:
+        """Getter for the __name attribute.
+        Returns:
+            __name (str): The name of this room.
+        """
+        return self.__name
+
+    @property
+    def description(self) -> list:
+        """Getter for the __description attribute.
+        Returns:
+            __description (str): The description of this room.
+        """
+        return self.__description
 
     @property
     def monsters(self) -> list:
