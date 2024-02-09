@@ -11,7 +11,7 @@ class Item:
         self.damage = self.stats["damage"]
 
         # What % Higher or % Lower from self.damage can possible damages be
-        self.damagePercent = self.stats["amagePercent"]
+        self.damagePercent = self.stats["damagePercent"]
 
         # In the format 0.%%
         self.critPercent = self.stats["critPercent"]
@@ -31,7 +31,7 @@ class Item:
             appliedDamage *= 2
 
         # If crit is 
-        enemyDefenseReducer = 0
+        enemyDefenseReducer = 1
         if random.random() < self.armorBreakPercent:
             enemyDefenseReducer = 0.5
 
