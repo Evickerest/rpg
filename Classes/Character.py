@@ -19,8 +19,8 @@ class Character:
     def upgradeStats(self, stat, amount):
         if self.stats["Stat Points"] > 0:
             self.stats[stat] += amount
-            self.stats["Stat Points"] -= 1
-            self.updateMaxHealth()
+            self.stats["Stat Points"] -= amount
+        self.updateMaxHealth()
 
     # Levels up and adds unassigned stat points
     def lv_up(self):

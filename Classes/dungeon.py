@@ -4,14 +4,12 @@ Phuc Le
 11/9/2023
 Version 3.0
 """
-import random
-from random import *
-from Classes import *
-
-from Item import *
 import csv
 import random
-
+from random import *
+from Classes.Character import *
+from Classes.Item import *
+import csv
 
 class Dungeon:
     """Contains information about the dungeon room itself and how the rooms
@@ -23,7 +21,7 @@ class Dungeon:
     def load_room_details() -> None:
         """Static method to load the different room details from a file.
         """
-        with open('room_txt/room_names', 'r') as f:
+        with open('Classes/room_txt/room_names', 'r') as f:
             reader = csv.reader(f)
             for row in reader:
                 Dungeon.ROOM_DETAILS.append(row)
@@ -54,7 +52,7 @@ class Dungeon:
         self.__num_monsters = 0
 
         self.__monster_list = []
-        with open("enemy_txt/monster_names") as f:
+        with open("Classes/enemy_txt/monster_names") as f:
             self.__monster_list = f.readlines()
 
         if not Dungeon.ROOM_DETAILS:
