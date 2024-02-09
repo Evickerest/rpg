@@ -1,4 +1,5 @@
 import Gui
+import Item
 
 if __name__ == "__main__":
-    Gui.Gui("SpaceShip Game", (900, 700))
+    Gui("SpaceShip Game", (900, 700))

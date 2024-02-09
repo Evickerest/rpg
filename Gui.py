@@ -5,8 +5,6 @@ import ttkbootstrap as ttk
 from PIL import ImageTk, Image
 from character import *
 from dungeon import *
-import time
-from threading import *
 
 
 class Gui(tk.Tk):
@@ -20,6 +18,8 @@ class Gui(tk.Tk):
         self.iconbitmap('SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
+
+        self.notReady = False
 
         self.player = None
         self.name = None
@@ -265,16 +265,27 @@ class Gui(tk.Tk):
     # text_id is the tag of the .create_text object
     # Text contains lines to be printed
     def animate_text(self, text_id, text):
-        # Stolen from stackoverflow
-        # Delta controls rate of range (Milliseconds)
+        if self.notReady:
+            return
+        
+        self.toggleReady()
 
         # TODO: Get this thing to print upwards not downwards
+        # Delta is time delay between characters
         delta = 25
         delay = 0
+        
+        # Change "Ready" state after text is done
+        self.bg_canvas.after( delay * (len(text)+1), self.toggleReady())
+
         for char in text:
             update_text = lambda s=char: self.bg_canvas.insert(text_id, tk.END, s)
             self.bg_canvas.after(delay, update_text)
             delay += delta
+
+    def toggleReady(self):
+        self.notReady = not self.notReady
+        print(self.notReady)
         
     
 
@@ -291,7 +302,3 @@ class Menu(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         pass
-
-
-if __name__ == "__main__":
-    Gui("SpaceShip Game", (900, 700))
