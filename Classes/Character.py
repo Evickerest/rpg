@@ -10,6 +10,12 @@ class Character:
         self.stats = stats
         self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"] + self.stats["Level"]))
         self.stats["Health"] = self.stats["Max Health"]
+        self.stats["Weapon"] = "None"
+        self.stats["Head"] = "None"
+        self.stats["Arms"] = "None"
+        self.stats["Chest"] = "None"
+        self.stats["Legs"] = "None"
+        self.stats["Feet"] = "None"
 
     # Add to the inventory an instance of an item
     def addItem(self, item):

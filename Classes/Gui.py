@@ -88,6 +88,7 @@ class Gui(tk.Tk):
             if self.player.stats[stat] < 12:
                 self.player.upgradeStats(stat, amount)
         self.player.stats["Health"] = self.player.stats["Max Health"]
+        self.player.updateMaxHealth()
         self.bg_canvas.delete("stats")
         self.bg_canvas.create_text(self.width / 2 - 100, self.height - 500, font=25, fill="white", justify="center",
                                    text=self.player.name + "'s Stats" +
@@ -199,8 +200,23 @@ class Gui(tk.Tk):
                                  command=lambda: self.scene_area_1(self.a3.name))
         self.bg_canvas.create_window(100, 50, anchor='nw', window=area3_button, tags="a3")
 
+        char_screen_button = tk.Button(self, font=5, height=2, text="Character\nDetails",
+                                       command=lambda: CharacterGui(self.player))
+        self.bg_canvas.create_window(self.width / 2 - 440, self.height - 300, anchor='nw',
+                                     window=char_screen_button, tags="Char_Screen")
+
         # Display Stats
-        self.bg_canvas.create_text(self.width/2-300, self.height-230, font=15, fill="white", justify="center",
+        self.stat_grid()
+        self.item_grid()
+        
+        self.bg_canvas.create_text(350, 100, width=500, font=30, fill="black", justify="left", anchor="w",
+                                   text="\nYou are ready to start cleaning up the wreckage."
+                                        " Which wreckage should you visit first?"
+                                        " Choose a location on the map.\n", tags="game_text")
+
+    def stat_grid(self):
+        self.bg_canvas.delete("stats")
+        self.bg_canvas.create_text(self.width / 2 - 300, self.height - 230, font=15, fill="blue", justify="center",
                                    text=self.player.name + "'s Stats" +
                                         "\n\nHealth: " + str(self.player.stats["Health"]) +
                                         "/" + str(self.player.stats["Max Health"]) +
@@ -208,16 +224,23 @@ class Gui(tk.Tk):
                                         "\n\nDex: " + str(self.player.stats["Dexterity"]) +
                                         "\n\nVit: " + str(self.player.stats["Vitality"]) +
                                         "\n\nInt: " + str(self.player.stats["Intelligence"]) +
-                                        "\n\nFree Points: " + str(self.player.stats["Stat Points"]), tags="init_stats")
-        
-        self.bg_canvas.create_text(350, 100, width=500, font=30, fill="black", justify="left", anchor="w",
-                                   text="\nYou are ready to start cleaning up the wreckage."
-                                        " Which wreckage should you visit first?"
-                                        " Choose a location on the map.\n", tags="game_text")
-       
+                                        "\n\nFree Points: " + str(self.player.stats["Stat Points"]), tags="stats")
+
+    def item_grid(self):
+        self.bg_canvas.delete("equipment")
+        self.bg_canvas.delete("inventory")
+        self.bg_canvas.create_text(self.width / 2 - 150, self.height - 230, font=15, fill="blue", justify="center",
+                                   text="\n\nEquipped: " + self.player.stats["Head"]
+                                        + "\n\nEquipped: " + self.player.stats["Arms"]
+                                        + "\n\nEquipped: " + self.player.stats["Chest"]
+                                        + "\n\nEquipped: " + self.player.stats["Legs"]
+                                        + "\n\nEquipped: " + self.player.stats["Feet"]
+                                        + "\n\nEquipped: " + self.player.stats["Weapon"] + "\n\n", tags="equipment")
+
     def scene_area_1(self, room_name: str):
         # Creates new rooms
         self.rooms_update()
+        self.stat_grid()
 
         # Animate text to screen
         self.bg_canvas.after_cancel(str(id(self.animate_text)))
@@ -227,7 +250,7 @@ class Gui(tk.Tk):
                                        " of the ship is up and running. What happened to the crew? "
                                        "Choose where to go on the map.\n")
         # Delete map buttons
-        self.bg_canvas.delete("a1", "a2", "a3")
+        self.bg_canvas.delete("a1", "a2", "a3", "Char_Screen")
 
         # Add new buttons
         area1_button = tk.Button(self, font=5, height=1, text=self.a1.name,
@@ -241,6 +264,11 @@ class Gui(tk.Tk):
         area3_button = tk.Button(self, font=5, height=1, text=self.a3.name,
                                  command=lambda: self.scene_area_1(self.a3.name))
         self.bg_canvas.create_window(100, 50, anchor='nw', window=area3_button, tags="a3")
+
+        char_screen_button = tk.Button(self, font=5, height=2, text="Character\nDetails",
+                                       command=lambda: CharacterGui(self.player))
+        self.bg_canvas.create_window(self.width / 2 - 440, self.height - 300, anchor='nw',
+                                     window=char_screen_button, tags="Char_Screen")
 
     # text_id is the tag of the .create_text object
     # Text contains lines to be printed
@@ -273,71 +301,78 @@ class GameIntroGui(Gui):
     pass
 
 
-class CharacterGui(Gui):
+class CharacterGui(tk.Tk):
     def __init__(self, player: Player):
-        super().__init__("Character Screen", [200, 200])
+        super().__init__()
+        self.title("Character Screen")
+        self.geometry(f'{250}x{400}+170+250')
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+        self.iconbitmap('Images/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
 
+        self.player = player
+
         # Customize screen
-        self.original_image = Image.open('bg2.jpeg').resize((200, 200))
+        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        self.bg_canvas = tk.Canvas(self, width=200, height=200)
+        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="black")
         self.bg_canvas.pack(fill='both', expand=True)
-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 20", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(180, 180, anchor='sw', window=self.exit_button)
+        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
+        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
+                                                               anchor='sw', window=self.exit_button)
 
-        str_down = tk.Button(self, font=5, width=1, height=1, text="-",
-                             command=lambda: self.player.upgradeStats("Strength", -1))
-        self.bg_canvas.create_window(self.width / 2 - 60, self.height - 65, anchor='center',
-                                     window=str_down)
-        str_up = tk.Button(self, font=5, width=1, height=1, text="-",
-                           command=lambda: self.player.upgradeStats("Strength", 1))
-        self.bg_canvas.create_window(self.width / 2 - 30, self.height - 65, anchor='center',
-                                     window=str_up)
+        self.updateCharacterGui()
 
-        dex_down = tk.Button(self, font=5, width=1, height=1, text="-",
-                             command=lambda: self.player.upgradeStats("Dexterity", -1))
-        self.bg_canvas.create_window(self.width / 2 - 60, self.height - 45, anchor='center',
-                                     window=dex_down)
-        dex_up = tk.Button(self, font=5, width=1, height=1, text="-",
-                           command=lambda: self.player.upgradeStats("Dexterity", 1))
-        self.bg_canvas.create_window(self.width / 2 - 30, self.height - 45, anchor='center',
-                                     window=dex_up)
+        if self.player.stats["Stat Points"] > 0:
+            str_up = tk.Button(self, font=5, width=1, height=1, text="+",
+                               command=lambda: self.stat_button("Strength", 1))
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 265, anchor='center',
+                                         window=str_up, tags="str_up")
 
-        vit_down = tk.Button(self, font=5, width=1, height=1, text="-",
-                             command=lambda: self.player.upgradeStats("Vitality", -1))
-        self.bg_canvas.create_window(self.width / 2 - 60, self.height - 25, anchor='center',
-                                     window=vit_down)
-        vit_up = tk.Button(self, font=5, width=1, height=1, text="-",
-                           command=lambda: self.player.upgradeStats("Vitality", 1))
-        self.bg_canvas.create_window(self.width / 2 - 30, self.height - 25, anchor='center',
-                                     window=vit_up)
+            dex_up = tk.Button(self, font=5, width=1, height=1, text="+",
+                               command=lambda: self.stat_button("Dexterity", 1))
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 215, anchor='center',
+                                         window=dex_up, tags="dex_up")
 
-        int_down = tk.Button(self, font=5, width=1, height=1, text="-",
-                             command=lambda: self.player.upgradeStats("Intelligence", -1))
-        self.bg_canvas.create_window(self.width / 2 - 60, self.height - 5, anchor='center',
-                                     window=int_down)
-        int_up = tk.Button(self, font=5, width=1, height=1, text="-",
-                           command=lambda: self.player.upgradeStats("Intelligence", 1))
-        self.bg_canvas.create_window(self.width / 2 - 30, self.height - 5, anchor='center',
-                                     window=int_up)
+            vit_up = tk.Button(self, font=5, width=1, height=1, text="+",
+                               command=lambda: self.stat_button("Vitality", 1))
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 165, anchor='center',
+                                         window=vit_up, tags="vit_up")
+
+            int_up = tk.Button(self, font=5, width=1, height=1, text="+",
+                               command=lambda: self.stat_button("Intelligence", 1))
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 115, anchor='center',
+                                         window=int_up, tags="int_up")
+
         self.mainloop()
+
+    def stat_button(self, stat: str, amount: int):
+        if self.player.stats["Stat Points"] > 0:
+            self.player.upgradeStats(stat, amount)
+        if stat == "Vitality":
+            self.player.updateMaxHealth()
+            self.player.stats["Health"] = self.player.stats["Max Health"]
+        self.updateCharacterGui()
 
     def updateCharacterGui(self):
         self.bg_canvas.delete("stats")
-        self.bg_canvas.create_text(self.width / 2 - 10, self.height - 10, font=25, fill="white", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 30, self.height - 220, font=10, fill="blue", justify="center",
                                    text=self.player.name + "'s Stats" +
                                         "\n\nHealth: " + str(self.player.stats["Health"]) +
                                         "/" + str(self.player.stats["Max Health"]) +
                                         "\n\nStr: " + str(self.player.stats["Strength"]) +
-                                        "+\n\nDex: " + str(self.player.stats["Dexterity"]) +
+                                        "\n\nDex: " + str(self.player.stats["Dexterity"]) +
                                         "\n\nVit: " + str(self.player.stats["Vitality"]) +
                                         "\n\nInt: " + str(self.player.stats["Intelligence"]) +
                                         "\n\nFree Points: " + str(self.player.stats["Stat Points"]), tags="stats")
+        if self.player.stats["Stat Points"] == 0:
+            self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
+
 
 
 class Menu(ttk.Frame):
