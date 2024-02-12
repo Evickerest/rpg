@@ -1,10 +1,34 @@
 import random
+import csv
 
 class Item:
+
+    ITEMS = []
+
+    @staticmethod
+    def load_items() -> None:
+        """Static method to load the different types of items from a specified file.
+        """
+        with open('Classes/items_txt/item_types', 'r') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                Item.ITEMS.append(row)
+
     # Stats is a dictionary
-    def __init__(self, stats):
-        self.stats = stats
-        self.assignStats()
+    def __init__(self, stats: list):
+        if not Item.ITEMS:
+            Item.load_items()
+
+        self.stats = {}
+        self.stats["type"] = stats[0]
+        self.stats["name"] = stats[1]
+        self.stats["damage"] = stats[2]
+        self.stats["defense"] = stats[3]
+        self.stats["value"] = stats[4]
+
+        # self.assignStats() --> Testing, not using
+        # Got to assign equipment's type
+        # ["Weapon", "Head", "Arms", "Chest", "Legs", "Feet"]
 
     def assignStats(self):
         self.name = self.stats["name"]
@@ -23,7 +47,7 @@ class Item:
 
     # Enemy would be an instance of the enemy class
     def getDamageDealt(self, enemy):
-        damageRangeValue = random.uniform( -self.damagePercent, self.damagePercent)
+        damageRangeValue = random.uniform(-self.damagePercent, self.damagePercent)
         baseDamageDealt = self.damage * damageRangeValue
 
         appliedDamage = baseDamageDealt
@@ -38,10 +62,3 @@ class Item:
         enemyDefense = enemy.getDefense()
 
         return appliedDamage - enemyDefense * enemyDefenseReducer
-
-        
-
-
-
-
-

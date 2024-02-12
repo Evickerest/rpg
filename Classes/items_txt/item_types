@@ -1,13 +1,18 @@
-weapon,sword,10,0,1
-weapon,dagger,5,0,1
-weapon,knife,3,0,1
-weapon,hammer,5,0,1
-weapon,sledge,7,0,1
-weapon,war-hammer,11,0,1
-weapon,mace,12,0,1
-weapon,bow,6,0,1
-weapon,crossbow,10,0,1
-armor,helm,0,5,1
-armor,guantlet,0,2,1
-armor,breastplate,0,10,2
-armor,leggings,0,7,3
+Weapon,Mace,12,0,5,
+Weapon,Bow,6,0,5,
+Weapon,Crossbow,10,0,5,
+Head,Helm,0,5,5,
+Head,Circlet,0,5,5,
+Head,Helmet,0,5,5,
+Arms,Gauntlets,0,4,5,
+Arms,Gloves,0,2,5,
+Arms,Knuckle Dusters,0,1,5,
+Chest,Combat Suit,0,10,5,
+Chest,Hazmat Suit,0,8,5,
+Chest,Shirt,0,1,5,
+Legs,Combat Leggings,0,7,5,
+Legs,Thick Pants,0,2,5,
+Legs,Jeans,0,1,5,
+Feet,Combat Boots,0,4,5,
+Feet,Work Boots,0,4,5,
+Feet,Shoes,0,3,5,
