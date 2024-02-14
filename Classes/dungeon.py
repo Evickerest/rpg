@@ -21,7 +21,7 @@ class Dungeon:
     def load_room_details() -> None:
         """Static method to load the different room details from a file.
         """
-        with open('Classes/room_txt/room_names', 'r') as f:
+        with open('Names/room_txt/room_names', 'r') as f:
             reader = csv.reader(f)
             for row in reader:
                 Dungeon.ROOM_DETAILS.append(row)
@@ -52,7 +52,7 @@ class Dungeon:
         self.__num_monsters = 0
 
         self.__monster_list = []
-        with open("Classes/enemy_txt/monster_names") as f:
+        with open("Names/enemy_txt/monster_names") as f:
             self.__monster_list = f.readlines()
 
         if not Dungeon.ROOM_DETAILS:

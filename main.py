@@ -1,5 +1,5 @@
-from Classes import Gui
+from Classes.GUI import MainGui
 from Classes.Item import *
 if __name__ == "__main__":
-    Gui.Gui("SpaceShip Game", (900, 700))
+    MainGui.MainGui("SpaceShip Game", (900, 700))
 

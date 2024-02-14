@@ -9,7 +9,7 @@ class Item:
     def load_items() -> None:
         """Static method to load the different types of items from a specified file.
         """
-        with open('Classes/items_txt/item_types', 'r') as f:
+        with open('Names/items_txt/item_types', 'r') as f:
             reader = csv.reader(f)
             for row in reader:
                 Item.ITEMS.append(row)
