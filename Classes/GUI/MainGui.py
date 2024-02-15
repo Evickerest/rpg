@@ -195,8 +195,12 @@ class MainGui(tk.Tk):
         menu_image = Image.open('Images/info_bg.png').resize((300, 300))
         self.menu_bg = ImageTk.PhotoImage(menu_image)
     
-        # Create Canvas and Images
+
+        #Create backgroung
         self.bg_canvas = tk.Canvas(self, width=900, height=700)
+        self.bg_canvas.configure(bg='#34557A')
+        
+        # Create Canvas and Images
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(20, 20, image=self.bg, anchor='nw')
         self.bg_canvas.create_image(20,350, image=self.menu_bg, anchor='nw')
