@@ -1,10 +1,10 @@
 import random
-import sys
 
 from Classes.Item import *
 
 if not Item.ITEMS:
     Item.load_items()
+
 
 class Character:
     # Stats is a dict
@@ -17,6 +17,8 @@ class Character:
         self.stats = stats
         self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"] + self.stats["Level"]))
         self.stats["Health"] = self.stats["Max Health"]
+        self.attack = 0  # Pull item attack + character strength?
+        self.defense = 0  # Pull item defense + character vitality?
 
     # Add to the inventory an instance of an item
     def addItem(self, item: Item):
@@ -30,7 +32,9 @@ class Character:
         if self.stats["Stat Points"] > 0:
             self.stats[stat] += amount
             self.stats["Stat Points"] -= amount
-        self.updateMaxHealth()
+        if stat == "Vitality":
+            self.updateMaxHealth()
+            self.updateHealth(5 * amount)
 
     # Levels up and adds unassigned stat points
     def lv_up(self):
@@ -42,6 +46,11 @@ class Character:
     # Recalculates max health
     def updateMaxHealth(self):
         self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"] + self.stats["Level"]))
+        if self.stats["Health"] > self.stats["Max Health"]:
+            self.stats["Health"] = self.stats["Max Health"]
+
+    def updateHealth(self, amount: int):
+        self.stats["Health"] += amount
         if self.stats["Health"] > self.stats["Max Health"]:
             self.stats["Health"] = self.stats["Max Health"]
 
@@ -144,11 +153,37 @@ class Player(Character):
                 self.addItem(self.equipment["Feet"])
             self.equipment["Feet"] = Item(["Feet", "None", 0, 0, 0])
 
+    def use_medkits(self):
+        if self.med_kits > 0:
+            self.med_kits = -1
+            amt = self.stats["Intelligence"] + self.stats["Level"] + 10
+            tmp = self.stats["Health"] + amt
+            if tmp >= self.stats["Max Health"]:
+                amt = self.stats["Max Health"] - self.stats["Health"]
+                self.stats["Health"] = amt
+                print(self.name + " used a med kit and healed " + str(amt) + " health.")
+                return amt
+            else:
+                print("No med kits left.")
+                return 0
+
+    @property
+    def med_kits(self) -> int:
+        return self.stats["Medkits"]
+
+    @med_kits.setter
+    def med_kits(self, change: int):
+        self.stats["Medkits"] += change
+        if self.stats["Medkits"] < 0:
+            self.__med_kits = 0
+
 
 class Enemy(Character):
-    def __init__(self, name: str, stats: dict):
+    def __init__(self, name: str, stats: dict, enemy_lv: int):
         super().__init__(name, stats)
-        while self.stats["XP"] > self.stats["Level"] * 10:
-            self.lv_up()
+        self.stats["Level"] = enemy_lv
+        self.stats["name"] = name
+        self.stats["Stat Points"] = self.stats["Level"] * 5
+        while self.stats["Stat Points"] > 1:
             stat = random.choice(['Strength', 'Dexterity', 'Vitality', 'Intelligence'])
             self.upgradeStats(stat, 1)
