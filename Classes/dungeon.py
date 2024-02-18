@@ -4,18 +4,19 @@ Phuc Le
 11/9/2023
 Version 3.0
 """
-import csv
 import random
 from random import *
 from Classes.Character import *
 from Classes.Item import *
 import csv
 
+
 class Dungeon:
     """Contains information about the dungeon room itself and how the rooms
      are connected to one another.
     """
     ROOM_DETAILS = []
+    ROOM_TYPES = ["combat", "rest", "shop", "chest", "empty", "boss"]
 
     @staticmethod
     def load_room_details() -> None:
@@ -46,10 +47,11 @@ class Dungeon:
             raise ValueError("The dungeon's description must be a non-empty string.")
 
         self.__items: list[Item] = []
-        self.__monsters: list[Enemy] = []
+        self.__monsters: Enemy = None
         self.__prior = None
         self.__next = None
         self.__num_monsters = 0
+        self.__type = random.choice(Dungeon.ROOM_TYPES)
 
         self.__monster_list = []
         with open("Names/enemy_txt/monster_names") as f:
@@ -62,16 +64,19 @@ class Dungeon:
             self.__name = details[0]
             self.__description = details[1]
 
-    def generate(self) -> None:
+    def generate(self, player_lv: int) -> None:
         """Generates the Dungeon and fills it with a random number
          of enemies from 0-4 inclusive.
         """
-        self.__num_monsters = randint(0, 4)
+        self.__num_monsters = randint(1, 1)
+        mon_lv = player_lv
+        if player_lv > 5:
+            mon_lv = player_lv + random.randint(-3, 3)
+
         for num in range(0, self.__num_monsters):
             monster_name = random.choice(self.__monster_list)
-            mon = Enemy(monster_name)
-            if not (self.monster_in_dungeon(mon) in self.__monsters):
-                self.__monsters.append(mon)
+            mon = Enemy(monster_name, None, mon_lv)
+            self.__monsters = mon
 
     def monster_in_dungeon(self, mon: Enemy) -> Enemy | None:
         """Checks if the enemy with the specified name is already in the dungeon.
@@ -83,9 +88,8 @@ class Dungeon:
         if not isinstance(mon, Enemy):
             raise ValueError("mon must be a Enemy object.")
 
-        for monster in self.monsters:
-            if mon == monster:
-                return monster
+        if mon == self.monsters:
+            return self.monsters
         return None
 
     def __str__(self) -> str:
@@ -96,7 +100,7 @@ class Dungeon:
         """
         self.__room_inv = []
         for item in self.__items:
-            self.__room_inv.append(item.description)
+            self.__room_inv.append(item.stats["name"])
         self.__room_str = (str(self.__name) + ". " + str(self.__description) +
                            ". Items: " + str(self.__room_inv))
         return self.__room_str
@@ -108,9 +112,8 @@ class Dungeon:
             monster_str (str): Otherwise, a string containing the name
              of all monsters present in the room.
         """
-        monster_str = "Monsters in Room:\n "
-        for monster in self.__monsters:
-            monster_str = monster_str + str(monster.name) + " "
+        monster_str = "Monster in Room:\n "
+        monster_str = monster_str + str(self.monsters.stats["name"]) + " "
         if not self.__monsters:
             return "No monsters (whew!)."
         return monster_str
@@ -132,10 +135,10 @@ class Dungeon:
         return self.__description
 
     @property
-    def monsters(self) -> list:
+    def monsters(self) -> Enemy:
         """Getter for the __monsters attribute.
         Returns:
-            __monsters (list): The list of Monster instances in the dungeon.
+            __monsters (Enemy): The list of Monster instances in the dungeon.
         """
         return self.__monsters
 
@@ -155,3 +158,24 @@ class Dungeon:
              this one. The first room will have no prior Dungeon instance.
         """
         return self.__prior
+
+    @property
+    def type(self) -> str:
+        return self.__type
+
+    @type.setter
+    def type(self, new_type: str):
+        self.__type = new_type
+
+    def generate_special(self, type: str, player: Player):
+        if type == "combat":
+            self.generate(player.stats["Level"])
+        elif type == "rest":
+            player.updateMaxHealth()
+            player.updateHealth(player.stats["Max Health"])
+        elif type == "shop":
+            self.items.append(Item(random.choice(Item.ITEMS)))
+        elif type == "chest":
+            self.items.append(Item(random.choice(Item.ITEMS)))
+
+    # ["combat", "rest", "shop", "chest", "empty", "boss"]

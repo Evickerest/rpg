@@ -1,5 +1,7 @@
 import random
 import csv
+import sys
+
 
 class Item:
 
@@ -22,9 +24,9 @@ class Item:
         self.stats = {}
         self.stats["type"] = stats[0]
         self.stats["name"] = stats[1]
-        self.stats["damage"] = stats[2]
-        self.stats["defense"] = stats[3]
-        self.stats["value"] = stats[4]
+        self.stats["damage"] = int(stats[2])
+        self.stats["defense"] = int(stats[3])
+        self.stats["value"] = int(stats[4])
 
         # self.assignStats() --> Testing, not using
         # Got to assign equipment's type
