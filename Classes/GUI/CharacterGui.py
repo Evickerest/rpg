@@ -2,6 +2,7 @@ import tkinter as tk
 from Classes.Character import *
 from PIL import ImageTk, Image
 
+
 class CharacterGui(tk.Tk):
     def __init__(self, player: Player):
         super().__init__()
@@ -64,14 +65,12 @@ class CharacterGui(tk.Tk):
         self.bg_canvas.delete("stats")
         self.bg_canvas.create_text(self.width / 2 - 30, self.height - 220, font=10, fill="blue", justify="center",
                                    text=self.player.name + "'s Stats" +
-                                        "\n\nHealth: " + str(self.player.stats["Health"]) +
-                                        "/" + str(self.player.stats["Max Health"]) +
-                                        "\n\nStr: " + str(self.player.stats["Strength"]) +
-                                        "\n\nDex: " + str(self.player.stats["Dexterity"]) +
-                                        "\n\nVit: " + str(self.player.stats["Vitality"]) +
-                                        "\n\nInt: " + str(self.player.stats["Intelligence"]) +
-                                        "\n\nFree Points: " + str(self.player.stats["Stat Points"]), tags="stats")
+                                   "\n\nHealth: " + str(self.player.stats["Health"]) +
+                                   "/" + str(self.player.stats["Max Health"]) +
+                                   "\n\nStr: " + str(self.player.stats["Strength"]) +
+                                   "\n\nDex: " + str(self.player.stats["Dexterity"]) +
+                                   "\n\nVit: " + str(self.player.stats["Vitality"]) +
+                                   "\n\nInt: " + str(self.player.stats["Intelligence"]) +
+                                   "\n\nFree Points: " + str(self.player.stats["Stat Points"]), tags="stats")
         if self.player.stats["Stat Points"] == 0:
             self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
-
-
