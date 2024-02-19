@@ -5,11 +5,11 @@ from Classes.Character import Character, Player
 from Classes.Map import Map
 from Classes.dungeon import Dungeon
 
+
 class GameHandler:
     def __init__(self):
         self.player = Player("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
-                                              "Intelligence": 5, "Level": 1, "XP": 0,
-                                              "Stat Points": 5, "Credits": 0})
+                             "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0})
         self.GUI = MainGUI(self.player, self)
 
     def generatePossibleRooms(self):
@@ -19,7 +19,6 @@ class GameHandler:
             for row in reader:
                 rooms.append(row)
         return rooms
-        
 
     def generateMap(self):
         # Generate 5 room types
@@ -30,21 +29,21 @@ class GameHandler:
 
         for index in range(5):
             roomType = randomRoomTypes[index]
-            rooms.append(  Dungeon(f"room{index+1}", "room") )
-        rooms.append(Dungeon("room6","boss"))
+            rooms.append(Dungeon(f"room{index+1}", "room"))
+        rooms.append(Dungeon("room6", "boss"))
 
         # Creates a Matrix that determines connectivity
-        adjacencyMatrix = [ [0]*6 for i in range(6) ]
+        adjacencyMatrix = [[0]*6 for i in range(6)]
 
         # Create Random room connections
         for index in range(6):
             for subindex in range(6):
-                if subindex == index: continue
+                if subindex == index:
+                    continue
                 if random.random() <= 0.5:
                     adjacencyMatrix[index][subindex] = 1
             if adjacencyMatrix[index].count(1) == 0:
                 adjacencyMatrix[index][0] = 1
-
 
         self.map = Map(
             {
@@ -67,14 +66,3 @@ class GameHandler:
                     currentRoom.addAdjacentRoom(adjacentRoom)
 
         return self.map
-    
-
-        
-
-    
-
-
-
-
-
-        

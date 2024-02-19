@@ -1,6 +1,5 @@
 import random
 import csv
-import sys
 
 
 class Item:
@@ -27,6 +26,9 @@ class Item:
         self.stats["damage"] = int(stats[2])
         self.stats["defense"] = int(stats[3])
         self.stats["value"] = int(stats[4])
+        self.stats["damagePercent"] = float(stats[5])
+        self.stats["critPercent"] = 0.01
+        self.stats["armorBreakPercent"] = 0.01
 
         # self.assignStats() --> Testing, not using
         # Got to assign equipment's type
@@ -49,7 +51,7 @@ class Item:
 
     # Enemy would be an instance of the enemy class
     def getDamageDealt(self, enemy):
-        damageRangeValue = random.uniform(-self.damagePercent, self.damagePercent)
+        damageRangeValue = random.uniform(1 - self.damagePercent, 1 + self.damagePercent)
         baseDamageDealt = self.damage * damageRangeValue
 
         appliedDamage = baseDamageDealt
