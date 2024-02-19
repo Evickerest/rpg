@@ -177,6 +177,9 @@ class Player(Character):
         if self.stats["Medkits"] < 0:
             self.__med_kits = 0
 
+    def changeName(self, name):
+        self.name = name
+
 
 class Enemy(Character):
     def __init__(self, name: str, stats: dict, enemy_lv: int):

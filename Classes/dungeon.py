@@ -64,6 +64,8 @@ class Dungeon:
             self.__name = details[0]
             self.__description = details[1]
 
+        self.adjacentRooms = []
+
     def generate(self, player_lv: int) -> None:
         """Generates the Dungeon and fills it with a random number
          of enemies from 0-4 inclusive.
@@ -178,4 +180,14 @@ class Dungeon:
         elif type == "chest":
             self.items.append(Item(random.choice(Item.ITEMS)))
 
+    # New things
+    def addAdjacentRoom(self, otherRoom):
+        self.adjacentRooms.append(otherRoom)
+
+    def __repr__(self):
+        return self.__name
+    
+
+
+    
     # ["combat", "rest", "shop", "chest", "empty", "boss"]

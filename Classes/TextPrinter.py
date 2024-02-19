@@ -14,8 +14,8 @@ class TextPrinter:
         delta = 25
         delay = 0
 
-        # Offset textbox as text height is constantly changin
-        self.offsetTextBox(text_id,-69)
+        # Offset textbox as text height is constantly changing
+        self.offsetTextBox(text_id,-80)
 
         for char in text:
             update_text = lambda s=char: self.tkinter.bg_canvas.insert(text_id, method_of_printing, s)

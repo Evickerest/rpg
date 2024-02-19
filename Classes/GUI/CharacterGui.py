@@ -2,7 +2,7 @@ import tkinter as tk
 from Classes.Character import *
 from PIL import ImageTk, Image
 
-class CharacterGui(tk.Tk):
+class CharacterGUI(tk.Tk):
     def __init__(self, player: Player):
         super().__init__()
         self.title("Character Screen")
