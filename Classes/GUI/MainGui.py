@@ -270,6 +270,7 @@ class MainGUI(tk.Tk):
         
         
     def scene_area_1(self, room_name: str, curr_room: Dungeon):
+        pass
         # # If text is still printing, don't allow input
         # if self.textPrinter.isTextReady() == False:
         #     return
@@ -318,7 +319,8 @@ class MainGUI(tk.Tk):
         
         # self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 10", command=self.destroy)
         # self.exit_button_window = self.bg_canvas.create_window(self.width - 50, self.height - 650, anchor='sw',
-        #                                                        window=self.exit_button)
+        #       
+        #                                                  window=self.exit_button)
 
     # text_id is the tag of the .create_text object
     # Text contains lines to be printed

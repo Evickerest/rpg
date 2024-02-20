@@ -42,8 +42,9 @@ class GameHandler:
                 if subindex == index: continue
                 if random.random() <= 0.5:
                     adjacencyMatrix[index][subindex] = 1
+            # In case no connections were made for a room
             if adjacencyMatrix[index].count(1) == 0:
-                adjacencyMatrix[index][0] = 1
+                adjacencyMatrix[index][0] = random.randint(1,6)
 
 
         self.map = Map(
