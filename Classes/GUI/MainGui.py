@@ -3,8 +3,8 @@ import tkinter as tk
 # from tkinter import ttk
 import tkinter as ttk
 from PIL import ImageTk, Image
-from Classes.GUI.CharacterGUI import CharacterGUI
-from Classes.GUI.InventoryGUI import InventoryGUI
+from Classes.GUI.CharacterGui import CharacterGUI
+from Classes.GUI.InventoryGui import InventoryGUI
 from Classes.GUI.FightGUI import FightGUI
 from Classes.GUI.ShopGUI import ShopGUI
 
@@ -223,7 +223,7 @@ class MainGUI(tk.Tk):
         fight_room = Dungeon("Fight Room", "None")
         fight_room.type = "combat"
         fight_room.generate(self.player.stats["Level"])
-        fight_button = tk.Button(self, font=5, height=1, text="Fight",
+        fight_button = tk.Button(self, font=5, height=3, text="Test Combat Screen",
                                  command=lambda: FightGUI(fight_room, self.player))
         self.bg_canvas.create_window(400, 475, anchor='nw', window=fight_button, tags="fight")
 
@@ -288,6 +288,11 @@ class MainGUI(tk.Tk):
         # # The room you're in
         # self.make_room_event(curr_room)
 
+        # Inventory Detail Button
+        inv_screen_button = tk.Button(self, font=5, height=2, text="Inventory\nDetails",
+                                      command=lambda: InventoryGUI(self.player))
+        self.bg_canvas.create_window(160, 475, anchor='nw',
+                                     window=inv_screen_button, tags="Inv_Screen")
         # # Creates new rooms
         # self.rooms_update()
 
@@ -316,7 +321,6 @@ class MainGUI(tk.Tk):
         # self.bg_canvas.create_window(160, 475, anchor='nw',
         #                              window=inv_screen_button, tags="Inv_Screen")
 
-        
         # self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 10", command=self.destroy)
         # self.exit_button_window = self.bg_canvas.create_window(self.width - 50, self.height - 650, anchor='sw',
         #       

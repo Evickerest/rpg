@@ -60,13 +60,13 @@ class InventoryGUI(tk.Tk):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
             self.bg_canvas.create_text(self.width / 2 - 250, self.height - 450, font=8, fill="blue", justify="center",
-                                   text="\n\n Head Armor:" + str(self.player.equipment["Head"].stats["name"])
-                                        + "\n\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
-                                        + "\n\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
-                                        + "\n\nLeg Armor: " + str(self.player.equipment["Legs"].stats["name"])
-                                        + "\n\nFoot Armor: " + str(self.player.equipment["Feet"].stats["name"])
-                                        + "\n\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"]),
-                                   tags="equipment")
+                                       text="\n\n Head Armor:" + str(self.player.equipment["Head"].stats["name"])
+                                       + "\n\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
+                                       + "\n\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
+                                       + "\n\nLeg Armor: " + str(self.player.equipment["Legs"].stats["name"])
+                                       + "\n\nFoot Armor: " + str(self.player.equipment["Feet"].stats["name"])
+                                       + "\n\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"]),
+                                       tags="equipment")
 
     def inventory_grid(self):
         self.bg_canvas.delete("inventory")
@@ -120,4 +120,3 @@ class InventoryGUI(tk.Tk):
         if self.item_entry_box.get():
             self.item_entry = self.item_entry_box.get()
         return self.item_entry
-

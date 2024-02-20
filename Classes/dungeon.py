@@ -4,7 +4,6 @@ Phuc Le
 11/9/2023
 Version 3.0
 """
-import random
 from random import *
 from Classes.Character import *
 from Classes.Item import *
@@ -186,8 +185,5 @@ class Dungeon:
 
     def __repr__(self):
         return self.__name
-    
 
-
-    
     # ["combat", "rest", "shop", "chest", "empty", "boss"]
