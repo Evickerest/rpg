@@ -6,20 +6,20 @@ from Classes.Item import *
 
 class ItemTests(unittest.TestCase):
 
-    def test_load_items1(self):
+    def test_1load_items1(self):
         # Items not yet loaded from file
         self.assertEqual(Item.ITEMS, [])
 
-    def test_load_items2(self):
+    def test_2load_items2(self):
         # Item list should be empty
         self.assertFalse(Item.ITEMS)
 
-    def test_load_items3(self):
+    def test_3load_items3(self):
         # Item list has items
         Item.load_items()
         self.assertTrue(Item.ITEMS)
 
-    def test_load_items4(self):
+    def test_4load_items4(self):
         # Item list doesn't duplicate
         Item.load_items()
         x = len(Item.ITEMS)
@@ -27,7 +27,7 @@ class ItemTests(unittest.TestCase):
         Item.load_items()
         self.assertEqual(len(Item.ITEMS), x)
 
-    def test_make_item1(self):
+    def test_5make_item1(self):
         x = None
         Item.load_items()
         self.assertFalse(x)
@@ -35,7 +35,7 @@ class ItemTests(unittest.TestCase):
         self.assertTrue(x)
         self.assertTrue(isinstance(x, Item))
 
-    def test_item_stats1(self):
+    def test_6item_stats1(self):
         Item.load_items()
         stats = random.choice(Item.ITEMS)
         x = Item(stats)
@@ -52,7 +52,7 @@ class ItemTests(unittest.TestCase):
         self.assertEqual(x.stats["value"], value)
         self.assertEqual(x.stats["damagePercent"], damagepercent)
 
-    def test_item_assign_stats(self):
+    def test_7item_assign_stats(self):
         Item.load_items()
         stats = random.choice(Item.ITEMS)
         x = Item(stats)

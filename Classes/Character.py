@@ -54,6 +54,15 @@ class Character:
         if self.stats["Health"] > self.stats["Max Health"]:
             self.stats["Health"] = self.stats["Max Health"]
 
+    def getDefense(self):
+        return self.defense
+
+    def getAttack(self):
+        return self.attack
+
+    def defend_action(self):
+        self.defense = int(self.defense * 1.5)
+
 
 class Player(Character):
     def __init__(self, name: str, stats: dict):
@@ -80,6 +89,8 @@ class Player(Character):
         while x.stats["type"] != "Feet":
             x = Item(random.choice(Item.ITEMS))
         self.equipment["Feet"] = x
+        self.updateAttack()
+        self.updateDefense()
 
     def equipItem(self, item: Item):
         if item in self.inventory:
@@ -126,6 +137,8 @@ class Player(Character):
                     self.equipment["Feet"] = item
                     self.addItem(tmp)
             self.inventory.remove(item)
+            self.updateAttack()
+            self.updateDefense()
 
     def unequipItem(self, item: Item):
         if item.stats["type"] == "Weapon":
@@ -152,20 +165,22 @@ class Player(Character):
             if item.stats["name"] != "None":
                 self.addItem(self.equipment["Feet"])
             self.equipment["Feet"] = Item(["Feet", "None", 0, 0, 0])
+        self.updateAttack()
+        self.updateDefense()
 
     def use_medkits(self):
         if self.med_kits > 0:
             self.med_kits = -1
-            amt = self.stats["Intelligence"] + self.stats["Level"] + 10
+            amt = self.stats["Intelligence"] + self.stats["Level"] + 20
             tmp = self.stats["Health"] + amt
             if tmp >= self.stats["Max Health"]:
                 amt = self.stats["Max Health"] - self.stats["Health"]
-                self.stats["Health"] = amt
-                print(self.name + " used a med kit and healed " + str(amt) + " health.")
-                return amt
-            else:
-                print("No med kits left.")
-                return 0
+                self.stats["Health"] = self.stats["Max Health"]
+            print(self.name + " used a med kit and healed " + str(amt) + " health.")
+            return amt
+        else:
+            print("No med kits left.")
+            return 0
 
     @property
     def med_kits(self) -> int:
@@ -180,13 +195,40 @@ class Player(Character):
     def changeName(self, name):
         self.name = name
 
+    def updateDefense(self):
+        self.defense = int(self.stats["Vitality"] + self.stats["Level"] / 5)
+        for equipment in self.equipment.values():
+            self.defense += equipment.stats["defense"]
+
+    def updateAttack(self):
+        self.attack = int((self.stats["Strength"] + self.stats["Level"]) / 5)
+        for equipment in self.equipment.values():
+            self.attack += equipment.stats["damage"]
+
+    def take_damage(self, attacker: Character):
+        damage = attacker.getAttack()
+        self.stats["Health"] -= damage
+
 
 class Enemy(Character):
-    def __init__(self, name: str, stats: dict, enemy_lv: int):
-        super().__init__(name, stats)
+    def __init__(self, name, stats: dict, enemy_lv: int):
+        super().__init__(stats)
         self.stats["Level"] = enemy_lv
-        self.stats["name"] = name
+        self.name = name
         self.stats["Stat Points"] = self.stats["Level"] * 5
         while self.stats["Stat Points"] > 1:
             stat = random.choice(['Strength', 'Dexterity', 'Vitality', 'Intelligence'])
             self.upgradeStats(stat, 1)
+        self.updateAttack()
+        self.updateDefense()
+
+    def take_damage(self, attacker: Player):
+        item = attacker.equipment["Weapon"]
+        damage = item.getDamageDealt(self) + attacker.getAttack()
+        self.stats["Health"] -= damage
+
+    def updateDefense(self):
+        self.defense = int((self.stats["Vitality"] + self.stats["Level"]) / 5)
+
+    def updateAttack(self):
+        self.attack = int((self.stats["Strength"] + self.stats["Level"]) / 5)

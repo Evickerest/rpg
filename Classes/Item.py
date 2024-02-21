@@ -10,10 +10,11 @@ class Item:
     def load_items() -> None:
         """Static method to load the different types of items from a specified file.
         """
-        with open('Names/items_txt/item_types', 'r') as f:
-            reader = csv.reader(f)
-            for row in reader:
-                Item.ITEMS.append(row)
+        if not Item.ITEMS:
+            with open('Names/items_txt/item_types', 'r') as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    Item.ITEMS.append(row)
 
     # Stats is a dictionary
     def __init__(self, stats: list):
@@ -29,6 +30,7 @@ class Item:
         self.stats["damagePercent"] = float(stats[5])
         self.stats["critPercent"] = 0.01
         self.stats["armorBreakPercent"] = 0.01
+        self.assignStats()
 
         # self.assignStats() --> Testing, not using
         # Got to assign equipment's type

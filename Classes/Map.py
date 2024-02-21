@@ -1,6 +1,7 @@
 import random
 from Classes.Rooms.ChestRoom import ChestRoom
 from Classes.Rooms.CombatRoom import CombatRoom
+from Classes.Character import *
 
 # Manages the rooms and room connections
 
