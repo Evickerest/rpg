@@ -1,11 +1,12 @@
 import tkinter as tk
 from Classes.Character import *
-from Classes.dungeon import *
+from Classes.Rooms.CombatRoom import CombatRoom
+from Classes.Rooms.Room import *
 from PIL import ImageTk, Image
 
 
 class FightGUI(tk.Tk):
-    def __init__(self, room: Dungeon, player: Player):
+    def __init__(self, room: CombatRoom, player: Player):
         super().__init__()
         self.title("Combat Screen")
         self.geometry(f'{800}x{600}+170+250')

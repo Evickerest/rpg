@@ -1,2 +1,2 @@
 import unittest
-from Classes.dungeon import *
+from Classes.Rooms.Room import *

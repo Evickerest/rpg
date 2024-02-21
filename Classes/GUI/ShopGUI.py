@@ -1,11 +1,11 @@
 import tkinter as tk
 from Classes.Character import *
-from Classes.dungeon import *
+from Classes.Rooms.Room import *
 from PIL import ImageTk, Image
 
 
 class ShopGUI(tk.Tk):
-    def __init__(self, room: Dungeon, player: Player):
+    def __init__(self, room: Room, player: Player):
         super().__init__()
         self.title("Shop Inventory")
         self.geometry(f'{800}x{600}+170+250')
