@@ -4,7 +4,7 @@ from Classes.Rooms.Room import *
 from PIL import ImageTk, Image
 
 
-class ShopGUI(tk.Tk):
+class ShopGUI(tk.Toplevel):
     def __init__(self, room: Room, player: Player):
         super().__init__()
         self.title("Shop Inventory")

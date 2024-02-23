@@ -3,7 +3,7 @@ from Classes.Character import *
 from PIL import ImageTk, Image
 
 
-class InventoryGUI(tk.Tk):
+class InventoryGUI(tk.Toplevel):
     def __init__(self, player: Player):
         super().__init__()
         self.title("Character Inventory")

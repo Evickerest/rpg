@@ -3,7 +3,7 @@ from Classes.Character import *
 from PIL import ImageTk, Image
 
 
-class CharacterGUI(tk.Tk):
+class CharacterGUI(tk.Toplevel):
     def __init__(self, player: Player):
         super().__init__()
         self.title("Character Screen")

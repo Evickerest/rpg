@@ -6,15 +6,10 @@ class Room:
     def __init__(self):
         self.adjacentRooms = []
         self.isCurrentlyEntered = False
+        self.hasEntered  = False
 
     def enterRoom(self):
         pass
-
-    def isRoomCurrentlyEntered(self):
-        return self.isCurrentlyEntered
-    
-    def setRoomCurrentlyEnteredState(self, isCurrentlyEntered):
-        self.isCurrentlyEntered = isCurrentlyEntered
 
     def createAdjacency(self, otherRoom):
         self.adjacentRooms.append(otherRoom)

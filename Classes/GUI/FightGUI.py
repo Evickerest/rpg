@@ -6,7 +6,7 @@ from Classes.Rooms.Room import *
 from PIL import ImageTk, Image
 
 
-class FightGUI(tk.Tk):
+class FightGUI(tk.Toplevel):
     def __init__(self, room: CombatRoom, player: Player):
         super().__init__()
         self.title("Combat Screen")
@@ -23,11 +23,13 @@ class FightGUI(tk.Tk):
 
         self.no_enemy = False
 
+
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#06153E", justify="center",
                                    text=self.player.name + "'s Side", tags="equipment_title")
