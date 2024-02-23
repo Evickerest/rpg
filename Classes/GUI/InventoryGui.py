@@ -20,16 +20,16 @@ class InventoryGUI(tk.Tk):
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="black")
+        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
 
         self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 580,
                                                                anchor='sw', window=self.exit_button)
 
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#06153E", justify="center",
                                    text=self.player.name + "'s Equipment", tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="#06153E", justify="center",
                                    text=self.player.name + "'s Inventory", tags="inventory_title")
 
         self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
@@ -59,7 +59,7 @@ class InventoryGUI(tk.Tk):
     def equipment_grid(self):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
-            self.bg_canvas.create_text(self.width / 2 - 250, self.height - 450, font=8, fill="blue", justify="center",
+            self.bg_canvas.create_text(self.width / 2 - 250, self.height - 450, font=8, fill="#06153E", justify="center",
                                        text="\n\n Head Armor:" + str(self.player.equipment["Head"].stats["name"])
                                        + "\n\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
                                        + "\n\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
@@ -81,7 +81,7 @@ class InventoryGUI(tk.Tk):
                                             + str(item.stats["defense"]) + " Defense")
         else:
             self.inventory_text = "Your Inventory Is Empty"
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 450, font=10, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 450, font=10, fill="#06153E", justify="center",
                                    text=self.inventory_text, tags="inventory")
 
     def updateInventoryGui(self):

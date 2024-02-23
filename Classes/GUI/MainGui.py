@@ -19,11 +19,14 @@ class MainGUI(tk.Tk):
     def __init__(self, player, gameHandler):
         super().__init__()
         self.title("Spaceship Game")
-        self.geometry('900x700')  # Window size is provided by user.
+        self.geometry('1300x900')  # Window size is provided by user.
         self.minsize(800, 500)  # Minimum size of the window, can be maximized.
         self.iconbitmap('Images/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
+        self.screenWidth = 1300
+        self.screenHeight = 900
+
 
         self.player = player
         self.name = None
@@ -44,10 +47,10 @@ class MainGUI(tk.Tk):
 
 
     def createIntroScreen1(self):
-        self.original_image = Image.open('Images/bg2.jpeg').resize((900, 700))
+        self.original_image = Image.open('Images/bg2.jpeg').resize((self.screenWidth, self.screenHeight))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        self.bg_canvas = tk.Canvas(self, width=900, height=700)
+        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
@@ -76,13 +79,13 @@ class MainGUI(tk.Tk):
             self.player.changeName(self.name)
 
         self.bg_canvas.destroy()
-        self.original_image = Image.open('Images/bg.jpg').resize((900, 700))
+        self.original_image = Image.open('Images/bg.jpg').resize((self.screenWidth, self.screenHeight))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         # Make text printer object
         self.textPrinter = TextPrinter(self)
 
-        self.bg_canvas = tk.Canvas(self, width=900, height=700)
+        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
         self.bg_canvas.create_text(self.width/2, self.height-600, font=20, width=self.width, fill="white",
@@ -170,6 +173,10 @@ class MainGUI(tk.Tk):
         self.bg_canvas.destroy()
 
         # Create Map Background
+        self.background_image = Image.open('Images/HallWay.png').resize((self.screenWidth, self.screenHeight))
+        self.backg = ImageTk.PhotoImage(self.background_image)
+
+
         self.original_image = Image.open('Images/mainGameBG.jpg').resize((300, 300))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
@@ -178,24 +185,26 @@ class MainGUI(tk.Tk):
         self.menu_bg = ImageTk.PhotoImage(menu_image)
 
         # Create background
-        self.bg_canvas = tk.Canvas(self, width=900, height=700)
-        self.bg_canvas.configure(bg='#34557A')
+        # self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        # self.bg_canvas.configure(bg='#34557A')                #Delete later
+        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        self.bg_canvas.pack(fill='both', expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.backg, anchor='nw')
         
         # Create Canvas and Images
-        self.bg_canvas.pack(fill='both', expand=True)
-        self.bg_canvas.create_image(20, 20, image=self.bg, anchor='nw')
-        self.bg_canvas.create_image(20, 350, image=self.menu_bg, anchor='nw')
+        self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
+        self.bg_canvas.create_image(self.screenWidth - 1280 , (self.screenHeight / 2) + 130, image=self.menu_bg, anchor='nw')
 
         self.start_game()
 
     def start_game(self):
          # Character Detail Button
         char_screen_button = tk.Button(self, font=5, height=2, text="Character\nDetails",command=lambda: CharacterGUI(self.player))
-        self.bg_canvas.create_window(50, 475, anchor='nw',window=char_screen_button, tags="Char_Screen")
+        self.bg_canvas.create_window(self.screenWidth - 1260, self.screenHeight - 400, anchor='nw',window=char_screen_button, tags="Char_Screen")
 
         # Inventory Detail Button
         inv_screen_button = tk.Button(self, font=5, height=2, text="Inventory\nDetails",command=lambda: InventoryGUI(self.player))
-        self.bg_canvas.create_window(160, 475, anchor='nw',window=inv_screen_button, tags="Inv_Screen")
+        self.bg_canvas.create_window(self.screenWidth - 1100, self.screenHeight - 400, anchor='nw',window=inv_screen_button, tags="Inv_Screen")
 
         # Test FightGUI - Delete once usable
         # fight_room = Dungeon("Fight Room", "None")
@@ -206,10 +215,10 @@ class MainGUI(tk.Tk):
         # self.bg_canvas.create_window(400, 475, anchor='nw', window=fight_button, tags="fight")
 
         # Exit Button
-        self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 10", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width - 50, self.height - 650, anchor='sw',window=self.exit_button)
+        self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 20", command=self.destroy)
+        self.exit_button_window = self.bg_canvas.create_window(self.screenWidth - 90, self.screenHeight - 20, anchor='sw',window=self.exit_button)
         
-        self.bg_canvas.create_text(350, 350, width=500, font=30, fill="black", justify="left", anchor="w",
+        self.bg_canvas.create_text(500, 350, width=500, font=('Time_New_Roman', 15), fill="#0EA4A1", justify="left", anchor="w",
                                 text="\nYou are ready to start cleaning up the wreckage."
                                     " Which wreckage should you visit first?"
                                     " Choose a location on the map.\n", tags="game_text")

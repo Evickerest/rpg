@@ -26,12 +26,12 @@ class FightGUI(tk.Tk):
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="black")
+        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
 
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#06153E", justify="center",
                                    text=self.player.name + "'s Side", tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="#06153E", justify="center",
                                    text="Enemies' Side", tags="Enemies")
 
         self.displacement = 0
@@ -67,15 +67,15 @@ class FightGUI(tk.Tk):
     def player_grid(self):
         self.bg_canvas.delete("health", "attack", "defense", "medkits")
         self.bg_canvas.create_text(50, self.height - 300, anchor='sw', font=8,
-                                   fill="blue", justify="center",
+                                   fill="#06153E", justify="center",
                                    text="Health: " + str(self.player.stats["Health"])
                                    + " / " + str(self.player.stats["Max Health"]), tags="health")
-        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8, fill="#06153E", justify="center",
                                    text="Attack: " + str(self.player.attack), tags="attack")
-        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8, fill="#06153E", justify="center",
                                    text="Defense: " + str(self.player.defense), tags="defense")
         self.bg_canvas.create_text(self.width / 2 + 50, self.height - 240, anchor='sw',
-                                   font=8, fill="blue", justify="center", tags="medkits",
+                                   font=8, fill="#06153E", justify="center", tags="medkits",
                                    text="Medkits: " + str(self.player.stats["Medkits"]))
 
     def updateCombatGUI(self):
@@ -94,7 +94,7 @@ class FightGUI(tk.Tk):
                                      + str(enemy.getDefense()) + " Defense")
         else:
             self.enemies_txt = "No Enemies Remain"
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 450, font=10, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 450, font=10, fill="#06153E", justify="center",
                                    text=self.enemies_txt, tags="enemies")
 
     def updateAttackButtons(self):

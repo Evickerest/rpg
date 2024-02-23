@@ -21,7 +21,7 @@ class CharacterGUI(tk.Tk):
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="black")
+        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
 
         self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
@@ -63,7 +63,7 @@ class CharacterGUI(tk.Tk):
 
     def updateCharacterGui(self):
         self.bg_canvas.delete("stats")
-        self.bg_canvas.create_text(self.width / 2 - 30, self.height - 220, font=10, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 30, self.height - 220, font=10, fill="#06153E", justify="center",
                                    text=self.player.name + "'s Stats" +
                                    "\n\nHealth: " + str(self.player.stats["Health"]) +
                                    "/" + str(self.player.stats["Max Health"]) +
