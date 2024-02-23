@@ -10,7 +10,7 @@ class FightGUI(tk.Toplevel):
     def __init__(self, room: CombatRoom, player: Player):
         super().__init__()
         self.title("Combat Screen")
-        self.geometry(f'{800}x{600}+170+250')
+        self.geometry(f'{800}x{600}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
@@ -23,7 +23,6 @@ class FightGUI(tk.Toplevel):
 
         self.no_enemy = False
 
-
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
@@ -31,7 +30,7 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#06153E", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
                                    text=self.player.name + "'s Side", tags="equipment_title")
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
                                    text="Enemies' Side", tags="Enemies")
@@ -92,8 +91,8 @@ class FightGUI(tk.Toplevel):
         self.count = 0
         if len(self.enemies) > 0:
             for enemy in self.enemies:
-                self.enemies_txt += ("\n\n" + str(self.count) + ") " + str(enemy.name) + ""
-                                     + str(enemy.getAttack()) + " Damage\n"
+                self.enemies_txt += ("\n" + str(self.count) + ") " + str(enemy.name) + "\n  "
+                                     + str(enemy.getAttack()) + " Damage\n  "
                                      + str(enemy.getDefense()) + " Defense")
                 self.count += 1
         else:

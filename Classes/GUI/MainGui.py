@@ -229,7 +229,10 @@ class MainGUI(tk.Tk):
 
     def display_buttons(self):
         # If text is still printing, do not allow input
-        if self.textPrinter.isTextReady() == False: return
+        """ This is apparently causing issues with not making new buttons
+        if self.textPrinter.isTextReady() is False:
+            return
+        """
 
         # Remove previous buttons
         self.bg_canvas.delete("button")
@@ -248,10 +251,18 @@ class MainGUI(tk.Tk):
         self.textPrinter.animate_text(text, text_id, tk.END)
 
     def enterChestRoom(self, room):
-        self.textPrinter.animate_text(f"\nYou have entered {room} which contains a chest.\n", "game_text", tk.END)
+        self.textPrinter.animate_text(f"\nYou have entered {room} which contains a chest.\n",
+                                      "game_text", tk.END)
+        self.map = self.gameHandler.getMap()
+        # self.map.printMap()
+        self.display_buttons()
 
     def enterCombatRoom(self, room):
-        self.textPrinter.animate_text(f"\nYou have entered {room} which contains combat.\n", "game_text", tk.END)
+        self.textPrinter.animate_text(f"\nYou have entered {room} which contains combat.\n",
+                                      "game_text", tk.END)
+        self.map = self.gameHandler.getMap()
+        # self.map.printMap()
+        self.display_buttons()
 
 
 

@@ -6,7 +6,7 @@ class TextPrinter:
     # Method of printing defines where text will be printed in regards to other text
     # In most cases, it will be tk.END.
     def animate_text(self, text, text_id, method_of_printing):
-        if self.ready == False:
+        if self.ready is False:
             return
         
         self.ready = False

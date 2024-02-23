@@ -2,13 +2,14 @@ import tkinter as tk
 from Classes.Character import *
 from Classes.Rooms.Room import *
 from PIL import ImageTk, Image
+import random
 
 
 class ShopGUI(tk.Toplevel):
     def __init__(self, room: Room, player: Player):
         super().__init__()
         self.title("Shop Inventory")
-        self.geometry(f'{800}x{600}+170+250')
+        self.geometry(f'{800}x{600}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
@@ -19,7 +20,7 @@ class ShopGUI(tk.Toplevel):
         self.player = player
         self.shop = room
 
-        num_items = randint(1, 5)
+        num_items = random.randint(1, 5)
         for i in range(1, num_items):
             self.shop.generate_special(self.shop.type, self.player)
 
@@ -28,6 +29,7 @@ class ShopGUI(tk.Toplevel):
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="black")
         self.bg_canvas.pack(fill='both', expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 8", command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 580,

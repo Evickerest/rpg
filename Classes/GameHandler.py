@@ -1,5 +1,6 @@
 from Classes.GUI.FightGUI import FightGUI
 from Classes.GUI.MainGui import MainGUI
+from Classes.GUI.ChestGUI import ChestGUI
 from Classes.Character import Player
 from Classes.Map import Map
 
@@ -26,4 +27,4 @@ class GameHandler:
                 self.FightGUI = FightGUI(room, self.player)
             case "Chest":
                 self.GUI.enterChestRoom(room)
-
+                self.ChestGUI = ChestGUI(room, self.player)
