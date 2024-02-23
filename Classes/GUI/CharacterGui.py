@@ -25,7 +25,7 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
 
         self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
+        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 60, 380,
                                                                anchor='sw', window=self.exit_button)
 
         self.updateCharacterGui()
@@ -33,23 +33,28 @@ class CharacterGUI(tk.Toplevel):
         if self.player.stats["Stat Points"] > 0:
             str_up = tk.Button(self, font=5, width=1, height=1, text="+",
                                command=lambda: self.stat_button("Strength", 1))
-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 265, anchor='center',
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 315, anchor='center',
                                          window=str_up, tags="str_up")
 
             dex_up = tk.Button(self, font=5, width=1, height=1, text="+",
                                command=lambda: self.stat_button("Dexterity", 1))
-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 215, anchor='center',
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 265, anchor='center',
                                          window=dex_up, tags="dex_up")
 
             vit_up = tk.Button(self, font=5, width=1, height=1, text="+",
                                command=lambda: self.stat_button("Vitality", 1))
-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 165, anchor='center',
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 215, anchor='center',
                                          window=vit_up, tags="vit_up")
 
             int_up = tk.Button(self, font=5, width=1, height=1, text="+",
                                command=lambda: self.stat_button("Intelligence", 1))
-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 115, anchor='center',
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 165, anchor='center',
                                          window=int_up, tags="int_up")
+        if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
+            level_up = tk.Button(self, font=5, width=1, height=1, text="Level Up",
+                               command=lambda: self.level_up())
+            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 115, anchor='center',
+                                         window=level_up, tags="level_up")
 
         self.mainloop()
 
@@ -59,6 +64,10 @@ class CharacterGUI(tk.Toplevel):
         if stat == "Vitality":
             self.player.updateMaxHealth()
             self.player.stats["Health"] = self.player.stats["Max Health"]
+        self.updateCharacterGui()
+
+    def level_up(self):
+        self.player.lv_up()
         self.updateCharacterGui()
 
     def updateCharacterGui(self):
@@ -71,6 +80,11 @@ class CharacterGUI(tk.Toplevel):
                                    "\n\nDex: " + str(self.player.stats["Dexterity"]) +
                                    "\n\nVit: " + str(self.player.stats["Vitality"]) +
                                    "\n\nInt: " + str(self.player.stats["Intelligence"]) +
-                                   "\n\nFree Points: " + str(self.player.stats["Stat Points"]), tags="stats")
+                                   "\n\nFree Points: " + str(self.player.stats["Stat Points"]) +
+                                   "\n\nLevel: " + str(self.player.stats["Level"]) +
+                                   "\n\nXP: " + str(self.player.stats["XP"]) +
+                                   "/" + str(self.player.stats["Level"] * 10), tags="stats")
         if self.player.stats["Stat Points"] == 0:
             self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
+        if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
+            self.bg_canvas.delete("level_up")

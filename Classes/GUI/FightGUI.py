@@ -33,19 +33,20 @@ class FightGUI(tk.Toplevel):
 
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#06153E", justify="center",
                                    text=self.player.name + "'s Side", tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="#06153E", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
                                    text="Enemies' Side", tags="Enemies")
 
-        self.displacement = 0
-        self.count = 1
-        for enemy in self.enemies:
-            self.attack_button = tk.Button(self, text=f'{self.count}: Attack {enemy.name}',
-                                           font='Time_New_Roman 8', command=lambda: self.attack(self.player, enemy))
-            self.attack_button_window = self.bg_canvas.create_window(50, 400 + self.displacement, anchor='sw',
-                                                                     window=self.attack_button,
-                                                                     tags=f"attack_{self.count}")
-            self.displacement += 30
-            self.count += 1
+        self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack', font='Time_New_Roman 8')
+        self.enemy_entry_text = self.bg_canvas.create_window(50, 430, anchor='sw',
+                                                            window=self.enemy_entry_text, tags="enemy_entry_text")
+        self.enemy_entry_box = tk.Entry(self, font='Time_New_Roman 8')
+        self.bg_canvas.create_window(50, 450, anchor='sw', window=self.enemy_entry_box, tags="enemy_entry")
+
+        self.attack_button = tk.Button(self, text=f'Attack',
+                                       font='Time_New_Roman 8', command=lambda: self.player_attack())
+        self.attack_button_window = self.bg_canvas.create_window(50, 400, anchor='sw',
+                                                                 window=self.attack_button,
+                                                                 tags="attack_button")
 
         self.defend_button = tk.Button(self, text='Defend',
                                        font='Time_New_Roman 8', command=lambda: self.defend(self.player))
@@ -69,56 +70,70 @@ class FightGUI(tk.Toplevel):
     def player_grid(self):
         self.bg_canvas.delete("health", "attack", "defense", "medkits")
         self.bg_canvas.create_text(50, self.height - 300, anchor='sw', font=8,
-                                   fill="#06153E", justify="center",
+                                   fill="#ff0d1d", justify="center",
                                    text="Health: " + str(self.player.stats["Health"])
                                    + " / " + str(self.player.stats["Max Health"]), tags="health")
-        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8, fill="#06153E", justify="center",
-                                   text="Attack: " + str(self.player.attack), tags="attack")
-        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8, fill="#06153E", justify="center",
+        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8, fill="#ff0d1d", justify="center",
+                                   text="Attack: " + str(self.player.attack), tags="ff0d1d")
+        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8, fill="#ff0d1d", justify="center",
                                    text="Defense: " + str(self.player.defense), tags="defense")
         self.bg_canvas.create_text(self.width / 2 + 50, self.height - 240, anchor='sw',
-                                   font=8, fill="#06153E", justify="center", tags="medkits",
+                                   font=8, fill="#ff0d1d", justify="center", tags="medkits",
                                    text="Medkits: " + str(self.player.stats["Medkits"]))
 
     def updateCombatGUI(self):
         self.player_grid()
         self.enemy_grid()
-        self.updateAttackButtons()
         self.make_exit()
 
     def enemy_grid(self):
         self.bg_canvas.delete("enemies")
         self.enemies_txt = ""
+        self.count = 0
         if len(self.enemies) > 0:
             for enemy in self.enemies:
-                self.enemies_txt += ("\n\n" + str(enemy.name) + ": +"
-                                     + str(enemy.getAttack()) + " Damage"
+                self.enemies_txt += ("\n\n" + str(self.count) + ") " + str(enemy.name) + ""
+                                     + str(enemy.getAttack()) + " Damage\n"
                                      + str(enemy.getDefense()) + " Defense")
+                self.count += 1
         else:
             self.enemies_txt = "No Enemies Remain"
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 450, font=10, fill="#06153E", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 450, font=8, fill="#ff0d1d", justify="center",
                                    text=self.enemies_txt, tags="enemies")
 
-    def updateAttackButtons(self):
-        self.displacement = 0
-        for num in range(1, self.count):
-            self.bg_canvas.delete(f'attack_{num}')
-        self.count = 1
-        for enemy in self.enemies:
-            self.attack_button = tk.Button(self, text=f'{self.count}: Attack {enemy.name}',
-                                           font='Time_New_Roman 8', command=lambda: self.attack(self.player, enemy))
-            self.attack_button_window = self.bg_canvas.create_window(50, 400 + self.displacement, anchor='sw',
-                                                                     window=self.attack_button,
-                                                                     tags=f"attack_{self.count}")
-            self.displacement += 30
-            self.count += 1
+    def read_entry_box(self) -> None | str:
+        self.enemy_entry = None
+        if self.enemy_entry_box.get():
+            self.enemy_entry = self.enemy_entry_box.get()
+        return self.enemy_entry
 
-    def attack(self, attacker: Character, target: Character):
-        target.take_damage(attacker)
+    def enemy_attack(self, attacker: Character, target: Character):
+        if target.living:
+            target.take_damage(attacker)
         if target.stats["Health"] < 1:
-            self.enemies.remove(target)
+            self.player.setLiving(False)
+            attacker.stats["XP"] += target.stats["Level"] * 10
         if isinstance(attacker, Player):
             self.resolve_player_turn()
+        self.updateCombatGUI()
+        print(attacker.name + " attacked " + str(target.name))
+
+    def player_attack(self):
+        to_target = self.read_entry_box()
+        if to_target is not None:
+            if to_target.isnumeric():
+                if int(to_target) < len(self.enemies):
+                    target = self.enemies[int(to_target)]
+                    target.take_damage(self.player)
+                    if target.stats["Health"] < 1:
+                        self.enemies.remove(target)
+                        target.setLiving(False)
+                        self.enemy_entry_box.delete(0,)
+                        self.player.stats["XP"] += target.stats["Level"] * 10
+                    print(self.player.name + " attacked " + str(target.name))
+        else:
+            print("That enemy doesn't exist")
+        self.resolve_player_turn()
         self.updateCombatGUI()
 
     def defend(self, defender: Character):
@@ -152,3 +167,5 @@ class FightGUI(tk.Toplevel):
             self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 10", command=self.destroy)
             self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
                                                                    anchor='sw', window=self.exit_button)
+            self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
+                                  "enemy_entry", "enemy_entry_text")

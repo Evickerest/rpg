@@ -95,6 +95,7 @@ class InventoryGUI(tk.Toplevel):
             for item in self.player.inventory:
                 if item.stats["name"] == item_to_drop:
                     self.player.dropItem(item)
+                    self.item_entry_box.delete(0, 100)
                     self.updateInventoryGui()
 
     def equipItemInventory(self):

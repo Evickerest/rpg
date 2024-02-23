@@ -40,4 +40,4 @@ class CombatRoom(Room):
             self.mon_lv = self.player.stats["Level"]
         for i in range(0, num):
             mon_name = random.choice(CombatRoom.ENEMIES)
-            self.enemies.append(Enemy(mon_name, None, self.mon_lv))
+            self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))

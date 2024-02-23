@@ -19,6 +19,11 @@ class Character:
         self.stats["Health"] = self.stats["Max Health"]
         self.attack = 0  # Pull item attack + character strength?
         self.defense = 0  # Pull item defense + character vitality?
+        self.living = True
+
+    # Set's character's living status
+    def setLiving(self, _bool):
+        self.living = _bool
 
     # Add to the inventory an instance of an item
     def addItem(self, item: Item):
@@ -39,8 +44,8 @@ class Character:
     # Levels up and adds unassigned stat points
     def lv_up(self):
         if self.stats["XP"] >= (self.stats["Level"] * 10):
-            self.stats["Level"] += 1
             self.stats["XP"] -= self.stats["Level"] * 10
+            self.stats["Level"] += 1
             self.stats["Stat Points"] += 5
 
     # Recalculates max health
@@ -144,27 +149,27 @@ class Player(Character):
         if item.stats["type"] == "Weapon":
             if item.stats["name"] != "None":
                 self.addItem(self.equipment["Weapon"])
-            self.equipment["Weapon"] = Item(["Weapon", "None", 0, 0, 0])
+            self.equipment["Weapon"] = Item(["Weapon", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Head":
             if item.stats["name"] != "None":
                 self.addItem(self.equipment["Head"])
-            self.equipment["Head"] = Item(["Head", "None", 0, 0, 0])
+            self.equipment["Head"] = Item(["Head", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Arms":
             if item.stats["name"] != "None":
                 self.addItem(self.equipment["Arms"])
-            self.equipment["Arms"] = Item(["Arms", "None", 0, 0, 0])
+            self.equipment["Arms"] = Item(["Arms", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Chest":
             if item.stats["name"] != "None":
                 self.addItem(self.equipment["Chest"])
-            self.equipment["Chest"] = Item(["Chest", "None", 0, 0, 0])
+            self.equipment["Chest"] = Item(["Chest", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Legs":
             if item.stats["name"] != "None":
                 self.addItem(self.equipment["Legs"])
-            self.equipment["Legs"] = Item(["Legs", "None", 0, 0, 0])
+            self.equipment["Legs"] = Item(["Legs", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Feet":
             if item.stats["name"] != "None":
                 self.addItem(self.equipment["Feet"])
-            self.equipment["Feet"] = Item(["Feet", "None", 0, 0, 0])
+            self.equipment["Feet"] = Item(["Feet", "None", 0, 0, 0, 0.8])
         self.updateAttack()
         self.updateDefense()
 
