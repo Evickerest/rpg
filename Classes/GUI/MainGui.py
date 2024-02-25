@@ -256,6 +256,15 @@ class MainGUI(tk.Tk):
         self.map = self.gameHandler.getMap()
         # self.map.printMap()
         self.display_buttons()
+        print(self.map.getCurrentRoom().getAdjacentRooms())
+
+    def enterShopRoom(self, room):
+        self.textPrinter.animate_text(f"\nYou have entered {room} which contains a shop.\n",
+                                      "game_text", tk.END)
+        self.map = self.gameHandler.getMap()
+        # self.map.printMap()
+        self.display_buttons()
+        print(self.map.getCurrentRoom().getAdjacentRooms())
 
     def enterCombatRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains combat.\n",
@@ -263,6 +272,7 @@ class MainGUI(tk.Tk):
         self.map = self.gameHandler.getMap()
         # self.map.printMap()
         self.display_buttons()
+        print(self.map.getCurrentRoom().getAdjacentRooms())
 
 
 

@@ -1,5 +1,6 @@
 import random
 from Classes.Rooms.ChestRoom import ChestRoom
+from Classes.Rooms.ShopRoom import ShopRoom
 from Classes.Rooms.CombatRoom import CombatRoom
 from Classes.Character import *
 
@@ -20,6 +21,11 @@ class Map:
                 "desired_number": 1,
                 "number_variance": 0.5,
                 "room": ChestRoom
+            },
+            "Shop": {
+                "desired_number": 1,
+                "number_variance": 0.5,
+                "room": ShopRoom
             }
         }
 

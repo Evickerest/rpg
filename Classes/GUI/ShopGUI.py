@@ -1,15 +1,15 @@
 import tkinter as tk
 from Classes.Character import *
-from Classes.Rooms.Room import *
+from Classes.Rooms.ShopRoom import *
 from PIL import ImageTk, Image
 import random
 
 
 class ShopGUI(tk.Toplevel):
-    def __init__(self, room: Room, player: Player):
+    def __init__(self, room: ShopRoom, player: Player):
         super().__init__()
         self.title("Shop Inventory")
-        self.geometry(f'{800}x{600}+400+50')
+        self.geometry(f'{900}x{600}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
@@ -19,10 +19,6 @@ class ShopGUI(tk.Toplevel):
 
         self.player = player
         self.shop = room
-
-        num_items = random.randint(1, 5)
-        for i in range(1, num_items):
-            self.shop.generate_special(self.shop.type, self.player)
 
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
@@ -37,9 +33,9 @@ class ShopGUI(tk.Toplevel):
 
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=8, fill="blue", justify="center",
                                    text=self.player.name + "'s Equipment", tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 70, self.height - 580, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580, font=8, fill="blue", justify="center",
                                    text=self.player.name + "'s Inventory", tags="inventory_title")
-        self.bg_canvas.create_text(self.width / 2 + 320, self.height - 580, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580, font=8, fill="blue", justify="center",
                                    text=self.shop.name + "'s Shop", tags="shop_title")
 
         self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
@@ -84,6 +80,7 @@ class ShopGUI(tk.Toplevel):
                                        + "\n\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"]),
                                        tags="equipment")
 
+
     def inventory_grid(self):
         self.bg_canvas.delete("inventory")
         self.inventory_text = ""
@@ -97,7 +94,7 @@ class ShopGUI(tk.Toplevel):
                                             + str(item.stats["defense"]) + " Defense")
         else:
             self.inventory_text = "Your Inventory Is Empty"
-        self.bg_canvas.create_text(self.width / 2 + 70, self.height - 450, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450, font=8, fill="blue", justify="center",
                                    text=self.inventory_text, tags="inventory")
 
     def shop_grid(self):
@@ -113,13 +110,14 @@ class ShopGUI(tk.Toplevel):
                                        + str(item.stats["defense"]) + " Defense")
         else:
             self.shop_text = "The Shop Is Empty"
-        self.bg_canvas.create_text(self.width / 2 + 320, self.height - 450, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450, font=8, fill="blue", justify="center",
                                    text=self.shop_text, tags="shop")
 
     def updateShopGui(self):
         self.equipment_grid()
         self.inventory_grid()
         self.shop_grid()
+        self.bg_canvas.delete("credits")
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 270, font=8, fill="blue", justify="center",
                                    text="Credits: " + str(self.player.stats["Credits"]), tags="credits")
 
@@ -150,6 +148,7 @@ class ShopGUI(tk.Toplevel):
                     if self.player.stats["Credits"] >= item.stats["value"]:
                         self.player.addItem(item)
                         self.shop.items.remove(item)
+                        self.player.stats["Credits"] -= item.stats["value"]
                         self.updateShopGui()
 
     def sellItemInventory(self):
