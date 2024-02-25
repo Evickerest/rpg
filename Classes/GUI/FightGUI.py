@@ -127,8 +127,9 @@ class FightGUI(tk.Toplevel):
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
                         target.setLiving(False)
-                        self.enemy_entry_box.delete(0,)
+                        self.enemy_entry_box.delete(0,100)
                         self.player.stats["XP"] += target.stats["Level"] * 10
+                        self.player.stats["Credits"] += target.stats["Level"]
                     print(self.player.name + " attacked " + str(target.name))
         else:
             print("That enemy doesn't exist")

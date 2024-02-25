@@ -72,14 +72,21 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
             self.bg_canvas.create_text(self.width / 2 - 250, self.height - 450, font=8, fill="blue", justify="center",
-                                       text="\n\n Head Armor:" + str(self.player.equipment["Head"].stats["name"])
-                                       + "\n\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
-                                       + "\n\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
-                                       + "\n\nLeg Armor: " + str(self.player.equipment["Legs"].stats["name"])
-                                       + "\n\nFoot Armor: " + str(self.player.equipment["Feet"].stats["name"])
-                                       + "\n\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"]),
-                                       tags="equipment")
-
+                                       text="\nHead Armor: " + str(self.player.equipment["Head"].stats["name"])
+                                       + ": +" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
+                                       + "\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
+                                       + ": +" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
+                                       + "\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
+                                       + ": +" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
+                                       + "\nLeg Armor: " + str(self.player.equipment["Legs"].stats["name"])
+                                       + ": +" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
+                                       + "\nFoot Armor: " + str(self.player.equipment["Feet"].stats["name"])
+                                       + ": +" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
+                                       + "\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"])
+                                       + ": +" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
+                                       + "\n\nTotal Attack: " + str(self.player.getAttack())
+                                       + "\nTotal Defense: " + str(self.player.getDefense())
+                                       + "\nCredits: " + str(self.player.stats["Credits"]), tags="equipment")
 
     def inventory_grid(self):
         self.bg_canvas.delete("inventory")
@@ -88,12 +95,14 @@ class ShopGUI(tk.Toplevel):
             for item in self.player.inventory:
                 if item.stats["type"] == "Weapon":
                     self.inventory_text += ("\n\n" + str(item.stats["name"]) + ": +"
-                                            + str(item.stats["damage"]) + " Damage")
+                                            + str(item.stats["damage"]) + " Damage"
+                                            + "\nValue: " + str(item.stats["value"]))
                 else:
                     self.inventory_text += ("\n\n" + str(item.stats["name"]) + ": +"
-                                            + str(item.stats["defense"]) + " Defense")
+                                            + str(item.stats["defense"]) + " Defense"
+                                            + "\nValue: " + str(item.stats["value"]))
         else:
-            self.inventory_text = "Your Inventory Is Empty"
+            self.inventory_text = "Your Inventory\nIs Empty"
         self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450, font=8, fill="blue", justify="center",
                                    text=self.inventory_text, tags="inventory")
 
@@ -103,11 +112,13 @@ class ShopGUI(tk.Toplevel):
         if len(self.shop.items) > 0:
             for item in self.shop.items:
                 if item.stats["type"] == "Weapon":
-                    self.shop_text += ("\n\n" + str(item.stats["name"]) + ": +"
-                                       + str(item.stats["damage"]) + " Damage")
+                    self.shop_text += ("\n" + str(item.stats["name"]) + ": +"
+                                       + str(item.stats["damage"]) + " Damage"
+                                       + "\nValue: " + str(item.stats["value"]))
                 else:
-                    self.shop_text += ("\n\n" + str(item.stats["name"]) + ": +"
-                                       + str(item.stats["defense"]) + " Defense")
+                    self.shop_text += ("\n" + str(item.stats["name"]) + ": +"
+                                       + str(item.stats["defense"]) + " Defense"
+                                       + "\nValue: " + str(item.stats["value"]))
         else:
             self.shop_text = "The Shop Is Empty"
         self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450, font=8, fill="blue", justify="center",
@@ -117,9 +128,6 @@ class ShopGUI(tk.Toplevel):
         self.equipment_grid()
         self.inventory_grid()
         self.shop_grid()
-        self.bg_canvas.delete("credits")
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 270, font=8, fill="blue", justify="center",
-                                   text="Credits: " + str(self.player.stats["Credits"]), tags="credits")
 
     def equipItemInventory(self):
         self.read_entry_box()
@@ -128,6 +136,8 @@ class ShopGUI(tk.Toplevel):
             for item in self.player.inventory:
                 if item.stats["name"] == item_to_equip:
                     self.player.equipItem(item)
+                    self.player.updateDefense()
+                    self.player.updateAttack()
                     self.updateShopGui()
 
     def removeEquippedItem(self):
@@ -137,6 +147,8 @@ class ShopGUI(tk.Toplevel):
             for item in self.player.equipment.values():
                 if item.stats["name"] == item_to_remove:
                     self.player.unequipItem(item)
+                    self.player.updateDefense()
+                    self.player.updateAttack()
                     self.updateShopGui()
 
     def BuyItemFromShop(self):
