@@ -201,7 +201,7 @@ class Player(Character):
         self.name = name
 
     def updateDefense(self):
-        self.defense = int(self.stats["Vitality"] + self.stats["Level"] / 5)
+        self.defense = int((self.stats["Vitality"] + self.stats["Level"]) / 5)
         for equipment in self.equipment.values():
             self.defense += equipment.stats["defense"]
 
