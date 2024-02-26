@@ -19,6 +19,7 @@ class FightGUI(tk.Toplevel):
         self.height = self.winfo_height()
 
         self.player = player
+        self.room = room
         self.enemies = room.enemies
 
         self.no_enemy = False
@@ -37,7 +38,7 @@ class FightGUI(tk.Toplevel):
 
         self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack', font='Time_New_Roman 8')
         self.enemy_entry_text = self.bg_canvas.create_window(50, 430, anchor='sw',
-                                                            window=self.enemy_entry_text, tags="enemy_entry_text")
+                                                             window=self.enemy_entry_text, tags="enemy_entry_text")
         self.enemy_entry_box = tk.Entry(self, font='Time_New_Roman 8')
         self.bg_canvas.create_window(50, 450, anchor='sw', window=self.enemy_entry_box, tags="enemy_entry")
 
@@ -131,9 +132,9 @@ class FightGUI(tk.Toplevel):
                         self.player.stats["XP"] += target.stats["Level"] * 10
                         self.player.stats["Credits"] += target.stats["Level"]
                     print(self.player.name + " attacked " + str(target.name))
+                    self.resolve_player_turn()
         else:
             print("That enemy doesn't exist")
-        self.resolve_player_turn()
         self.updateCombatGUI()
 
     def defend(self, defender: Character):
@@ -169,3 +170,8 @@ class FightGUI(tk.Toplevel):
                                                                    anchor='sw', window=self.exit_button)
             self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
                                   "enemy_entry", "enemy_entry_text")
+
+    def destroy(self):
+        if not self.enemies:
+            self.room.clearRoom(True)
+            super().destroy()

@@ -230,6 +230,8 @@ class Enemy(Character):
     def take_damage(self, attacker: Player):
         item = attacker.equipment["Weapon"]
         damage = item.getDamageDealt(self) + attacker.getAttack()
+        if damage < 1:
+            damage = 1
         self.stats["Health"] -= damage
 
     def updateDefense(self):
