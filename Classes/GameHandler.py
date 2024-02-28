@@ -1,3 +1,5 @@
+import tkinter
+
 from Classes.GUI.FightGUI import FightGUI
 from Classes.GUI.MainGui import MainGUI
 from Classes.GUI.ChestGUI import ChestGUI
@@ -10,7 +12,9 @@ class GameHandler:
         self.player = Player("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
                              "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0}) 
         self.map = Map()
+        self.GUI = None
         MainGUI(self.player, self)
+
 
     def getMap(self):
         return self.map
@@ -20,8 +24,9 @@ class GameHandler:
         self.GUI = GUI
     
     def enterRoom(self, room):
+        if not self.map.currentRoom.cleared:
+            return
         self.map.setCurrentRoom( room )
-
         match room.roomType:
             case "Combat":
                 self.GUI.enterCombatRoom(room)

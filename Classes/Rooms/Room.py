@@ -7,9 +7,16 @@ class Room:
         self.adjacentRooms = []
         self.isCurrentlyEntered = False
         self.hasEntered  = False
+        self.cleared = False
 
     def enterRoom(self):
         pass
+
+    def clearRoom(self, status: bool):
+        self.cleared = status
+
+    def getCleared(self):
+        return self.cleared
 
     def createAdjacency(self, otherRoom):
         self.adjacentRooms.append(otherRoom)

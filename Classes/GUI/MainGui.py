@@ -33,14 +33,7 @@ class MainGUI(tk.Tk):
         self.gameHandler = gameHandler
         self.gameHandler.setGUI(self)
         self.displayed_buttons = []
-
-        self.a1_details = None
-        self.a2_details = None
-        self.a3_details = None
-
-        self.a1 = None
-        self.a2 = None
-        self.a3 = None
+        self.ready = True
    
         self.createIntroScreen1()
         self.mainloop()
@@ -199,12 +192,16 @@ class MainGUI(tk.Tk):
 
     def start_game(self):
          # Character Detail Button
-        char_screen_button = tk.Button(self, font=5, height=2, text="Character\nDetails",command=lambda: CharacterGUI(self.player))
-        self.bg_canvas.create_window(self.screenWidth - 1260, self.screenHeight - 400, anchor='nw',window=char_screen_button, tags="Char_Screen")
+        char_screen_button = tk.Button(self, font=5, height=2, text="Character\nDetails",
+                                       command=lambda: self.openCharacterGUI())
+        self.bg_canvas.create_window(self.screenWidth - 1260, self.screenHeight - 400,
+                                     anchor='nw',window=char_screen_button, tags="Char_Screen")
 
         # Inventory Detail Button
-        inv_screen_button = tk.Button(self, font=5, height=2, text="Inventory\nDetails",command=lambda: InventoryGUI(self.player))
-        self.bg_canvas.create_window(self.screenWidth - 1100, self.screenHeight - 400, anchor='nw',window=inv_screen_button, tags="Inv_Screen")
+        inv_screen_button = tk.Button(self, font=5, height=2, text="Inventory\nDetails",
+                                      command=lambda: self.openInventoryGUI())
+        self.bg_canvas.create_window(self.screenWidth - 1100, self.screenHeight - 400,
+                                     anchor='nw',window=inv_screen_button, tags="Inv_Screen")
 
         # Test FightGUI - Delete once usable
         # fight_room = Dungeon("Fight Room", "None")
@@ -224,6 +221,7 @@ class MainGUI(tk.Tk):
                                     " Choose a location on the map.\n", tags="game_text")
         
         self.map = self.gameHandler.getMap()
+        self.map.getCurrentRoom().clearRoom(True)
         # self.map.printMap()
         self.display_buttons()
 
@@ -264,6 +262,7 @@ class MainGUI(tk.Tk):
         self.map = self.gameHandler.getMap()
         # self.map.printMap()
         self.display_buttons()
+        self.ready = True
         print(self.map.getCurrentRoom().getAdjacentRooms())
 
     def enterCombatRoom(self, room):
@@ -274,7 +273,17 @@ class MainGUI(tk.Tk):
         self.display_buttons()
         print(self.map.getCurrentRoom().getAdjacentRooms())
 
+    def openInventoryGUI(self):
+        if self.ready and self.map.getCurrentRoom().getCleared():
+            self.ready = False
+            self.map.getCurrentRoom().clearRoom(False)
+            self.InventoryGUI = InventoryGUI(self.player, self.map.getCurrentRoom(), self)
 
+    def openCharacterGUI(self):
+        if self.ready and self.map.getCurrentRoom().getCleared():
+            self.ready = False
+            self.map.getCurrentRoom().clearRoom(False)
+            CharacterGUI(self.player, self.map.getCurrentRoom(), self)
 
 
     # def run_room_event(self, room: Dungeon):

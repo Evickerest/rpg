@@ -33,11 +33,11 @@ class ChestGUI(tk.Toplevel):
                                                                    window=self.loot_button,
                                                                    tags="loot_button")
 
-        self.scrap_button = tk.Button(self, text=f"Scrap It",
-                                      font='Time_New_Roman 8', command=lambda: self.scrap_chest())
-        self.scrap_button_window = self.bg_canvas.create_window(100, 300, anchor='sw',
-                                                                window=self.scrap_button,
-                                                                tags="scrap_button")
+            self.scrap_button = tk.Button(self, text=f"Scrap It",
+                                          font='Time_New_Roman 8', command=lambda: self.scrap_chest())
+            self.scrap_button_window = self.bg_canvas.create_window(100, 300, anchor='sw',
+                                                                    window=self.scrap_button,
+                                                                    tags="scrap_button")
 
     def loot_chest(self):
         self.player.inventory.append(self.room.item)
@@ -50,3 +50,7 @@ class ChestGUI(tk.Toplevel):
         self.room.item = None
         self.bg_canvas.delete("loot_button", "scrap_button")
         self.destroy()
+
+    def destroy(self):
+        self.room.clearRoom(True)
+        super().destroy()

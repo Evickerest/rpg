@@ -1,10 +1,12 @@
 import tkinter as tk
 from Classes.Character import *
+from Classes.Rooms.Room import *
+from Classes.GUI.MainGui import *
 from PIL import ImageTk, Image
 
 
 class CharacterGUI(tk.Toplevel):
-    def __init__(self, player: Player):
+    def __init__(self, player: Player, room: Room, gui):
         super().__init__()
         self.title("Character Screen")
         self.geometry(f'{250}x{450}+400+50')
@@ -16,6 +18,8 @@ class CharacterGUI(tk.Toplevel):
         self.height = self.winfo_height()
 
         self.player = player
+        self.room = room
+        self.gui = gui
 
         # Customize screen
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
@@ -26,7 +30,7 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 60, 380,
+        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 60, 80,
                                                                anchor='sw', window=self.exit_button)
 
         self.updateCharacterGui()
@@ -52,9 +56,9 @@ class CharacterGUI(tk.Toplevel):
             self.bg_canvas.create_window(self.width / 2 + 30, self.height - 165, anchor='center',
                                          window=int_up, tags="int_up")
         if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
-            level_up = tk.Button(self, font=5, width=1, height=1, text="Level Up",
+            level_up = tk.Button(self, font=3, width=5, height=1, text="LV-Up",
                                command=lambda: self.level_up())
-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 115, anchor='center',
+            self.bg_canvas.create_window(self.width / 2 + 60, self.height - 85, anchor='center',
                                          window=level_up, tags="level_up")
 
         self.mainloop()
@@ -72,6 +76,8 @@ class CharacterGUI(tk.Toplevel):
 
     def level_up(self):
         self.player.lv_up()
+        if self.player.stats["XP"] < self.player.stats["Level"] * 10:
+            self.bg_canvas.delete("level_up")
         self.updateCharacterGui()
 
     def updateCharacterGui(self):
@@ -90,5 +96,8 @@ class CharacterGUI(tk.Toplevel):
                                    "/" + str(self.player.stats["Level"] * 10), tags="stats")
         if self.player.stats["Stat Points"] == 0:
             self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
-        if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
-            self.bg_canvas.delete("level_up")
+
+    def destroy(self):
+        self.room.clearRoom(True)
+        self.gui.ready = True
+        super().destroy()

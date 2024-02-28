@@ -1,10 +1,12 @@
 import tkinter as tk
 from Classes.Character import *
+from Classes.Rooms.Room import *
+from Classes.GUI.MainGui import *
 from PIL import ImageTk, Image
 
 
 class InventoryGUI(tk.Toplevel):
-    def __init__(self, player: Player):
+    def __init__(self, player: Player, room: Room, gui):
         super().__init__()
         self.title("Character Inventory")
         self.geometry(f'{800}x{600}+400+50')
@@ -16,6 +18,8 @@ class InventoryGUI(tk.Toplevel):
         self.height = self.winfo_height()
 
         self.player = player
+        self.room = room
+        self.gui = gui
 
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
@@ -135,3 +139,8 @@ class InventoryGUI(tk.Toplevel):
         if self.item_entry_box.get():
             self.item_entry = self.item_entry_box.get()
         return self.item_entry
+
+    def destroy(self):
+        self.room.clearRoom(True)
+        self.gui.ready = True
+        super().destroy()

@@ -179,3 +179,7 @@ class ShopGUI(tk.Toplevel):
         if self.item_entry_box.get():
             self.item_entry = self.item_entry_box.get()
         return self.item_entry
+
+    def destroy(self):
+        self.shop.clearRoom(True)
+        super().destroy()
