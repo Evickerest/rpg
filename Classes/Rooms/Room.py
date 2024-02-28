@@ -9,8 +9,15 @@ class Room:
         self.hasEntered  = False
         self.cleared = False
 
-    def enterRoom(self):
-        pass
+        self.posX = None
+        self.posY = None
+
+    def setCoordinates(self, posX, posY):
+        self.posX = posX
+        self.posY = posY
+
+    def getCoordinates(self):
+        return [self.posX,self.posY]
 
     def clearRoom(self, status: bool):
         self.cleared = status
@@ -39,24 +46,5 @@ class Room:
     def __repr__(self):
         return self.name
     
-
-
-
-    # def generate_special(self, type: str, player: Player):
-    #     if type == "combat":
-    #         self.generate(player.stats["Level"])
-    #     elif type == "rest":
-    #         player.updateMaxHealth()
-    #         player.updateHealth(player.stats["Max Health"])
-    #     elif type == "shop":
-    #         self.items.append(Item(random.choice(Item.ITEMS)))
-    #     elif type == "chest":
-    #         self.items.append(Item(random.choice(Item.ITEMS)))
-        
-         # def generatePossibleRooms(self):
-    #     rooms = []
-    #     with open('Names/room_txt/room_names', 'r') as f:
-    #         reader = csv.reader(f)
-    #         for row in reader:
-    #             rooms.append(row)
-    #     return rooms
+    def __eq__(self, other):
+        return self.posX == other.posX and self.posY == other.posY
