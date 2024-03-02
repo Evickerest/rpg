@@ -1,5 +1,5 @@
 import unittest
-from Classes.Map import *
+from Classes.Map.Map import *
 
 
 class Map_tests(unittest.TestCase):

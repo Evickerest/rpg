@@ -5,7 +5,7 @@ from Classes.GUI.MainGui import MainGUI
 from Classes.GUI.ChestGUI import ChestGUI
 from Classes.GUI.ShopGUI import ShopGUI
 from Classes.Character import Player
-from Classes.Map import Map
+from Classes.Map.Map import Map
 
 class GameHandler:
     def __init__(self):
@@ -24,9 +24,11 @@ class GameHandler:
         self.GUI = GUI
     
     def enterRoom(self, room):
-        if not self.map.currentRoom.cleared:
-            return
+        # if not self.map.currentRoom.cleared:
+        #     return
+
         self.map.setCurrentRoom( room )
+        self.GUI.display_buttons()
         # match room.roomType:
         #     case "Combat":
         #         self.GUI.enterCombatRoom(room)

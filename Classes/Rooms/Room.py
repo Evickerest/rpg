@@ -9,6 +9,7 @@ class Room:
         self.hasEntered  = False
         self.cleared = False
 
+        self.edges = []
         self.posX = None
         self.posY = None
 
@@ -26,8 +27,10 @@ class Room:
         return self.cleared
 
     def createAdjacency(self, otherRoom):
-        self.adjacentRooms.append(otherRoom)
-        otherRoom.addAdjacentRoom(self)
+        if otherRoom not in self.adjacentRooms:
+            self.adjacentRooms.append(otherRoom)
+        if self not in otherRoom.getAdjacentRooms():
+            otherRoom.addAdjacentRoom(self)
 
     def addAdjacentRoom(self, otherRoom):
         self.adjacentRooms.append(otherRoom)
