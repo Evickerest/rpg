@@ -9,7 +9,7 @@ class ShopGUI(tk.Toplevel):
     def __init__(self, room: ShopRoom, player: Player):
         super().__init__()
         self.title("Shop Inventory")
-        self.geometry(f'{900}x{600}+400+50')
+        self.geometry(f'{1000}x{700}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
@@ -20,49 +20,49 @@ class ShopGUI(tk.Toplevel):
         self.player = player
         self.shop = room
 
-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+        self.original_image = Image.open('Images/ShopStore.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="black")
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 8", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 580,
+        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 8 bold", command=self.destroy)
+        self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 680,
                                                                anchor='sw', window=self.exit_button)
 
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=8, fill="#7A185F", justify="left",
                                    text=self.player.name + "'s Equipment", tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580, font=8, fill="#7A185F", justify="left",
                                    text=self.player.name + "'s Inventory", tags="inventory_title")
-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580, font=8, fill="#7A185F", justify="left",
                                    text=self.shop.name + "'s Shop", tags="shop_title")
 
         self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
-                                        font='Time_New_Roman 8', command=lambda: self.removeEquippedItem())
-        self.unequip_button_window = self.bg_canvas.create_window(50, 400, anchor='sw',
+                                        font='Time_New_Roman 8 bold', command=lambda: self.removeEquippedItem())
+        self.unequip_button_window = self.bg_canvas.create_window(50, 500, anchor='sw',
                                                                   window=self.unequip_button, tags="unequip_button")
 
         self.equip_button = tk.Button(self, text='Equip Entered Item\nFrom Inventory',
-                                      font='Time_New_Roman 8', command=lambda: self.equipItemInventory())
-        self.equip_button_window = self.bg_canvas.create_window(250, 400, anchor='sw',
+                                      font='Time_New_Roman 8 bold', command=lambda: self.equipItemInventory())
+        self.equip_button_window = self.bg_canvas.create_window(250, 500, anchor='sw',
                                                                 window=self.equip_button, tags="equip_button")
 
         self.purchase_button = tk.Button(self, text='Purchase Entered Item\nFrom Shop',
-                                         font='Time_New_Roman 8', command=lambda: self.BuyItemFromShop())
-        self.purchase_button_window = self.bg_canvas.create_window(450, 400, anchor='sw',
+                                         font='Time_New_Roman 8 bold', command=lambda: self.BuyItemFromShop())
+        self.purchase_button_window = self.bg_canvas.create_window(450, 500, anchor='sw',
                                                                    window=self.purchase_button, tags="buy_button")
 
         self.sell_button = tk.Button(self, text='Sell Entered Item\nFrom Inventory',
-                                     font='Time_New_Roman 8', command=lambda: self.sellItemInventory())
-        self.sell_button_window = self.bg_canvas.create_window(650, 400, anchor='sw',
+                                     font='Time_New_Roman 8 bold', command=lambda: self.sellItemInventory())
+        self.sell_button_window = self.bg_canvas.create_window(650, 500, anchor='sw',
                                                                window=self.sell_button, tags="sell_button")
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start', font='Time_New_Roman 10')
-        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 450, anchor='sw',
+        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 550, anchor='sw',
                                                             window=self.item_entry_text, tags="item_entry_text")
-        self.item_entry_box = tk.Entry(self, font='Time_New_Roman 8')
-        self.bg_canvas.create_window(self.width / 2 - 100, 480, anchor='sw',
+        self.item_entry_box = tk.Entry(self, font='Time_New_Roman 8 bold')
+        self.bg_canvas.create_window(self.width / 2 - 100, 580, anchor='sw',
                                      window=self.item_entry_box, tags="item_entry")
 
         self.updateShopGui()
@@ -71,22 +71,22 @@ class ShopGUI(tk.Toplevel):
     def equipment_grid(self):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
-            self.bg_canvas.create_text(self.width / 2 - 250, self.height - 450, font=8, fill="blue", justify="center",
-                                       text="\nHead Armor: " + str(self.player.equipment["Head"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
-                                       + "\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
-                                       + "\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
-                                       + "\nLeg Armor: " + str(self.player.equipment["Legs"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
-                                       + "\nFoot Armor: " + str(self.player.equipment["Feet"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
-                                       + "\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
-                                       + "\n\nTotal Attack: " + str(self.player.getAttack())
-                                       + "\nTotal Defense: " + str(self.player.getDefense())
-                                       + "\nCredits: " + str(self.player.stats["Credits"]), tags="equipment")
+            self.bg_canvas.create_text(self.width / 2 - 300, self.height - 450, font="Time_New_Roman 12 bold", fill="#7A185F", justify="left",
+                                       text="\nHead Armor:\t" + str(self.player.equipment["Head"].stats["name"])
+                                       + ":\t+" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
+                                       + "\nArm Armor:\t" + str(self.player.equipment["Arms"].stats["name"])
+                                       + ":\t+" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
+                                       + "\nChest Armor:\t" + str(self.player.equipment["Chest"].stats["name"])
+                                       + ":\t+" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
+                                       + "\nLeg Armor:\t" + str(self.player.equipment["Legs"].stats["name"])
+                                       + ":\t+" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
+                                       + "\nFoot Armor:\t" + str(self.player.equipment["Feet"].stats["name"])
+                                       + ":\t+" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
+                                       + "\nWeapon:\t\t" + str(self.player.equipment["Weapon"].stats["name"])
+                                       + ":\t+" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
+                                       + "\n\nTotal Attack:\t" + str(self.player.getAttack())
+                                       + "\nTotal Defense:\t" + str(self.player.getDefense())
+                                       + "\nCredits:\t\t" + str(self.player.stats["Credits"]),tags="equipment")
 
     def inventory_grid(self):
         self.bg_canvas.delete("inventory")
@@ -103,7 +103,7 @@ class ShopGUI(tk.Toplevel):
                                             + "\nValue: " + str(item.stats["value"]))
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450, font=8, fill="#7A185F", justify="left",
                                    text=self.inventory_text, tags="inventory")
 
     def shop_grid(self):
@@ -121,7 +121,7 @@ class ShopGUI(tk.Toplevel):
                                        + "\nValue: " + str(item.stats["value"]))
         else:
             self.shop_text = "The Shop Is Empty"
-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450, font=8, fill="blue", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450, font=8, fill="#7A185F", justify="left",
                                    text=self.shop_text, tags="shop")
 
     def updateShopGui(self):

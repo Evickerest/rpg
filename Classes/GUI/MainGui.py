@@ -34,9 +34,12 @@ class MainGUI(tk.Tk):
         self.gameHandler.setGUI(self)
         self.displayed_buttons = []
         self.ready = True
-   
+
+           
         self.createIntroScreen1()
         self.mainloop()
+        #self.display_buttons() 
+
 
 
     def createIntroScreen1(self):
@@ -64,7 +67,7 @@ class MainGUI(tk.Tk):
         self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 20", command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.width - 100, self.height - 100,
                                                                anchor='sw', window=self.exit_button)
-        
+    
     def createIntroScreen2(self):
         self.name = "Default"
         if self.user_name_entry.get():
@@ -170,23 +173,23 @@ class MainGUI(tk.Tk):
         self.backg = ImageTk.PhotoImage(self.background_image)
 
 
-        self.original_image = Image.open('Images/mainGameBG.jpg').resize((300, 300))
+        self.original_image = Image.open('Map/Set/Main.jpg').resize((300, 400))
         self.bg = ImageTk.PhotoImage(self.original_image)
+
 
         # Create Menu Background
         menu_image = Image.open('Images/info_bg.png').resize((300, 300))
         self.menu_bg = ImageTk.PhotoImage(menu_image)
 
-        # Create background
-        # self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
-        # self.bg_canvas.configure(bg='#34557A')                #Delete later
+
         self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.backg, anchor='nw')
-        
+      
         # Create Canvas and Images
         self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
-        self.bg_canvas.create_image(self.screenWidth - 1280 , (self.screenHeight / 2) + 130, image=self.menu_bg, anchor='nw')
+        self.bg_canvas.create_image(self.screenWidth - 1280 , (self.screenHeight / 2) + 130, image=self.menu_bg, anchor='nw')    
+
 
         self.start_game()
 
@@ -215,7 +218,7 @@ class MainGUI(tk.Tk):
         self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 20", command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.screenWidth - 90, self.screenHeight - 20, anchor='sw',window=self.exit_button)
         
-        self.bg_canvas.create_text(500, 350, width=500, font=('Time_New_Roman', 15), fill="#0EA4A1", justify="left", anchor="w",
+        self.bg_canvas.create_text(450, 350, width=500, font=('Time_New_Roman', 15), fill="#0EA4A1", justify="left", anchor="w",
                                 text="\nYou are ready to start cleaning up the wreckage."
                                     " Which wreckage should you visit first?"
                                     " Choose a location on the map.\n", tags="game_text")
@@ -223,28 +226,53 @@ class MainGUI(tk.Tk):
         self.map = self.gameHandler.getMap()
         self.map.getCurrentRoom().clearRoom(True)
         # self.map.printMap()
+        # self.display_image_buttons()
         self.display_buttons()
 
+        
     def display_buttons(self):
-        # If text is still printing, do not allow input
-        """ This is apparently causing issues with not making new buttons
-        if self.textPrinter.isTextReady() is False:
-            return
-        """
-
         # Remove previous buttons
         self.bg_canvas.delete("button")
         offset = 30
+        
+        self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', relief=tk.SUNKEN, borderwidth=3)
+        self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
 
+
+        # for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
+        #     callback = lambda room: lambda: self.gameHandler.enterRoom(room)
+        #     button_text = adjacentRoom.name  # Button text
+
+        #     # Create a button with a lambda function to pass the button_text as an argument
+        #     button = tk.Button(self.button_frame, font=5, height=1, text=button_text, command=callback(adjacentRoom))
+        #     button.pack(pady=5)
+        #     offset += 50
         for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
-            callback = lambda room: lambda : self.gameHandler.enterRoom(room)
-            button = tk.Button(self, font=5, height=1, text=(adjacentRoom.name), command=callback(adjacentRoom))
-            self.bg_canvas.create_window(50, offset, anchor='nw',window=button,tags="button")
+            test = lambda room_name=adjacentRoom.name: lambda: self.clicked_button(room_name)
+            button_text = adjacentRoom.name  # Button text
+
+            # Create a button with a lambda function to pass the button_text as an argument
+            button = tk.Button(self.button_frame, font=5, height=1, text=button_text, command=test())
+            button.pack(pady=5)
             offset += 50
+            
+
+    def clicked_button(self, button_name):
+        # list of current Rooms
+        button_images = [ "Weapons Bay", "Main Cabin", "Elevator 1", "Storage Area", "Kitchen", "Barracks", "Cafeteria",
+            "Life Pod 1", "Cabin 2", "Showers ", "Cabin 1", "Docking Port", "Bridge", "Elevator 3", "Elevator 2", "Cabin 3",
+            "Captains Cabin", "Hangar", "Life Pod 2", "Engine Room"]
+        for getCurrentRoom in button_images:
+
+            if getCurrentRoom == button_name:
+                self.original_image = Image.open('Map/Set/'+ getCurrentRoom + '.jpg').resize((300, 400))
+                self.bg = ImageTk.PhotoImage(self.original_image)
+                self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
+            else: 
+                
+                pass
 
 
-    # text_id is the tag of the .create_text object
-    # Text contains lines to be printed
     def animate_text(self, text_id, text):
         self.textPrinter.animate_text(text, text_id, tk.END)
 
