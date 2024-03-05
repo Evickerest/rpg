@@ -111,7 +111,7 @@ class Player(Character):
                     self.equipment["Head"] = item
                 else:
                     tmp = self.equipment["Head"]
-                    self.equipment["Head"].stats["name"] = item
+                    self.equipment["Head"] = item
                     self.addItem(tmp)
             elif item.stats["type"] == "Arms":
                 if self.equipment["Arms"].stats["name"] == "None":
@@ -195,7 +195,7 @@ class Player(Character):
     def med_kits(self, change: int):
         self.stats["Medkits"] += change
         if self.stats["Medkits"] < 0:
-            self.__med_kits = 0
+            self.stats["Medkits"] = 0
 
     def changeName(self, name):
         self.name = name

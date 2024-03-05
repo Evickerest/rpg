@@ -1,18 +1,19 @@
-# test
+# test Item class
 import random
 import unittest
 from Classes.Item import *
+from Classes.Character import *
 
 
 class ItemTests(unittest.TestCase):
 
     def test_1load_items1(self):
-        # Items not yet loaded from file
-        self.assertEqual(Item.ITEMS, [])
+        # Item list is not an empty list
+        self.assertNotEquals(Item.ITEMS, [])
 
     def test_2load_items2(self):
-        # Item list should be empty
-        self.assertFalse(Item.ITEMS)
+        # Item list should exist
+        self.assertTrue(Item.ITEMS)
 
     def test_3load_items3(self):
         # Item list has items
@@ -62,3 +63,16 @@ class ItemTests(unittest.TestCase):
         self.assertEqual(x.stats["armorBreakPercent"], x.armorBreakPercent)
         self.assertEqual(x.stats["critPercent"], x.critPercent)
         self.assertEqual(x.stats["damagePercent"], x.damagePercent)
+
+    def test_8item_getDamage(self):
+        Item.load_items()
+        stats = random.choice(Item.ITEMS)
+        x = Item(stats)
+        enemy = Enemy("Tester", None, 1)
+        self.assertTrue(x.getDamageDealt(enemy))
+
+    def test_9item_notitem(self):
+        stats = random.choice(Item.ITEMS)
+        x = Item(stats)
+        Item.load_items()
+        self.assertTrue(Item.ITEMS, Item.ITEMS)

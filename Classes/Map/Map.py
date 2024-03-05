@@ -91,5 +91,8 @@ class Map:
         
 
     def printMap(self):
+        """
         for room in self.rooms:
             print(f"{room} is adjacent to: {room.getAdjacentRooms()}")
+        """
+        return

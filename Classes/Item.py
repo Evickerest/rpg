@@ -28,8 +28,8 @@ class Item:
         self.stats["defense"] = int(stats[3])
         self.stats["value"] = int(stats[4])
         self.stats["damagePercent"] = float(stats[5])
-        self.stats["critPercent"] = 0.01
-        self.stats["armorBreakPercent"] = 0.01
+        self.stats["critPercent"] = 0.1
+        self.stats["armorBreakPercent"] = 0.1
         self.assignStats()
 
         # self.assignStats() --> Testing, not using

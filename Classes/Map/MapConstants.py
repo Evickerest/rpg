@@ -3,7 +3,7 @@ from Classes.Rooms.ShopRoom import ShopRoom
 from Classes.Rooms.CombatRoom import CombatRoom
 
 class MapConstants:
-    TOTAL_ROOMS = 100
+    TOTAL_ROOMS = 50
 
     # Completely Arbitrary
     MAP_HEIGHT = 50
@@ -11,11 +11,11 @@ class MapConstants:
 
     ROOM_TYPES = {
         "Combat": {
-            "desired_number": 50,
+            "desired_number": 35,
             "room": CombatRoom
         },
         "Chest": {
-            "desired_number": 45,
+            "desired_number": 10,
             "room": ChestRoom
         },
         "Shop": {
