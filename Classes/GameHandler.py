@@ -29,13 +29,13 @@ class GameHandler:
 
         self.map.setCurrentRoom( room )
         self.GUI.display_buttons()
-        # match room.roomType:
-        #     case "Combat":
-        #         self.GUI.enterCombatRoom(room)
-        #         self.FightGUI = FightGUI(room, self.player)
-        #     case "Chest":
-        #         self.GUI.enterChestRoom(room)
-        #         self.ChestGUI = ChestGUI(room, self.player)
-        #     case "Shop":
-        #         self.GUI.enterShopRoom(room)
-        #         self.ShopGUI = ShopGUI(room, self.player)
+        match room.roomType:
+            case "Combat":
+                self.GUI.enterCombatRoom(room)
+                self.FightGUI = FightGUI(room, self.player)
+            case "Chest":
+                self.GUI.enterChestRoom(room)
+                self.ChestGUI = ChestGUI(room, self.player)
+            case "Shop":
+                self.GUI.enterShopRoom(room)
+                self.ShopGUI = ShopGUI(room, self.player)

@@ -31,7 +31,7 @@ class Map:
     def generateRandomRooms(self):
         self.rooms = []
 
-        counter = 1;
+        counter = 1
         # Loop through each room type
         for roomType in MapConstants.ROOM_TYPES:
             # Loop for the desired number of rooms
@@ -41,9 +41,10 @@ class Map:
 
                 # Create room and set coordinates
                 room = MapConstants.ROOM_TYPES[roomType]["room"]()
+                # room.image = randomImage()
 
                 # TODO: delete later
-                room.name = str(counter)
+                room.number = str(counter)
                 counter += 1
 
                 room.setCoordinates(randomX, randomY)
@@ -80,7 +81,7 @@ class Map:
             mst.append(minimumEdge)
 
             # Throw random edges in
-            while random.random() < 0.5 and len(availableEdges) != 0:
+            while random.random() < MapConstants.CHANCE_FOR_NEW_EDGE and len(availableEdges) != 0:
                 randomEdge = random.choice(availableEdges)
                 mst.append( randomEdge)
 

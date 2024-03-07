@@ -239,14 +239,15 @@ class MainGUI(tk.Tk):
         self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
 
 
-        # for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
-        #     callback = lambda room: lambda: self.gameHandler.enterRoom(room)
-        #     button_text = adjacentRoom.name  # Button text
+        for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
+            callback = lambda room: lambda: self.gameHandler.enterRoom(room)
+            button_text = adjacentRoom.name  # Button text
 
-        #     # Create a button with a lambda function to pass the button_text as an argument
-        #     button = tk.Button(self.button_frame, font=5, height=1, text=button_text, command=callback(adjacentRoom))
-        #     button.pack(pady=5)
-        #     offset += 50
+            # Create a button with a lambda function to pass the button_text as an argument
+            button = tk.Button(self.button_frame, font=5, height=1, text=button_text, command=callback(adjacentRoom))
+            button.pack(pady=5)
+            offset += 50
+        
         for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
             test = lambda room_name=adjacentRoom.name: lambda: self.clicked_button(room_name)
             button_text = adjacentRoom.name  # Button text
