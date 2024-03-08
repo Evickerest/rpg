@@ -93,8 +93,10 @@ class FightGUI(tk.Toplevel):
         if len(self.enemies) > 0:
             for enemy in self.enemies:
                 self.enemies_txt += ("\n" + str(self.count) + ") " + str(enemy.name) + "\n  "
+                                     + "Health: " + str(enemy.stats["Health"]) + "\n  "
                                      + str(enemy.getAttack()) + " Damage\n  "
-                                     + str(enemy.getDefense()) + " Defense")
+                                     + str(enemy.getDefense()) + " Defense\n  "
+                                     + "LV: " + str(enemy.stats["Level"]))
                 self.count += 1
         else:
             self.enemies_txt = "No Enemies Remain"

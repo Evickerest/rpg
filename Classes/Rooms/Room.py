@@ -6,8 +6,9 @@ class Room:
     def __init__(self):
         self.adjacentRooms = []
         self.isCurrentlyEntered = False
-        self.hasEntered  = False
+        self.hasEntered = False
         self.cleared = False
+        self.name = None
 
         self.edges = []
         self.posX = None
@@ -18,7 +19,7 @@ class Room:
         self.posY = posY
 
     def getCoordinates(self):
-        return [self.posX,self.posY]
+        return [self.posX, self.posY]
 
     def clearRoom(self, status: bool):
         self.cleared = status
@@ -44,7 +45,8 @@ class Room:
             reader = csv.reader(f)
             for row in reader:
                 names.append(row)
-        return random.choice(*names)
+        self.name = random.choice(*names)
+        return self.name
     
     def __repr__(self):
         return self.name

@@ -2,9 +2,7 @@ import unittest
 from Classes.Character import *
 
 import random
-import unittest
 from Classes.Item import *
-from Classes.Character import *
 
 
 class CharacterTests(unittest.TestCase):
