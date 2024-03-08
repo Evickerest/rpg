@@ -35,7 +35,7 @@ class MainGUI(tk.Tk):
         self.displayed_buttons = []
         self.ready = True
 
-           
+
         self.createIntroScreen1()
         self.mainloop()
         #self.display_buttons() 
@@ -50,8 +50,11 @@ class MainGUI(tk.Tk):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.bg_canvas.create_text(400, 250, text="Are You Ready for a New Adventure?",
-                                   font="Time_New_Roman 30", fill='white', anchor="center", tags="MainMenu_Text")
+        self.bg_canvas.create_text(self.screenWidth /2, self.screenHeight / 2, text="Are You Ready For a New Adventure?",
+                                   font="Time_New_Roman 45", fill='#041A00', anchor="center", tags="MainMenu_Text")
+        self.bg_canvas.create_text(self.screenWidth / 2, self.screenHeight / 2,
+                                   text="Are You Ready For a New Adventure?",
+                                   font="TTime_New_Roman 44", fill='white', anchor="center", tags="MainMenu_Text")
         self.user_name = tk.Label(self, text='User Name:', font='Time_New_Roman 15')
         self.user_name_window = self.bg_canvas.create_window(30, 100, anchor='sw', window=self.user_name,
                                                              tags="Login_Text")
@@ -84,7 +87,7 @@ class MainGUI(tk.Tk):
         self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
-        self.bg_canvas.create_text(self.width/2, self.height-600, font=20, width=self.width, fill="white",
+        self.bg_canvas.create_text(self.width/2, self.height-600, font="Time_New_Roman 22", width=self.width, fill="white",
                                    text="You are a newly recruited Space Janitor sent"
                                    " out to salvage the numerous asteroids and ship wrecks that pollute space."
                                         f"\n\n Welcome, {self.name} to being a Space Janitor."
@@ -95,7 +98,7 @@ class MainGUI(tk.Tk):
     def createIntroScreen3(self):
         self.bg_canvas.delete("intro")
         self.next_text.config(width=50, text="Start Game", command=self.createMainGUI)
-        self.bg_canvas.create_text(self.width / 2 - 100, self.height - 500, font=25, fill="white", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 100, self.height - 500, font="Time_New_Roman 22", fill="white", justify="center",
                                    text=self.player.name + "'s Stats" +
                                    "\n\nHealth: " + str(self.player.stats["Health"]) +
                                    "/" + str(self.player.stats["Max Health"]) +
