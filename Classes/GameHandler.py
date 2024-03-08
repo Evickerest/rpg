@@ -46,6 +46,8 @@ class GameHandler:
             case "Boss":
                 self.GUI.enterBossRoom(room)
                 self.FightGUI = FightGUI(room, self.player, self)
+            case "Start":
+                room.clearRoom(True)
 
     def exitRoom(self, room):
         room.clearRoom(True)

@@ -181,9 +181,8 @@ class MainGUI(tk.Tk):
 
 
         # Create Menu Background
-        menu_image = Image.open('Images/info_bg.png').resize((300, 300))
+        menu_image = Image.open('Images/info_bg.png').resize((300, 200))
         self.menu_bg = ImageTk.PhotoImage(menu_image)
-
 
         self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
         self.bg_canvas.pack(fill='both', expand=True)
@@ -191,92 +190,82 @@ class MainGUI(tk.Tk):
       
         # Create Canvas and Images
         self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
-        self.bg_canvas.create_image(self.screenWidth - 1280 , (self.screenHeight / 2) + 130, image=self.menu_bg, anchor='nw')    
+        self.bg_canvas.create_image(self.screenWidth - 1280 , (self.screenHeight / 2), image=self.menu_bg, anchor='nw')    
 
 
         self.start_game()
 
     def start_game(self):
+        # Name's Stat text
+        self.bg_canvas.create_text(70,485, width=300, font=('Arial', 20), fill="#FFFFFF", anchor="w", text=f"{self.name}'s Stats")
+
          # Character Detail Button
-        char_screen_button = tk.Button(self, font=5, height=2, text="Character\nDetails",
+        char_screen_button = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Character\nDetails",
                                        command=lambda: self.openCharacterGUI())
-        self.bg_canvas.create_window(self.screenWidth - 1260, self.screenHeight - 400,
+        self.bg_canvas.create_window(self.screenWidth - 1250, self.screenHeight - 385,
                                      anchor='nw',window=char_screen_button, tags="Char_Screen")
 
         # Inventory Detail Button
-        inv_screen_button = tk.Button(self, font=5, height=2, text="Inventory\nDetails",
+        inv_screen_button = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Inventory\nDetails",
                                       command=lambda: self.openInventoryGUI())
-        self.bg_canvas.create_window(self.screenWidth - 1100, self.screenHeight - 400,
+        self.bg_canvas.create_window(self.screenWidth - 1110, self.screenHeight - 385,
                                      anchor='nw',window=inv_screen_button, tags="Inv_Screen")
 
-        # Test FightGUI - Delete once usable
-        # fight_room = Dungeon("Fight Room", "None")
-        # fight_room.type = "combat"
-        # fight_room.generate(self.player.stats["Level"])
-        # fight_button = tk.Button(self, font=5, height=3, text="Test Combat Screen",
-        #                          command=lambda: FightGUI(fight_room, self.player))
-        # self.bg_canvas.create_window(400, 475, anchor='nw', window=fight_button, tags="fight")
-
         # Exit Button
-        self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 20", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.screenWidth - 90, self.screenHeight - 20, anchor='sw',window=self.exit_button)
+        self.exit_button = tk.Button(self, text="Exit", font="Calibri 20", command=self.destroy)
+        self.exit_button_window = self.bg_canvas.create_window(10, self.screenHeight-150, anchor='w',window=self.exit_button)
         
         self.bg_canvas.create_text(450, 350, width=500, font=('Time_New_Roman', 15), fill="#FFFFFF", justify="left", anchor="w",
                                 text="\nYou are ready to start cleaning up the wreckage."
                                     " Which wreckage should you visit first?"
                                     " Choose a location on the map.\n", tags="game_text")
         
+       
+        self.bg_canvas.create_text(1010,400, width=300, font=('Arial', 20), fill="#FFFFFF", anchor="w", text="Choose Next Location")
+
         self.map = self.gameHandler.getMap()
-        self.map.getCurrentRoom().clearRoom(True)
-        # self.map.printMap()
-        # self.display_image_buttons()
-
-        self.bg_canvas.create_rectangle(800,800,900,900,fill="#0865A0")
-
         self.display_buttons()
 
-        
+     
     def display_buttons(self):
         # Remove previous buttons
         self.bg_canvas.delete("button")
         offset = 30
-        
-        self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', relief=tk.SUNKEN, borderwidth=3)
-        self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
 
-        # for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
-        #     callback = lambda room: lambda : self.handleButtonInput(room)
-        #     button = tk.Button(self, font=5, height=1, text=(adjacentRoom.name), command=callback(adjacentRoom))
-        #     self.bg_canvas.create_window(50, offset, anchor='nw',window=button,tags="button")
-        #     offset += 50
+        # Box for map buttons
+        self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', borderwidth=3,highlightcolor="white",highlightthickness=4)
+        self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
         
+        # print(f"\nCurrent Room is {self.map.getCurrentRoom()}")
+        # print(f"\nRooms adjacent to {self.map.getCurrentRoom()} are {self.map.getCurrentRoom().getAdjacentRooms()}\n")
         for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
             test = lambda room: lambda : self.handleButtonInput(room)
             button_text = adjacentRoom.name  # Button text
 
+            # Determine button color
+            # Red means room has been cleared already
+            color = "#f69697" if adjacentRoom.cleared else "#FFFFFF"
+
             # Create a button with a lambda function to pass the button_text as an argument
-            button = tk.Button(self.button_frame, font=5, height=1, text=button_text, command=test(adjacentRoom), )
+            button = tk.Button(self.button_frame, width=75, font=("Calibri", 15), height=1, 
+                               text=button_text, command=test(adjacentRoom),
+                                bg=color)
             button.pack(pady=5)
             offset += 50
+            # print(f"Printing button for {button_text}\n")
             
     def handleButtonInput(self, room):
+        self.clicked_button(room)
         self.gameHandler.enterRoom(room)
-        self.clicked_button(room.name)
 
 
-    def clicked_button(self, button_name):
-        # list of current Rooms
-        button_name = button_name.strip()
-        button_images = [ "Weapons Bay", "Main Cabin", "Elevator 1", "Storage Area", "Kitchen", "Barracks", "Cafeteria",
-            "Life Pod 1", "Cabin 2", "Showers", "Cabin 1", "Docking Port", "Bridge", "Elevator 3", "Elevator 2", "Cabin 3",
-            "Captains Cabin", "Hangar", "Life Pod 2", "Engine Room"]
-
-        if button_name in button_images:
-            self.original_image = Image.open('Map/Set/'+ button_name + '.jpg').resize((300, 400))
-            self.bg = ImageTk.PhotoImage(self.original_image)
-            self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
-        else: 
-            print(f"did not find image at 'Map/Set/{button_name}.jpg'")
+    def clicked_button(self, room):
+        self.original_image = Image.open(room.mapImagePath).resize((300, 400))
+        self.bg = ImageTk.PhotoImage(self.original_image)
+        self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
+     
+        
+        
 
 
 
@@ -284,14 +273,13 @@ class MainGUI(tk.Tk):
         self.textPrinter.animate_text(text, text_id, tk.END)
 
     def enterRepeatedRoom(self, room):
-            self.textPrinter.animate_text(f"\n{room} has already been entered.", "game_text", tk.END)
+            self.textPrinter.animate_text(f"\n{room} has already been entered.\n", "game_text", tk.END)
 
     def enterChestRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains a chest.\n",
                                       "game_text", tk.END)
         self.map = self.gameHandler.getMap()
         # self.map.printMap()
-        self.display_buttons()
         # print(self.map.getCurrentRoom().getAdjacentRooms())
 
     def enterShopRoom(self, room):
@@ -299,7 +287,6 @@ class MainGUI(tk.Tk):
                                       "game_text", tk.END)
         self.map = self.gameHandler.getMap()
         # self.map.printMap()
-        self.display_buttons()
         self.ready = True
         # print(self.map.getCurrentRoom().getAdjacentRooms())
 
@@ -308,25 +295,20 @@ class MainGUI(tk.Tk):
                                       "game_text", tk.END)
         self.map = self.gameHandler.getMap()
         # self.map.printMap()
-        self.display_buttons()
         # print(self.map.getCurrentRoom().getAdjacentRooms())
 
 
     def enterBossRoom(self, room):
-        self.textPrinter.animate_text(f"\n You have entered {room} which is the boss room", "game_text", tk.END)
+        self.textPrinter.animate_text(f"\n You have entered {room} which is the boss room.\n", "game_text", tk.END)
 
     def exitBossRoom(self, room):
-        self.textPrinter.animate_text(f"\nCongratulations for beating the boss!", "game_text", tk.END)
+        self.textPrinter.animate_text(f"\nCongratulations for beating the boss!\n", "game_text", tk.END)
         
     def exitRoom(self, room):
-        self.textPrinter.animate_text(f"\nYou have exited {room}.", "game_text", tk.END)
+        self.textPrinter.animate_text(f"\nYou have exited {room}.\n", "game_text", tk.END)
     
     def exitCombatRoom(self, room):
-        self.textPrinter.animate_text(f"\nYou have beaten the enemies in {room}", "game_text", tk.END)
-
-
-
-
+        self.textPrinter.animate_text(f"\nYou have beaten the enemies in {room}.\n", "game_text", tk.END)
 
     def openInventoryGUI(self):
         if self.ready and self.map.getCurrentRoom().getCleared():
