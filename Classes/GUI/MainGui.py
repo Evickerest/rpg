@@ -279,6 +279,7 @@ class MainGUI(tk.Tk):
             print(f"did not find image at 'Map/Set/{button_name}.jpg'")
 
 
+
     def animate_text(self, text_id, text):
         self.textPrinter.animate_text(text, text_id, tk.END)
 
