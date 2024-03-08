@@ -1,1 +1,1 @@
-Engine Room,Captain's Cabin,Main Cabin,Bridge,Bathroom,Cafeteria,Showers,Kitchen,Barracks,Pod Bay,Hangar,Storage Area,Docking Port,Weapons Bay,Cabin 1,Cabin 2,Cabin 3,Elevator 1,Elevator 2,Elevator 3,Life Pod 1,Life Pod 2,Life Pod 3,
+Engine Room,Captain's Cabin,Main Cabin,Bridge,Bathroom,Cafeteria,Showers,Kitchen,Barracks,Pod Bay,Hangar,Storage Area,Docking Port,Weapons Bay,Cabin 1,Cabin 2,Cabin 3,Elevator 1,Elevator 2,Elevator 3,Life Pod 1,Life Pod 2,Life Pod 3
