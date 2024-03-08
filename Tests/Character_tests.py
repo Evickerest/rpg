@@ -340,3 +340,14 @@ class EnemyTests(unittest.TestCase):
         enemy.stats["Strength"] += 10
         enemy.updateAttack()
         self.assertTrue(enemy.getAttack() > attack)
+
+    def test_6updateStats(self):
+        enemy = Enemy("Bob", None, 1)
+        stat_sum = (enemy.stats["Strength"] + enemy.stats["Dexterity"] +
+                    enemy.stats["Vitality"] + enemy.stats["Intelligence"])
+        enemy.stats["Stat Points"] += 10
+        enemy.updateStats()
+        final_stat_sum = (enemy.stats["Strength"] + enemy.stats["Dexterity"] +
+                    enemy.stats["Vitality"] + enemy.stats["Intelligence"])
+        self.assertTrue(final_stat_sum > stat_sum)
+

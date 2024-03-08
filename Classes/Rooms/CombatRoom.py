@@ -43,3 +43,10 @@ class CombatRoom(Room):
         for i in range(0, num):
             mon_name = random.choice(CombatRoom.ENEMIES)
             self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))
+
+    def lv_enemies(self):
+        for enemy in self.enemies:
+            if self.player:
+                enemy.stats["Level"] = self.player.stats["Level"]
+                enemy.stats["Stat Points"] = (self.player.stats["Level"] - 1) * 5
+                enemy.updateStats()
