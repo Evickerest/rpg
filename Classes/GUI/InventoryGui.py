@@ -9,7 +9,7 @@ class InventoryGUI(tk.Toplevel):
     def __init__(self, player: Player, room: Room, gui):
         super().__init__()
         self.title("Character Inventory")
-        self.geometry(f'{800}x{600}+400+50')
+        self.geometry(f'{1000}x{600}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
@@ -21,7 +21,7 @@ class InventoryGUI(tk.Toplevel):
         self.room = room
         self.gui = gui
 
-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+        self.original_image = Image.open('Images/Inventory2.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
@@ -32,9 +32,9 @@ class InventoryGUI(tk.Toplevel):
         self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 580,
                                                                anchor='sw', window=self.exit_button)
 
-        self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580, font=10, fill="#ff0d1d", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580, font=10, fill="#038787", justify="center",
                                    text=self.player.name + "'s Equipment", tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 580, font=10, fill="#ff0d1d", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 580, font=10, fill="#038787", justify="center",
                                    text=self.player.name + "'s Inventory", tags="inventory_title")
 
         self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
@@ -64,23 +64,23 @@ class InventoryGUI(tk.Toplevel):
     def equipment_grid(self):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
-            self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450, font=8, fill="#ff0d1d",
-                                       text="\nHead Armor: " + str(self.player.equipment["Head"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
-                                       + "\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
-                                       + "\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
-                                       + "\nLeg Armor: " + str(self.player.equipment["Legs"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
-                                       + "\nFoot Armor: " + str(self.player.equipment["Feet"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
-                                       + "\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"])
-                                       + ": +" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
-                                       + "\n\nTotal Attack: " + str(self.player.getAttack())
-                                       + "\nTotal Defense: " + str(self.player.getDefense())
-                                       + "\nCredits: " + str(self.player.stats["Credits"]),
-                                       tags="equipment", justify="center")
+            self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450, font=8, fill="#038787",
+                                       text="\nHead Armor....." + str(self.player.equipment["Head"].stats["name"])
+                                       + "+" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
+                                       + "\nArm Armor......." + str(self.player.equipment["Arms"].stats["name"])
+                                       + "+" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
+                                       + "\nChest Armor...." + str(self.player.equipment["Chest"].stats["name"])
+                                       + "+" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
+                                       + "\nLeg Armor......." + str(self.player.equipment["Legs"].stats["name"])
+                                       + "+" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
+                                       + "\nFoot Armor......" + str(self.player.equipment["Feet"].stats["name"])
+                                       + "+" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
+                                       + "\nWeapon..........." + str(self.player.equipment["Weapon"].stats["name"])
+                                       + "+" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
+                                       + "\n\nTotal Attack....." + str(self.player.getAttack())
+                                       + "\nTotal Defense.." + str(self.player.getDefense())
+                                       + "\nCredits............" + str(self.player.stats["Credits"]),
+                                       tags="equipment", justify="left")
 
     def inventory_grid(self):
         self.bg_canvas.delete("inventory")
@@ -95,7 +95,7 @@ class InventoryGUI(tk.Toplevel):
                                             + str(item.stats["defense"]) + " Defense")
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
-        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 450, font=10, fill="#ff0d1d", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 450, font=10, fill="#038787", justify="center",
                                    text=self.inventory_text, tags="inventory")
 
     def updateInventoryGui(self):

@@ -22,10 +22,15 @@ class FightGUI(tk.Toplevel):
         self.room = room
         self.enemies = room.enemies
 
+
+
+        self.roomName = room.__repr__()
+        
+
         self.gameHandler = gameHandler
         self.no_enemy = False
 
-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+        self.original_image = Image.open('Images/'+ self.roomName +'.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")

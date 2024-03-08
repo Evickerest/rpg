@@ -9,7 +9,7 @@ class CharacterGUI(tk.Toplevel):
     def __init__(self, player: Player, room: Room, gui):
         super().__init__()
         self.title("Character Screen")
-        self.geometry(f'{250}x{450}+400+50')
+        self.geometry(f'{300}x{500}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
@@ -22,15 +22,15 @@ class CharacterGUI(tk.Toplevel):
         self.gui = gui
 
         # Customize screen
-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+        self.original_image = Image.open('Images/Stats.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 60, 80,
+        self.exit_button = tk.Button(self, text="Cose", font="Time_New_Roman 15", command=self.destroy)
+        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 80, 475,
                                                                anchor='sw', window=self.exit_button)
 
         self.updateCharacterGui()
@@ -82,7 +82,7 @@ class CharacterGUI(tk.Toplevel):
 
     def updateCharacterGui(self):
         self.bg_canvas.delete("stats")
-        self.bg_canvas.create_text(self.width / 2 - 30, self.height - 220, font=10, fill="#ff0d1d", justify="center",
+        self.bg_canvas.create_text(self.width / 2 - 30, self.height - 225, font="Time_New_Roman 15", fill="#038787", justify="center",
                                    text=self.player.name + "'s Stats" +
                                    "\n\nHealth: " + str(self.player.stats["Health"]) +
                                    "/" + str(self.player.stats["Max Health"]) +
