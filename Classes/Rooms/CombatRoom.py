@@ -33,6 +33,7 @@ class CombatRoom(Room):
         self.name = self.generateName("Combat")
         self.roomType = "Combat"
         self.text = "You have entered a Combat room. Prepare to fight."
+        self.isBossRoom = False
 
     def generate_enemies(self):
         num = random.randint(1, 4)

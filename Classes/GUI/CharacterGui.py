@@ -22,12 +22,12 @@ class CharacterGUI(tk.Toplevel):
         self.gui = gui
 
         # Customize screen
-        # self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
-        # self.bg = ImageTk.PhotoImage(self.original_image)
+        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+        self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
-        # self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 60, 80,

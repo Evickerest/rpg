@@ -24,18 +24,40 @@ class GameHandler:
         self.GUI = GUI
     
     def enterRoom(self, room):
-        # if not self.map.currentRoom.cleared:
-        #     return
-
         self.map.setCurrentRoom( room )
         self.GUI.display_buttons()
+
+        if room.cleared:
+            self.GUI.enterRepeatedRoom(room)
+            return
+
         match room.roomType:
             case "Combat":
                 self.GUI.enterCombatRoom(room)
-                self.FightGUI = FightGUI(room, self.player)
+                self.FightGUI = FightGUI(room, self.player, self)
             case "Chest":
                 self.GUI.enterChestRoom(room)
-                self.ChestGUI = ChestGUI(room, self.player)
+                self.ChestGUI = ChestGUI(room, self.player, self)
             case "Shop":
                 self.GUI.enterShopRoom(room)
-                self.ShopGUI = ShopGUI(room, self.player)
+                self.ShopGUI = ShopGUI(room, self.player, self)
+            case "Boss":
+                self.GUI.enterBossRoom(room)
+                self.FightGUI = FightGUI(room, self.player, self)
+
+    def exitRoom(self, room):
+        room.clearRoom(True)
+
+        if room.roomType == "Boss":
+            self.GUI.exitBossRoom(room)
+        elif room.roomType == "Combat":
+            self.GUI.exitCombatRoom(room)
+        else:
+            self.GUI.exitRoom(room)
+        
+
+
+
+      
+
+

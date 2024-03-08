@@ -5,7 +5,7 @@ from PIL import ImageTk, Image
 
 
 class ChestGUI(tk.Toplevel):
-    def __init__(self, room: ChestRoom, player: Player):
+    def __init__(self, room: ChestRoom, player: Player, gameHandler):
         super().__init__()
         self.title("Chest Screen")
         self.geometry(f'{300}x{400}+400+50')
@@ -18,6 +18,8 @@ class ChestGUI(tk.Toplevel):
 
         self.player = player
         self.room = room
+
+        self.gameHandler = gameHandler
 
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
@@ -53,4 +55,5 @@ class ChestGUI(tk.Toplevel):
 
     def destroy(self):
         self.room.clearRoom(True)
+        self.gameHandler.exitRoom(self.room)
         super().destroy()

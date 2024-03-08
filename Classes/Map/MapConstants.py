@@ -1,13 +1,13 @@
+from Classes.Rooms.BossRoom import BossRoom
 from Classes.Rooms.ChestRoom import ChestRoom
 from Classes.Rooms.ShopRoom import ShopRoom
 from Classes.Rooms.CombatRoom import CombatRoom
+from Classes.Rooms.StartRoom import StartRoom
 
 class MapConstants:
-    TOTAL_ROOMS = 20
-
-    # Completely Arbitrary
-    MAP_HEIGHT = 50
-    MAP_WIDTH = 50
+    TOTAL_ROOMS = 15
+    CHANCE_FOR_NEW_EDGE = 0.25
+    START_ROOM = StartRoom()
 
     ROOM_TYPES = {
         "Combat": {
@@ -15,13 +15,16 @@ class MapConstants:
             "room": CombatRoom
         },
         "Chest": {
-            "desired_number": 9,
+            "desired_number": 2,
             "room": ChestRoom
         },
         "Shop": {
-            "desired_number": 1,
+            "desired_number": 2,
             "room": ShopRoom
+        },
+        "Boss": {
+            "desired_number": 1,
+            "room": BossRoom
         }
-    }
 
-    CHANCE_FOR_NEW_EDGE = 0.2
+    }

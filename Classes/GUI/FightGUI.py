@@ -7,7 +7,7 @@ from PIL import ImageTk, Image
 
 
 class FightGUI(tk.Toplevel):
-    def __init__(self, room: CombatRoom, player: Player):
+    def __init__(self, room: CombatRoom, player: Player, gameHandler):
         super().__init__()
         self.title("Combat Screen")
         self.geometry(f'{800}x{600}+400+50')
@@ -22,6 +22,7 @@ class FightGUI(tk.Toplevel):
         self.room = room
         self.enemies = room.enemies
 
+        self.gameHandler = gameHandler
         self.no_enemy = False
 
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
@@ -33,8 +34,10 @@ class FightGUI(tk.Toplevel):
 
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
                                    text=self.player.name + "'s Side", tags="equipment_title")
+        
+        t = "Enemies' Side" if not self.room.isBossRoom else "Boss Side"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
-                                   text="Enemies' Side", tags="Enemies")
+                                   text=t, tags="Enemies")
 
         self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack', font='Time_New_Roman 8')
         self.enemy_entry_text = self.bg_canvas.create_window(50, 430, anchor='sw',
@@ -173,5 +176,6 @@ class FightGUI(tk.Toplevel):
 
     def destroy(self):
         if not self.enemies:
+            self.gameHandler.exitRoom(self.room)
             self.room.clearRoom(True)
             super().destroy()
