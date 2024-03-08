@@ -26,6 +26,7 @@ class CombatRoom(Room):
         self.player = None
         if isinstance(args, Player):
             self.player = args
+            self.mon_lv = self.player.stats["Level"]
         else:
             self.mon_lv = 1
         self.enemies = []
