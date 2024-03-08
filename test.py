@@ -2,6 +2,10 @@ import unittest
 from Tests import Map_tests
 from Tests.Item_tests import *
 from Tests.Character_tests import *
+from Tests.Room_tests import *
+from Tests.ShopRoom_tests import *
+from Tests.ChestRoom_tests import *
+from Tests.CombatRoom_tests import *
 from Classes.Item import *
 
 
@@ -36,6 +40,25 @@ test_suite.addTests([PlayerTests('test_1make_player'), PlayerTests('test_2player
 test_suite.addTests([EnemyTests('test_1make_enemy'), EnemyTests('test_2enemy_stats'),
                      EnemyTests('test_3take_damage'), EnemyTests('test_4updateDefense'),
                      EnemyTests('test_5updateAttack')])
+# Room Tests
+test_suite.addTests([RoomTests('test_1make_room'), RoomTests('test_2room_stats'),
+                     RoomTests('test_3setCoordinates'), RoomTests('test_4getCoordinates'),
+                     RoomTests('test_5clearRoom'), RoomTests('test_6getCleared'),
+                     RoomTests('test_7createAdjacency'), RoomTests('test_8createAdjacency_AlreadyAdjacent'),
+                     RoomTests('test_9AddAdjacentRoom'), RoomTests('test_10getAdjacentRooms'),
+                     RoomTests('test_11generateName'), RoomTests('test_12__repr__'),
+                     RoomTests('test_13__eq__')])
+# ChestRoom Tests
+test_suite.addTests([ChestRoomTests('test_1make_chestroom'), ChestRoomTests('test_2chestroom_stats')])
+# CombatRoom Tests
+test_suite.addTests([CombatRoomTests('test_1make_combatroom_no_player'),
+                     CombatRoomTests('test_2make_combatroom_player'),
+                     CombatRoomTests('test_3combatroom_stats_no_player'),
+                     CombatRoomTests('test_4combatroom_stats_player'),
+                     CombatRoomTests('test_5generate_enemies_no_player'),
+                     CombatRoomTests('test_6generate_enemies_player')])
+# ShopRoom Tests
+test_suite.addTests([ShopRoomTests('test_1make_shoproom'), ShopRoomTests('test_2shoproom_stats')])
 # ...
 
 runner = unittest.TextTestRunner(verbosity=2)

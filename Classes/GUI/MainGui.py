@@ -221,7 +221,7 @@ class MainGUI(tk.Tk):
         self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 20", command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.screenWidth - 90, self.screenHeight - 20, anchor='sw',window=self.exit_button)
         
-        self.bg_canvas.create_text(450, 350, width=500, font=('Time_New_Roman', 15), fill="#0EA4A1", justify="left", anchor="w",
+        self.bg_canvas.create_text(450, 350, width=500, font=('Time_New_Roman', 15), fill="#FFFFFF", justify="left", anchor="w",
                                 text="\nYou are ready to start cleaning up the wreckage."
                                     " Which wreckage should you visit first?"
                                     " Choose a location on the map.\n", tags="game_text")
@@ -230,6 +230,9 @@ class MainGUI(tk.Tk):
         self.map.getCurrentRoom().clearRoom(True)
         # self.map.printMap()
         # self.display_image_buttons()
+
+        self.bg_canvas.create_rectangle(800,800,900,900,fill="#0865A0")
+
         self.display_buttons()
 
         
@@ -241,43 +244,46 @@ class MainGUI(tk.Tk):
         self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', relief=tk.SUNKEN, borderwidth=3)
         self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
 
-
         # for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
-        #     callback = lambda room: lambda: self.gameHandler.enterRoom(room)
-        #     button_text = adjacentRoom.name  # Button text
-
-        #     # Create a button with a lambda function to pass the button_text as an argument
-        #     button = tk.Button(self.button_frame, font=5, height=1, text=button_text, command=callback(adjacentRoom))
-        #     button.pack(pady=5)
+        #     callback = lambda room: lambda : self.handleButtonInput(room)
+        #     button = tk.Button(self, font=5, height=1, text=(adjacentRoom.name), command=callback(adjacentRoom))
+        #     self.bg_canvas.create_window(50, offset, anchor='nw',window=button,tags="button")
         #     offset += 50
+        
         for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
-            test = lambda room_name=adjacentRoom.name: lambda: self.clicked_button(room_name)
+            test = lambda room: lambda : self.handleButtonInput(room)
             button_text = adjacentRoom.name  # Button text
 
             # Create a button with a lambda function to pass the button_text as an argument
-            button = tk.Button(self.button_frame, font=5, height=1, text=button_text, command=test())
+            button = tk.Button(self.button_frame, font=5, height=1, text=button_text, command=test(adjacentRoom), )
             button.pack(pady=5)
             offset += 50
             
+    def handleButtonInput(self, room):
+        self.gameHandler.enterRoom(room)
+        self.clicked_button(room.name)
+
 
     def clicked_button(self, button_name):
         # list of current Rooms
+        button_name = button_name.strip()
         button_images = [ "Weapons Bay", "Main Cabin", "Elevator 1", "Storage Area", "Kitchen", "Barracks", "Cafeteria",
-            "Life Pod 1", "Cabin 2", "Showers ", "Cabin 1", "Docking Port", "Bridge", "Elevator 3", "Elevator 2", "Cabin 3",
+            "Life Pod 1", "Cabin 2", "Showers", "Cabin 1", "Docking Port", "Bridge", "Elevator 3", "Elevator 2", "Cabin 3",
             "Captains Cabin", "Hangar", "Life Pod 2", "Engine Room"]
-        for getCurrentRoom in button_images:
 
-            if getCurrentRoom == button_name:
-                self.original_image = Image.open('Map/Set/'+ getCurrentRoom + '.jpg').resize((300, 400))
-                self.bg = ImageTk.PhotoImage(self.original_image)
-                self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
-            else: 
-                
-                pass
+        if button_name in button_images:
+            self.original_image = Image.open('Map/Set/'+ button_name + '.jpg').resize((300, 400))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+            self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
+        else: 
+            print(f"did not find image at 'Map/Set/{button_name}.jpg'")
 
 
     def animate_text(self, text_id, text):
         self.textPrinter.animate_text(text, text_id, tk.END)
+
+    def enterRepeatedRoom(self, room):
+            self.textPrinter.animate_text(f"\n{room} has already been entered.", "game_text", tk.END)
 
     def enterChestRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains a chest.\n",
@@ -285,7 +291,7 @@ class MainGUI(tk.Tk):
         self.map = self.gameHandler.getMap()
         # self.map.printMap()
         self.display_buttons()
-        print(self.map.getCurrentRoom().getAdjacentRooms())
+        # print(self.map.getCurrentRoom().getAdjacentRooms())
 
     def enterShopRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains a shop.\n",
@@ -294,7 +300,7 @@ class MainGUI(tk.Tk):
         # self.map.printMap()
         self.display_buttons()
         self.ready = True
-        print(self.map.getCurrentRoom().getAdjacentRooms())
+        # print(self.map.getCurrentRoom().getAdjacentRooms())
 
     def enterCombatRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains combat.\n",
@@ -302,7 +308,24 @@ class MainGUI(tk.Tk):
         self.map = self.gameHandler.getMap()
         # self.map.printMap()
         self.display_buttons()
-        print(self.map.getCurrentRoom().getAdjacentRooms())
+        # print(self.map.getCurrentRoom().getAdjacentRooms())
+
+
+    def enterBossRoom(self, room):
+        self.textPrinter.animate_text(f"\n You have entered {room} which is the boss room", "game_text", tk.END)
+
+    def exitBossRoom(self, room):
+        self.textPrinter.animate_text(f"\nCongratulations for beating the boss!", "game_text", tk.END)
+        
+    def exitRoom(self, room):
+        self.textPrinter.animate_text(f"\nYou have exited {room}.", "game_text", tk.END)
+    
+    def exitCombatRoom(self, room):
+        self.textPrinter.animate_text(f"\nYou have beaten the enemies in {room}", "game_text", tk.END)
+
+
+
+
 
     def openInventoryGUI(self):
         if self.ready and self.map.getCurrentRoom().getCleared():
@@ -315,41 +338,3 @@ class MainGUI(tk.Tk):
             self.ready = False
             self.map.getCurrentRoom().clearRoom(False)
             CharacterGUI(self.player, self.map.getCurrentRoom(), self)
-
-
-    # def run_room_event(self, room: Dungeon):
-    #     print("room type", room.type)
-    #     if room.type == "combat":
-    #         self.animate_text("\ngame_text", f"\nYou see an enemy in {room.name}. \n\n"
-    #                           + "Default" + "is charging towards you."
-    #                           "\n Do you engage or run away? Fight by pressing the Fight Button."
-    #                           " Flee by pressing the Flee Button.\n")
-    #         fight_button = tk.Button(self, font=5, height=1, text="Fight",
-    #                                  command=lambda: FightGUI(room, self.player))
-    #         self.bg_canvas.create_window(400, 475, anchor='nw', window=fight_button, tags="fight")
-    #         leave_button = tk.Button(self, font=5, height=1, text="Run Away",
-    #                                  command=lambda: self.event_finish("fight", "flee"))
-    #         self.bg_canvas.create_window(500, 475, anchor='nw', window=leave_button, tags="flee")
-    #     elif room.type == "rest":
-    #         self.animate_text("game_text", "\nThis is room is restful.\n")
-    #     elif room.type == "shop":
-    #         self.animate_text("game_text", f"\nYou see an rickety salvage machine in {room.name}. \n\n"
-    #                           + "\n Do you take a closer look? Shop by pressing the Shop Button."
-    #                           " Leave it alone by pressing the Leave Button.\n")
-    #         shop_button = tk.Button(self, font=5, height=1, text="Shop",
-    #                                  command=lambda: ShopGUI(room, self.player))
-    #         self.bg_canvas.create_window(400, 475, anchor='nw', window=shop_button, tags="shop")
-    #         leave_button = tk.Button(self, font=5, height=1, text="Run Away",
-    #                                  command=lambda: self.event_finish("shop", "leave"))
-    #         self.bg_canvas.create_window(500, 475, anchor='nw', window=leave_button, tags="leave")
-    #     elif room.type == "chest":
-    #          self.animate_text("game_text", "\nThis is a chest room\n")
-    #     elif room.type == "empty":
-    #          self.animate_text("game_text", "\nThis is a boring room\n")
-    #     elif room.type == "boss":
-    #          self.animate_text("game_text", "\nYou have encountered a boss\n")
-    #     else:
-    #         self.animate_text("game_text", "\nthis is some default text\n")
-
-    # def event_finish(self, tag1, *args):
-    #     self.bg_canvas.delete(tag1, *args)

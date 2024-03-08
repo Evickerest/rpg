@@ -6,7 +6,7 @@ import random
 
 
 class ShopGUI(tk.Toplevel):
-    def __init__(self, room: ShopRoom, player: Player):
+    def __init__(self, room: ShopRoom, player: Player, gameHandler):
         super().__init__()
         self.title("Shop Inventory")
         self.geometry(f'{1000}x{700}+400+50')
@@ -19,6 +19,8 @@ class ShopGUI(tk.Toplevel):
 
         self.player = player
         self.shop = room
+
+        self.gameHandler = gameHandler
 
         self.original_image = Image.open('Images/ShopStore.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
@@ -182,4 +184,5 @@ class ShopGUI(tk.Toplevel):
 
     def destroy(self):
         self.shop.clearRoom(True)
+        self.gameHandler.exitRoom(self.shop)
         super().destroy()

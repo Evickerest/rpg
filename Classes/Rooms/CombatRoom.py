@@ -26,6 +26,7 @@ class CombatRoom(Room):
         self.player = None
         if isinstance(args, Player):
             self.player = args
+            self.mon_lv = self.player.stats["Level"]
         else:
             self.mon_lv = 1
         self.enemies = []
@@ -33,6 +34,7 @@ class CombatRoom(Room):
         self.name = self.generateName("Combat")
         self.roomType = "Combat"
         self.text = "You have entered a Combat room. Prepare to fight."
+        self.isBossRoom = False
 
     def generate_enemies(self):
         num = random.randint(1, 4)

@@ -19,7 +19,7 @@ class Map:
         self.generateRandomRooms()
         self.connectEveryRoomTogether()
         self.primsAlgorithm()
-        self.setCurrentRoom(self.rooms[0])
+        self.setCurrentRoom(MapConstants.START_ROOM)
         self.printMap()
 
     def getCurrentRoom(self):
@@ -31,19 +31,20 @@ class Map:
     def generateRandomRooms(self):
         self.rooms = []
 
-        counter = 1;
+        counter = 1
         # Loop through each room type
         for roomType in MapConstants.ROOM_TYPES:
             # Loop for the desired number of rooms
             for _ in range(MapConstants.ROOM_TYPES[roomType]["desired_number"]):
-                randomX = random.randint(1, MapConstants.MAP_WIDTH)
-                randomY = random.randint(1, MapConstants.MAP_HEIGHT)
+                randomX = random.random()
+                randomY = random.random()
 
                 # Create room and set coordinates
                 room = MapConstants.ROOM_TYPES[roomType]["room"]()
+                # room.image = randomImage()
 
                 # TODO: delete later
-                room.name = str(counter)
+                room.number = str(counter)
                 counter += 1
 
                 room.setCoordinates(randomX, randomY)
@@ -80,7 +81,7 @@ class Map:
             mst.append(minimumEdge)
 
             # Throw random edges in
-            while random.random() < 0.5 and len(availableEdges) != 0:
+            while random.random() < MapConstants.CHANCE_FOR_NEW_EDGE and len(availableEdges) != 0:
                 randomEdge = random.choice(availableEdges)
                 mst.append( randomEdge)
 
@@ -88,11 +89,12 @@ class Map:
         # Edges and adjacency are kinda redundant tbh
         for edge in mst:
             edge.rooms[0].createAdjacency(edge.rooms[1])
+
+        # Create Start room
+        MapConstants.START_ROOM.addAdjacentRoom(self.rooms[0])
         
 
     def printMap(self):
-        """
         for room in self.rooms:
             print(f"{room} is adjacent to: {room.getAdjacentRooms()}")
-        """
-        return
+        
