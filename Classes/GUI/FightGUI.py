@@ -139,7 +139,7 @@ class FightGUI(tk.Toplevel):
                         self.enemies.remove(target)
                         target.setLiving(False)
                         self.enemy_entry_box.delete(0,100)
-                        self.player.stats["XP"] += target.stats["Level"] * 10
+                        self.player.stats["XP"] += int(target.stats["Level"] * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
                     print(self.player.name + " attacked " + str(target.name))
                     self.resolve_player_turn()

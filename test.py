@@ -1,5 +1,6 @@
 import unittest
 from Tests import Map_tests
+from Tests.Edge_tests import *
 from Tests.Item_tests import *
 from Tests.Character_tests import *
 from Tests.Room_tests import *
@@ -12,7 +13,12 @@ from Classes.Item import *
 test_suite = unittest.TestSuite()
 
 # Add to suite for each method in test class
-test_suite.addTest(Map_tests.Map_tests('test1'))
+
+# Map Tests
+test_suite.addTests([Map_tests.Map_tests('test1'), Map_tests.Map_tests('test2')])
+
+# Edge Tests
+test_suite.addTests([Edge_tests('test1'), Edge_tests('test2'), Edge_tests('test3')])
 
 # Item Tests
 test_suite.addTests([ItemTests('test_1load_items1'), ItemTests('test_2load_items2'),
@@ -39,7 +45,7 @@ test_suite.addTests([PlayerTests('test_1make_player'), PlayerTests('test_2player
 # Enemy Tests
 test_suite.addTests([EnemyTests('test_1make_enemy'), EnemyTests('test_2enemy_stats'),
                      EnemyTests('test_3take_damage'), EnemyTests('test_4updateDefense'),
-                     EnemyTests('test_5updateAttack')])
+                     EnemyTests('test_5updateAttack'), EnemyTests('test_6updateStats')])
 # Room Tests
 test_suite.addTests([RoomTests('test_1make_room'), RoomTests('test_2room_stats'),
                      RoomTests('test_3setCoordinates'), RoomTests('test_4getCoordinates'),
@@ -51,12 +57,10 @@ test_suite.addTests([RoomTests('test_1make_room'), RoomTests('test_2room_stats')
 # ChestRoom Tests
 test_suite.addTests([ChestRoomTests('test_1make_chestroom'), ChestRoomTests('test_2chestroom_stats')])
 # CombatRoom Tests
-test_suite.addTests([CombatRoomTests('test_1make_combatroom_no_player'),
-                     CombatRoomTests('test_2make_combatroom_player'),
-                     CombatRoomTests('test_3combatroom_stats_no_player'),
-                     CombatRoomTests('test_4combatroom_stats_player'),
-                     CombatRoomTests('test_5generate_enemies_no_player'),
-                     CombatRoomTests('test_6generate_enemies_player')])
+test_suite.addTests([CombatRoomTests('test_1make_combatroom'),
+                     CombatRoomTests('test_2combatroom_stats'),
+                     CombatRoomTests('test_3generate_enemies'),
+                     CombatRoomTests('test_4lv_enemies')])
 # ShopRoom Tests
 test_suite.addTests([ShopRoomTests('test_1make_shoproom'), ShopRoomTests('test_2shoproom_stats')])
 # ...

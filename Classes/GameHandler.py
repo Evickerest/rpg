@@ -33,6 +33,8 @@ class GameHandler:
 
         match room.roomType:
             case "Combat":
+                room.player = self.player
+                room.lv_enemies()
                 self.GUI.enterCombatRoom(room)
                 self.FightGUI = FightGUI(room, self.player, self)
             case "Chest":

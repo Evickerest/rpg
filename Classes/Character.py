@@ -212,7 +212,7 @@ class Player(Character):
 
     def take_damage(self, attacker: Character):
         damage = attacker.getAttack()
-        self.stats["Health"] -= damage
+        self.stats["Health"] -= int(damage)
 
 
 class Enemy(Character):
@@ -221,9 +221,7 @@ class Enemy(Character):
         self.stats["Level"] = enemy_lv
         self.name = name
         self.stats["Stat Points"] = self.stats["Level"] * 5
-        while self.stats["Stat Points"] > 1:
-            stat = random.choice(['Strength', 'Dexterity', 'Vitality', 'Intelligence'])
-            self.upgradeStats(stat, 1)
+        self.updateStats()
         self.updateAttack()
         self.updateDefense()
 
@@ -232,10 +230,15 @@ class Enemy(Character):
         damage = item.getDamageDealt(self) + attacker.getAttack()
         if damage < 1:
             damage = 1
-        self.stats["Health"] -= damage
+        self.stats["Health"] -= int(damage)
 
     def updateDefense(self):
-        self.defense = int((self.stats["Vitality"] + self.stats["Level"]) / 5)
+        self.defense = int((self.stats["Vitality"] / 5) + self.stats["Level"])
 
     def updateAttack(self):
-        self.attack = int((self.stats["Strength"] + self.stats["Level"]) / 5)
+        self.attack = int((self.stats["Strength"] / 5) + self.stats["Level"])
+
+    def updateStats(self):
+        while self.stats["Stat Points"] > 1:
+            stat = random.choice(['Strength', 'Dexterity', 'Vitality', 'Intelligence'])
+            self.upgradeStats(stat, 1)
