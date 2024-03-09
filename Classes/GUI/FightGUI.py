@@ -21,16 +21,11 @@ class FightGUI(tk.Toplevel):
         self.player = player
         self.room = room
         self.enemies = room.enemies
-
-
-
         self.roomName = room.__repr__()
-        
-
         self.gameHandler = gameHandler
         self.no_enemy = False
 
-        self.original_image = Image.open('Images/'+ self.roomName +'.jpg').resize((self.width, self.height))
+        self.original_image = Image.open('Images/' + self.roomName + '.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
@@ -101,14 +96,14 @@ class FightGUI(tk.Toplevel):
         if len(self.enemies) > 0:
             for enemy in self.enemies:
                 self.enemies_txt += ("\n" + str(self.count) + ") " + str(enemy.name) + "\n  "
-                                     + "Health: " + str(enemy.stats["Health"]) + "\n  "
-                                     + str(enemy.getAttack()) + " Damage\n  "
-                                     + str(enemy.getDefense()) + " Defense\n  "
-                                     + "LV: " + str(enemy.stats["Level"]))
+                                     + "LV: " + str(enemy.stats["Level"])
+                                     + " | Health: " + str(enemy.stats["Health"]) + "\n  "
+                                     + str(enemy.getAttack()) + " Damage | "
+                                     + str(enemy.getDefense()) + " Defense")
                 self.count += 1
         else:
             self.enemies_txt = "No Enemies Remain"
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 450, font=8, fill="#ff0d1d", justify="center",
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 430, font=8, fill="#ff0d1d", justify="center",
                                    text=self.enemies_txt, tags="enemies")
 
     def read_entry_box(self) -> None | str:
@@ -117,7 +112,7 @@ class FightGUI(tk.Toplevel):
             self.enemy_entry = self.enemy_entry_box.get()
         return self.enemy_entry
 
-    def enemy_attack(self, attacker: Character, target: Character):
+    def enemy_attack(self, attacker: Character, target: Player):
         if target.living:
             target.take_damage(attacker)
         if target.stats["Health"] < 1:
@@ -138,7 +133,7 @@ class FightGUI(tk.Toplevel):
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
                         target.setLiving(False)
-                        self.enemy_entry_box.delete(0,100)
+                        self.enemy_entry_box.delete(0, 100)
                         self.player.stats["XP"] += int(target.stats["Level"] * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
                     # print(self.player.name + " attacked " + str(target.name))
@@ -153,7 +148,6 @@ class FightGUI(tk.Toplevel):
         if isinstance(defender, Player):
             self.resolve_player_turn()
         self.updateCombatGUI()
-
 
     def use_medkit(self):
         self.player.use_medkits()

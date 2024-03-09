@@ -29,7 +29,7 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Cose", font="Time_New_Roman 15", command=self.destroy)
+        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 15", command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 80, 475,
                                                                anchor='sw', window=self.exit_button)
 

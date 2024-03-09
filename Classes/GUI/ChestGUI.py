@@ -35,7 +35,7 @@ class ChestGUI(tk.Toplevel):
                                                                    window=self.loot_button,
                                                                    tags="loot_button")
 
-            self.scrap_button = tk.Button(self, text=f"Scrap It",
+            self.scrap_button = tk.Button(self, text=f"Scrap It For " + str(self.room.item.stats["value"]) + " Credits",
                                           font='Time_New_Roman 8', command=lambda: self.scrap_chest())
             self.scrap_button_window = self.bg_canvas.create_window(100, 300, anchor='sw',
                                                                     window=self.scrap_button,

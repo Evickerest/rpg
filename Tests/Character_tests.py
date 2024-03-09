@@ -10,6 +10,7 @@ class CharacterTests(unittest.TestCase):
     def test_1make_character(self):
         x = Character("Bob", None)
         self.assertTrue(isinstance(x, Character))
+
     def test_2character_stats(self):
         x = Character("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
                       "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0})
@@ -76,15 +77,15 @@ class CharacterTests(unittest.TestCase):
         x.defend_action()
         self.assertEqual(x.getDefense(), 15)
 
-class PlayerTests(unittest.TestCase):
 
+class PlayerTests(unittest.TestCase):
     def test_1make_player(self):
         x = Player("Bob", None)
         self.assertTrue(isinstance(x, Player))
 
     def test_2player_stats(self):
         x = Player("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
-                                  "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0})
+                   "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0})
         self.assertEqual(x.stats["Strength"], 5)
         self.assertEqual(x.stats["Dexterity"], 5)
         self.assertEqual(x.stats["Vitality"], 5)
@@ -263,6 +264,9 @@ class PlayerTests(unittest.TestCase):
         player = Player("Bob", None)
         player.use_medkits()
         self.assertEqual(player.stats["Medkits"], 4)
+        player.stats["Health"] = 1
+        player.use_medkits()
+        self.assertTrue(player.stats["Health"] > 1)
         player.stats["Medkits"] = 0
         player.use_medkits()
         self.assertEqual(player.stats["Medkits"], 0)
@@ -304,8 +308,8 @@ class PlayerTests(unittest.TestCase):
         player.take_damage(player)
         self.assertTrue(player.stats["Health"] < health)
 
-class EnemyTests(unittest.TestCase):
 
+class EnemyTests(unittest.TestCase):
     def test_1make_enemy(self):
         enemy = Enemy("Bob", None, 10)
         self.assertTrue(isinstance(enemy, Enemy))
@@ -348,6 +352,5 @@ class EnemyTests(unittest.TestCase):
         enemy.stats["Stat Points"] += 10
         enemy.updateStats()
         final_stat_sum = (enemy.stats["Strength"] + enemy.stats["Dexterity"] +
-                    enemy.stats["Vitality"] + enemy.stats["Intelligence"])
+                          enemy.stats["Vitality"] + enemy.stats["Intelligence"])
         self.assertTrue(final_stat_sum > stat_sum)
-

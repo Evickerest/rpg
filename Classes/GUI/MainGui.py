@@ -27,7 +27,6 @@ class MainGUI(tk.Tk):
         self.screenWidth = 1300
         self.screenHeight = 900
 
-
         self.player = player
         self.name = None
         self.gameHandler = gameHandler
@@ -224,6 +223,7 @@ class MainGUI(tk.Tk):
         self.bg_canvas.create_text(1010,400, width=300, font=('Arial', 20), fill="#FFFFFF", anchor="w", text="Choose Next Location")
 
         self.map = self.gameHandler.getMap()
+        self.gameHandler.enterRoom(self.map.getCurrentRoom())
         self.display_buttons()
 
      

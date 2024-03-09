@@ -30,7 +30,7 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 8 bold", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 680,
+        self.exit_button_window = self.bg_canvas.create_window(self.width - 100, 50,
                                                                anchor='sw', window=self.exit_button)
 
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=8, fill="#7A185F", justify="left",

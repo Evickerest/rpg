@@ -181,7 +181,9 @@ class Player(Character):
             if tmp >= self.stats["Max Health"]:
                 amt = self.stats["Max Health"] - self.stats["Health"]
                 self.stats["Health"] = self.stats["Max Health"]
-            print(self.name + " used a med kit and healed " + str(amt) + " health.")
+            else:
+                self.stats["Health"] = tmp
+            print(self.name + " used a med kit and healed for " + str(amt) + " health.")
             return amt
         else:
             print("No med kits left.")
