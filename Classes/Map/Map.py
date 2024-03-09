@@ -20,7 +20,8 @@ class Map:
         self.connectEveryRoomTogether()
         self.primsAlgorithm()
         self.setCurrentRoom(MapConstants.START_ROOM)
-        self.printMap()
+        self.assignRandomImages()
+        # self.printMap()
 
     def getCurrentRoom(self):
         return self.currentRoom
@@ -81,9 +82,12 @@ class Map:
             mst.append(minimumEdge)
 
             # Throw random edges in
-            while random.random() < MapConstants.CHANCE_FOR_NEW_EDGE and len(availableEdges) != 0:
+            while (random.random() < MapConstants.CHANCE_FOR_NEW_EDGE and len(availableEdges) != 0):
+                
                 randomEdge = random.choice(availableEdges)
-                mst.append( randomEdge)
+                # Max of 6 room connections per room
+                if (len(randomEdge.rooms[0].getAdjacentRooms()) < 6 and len(randomEdge.rooms[1].getAdjacentRooms()) < 6):
+                    mst.append( randomEdge)
 
         # From what was created from prim's algorithm, create adjacency between rooms
         # Edges and adjacency are kinda redundant tbh
@@ -94,7 +98,18 @@ class Map:
         MapConstants.START_ROOM.addAdjacentRoom(self.rooms[0])
         
 
-    def printMap(self):
+    def assignRandomImages(self):
+        button_images = [ "Weapons Bay", "Main Cabin", "Elevator 1", "Storage Area", "Kitchen", "Barracks", "Cafeteria",
+            "Life Pod 1", "Cabin 2", "Showers", "Cabin 1", "Docking Port", "Bridge", "Elevator 3", "Elevator 2", "Cabin 3",
+            "Captains Cabin", "Hangar", "Life Pod 2", "Engine Room"]
+        
+        random.shuffle( button_images )
+
         for room in self.rooms:
-            print(f"{room} is adjacent to: {room.getAdjacentRooms()}")
+            room.setImagePath(f"Map/Set/{button_images.pop()}.jpg")
+
+    def printMap(self):
+        print(f"{MapConstants.START_ROOM} is adjacent to: {MapConstants.START_ROOM.getAdjacentRooms()}\n\n")
+        for room in self.rooms:
+            print(f"{room} is adjacent to: {room.getAdjacentRooms()}\n\n")
         

@@ -9,6 +9,7 @@ class Room:
         self.hasEntered = False
         self.cleared = False
         self.name = None
+        self.mapImagePath = None
 
         self.edges = []
         self.posX = None
@@ -26,6 +27,9 @@ class Room:
 
     def getCleared(self):
         return self.cleared
+    
+    def setImagePath(self, path):
+        self.mapImagePath = path
 
     def createAdjacency(self, otherRoom):
         if otherRoom not in self.adjacentRooms:

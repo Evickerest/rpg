@@ -126,7 +126,7 @@ class FightGUI(tk.Toplevel):
         if isinstance(attacker, Player):
             self.resolve_player_turn()
         self.updateCombatGUI()
-        print(attacker.name + " attacked " + str(target.name))
+        # print(attacker.name + " attacked " + str(target.name))
 
     def player_attack(self):
         to_target = self.read_entry_box()
@@ -139,12 +139,13 @@ class FightGUI(tk.Toplevel):
                         self.enemies.remove(target)
                         target.setLiving(False)
                         self.enemy_entry_box.delete(0,100)
-                        self.player.stats["XP"] += target.stats["Level"] * 10
+                        self.player.stats["XP"] += int(target.stats["Level"] * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
-                    print(self.player.name + " attacked " + str(target.name))
+                    # print(self.player.name + " attacked " + str(target.name))
                     self.resolve_player_turn()
         else:
-            print("That enemy doesn't exist")
+            # print("That enemy doesn't exist")
+            pass
         self.updateCombatGUI()
 
     def defend(self, defender: Character):

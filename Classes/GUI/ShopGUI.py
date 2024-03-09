@@ -60,6 +60,11 @@ class ShopGUI(tk.Toplevel):
         self.sell_button_window = self.bg_canvas.create_window(650, 500, anchor='sw',
                                                                window=self.sell_button, tags="sell_button")
 
+        self.buy_medkit_button = tk.Button(self, text='Buy Medkit\nFor 3 Credits',
+                                     font='Time_New_Roman 8 bold', command=lambda: self.buyMedkits())
+        self.buy_medkit_button_window = self.bg_canvas.create_window(850, 500, anchor='sw',
+                                                               window=self.buy_medkit_button, tags="medkit_button")
+
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start', font='Time_New_Roman 10')
         self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 550, anchor='sw',
                                                             window=self.item_entry_text, tags="item_entry_text")
@@ -73,7 +78,11 @@ class ShopGUI(tk.Toplevel):
     def equipment_grid(self):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
+<<<<<<< HEAD
             self.bg_canvas.create_text(self.width / 2 - 300, self.height - 450, font="Time_New_Roman 12 bold", fill="#05FF50", justify="left",
+=======
+            self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450, font="Time_New_Roman 12 bold", fill="#7A185F", justify="left",
+>>>>>>> 51cd0a2174be4336ed8d9e36bdd68101161ef21d
                                        text="\nHead Armor:\t" + str(self.player.equipment["Head"].stats["name"])
                                        + ":\t+" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
                                        + "\nArm Armor:\t" + str(self.player.equipment["Arms"].stats["name"])
@@ -88,6 +97,7 @@ class ShopGUI(tk.Toplevel):
                                        + ":\t+" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
                                        + "\n\nTotal Attack:\t" + str(self.player.getAttack())
                                        + "\nTotal Defense:\t" + str(self.player.getDefense())
+                                       + "\nMedkits:\t" + str(self.player.med_kits)
                                        + "\nCredits:\t\t" + str(self.player.stats["Credits"]),tags="equipment")
 
     def inventory_grid(self):
@@ -175,6 +185,12 @@ class ShopGUI(tk.Toplevel):
                     self.player.stats["Credits"] += item.stats["value"]
                     self.shop.items.append(item)
                     self.updateShopGui()
+
+    def buyMedkits(self):
+        if self.player.stats["Credits"] >= 3:
+            self.player.med_kits = 1
+            self.player.stats["Credits"] -= 3
+            self.updateShopGui()
 
     def read_entry_box(self) -> None | str:
         self.item_entry = None
