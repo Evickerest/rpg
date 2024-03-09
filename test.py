@@ -7,26 +7,24 @@ from Tests.Room_tests import *
 from Tests.ShopRoom_tests import *
 from Tests.ChestRoom_tests import *
 from Tests.CombatRoom_tests import *
+from Tests.StartRoom_tests import *
+from Tests.BossRoom_tests import *
 from Classes.Item import *
 
 
 test_suite = unittest.TestSuite()
 
 # Add to suite for each method in test class
-
 # Map Tests
 test_suite.addTests([Map_tests.Map_tests('test1'), Map_tests.Map_tests('test2')])
-
 # Edge Tests
 test_suite.addTests([Edge_tests('test1'), Edge_tests('test2'), Edge_tests('test3')])
-
 # Item Tests
 test_suite.addTests([ItemTests('test_1load_items1'), ItemTests('test_2load_items2'),
                      ItemTests('test_3load_items3'), ItemTests('test_4load_items4'),
                      ItemTests('test_5make_item1'), ItemTests('test_6item_stats1'),
                      ItemTests('test_7item_assign_stats'), ItemTests('test_8item_getDamage'),
                      ItemTests('test_9item_notitem')])
-
 # Character Tests
 test_suite.addTests([CharacterTests('test_1make_character'), CharacterTests('test_2character_stats'),
                      CharacterTests('test_3set_living'), CharacterTests('test_4addItem'),
@@ -63,6 +61,10 @@ test_suite.addTests([CombatRoomTests('test_1make_combatroom'),
                      CombatRoomTests('test_4lv_enemies')])
 # ShopRoom Tests
 test_suite.addTests([ShopRoomTests('test_1make_shoproom'), ShopRoomTests('test_2shoproom_stats')])
+# StartRoom Tests
+test_suite.addTests([StartRoomTests('test_1make_startroom'), StartRoomTests('test_2startroom_stats')])
+# BossRoom Tests
+test_suite.addTests([BossRoomTests('test_1make_bossroom'), BossRoomTests('test_2bossroom_stats')])
 # ...
 
 runner = unittest.TextTestRunner(verbosity=2)
