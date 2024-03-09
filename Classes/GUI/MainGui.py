@@ -181,8 +181,8 @@ class MainGUI(tk.Tk):
 
 
         # Create Menu Background
-        menu_image = Image.open('Images/info_bg.png').resize((300, 300))
-        self.menu_bg = ImageTk.PhotoImage(menu_image)
+        self.menu_image = Image.open('Images/info_bg.png').resize((300, 300))
+        self.menu_bg = ImageTk.PhotoImage(self.menu_image)
 
 
         self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
@@ -240,9 +240,16 @@ class MainGUI(tk.Tk):
         # Remove previous buttons
         self.bg_canvas.delete("button")
         offset = 30
+
+        self.menu_image = Image.open('Images/Stats.jpg').resize((300, 400)) 
+        self.background_image = ImageTk.PhotoImage(self.menu_image)
         
-        self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', relief=tk.SUNKEN, borderwidth=3)
+        self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', relief=tk.SUNKEN, borderwidth=5)
         self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
+
+        self.background_label = tk.Label(self.button_frame, image=self.background_image)
+        self.background_label.place(relwidth=1, relheight=1)
+
 
         # for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
         #     callback = lambda room: lambda : self.handleButtonInput(room)
