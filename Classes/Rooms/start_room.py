@@ -1,6 +1,6 @@
 """Module for the StartRoom class.
 """
-from Classes.Rooms.Room import Room
+from Classes.Rooms.room import Room
 
 
 class StartRoom(Room):

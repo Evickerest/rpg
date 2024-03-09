@@ -1,11 +1,11 @@
 """Module containing the unittests for the Edge class.
 """
 import unittest
-from Classes.Map.Edge import *
-from Classes.Rooms.CombatRoom import *
+from Classes.Map.edge import Edge
+from Classes.Rooms.combat_room import CombatRoom
 
 
-class Edge_tests(unittest.TestCase):
+class EdgeTests(unittest.TestCase):
     """Testcase for the Edge class.
     """
     def test1(self):

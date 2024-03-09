@@ -1,7 +1,7 @@
 """Module containing the unittests for ChestRoom.
 """
 import unittest
-from Classes.Rooms.ChestRoom import *
+from Classes.Rooms.chest_room import ChestRoom
 
 
 class ChestRoomTests(unittest.TestCase):

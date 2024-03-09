@@ -2,8 +2,8 @@
 """
 
 import unittest
-from Classes.Rooms.CombatRoom import *
-from Classes.Character import *
+from Classes.Rooms.combat_room import CombatRoom
+from Classes.character import Player
 
 
 class CombatRoomTests(unittest.TestCase):

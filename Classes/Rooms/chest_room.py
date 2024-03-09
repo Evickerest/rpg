@@ -1,12 +1,12 @@
 """Module for the ChestRoom class.
 """
-
-from Classes.Rooms.Room import Room
-from Classes.Item import *
+import random
+from Classes.Rooms.room import Room
+from Classes.item import Item
 
 
 class ChestRoom(Room):
-    """A specialzed Room that contains an item.
+    """A specialized Room that contains an item.
     """
     def __init__(self):
         """Creates the instance.

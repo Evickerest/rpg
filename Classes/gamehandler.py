@@ -1,13 +1,12 @@
 """Module for the GameHandler class.
 """
 import tkinter
-
 from Classes.GUI.FightGUI import FightGUI
 from Classes.GUI.MainGui import MainGUI
 from Classes.GUI.ChestGUI import ChestGUI
 from Classes.GUI.ShopGUI import ShopGUI
-from Classes.Character import Player
-from Classes.Map.Map import Map
+from Classes.character import Player
+from Classes.Map.map import Map
 
 
 class GameHandler:

@@ -4,7 +4,7 @@ The Character Module. Contains the generic Character class, the Player class, an
 
 import random
 
-from Classes.Item import *
+from Classes.item import Item
 
 if not Item.ITEMS:
     Item.load_items()
@@ -151,48 +151,14 @@ class Player(Character):
             item (Item): The item to be equipped from the Player's inventory.
         """
         if item in self.inventory:
-            if item.stats["type"] == "Weapon":
-                if self.equipment["Weapon"].stats["name"] == "None":
-                    self.equipment["Weapon"] = item
-                else:
-                    tmp = self.equipment["Weapon"]
-                    self.equipment["Weapon"] = item
-                    self.add_item(tmp)
-            elif item.stats["type"] == "Head":
-                if self.equipment["Head"].stats["name"] == "None":
-                    self.equipment["Head"] = item
-                else:
-                    tmp = self.equipment["Head"]
-                    self.equipment["Head"] = item
-                    self.add_item(tmp)
-            elif item.stats["type"] == "Arms":
-                if self.equipment["Arms"].stats["name"] == "None":
-                    self.equipment["Arms"] = item
-                else:
-                    tmp = self.equipment["Arms"]
-                    self.equipment["Arms"] = item
-                    self.add_item(tmp)
-            elif item.stats["type"] == "Chest":
-                if self.equipment["Chest"].stats["name"] == "None":
-                    self.equipment["Chest"] = item
-                else:
-                    tmp = self.equipment["Chest"]
-                    self.equipment["Chest"] = item
-                    self.add_item(tmp)
-            elif item.stats["type"] == "Legs":
-                if self.equipment["Legs"].stats["name"] == "None":
-                    self.equipment["Legs"] = item
-                else:
-                    tmp = self.equipment["Legs"]
-                    self.equipment["Legs"] = item
-                    self.add_item(tmp)
-            elif item.stats["type"] == "Feet":
-                if self.equipment["Feet"].stats["name"] == "None":
-                    self.equipment["Feet"] = item
-                else:
-                    tmp = self.equipment["Feet"]
-                    self.equipment["Feet"] = item
-                    self.add_item(tmp)
+            for item_type in ["Weapon", "Head", "Chest", "Arms", "Legs", "Feet"]:
+                if item.stats["type"] == item_type:
+                    if self.equipment[item_type].stats["name"] == "None":
+                        self.equipment[item_type] = item
+                    else:
+                        tmp = self.equipment[item_type]
+                        self.equipment[item_type] = item
+                        self.add_item(tmp)
             self.inventory.remove(item)
             self.update_attack()
             self.update_defense()
@@ -203,39 +169,20 @@ class Player(Character):
         Args:
             item (Item): The item to be unequipped from the Player's equipment.
         """
-        if item.stats["type"] == "Weapon":
-            if item.stats["name"] != "None":
-                self.add_item(self.equipment["Weapon"])
-            self.equipment["Weapon"] = Item(["Weapon", "None", 0, 0, 0, 0.8])
-        elif item.stats["type"] == "Head":
-            if item.stats["name"] != "None":
-                self.add_item(self.equipment["Head"])
-            self.equipment["Head"] = Item(["Head", "None", 0, 0, 0, 0.8])
-        elif item.stats["type"] == "Arms":
-            if item.stats["name"] != "None":
-                self.add_item(self.equipment["Arms"])
-            self.equipment["Arms"] = Item(["Arms", "None", 0, 0, 0, 0.8])
-        elif item.stats["type"] == "Chest":
-            if item.stats["name"] != "None":
-                self.add_item(self.equipment["Chest"])
-            self.equipment["Chest"] = Item(["Chest", "None", 0, 0, 0, 0.8])
-        elif item.stats["type"] == "Legs":
-            if item.stats["name"] != "None":
-                self.add_item(self.equipment["Legs"])
-            self.equipment["Legs"] = Item(["Legs", "None", 0, 0, 0, 0.8])
-        elif item.stats["type"] == "Feet":
-            if item.stats["name"] != "None":
-                self.add_item(self.equipment["Feet"])
-            self.equipment["Feet"] = Item(["Feet", "None", 0, 0, 0, 0.8])
+        for item_type in ["Weapon", "Head", "Chest", "Arms", "Legs", "Feet"]:
+            if item.stats["type"] == item_type:
+                if item.stats["name"] != "None":
+                    self.add_item((self.equipment[item_type]))
+                self.equipment[item_type] = Item([item_type, "None", 0, 0, 0, 0.8])
         self.update_attack()
         self.update_defense()
 
     def use_medkits(self):
         """Method to heal by spending a medkit.
         Returns:
-            amt (int): The amount the medkit healed the Player for.
-            0: If no medkits are available.
+            amt (int): The amount the medkit healed the Player for. 0 if no medkit was used.
         """
+        amt = 0
         if self.med_kits > 0:
             self.med_kits = -1
             amt = self.stats["Intelligence"] + self.stats["Level"] + 20
@@ -246,10 +193,9 @@ class Player(Character):
             else:
                 self.stats["Health"] = tmp
             print(self.name + " used a med kit and healed for " + str(amt) + " health.")
-            return amt
         else:
             print("No med kits left.")
-            return 0
+        return amt
 
     @property
     def med_kits(self) -> int:
@@ -322,9 +268,8 @@ class Enemy(Character):
             attacker (Player): Player instance that is attacking.
         """
         item = attacker.equipment["Weapon"]
-        damage = item.getDamageDealt(self) + attacker.get_attack()
-        if damage < 1:
-            damage = 1
+        damage = item.get_damage_dealt(self) + attacker.get_attack()
+        damage = max(damage, 1)
         self.stats["Health"] -= int(damage)
 
     def update_defense(self):

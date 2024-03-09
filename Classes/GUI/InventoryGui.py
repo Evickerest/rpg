@@ -1,12 +1,23 @@
+"""Module for the InventoryGui class.
+"""
+
 import tkinter as tk
-from Classes.Character import *
-from Classes.Rooms.Room import *
+from Classes.character import Player
+from Classes.Rooms.room import Room
 from Classes.GUI.MainGui import *
 from PIL import ImageTk, Image
 
 
 class InventoryGUI(tk.Toplevel):
+    """Class governing actions involving a Player instance's equipment and inventory.
+    """
     def __init__(self, player: Player, room: Room, gui):
+        """Creates the instance.
+        Args:
+            player (Player): The Player instance to interact with.
+            room (Room): The room the Player instance is in.
+            gui: The MainGui instance that is a parent of this instance.
+        """
         super().__init__()
         self.title("Character Inventory")
         self.geometry(f'{1000}x{600}+400+50')
@@ -20,6 +31,8 @@ class InventoryGUI(tk.Toplevel):
         self.player = player
         self.room = room
         self.gui = gui
+        self.item_entry = None
+        self.inventory_text = ""
 
         self.original_image = Image.open('Images/Inventory2.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
@@ -28,61 +41,84 @@ class InventoryGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
+        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10",
+                                     command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 580,
                                                                anchor='sw', window=self.exit_button)
 
-        self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580, font=10, fill="#038787", justify="center",
-                                   text=self.player.name + "'s Equipment", tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 580, font=10, fill="#038787", justify="center",
-                                   text=self.player.name + "'s Inventory", tags="inventory_title")
+        self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580, font=10, fill="#038787",
+                                   justify="center", text=self.player.name + "'s Equipment",
+                                   tags="equipment_title")
+        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 580, font=10, fill="#038787",
+                                   justify="center", text=self.player.name + "'s Inventory",
+                                   tags="inventory_title")
 
         self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
-                                        font='Time_New_Roman 10', command=lambda: self.removeEquippedItem())
+                                        font='Time_New_Roman 10',
+                                        command=lambda: self.remove_equipped_item())
         self.unequip_button_window = self.bg_canvas.create_window(150, 400, anchor='sw',
-                                                                  window=self.unequip_button, tags="unequip_button")
+                                                                  window=self.unequip_button,
+                                                                  tags="unequip_button")
 
         self.equip_button = tk.Button(self, text='Equip Entered Item\nFrom Inventory',
-                                      font='Time_New_Roman 10', command=lambda: self.equipItemInventory())
+                                      font='Time_New_Roman 10',
+                                      command=lambda: self.equip_item_inventory())
         self.equip_button_window = self.bg_canvas.create_window(350, 400, anchor='sw',
-                                                                window=self.equip_button, tags="equip_button")
+                                                                window=self.equip_button,
+                                                                tags="equip_button")
 
         self.drop_button = tk.Button(self, text='Drop Entered Item\nFrom Inventory',
-                                     font='Time_New_Roman 10', command=lambda: self.dropItemInventory())
+                                     font='Time_New_Roman 10',
+                                     command=lambda: self.drop_item_inventory())
         self.drop_button_window = self.bg_canvas.create_window(550, 400, anchor='sw',
-                                                               window=self.drop_button, tags="equip_button")
+                                                               window=self.drop_button,
+                                                               tags="equip_button")
 
-        self.item_entry_text = tk.Label(self, text='Enter Item Below To Start', font='Time_New_Roman 10')
-        self.item_entry_text = self.bg_canvas.create_window(150, 450, anchor='sw',
-                                                            window=self.item_entry_text, tags="item_entry_text")
+        self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
+                                        font='Time_New_Roman 10')
+        self.item_entry_text_window = self.bg_canvas.create_window(150, 450, anchor='sw',
+                                                            window=self.item_entry_text,
+                                                                   tags="item_entry_text")
         self.item_entry_box = tk.Entry(self, font='Time_New_Roman 12')
-        self.bg_canvas.create_window(150, 480, anchor='sw', window=self.item_entry_box, tags="item_entry")
+        self.bg_canvas.create_window(150, 480, anchor='sw', window=self.item_entry_box,
+                                     tags="item_entry")
 
-        self.updateInventoryGui()
+        self.update_inventory_gui()
         self.mainloop()
 
     def equipment_grid(self):
+        """Create and update the display containing information about the Player's equipment.
+        """
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
-            self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450, font=8, fill="#038787",
-                                       text="\nHead Armor....." + str(self.player.equipment["Head"].stats["name"])
-                                       + " +" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
-                                       + "\nArm Armor......." + str(self.player.equipment["Arms"].stats["name"])
-                                       + " +" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
-                                       + "\nChest Armor...." + str(self.player.equipment["Chest"].stats["name"])
-                                       + " +" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
-                                       + "\nLeg Armor......." + str(self.player.equipment["Legs"].stats["name"])
-                                       + " +" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
-                                       + "\nFoot Armor......" + str(self.player.equipment["Feet"].stats["name"])
-                                       + " +" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
-                                       + "\nWeapon..........." + str(self.player.equipment["Weapon"].stats["name"])
-                                       + " +" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
-                                       + "\n\nTotal Attack....." + str(self.player.get_attack())
-                                       + "\nTotal Defense.." + str(self.player.get_defense())
-                                       + "\nCredits............" + str(self.player.stats["Credits"]),
+            self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450, font=8,
+                                       fill="#038787", text="\nHead Armor....."
+                                       + str(self.player.equipment["Head"].stats["name"])
+                                       + " +" + str(self.player.equipment["Head"].stats["defense"])
+                                       + " Defense" + "\nArm Armor......."
+                                       + str(self.player.equipment["Arms"].stats["name"])
+                                       + " +" + str(self.player.equipment["Arms"].stats["defense"])
+                                       + " Defense" + "\nChest Armor...."
+                                       + str(self.player.equipment["Chest"].stats["name"]) + " +"
+                                       + str(self.player.equipment["Chest"].stats["defense"])
+                                       + " Defense" + "\nLeg Armor......."
+                                       + str(self.player.equipment["Legs"].stats["name"])
+                                       + " +" + str(self.player.equipment["Legs"].stats["defense"])
+                                       + " Defense" + "\nFoot Armor......"
+                                       + str(self.player.equipment["Feet"].stats["name"])
+                                       + " +" + str(self.player.equipment["Feet"].stats["defense"])
+                                       + " Defense" + "\nWeapon..........."
+                                       + str(self.player.equipment["Weapon"].stats["name"]) + " +"
+                                       + str(self.player.equipment["Weapon"].stats["damage"])
+                                       + " Damage" + "\n\nTotal Attack....."
+                                       + str(self.player.get_attack()) + "\nTotal Defense.."
+                                       + str(self.player.get_defense()) + "\nCredits............"
+                                       + str(self.player.stats["Credits"]),
                                        tags="equipment", justify="left")
 
     def inventory_grid(self):
+        """Create and update the display containing information about the Player's inventory.
+        """
         self.bg_canvas.delete("inventory")
         self.inventory_text = ""
         if len(self.player.inventory) > 0:
@@ -95,14 +131,20 @@ class InventoryGUI(tk.Toplevel):
                                             + str(item.stats["defense"]) + " Defense")
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
-        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 450, font=10, fill="#038787", justify="center",
-                                   text=self.inventory_text, tags="inventory")
+        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 450, font=10,
+                                   fill="#038787", justify="center", text=self.inventory_text,
+                                   tags="inventory")
 
-    def updateInventoryGui(self):
+    def update_inventory_gui(self):
+        """Method to update the entire display.
+        """
         self.equipment_grid()
         self.inventory_grid()
 
-    def dropItemInventory(self):
+    def drop_item_inventory(self):
+        """Method to remove an item from the Player instance's inventory.
+         Reads input from the entry_box.
+        """
         self.read_entry_box()
         if self.read_entry_box() is not None:
             item_to_drop = self.item_entry
@@ -110,9 +152,12 @@ class InventoryGUI(tk.Toplevel):
                 if item.stats["name"] == item_to_drop:
                     self.player.drop_item(item)
                     self.item_entry_box.delete(0, 100)
-                    self.updateInventoryGui()
+                    self.update_inventory_gui()
 
-    def equipItemInventory(self):
+    def equip_item_inventory(self):
+        """Method to equip an item from the Player's inventory.
+         Reads input from the entry_box.
+        """
         self.read_entry_box()
         if self.read_entry_box() is not None:
             item_to_equip = self.item_entry
@@ -121,9 +166,12 @@ class InventoryGUI(tk.Toplevel):
                     self.player.equip_item(item)
                     self.player.update_defense()
                     self.player.update_attack()
-                    self.updateInventoryGui()
+                    self.update_inventory_gui()
 
-    def removeEquippedItem(self):
+    def remove_equipped_item(self):
+        """Method to remove an item from the Player's equipment and add it to their inventory.
+         Reads input from the entry_box.
+        """
         self.read_entry_box()
         if self.read_entry_box() is not None:
             item_to_remove = self.item_entry
@@ -132,15 +180,22 @@ class InventoryGUI(tk.Toplevel):
                     self.player.unequip_item(item)
                     self.player.update_defense()
                     self.player.update_attack()
-                    self.updateInventoryGui()
+                    self.update_inventory_gui()
 
     def read_entry_box(self) -> None | str:
+        """Method to read input from the entry_box.
+        Returns:
+            item_entry: The string representation of the input in the entry_box.
+             None if no input was detected.
+        """
         self.item_entry = None
         if self.item_entry_box.get():
             self.item_entry = self.item_entry_box.get()
         return self.item_entry
 
     def destroy(self):
+        """Method governing what happens when the widget is closed.
+        """
         self.room.clear_room(True)
         self.gui.ready = True
         super().destroy()

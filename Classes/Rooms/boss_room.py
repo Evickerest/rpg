@@ -1,9 +1,9 @@
 """Module for the BossRoom class.
 """
 
-from Classes.Rooms.CombatRoom import CombatRoom
-from Classes.Rooms.Room import Room
-from Classes.Character import *
+from Classes.Rooms.combat_room import CombatRoom
+from Classes.Rooms.room import Room
+from Classes.character import Enemy
 
 
 class BossRoom(Room):

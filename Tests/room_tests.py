@@ -1,7 +1,7 @@
 """Module containing the unittests for the Room class.
 """
 import unittest
-from Classes.Rooms.Room import *
+from Classes.Rooms.room import Room
 
 
 class RoomTests(unittest.TestCase):
@@ -26,7 +26,7 @@ class RoomTests(unittest.TestCase):
         self.assertEqual(x.pos_x, None)
         self.assertEqual(x.pos_y, None)
 
-    def test_3setCoordinates(self):
+    def test_3set_coordinates(self):
         """Test for the set_coordinates method.
         """
         x = Room()
@@ -36,7 +36,7 @@ class RoomTests(unittest.TestCase):
         self.assertEqual(x.pos_x, 50)
         self.assertEqual(x.pos_y, 88)
 
-    def test_4getCoordinates(self):
+    def test_4get_coordinates(self):
         """Test for the get_coordinates method.
         """
         x = Room()
@@ -44,20 +44,20 @@ class RoomTests(unittest.TestCase):
         x.set_coordinates(50, 88)
         self.assertEqual(x.get_coordinates(), [50, 88])
 
-    def test_5clearRoom(self):
+    def test_5clear_room(self):
         """Test for the clear_room method.
         """
         x = Room()
         x.clear_room(True)
         self.assertTrue(x.cleared)
 
-    def test_6getCleared(self):
+    def test_6get_cleared(self):
         """Test for the get_cleared method.
         """
         x = Room()
         self.assertFalse(x.get_cleared())
 
-    def test_7createAdjacency(self):
+    def test_7create_adjacency(self):
         """Test for the create_adjacency method.
         """
         x = Room()
@@ -66,7 +66,7 @@ class RoomTests(unittest.TestCase):
         self.assertTrue(y in x.adjacent_rooms)
         self.assertTrue(x in y.adjacent_rooms)
 
-    def test_8createAdjacency_AlreadyAdjacent(self):
+    def test_8create_adjacency_alreadyadjacent(self):
         """Test for the create_adjacency method if the rooms are already adjacent.
         """
         x = Room()
@@ -76,7 +76,7 @@ class RoomTests(unittest.TestCase):
         self.assertEqual(x.adjacent_rooms.count(y), 1)
         self.assertEqual(y.adjacent_rooms.count(x), 1)
 
-    def test_9AddAdjacentRoom(self):
+    def test_9add_adjacent_room(self):
         """Test for the add_adjacent_room method.
         """
         x = Room()
@@ -85,7 +85,7 @@ class RoomTests(unittest.TestCase):
         self.assertTrue(y in x.adjacent_rooms)
         self.assertFalse(x in y.adjacent_rooms)
 
-    def test_10getAdjacentRooms(self):
+    def test_10get_adjacent_rooms(self):
         """Test for the get_adjacent_rooms method.
         """
         x = Room()
@@ -96,7 +96,7 @@ class RoomTests(unittest.TestCase):
         self.assertEqual(x.get_adjacent_rooms(), [y])
         self.assertEqual(y.get_adjacent_rooms(), [x])
 
-    def test_11generateName(self):
+    def test_11generate_name(self):
         """Test for the generate_name method.
         """
         x = Room()

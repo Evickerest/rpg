@@ -3,8 +3,8 @@
 
 import random
 import csv
-from Classes.Rooms.Room import Room
-from Classes.Character import *
+from Classes.Rooms.room import Room
+from Classes.character import Enemy, Player
 
 
 class CombatRoom(Room):
@@ -45,6 +45,7 @@ class CombatRoom(Room):
         self.name = self.generate_name("Combat")
         self.room_type = "Combat"
         self.text = "You have entered a Combat room. Prepare to fight."
+        self.is_boss_room = False
 
     def generate_enemies(self):
         """Method to fill the room with a random number of enemies.

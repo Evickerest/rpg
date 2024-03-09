@@ -3,9 +3,8 @@
 
 import math
 import random
-from Classes.Character import *
-from Classes.Map.Edge import Edge
-from Classes.Map.MapConstants import MapConstants
+from Classes.Map.edge import Edge
+from Classes.Map.mapconstants import MapConstants
 
 # Manages the rooms and room connections
 
@@ -17,7 +16,7 @@ class Map:
         """Creates the Map instance.
         """
         self.rooms = None
-        self.currentRoom = None
+        self.current_room = None
         self.edges = []
 
         self.generate_map()
@@ -35,16 +34,16 @@ class Map:
     def get_current_room(self):
         """Getter for the current room of the map.
         Returns:
-            currentRoom (Room): The Room the player is in.
+            current_room (Room): The Room the player is in.
         """
-        return self.currentRoom
+        return self.current_room
     
     def set_current_room(self, room):
         """Setter for the current room of the map.
         Args:
             room (Room): The Room instance to set as the currentRoom.
         """
-        self.currentRoom = room
+        self.current_room = room
 
     def generate_random_rooms(self):
         """Method to generate random rooms.
@@ -53,21 +52,21 @@ class Map:
 
         counter = 1
         # Loop through each room type
-        for roomType in MapConstants.ROOM_TYPES:
+        for room_type in MapConstants.ROOM_TYPES:
             # Loop for the desired number of rooms
-            for _ in range(MapConstants.ROOM_TYPES[roomType]["desired_number"]):
-                randomX = random.random()
-                randomY = random.random()
+            for _ in range(MapConstants.ROOM_TYPES[room_type]["desired_number"]):
+                random_x = random.random()
+                random_y = random.random()
 
                 # Create room and set coordinates
-                room = MapConstants.ROOM_TYPES[roomType]["room"]()
+                room = MapConstants.ROOM_TYPES[room_type]["room"]()
                 # room.image = randomImage()
 
                 # TODO: delete later
                 room.number = str(counter)
                 counter += 1
 
-                room.set_coordinates(randomX, randomY)
+                room.set_coordinates(random_x, random_y)
 
                 self.rooms.append(room)
 
@@ -76,43 +75,44 @@ class Map:
         """Method to create edges between rooms.
         """
         for room in self.rooms:
-            for otherRoom in self.rooms:
-                if room != otherRoom:
-                    room.edges.append(Edge(room, otherRoom))
+            for other_room in self.rooms:
+                if room != other_room:
+                    room.edges.append(Edge(room, other_room))
 
     # Implementation of Prim's Algorithm
     # Takes a graph of nodes (rooms) and edges, and constructs a minimum spanning tree
-    # Downside is that a mst doesn't produce cycles, so additional edges will have to be added in              
+    # Downside is that a mst doesn't produce cycles, so additional edges will have to be added in
     def prims_algorithm(self):
         """Method to create a minimum spanning tree to connect all rooms together.
         """
-        seenRooms = [self.rooms[0]]
-        defaultEdge = Edge(self.rooms[0], self.rooms[1])
+        seen_rooms = [self.rooms[0]]
+        default_edge = Edge(self.rooms[0], self.rooms[1])
         mst = []
 
-        while len(seenRooms) < MapConstants.TOTAL_ROOMS:
+        while len(seen_rooms) < MapConstants.TOTAL_ROOMS:
 
-            availableEdges = []
-            for seenRoom in seenRooms:
-                for edge in seenRoom.edges:
+            available_edges = []
+            for seenroom in seen_rooms:
+                for edge in seenroom.edges:
 
-                    if edge.rooms[0] in seenRooms and edge.rooms[1] not in seenRooms:
-                        availableEdges.append(edge)
+                    if edge.rooms[0] in seen_rooms and edge.rooms[1] not in seen_rooms:
+                        available_edges.append(edge)
 
-            minimumEdge = min(availableEdges, key=lambda edge: edge.weight, default=defaultEdge)
-            seenRooms.append(minimumEdge.rooms[1])
-            mst.append(minimumEdge)
+            minimum_edge = min(available_edges, key=lambda edge: edge.weight, default=default_edge)
+            seen_rooms.append(minimum_edge.rooms[1])
+            mst.append(minimum_edge)
 
             # Throw random edges in
-            while (random.random() < MapConstants.CHANCE_FOR_NEW_EDGE and len(availableEdges) != 0):
+            while (random.random() < MapConstants.CHANCE_FOR_NEW_EDGE
+                   and len(available_edges) != 0):
                 
-                randomEdge = random.choice(availableEdges)
+                random_edge = random.choice(available_edges)
                 # Max of 6 room connections per room
-                if (len(randomEdge.rooms[0].get_adjacent_rooms()) < 6 and
-                        len(randomEdge.rooms[1].get_adjacent_rooms()) < 6):
-                    mst.append(randomEdge)
+                if (len(random_edge.rooms[0].get_adjacent_rooms()) < 6 and
+                        len(random_edge.rooms[1].get_adjacent_rooms()) < 6):
+                    mst.append(random_edge)
 
-        # From what was created from prim's algorithm, create adjacency between rooms
+        # From what was created from Prim's algorithm, create adjacency between rooms
         # Edges and adjacency are kinda redundant tbh
         for edge in mst:
             edge.rooms[0].create_adjacency(edge.rooms[1])
@@ -136,7 +136,8 @@ class Map:
     def print_map(self):
         """Method to print all the rooms in the map and their adjacent rooms.
         """
-        print(f"{MapConstants.START_ROOM} is adjacent to: {MapConstants.START_ROOM.get_adjacent_rooms()}\n\n")
+        print(f"{MapConstants.START_ROOM} is adjacent to:"
+              f" {MapConstants.START_ROOM.get_adjacent_rooms()}\n\n")
         for room in self.rooms:
             print(f"{room} is adjacent to: {room.get_adjacent_rooms()}\n\n")
         

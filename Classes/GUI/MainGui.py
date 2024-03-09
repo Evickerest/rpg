@@ -7,10 +7,9 @@ from Classes.GUI.CharacterGui import CharacterGUI
 from Classes.GUI.InventoryGui import InventoryGUI
 from Classes.GUI.FightGUI import FightGUI
 from Classes.GUI.ShopGUI import ShopGUI
-
-from Classes.Rooms.Room import *
+from Classes.Rooms.room import Room
+from Classes.textprinter import TextPrinter
 from Images import *
-from Classes.TextPrinter import *
 
 
 class MainGUI(tk.Tk):

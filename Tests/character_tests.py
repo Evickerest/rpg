@@ -1,10 +1,9 @@
 """Module containing the unittests for Character.
 """
 import unittest
-from Classes.Character import *
-
 import random
-from Classes.Item import *
+from Classes.character import Character, Player, Enemy
+from Classes.item import Item
 
 
 class CharacterTests(unittest.TestCase):
@@ -36,7 +35,7 @@ class CharacterTests(unittest.TestCase):
         x.set_living(False)
         self.assertFalse(x.living)
 
-    def test_4addItem(self):
+    def test_4add_item(self):
         """Test for the add_item method.
         """
         x = Character("Bob", None)
@@ -46,7 +45,7 @@ class CharacterTests(unittest.TestCase):
         x.add_item(item)
         self.assertTrue(x.inventory)
 
-    def test_5dropItem(self):
+    def test_5drop_item(self):
         """Test for the drop_item method.
         """
         x = Character("Bob", None)
@@ -65,7 +64,7 @@ class CharacterTests(unittest.TestCase):
         x.lv_up()
         self.assertEqual(x.stats["Level"], 2)
 
-    def test_7updateMaxHealth(self):
+    def test_7update_max_health(self):
         """Test for the update_max_health method.
         """
         x = Character("Bob", None)
@@ -73,20 +72,20 @@ class CharacterTests(unittest.TestCase):
         x.update_max_health()
         self.assertEqual(x.stats["Health"], x.stats["Max Health"])
 
-    def test_8updateHealth(self):
+    def test_8update_health(self):
         """Test for the update_health method.
         """
         x = Character("Bob", None)
         x.update_health(100)
         self.assertEqual(x.stats["Health"], x.stats["Max Health"])
 
-    def test_9getDefense(self):
+    def test_9get_defense(self):
         """Test for the get_defense method.
         """
         x = Character("Bob", None)
         self.assertEqual(x.get_defense(), 0)
 
-    def test_10getAttack(self):
+    def test_10get_attack(self):
         """Test for the get_attack method.
         """
         x = Character("Bob", None)
@@ -125,7 +124,7 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x.stats["Stat Points"], 5)
         self.assertEqual(x.stats["Credits"], 0)
 
-    def test3_equip_item_Real(self):
+    def test3_equip_item_real(self):
         """Test for the equip_item method with various Item instances.
         """
         player = Player("Bob", None)
@@ -166,7 +165,7 @@ class PlayerTests(unittest.TestCase):
         player.equip_item(x)
         self.assertEqual(player.equipment["Feet"], x)
 
-    def test4_equip_item_NoneItem(self):
+    def test4_equip_item_none_item(self):
         """Test for the equip_item method if the Item's have a name of "None".
         """
         player = Player("Bob", None)
@@ -206,7 +205,7 @@ class PlayerTests(unittest.TestCase):
         player.equip_item(x)
         self.assertEqual(player.equipment["Feet"], x)
 
-    def test_5unequipItem_Real(self):
+    def test_5unequip_item_real(self):
         """Test for the unequip_item method with various Item instances.
         """
         player = Player("Bob", None)
@@ -258,7 +257,7 @@ class PlayerTests(unittest.TestCase):
                 unequipped = item
         self.assertEqual(x, unequipped)
 
-    def test_6unequipItem_None(self):
+    def test_6unequip_item_none(self):
         """Test for the unequip_item method if the Items have the name "None".
         """
         player = Player("Bob", None)
@@ -327,14 +326,14 @@ class PlayerTests(unittest.TestCase):
         player.med_kits = -100
         self.assertEqual(player.med_kits, 0)
 
-    def test_10changeName(self):
+    def test_10change_name(self):
         """Test for the change_name method.
         """
         player = Player("Bob", None)
         player.change_name("SD")
         self.assertEqual(player.name, "SD")
 
-    def test_11updateDefense(self):
+    def test_11update_defense(self):
         """Test for the update_defense method.
         """
         player = Player("Bob", None)
@@ -343,7 +342,7 @@ class PlayerTests(unittest.TestCase):
         player.update_defense()
         self.assertTrue(player.get_defense() > defense)
 
-    def test_12updateAttack(self):
+    def test_12update_attack(self):
         """Test for the update_attack method.
         """
         player = Player("Bob", None)
@@ -352,7 +351,7 @@ class PlayerTests(unittest.TestCase):
         player.update_attack()
         self.assertTrue(player.get_attack() > attack)
 
-    def test_13takeDamage(self):
+    def test_13take_damage(self):
         """Test for the take_damage method.
         """
         player = Player("Bob", None)
@@ -391,7 +390,7 @@ class EnemyTests(unittest.TestCase):
         enemy.take_damage(player)
         self.assertTrue(enemy.stats["Health"] < health)
 
-    def test_4updateDefense(self):
+    def test_4update_defense(self):
         """Test for the update_defense method.
         """
         enemy = Enemy("Bob", None, 10)
@@ -400,7 +399,7 @@ class EnemyTests(unittest.TestCase):
         enemy.update_defense()
         self.assertTrue(enemy.get_defense() > defense)
 
-    def test_5updateAttack(self):
+    def test_5update_attack(self):
         """Test for the update_attack method.
         """
         enemy = Enemy("Bob", None, 10)
@@ -409,7 +408,7 @@ class EnemyTests(unittest.TestCase):
         enemy.update_attack()
         self.assertTrue(enemy.get_attack() > attack)
 
-    def test_6updateStats(self):
+    def test_6update_stats(self):
         """Test for the update_stats method.
         """
         enemy = Enemy("Bob", None, 1)

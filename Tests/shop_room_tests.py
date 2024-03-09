@@ -1,8 +1,7 @@
 """Module containing the unittests for the ShopRoom class.
 """
 import unittest
-from Classes.Rooms.ShopRoom import *
-from Classes.Character import *
+from Classes.Rooms.shop_room import ShopRoom
 
 
 class ShopRoomTests(unittest.TestCase):

@@ -2,7 +2,7 @@
 """
 
 import unittest
-from Classes.Rooms.BossRoom import *
+from Classes.Rooms.boss_room import BossRoom
 
 
 class BossRoomTests(unittest.TestCase):

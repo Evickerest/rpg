@@ -1,7 +1,8 @@
 """Module for the ShopRoom class.
 """
-from Classes.Rooms.Room import Room
-from Classes.Item import *
+import random
+from Classes.Rooms.room import Room
+from Classes.item import Item
 
 
 class ShopRoom(Room):

@@ -1,7 +1,7 @@
 """Module containing the unittests for the StartRoom class.
 """
 import unittest
-from Classes.Rooms.StartRoom import *
+from Classes.Rooms.start_room import StartRoom
 
 
 class StartRoomTests(unittest.TestCase):

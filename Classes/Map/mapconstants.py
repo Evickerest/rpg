@@ -1,11 +1,11 @@
 """Module for the various Map constants.
 """
 
-from Classes.Rooms.BossRoom import BossRoom
-from Classes.Rooms.ChestRoom import ChestRoom
-from Classes.Rooms.ShopRoom import ShopRoom
-from Classes.Rooms.CombatRoom import CombatRoom
-from Classes.Rooms.StartRoom import StartRoom
+from Classes.Rooms.boss_room import BossRoom
+from Classes.Rooms.chest_room import ChestRoom
+from Classes.Rooms.shop_room import ShopRoom
+from Classes.Rooms.combat_room import CombatRoom
+from Classes.Rooms.start_room import StartRoom
 
 
 class MapConstants:
