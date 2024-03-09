@@ -1,27 +1,34 @@
-# test Item class
+"""Module containing unittests for the Item class.
+"""
 import random
 import unittest
-from Classes.Item import *
-from Classes.Character import *
+from Classes.item import Item
+from Classes.character import Enemy
 
 
 class ItemTests(unittest.TestCase):
+    """Testcase for the Item class.
+    """
 
     def test_1load_items1(self):
-        # Item list is not an empty list
+        """Test that the list of item details loads properly.
+        """
         self.assertNotEquals(Item.ITEMS, [])
 
     def test_2load_items2(self):
-        # Item list should exist
+        """Test that the list of item details exists.
+        """
         self.assertTrue(Item.ITEMS)
 
     def test_3load_items3(self):
-        # Item list has items
+        """Test that the load_items static method works.
+        """
         Item.load_items()
         self.assertTrue(Item.ITEMS)
 
     def test_4load_items4(self):
-        # Item list doesn't duplicate
+        """Test that multiple load_item methods don't duplicate the same entry.
+        """
         Item.load_items()
         x = len(Item.ITEMS)
         self.assertEqual(len(Item.ITEMS), x)
@@ -29,6 +36,8 @@ class ItemTests(unittest.TestCase):
         self.assertEqual(len(Item.ITEMS), x)
 
     def test_5make_item1(self):
+        """Test that the Item instance initializes properly.
+        """
         x = None
         Item.load_items()
         self.assertFalse(x)
@@ -37,16 +46,18 @@ class ItemTests(unittest.TestCase):
         self.assertTrue(isinstance(x, Item))
 
     def test_6item_stats1(self):
+        """Test that Item instance attributes are correct.
+        """
         Item.load_items()
         stats = random.choice(Item.ITEMS)
         x = Item(stats)
-        type = stats[0]
+        item_type = stats[0]
         name = stats[1]
         damage = int(stats[2])
         defense = int(stats[3])
         value = int(stats[4])
         damagepercent = float(stats[5])
-        self.assertEqual(x.stats["type"], type)
+        self.assertEqual(x.stats["type"], item_type)
         self.assertEqual(x.stats["name"], name)
         self.assertEqual(x.stats["damage"], damage)
         self.assertEqual(x.stats["defense"], defense)
@@ -54,25 +65,31 @@ class ItemTests(unittest.TestCase):
         self.assertEqual(x.stats["damagePercent"], damagepercent)
 
     def test_7item_assign_stats(self):
+        """Test that the assignStats method works.
+        """
         Item.load_items()
         stats = random.choice(Item.ITEMS)
         x = Item(stats)
-        x.assignStats()
+        x.assign_stats()
         self.assertEqual(x.stats["name"], x.name)
         self.assertEqual(x.stats["damage"], x.damage)
-        self.assertEqual(x.stats["armorBreakPercent"], x.armorBreakPercent)
-        self.assertEqual(x.stats["critPercent"], x.critPercent)
-        self.assertEqual(x.stats["damagePercent"], x.damagePercent)
+        self.assertEqual(x.stats["armorBreakPercent"], x.armor_break_percent)
+        self.assertEqual(x.stats["critPercent"], x.crit_percent)
+        self.assertEqual(x.stats["damagePercent"], x.damage_percent)
 
-    def test_8item_getDamage(self):
+    def test_8item_get_damage(self):
+        """Test that the get_damage_dealt method works.
+        """
         Item.load_items()
         stats = random.choice(Item.ITEMS)
         x = Item(stats)
         enemy = Enemy("Tester", None, 1)
-        self.assertTrue(x.getDamageDealt(enemy))
+        self.assertTrue(x.get_damage_dealt(enemy))
 
     def test_9item_notitem(self):
+        """Test that a new Item instance doesn't duplicate the ITEMS list.
+        """
         stats = random.choice(Item.ITEMS)
-        x = Item(stats)
+        Item(stats)
         Item.load_items()
         self.assertTrue(Item.ITEMS, Item.ITEMS)

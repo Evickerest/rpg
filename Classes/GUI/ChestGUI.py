@@ -1,11 +1,22 @@
+"""Module containing the ChestGUI class.
+"""
+
 import tkinter as tk
-from Classes.Character import *
-from Classes.Rooms.ChestRoom import ChestRoom
+from Classes.character import Player
+from Classes.Rooms.chest_room import ChestRoom
 from PIL import ImageTk, Image
 
 
 class ChestGUI(tk.Toplevel):
+    """Class containing potential actions when a ChestRoom is entered in the game.
+    """
     def __init__(self, room: ChestRoom, player: Player, gameHandler):
+        """Creates the instance.
+        Args:
+            room (ChestRoom): The ChestRoom instance.
+            player (Player): The Player instance.
+            gameHandler: The gameHandler instance.
+        """
         super().__init__()
         self.title("Chest Screen")
         self.geometry(f'{300}x{400}+400+50')
@@ -19,7 +30,7 @@ class ChestGUI(tk.Toplevel):
         self.player = player
         self.room = room
 
-        self.gameHandler = gameHandler
+        self.game_handler = gameHandler
 
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
@@ -30,30 +41,41 @@ class ChestGUI(tk.Toplevel):
 
         if self.room.item:
             self.loot_button = tk.Button(self, text=f"Take " + str(self.room.item.stats["name"]),
-                                         font='Time_New_Roman 8', command=lambda: self.loot_chest())
+                                         font='Time_New_Roman 8',
+                                         command=lambda: self.loot_chest())
             self.loot_button_window = self.bg_canvas.create_window(100, 200, anchor='sw',
                                                                    window=self.loot_button,
                                                                    tags="loot_button")
 
-            self.scrap_button = tk.Button(self, text=f"Scrap It",
-                                          font='Time_New_Roman 8', command=lambda: self.scrap_chest())
+            self.scrap_button = tk.Button(self, text=f"Scrap It For "
+                                                     + str(self.room.item.stats["value"])
+                                                     + " Credits",
+                                          font='Time_New_Roman 8',
+                                          command=lambda: self.scrap_chest())
             self.scrap_button_window = self.bg_canvas.create_window(100, 300, anchor='sw',
                                                                     window=self.scrap_button,
                                                                     tags="scrap_button")
 
     def loot_chest(self):
+        """Method for what happens if the player chooses to take the item.
+        """
         self.player.inventory.append(self.room.item)
         self.room.item = None
         self.bg_canvas.delete("loot_button", "scrap_button")
         self.destroy()
 
     def scrap_chest(self):
+        """Method for what happens if the player chooses to scrap the item
+         and gain Credits instead.
+        """
         self.player.stats["Credits"] += self.room.item.stats["value"]
         self.room.item = None
         self.bg_canvas.delete("loot_button", "scrap_button")
         self.destroy()
 
     def destroy(self):
-        self.room.clearRoom(True)
-        self.gameHandler.exitRoom(self.room)
+        """Method governing what happens when the instance is destroyed.
+        """
+        self.room.clear_room(True)
+        self.game_handler.exit_room(self.room)
         super().destroy()

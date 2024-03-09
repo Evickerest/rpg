@@ -7,10 +7,9 @@ from Classes.GUI.CharacterGui import CharacterGUI
 from Classes.GUI.InventoryGui import InventoryGUI
 from Classes.GUI.FightGUI import FightGUI
 from Classes.GUI.ShopGUI import ShopGUI
-
-from Classes.Rooms.Room import *
+from Classes.Rooms.room import Room
+from Classes.textprinter import TextPrinter
 from Images import *
-from Classes.TextPrinter import *
 
 
 class MainGUI(tk.Tk):
@@ -27,11 +26,10 @@ class MainGUI(tk.Tk):
         self.screenWidth = 1300
         self.screenHeight = 900
 
-
         self.player = player
         self.name = None
         self.gameHandler = gameHandler
-        self.gameHandler.setGUI(self)
+        self.gameHandler.set_gui(self)
         self.displayed_buttons = []
         self.ready = True
 
@@ -75,7 +73,7 @@ class MainGUI(tk.Tk):
         self.name = "Default"
         if self.user_name_entry.get():
             self.name = self.user_name_entry.get()
-            self.player.changeName(self.name)
+            self.player.change_name(self.name)
 
         self.bg_canvas.destroy()
         self.original_image = Image.open('Images/bg.jpg').resize((self.screenWidth, self.screenHeight))
@@ -152,9 +150,9 @@ class MainGUI(tk.Tk):
                 self.player.stats["Stat Points"] += -amount
         elif self.player.stats["Stat Points"] >= 1:
             if self.player.stats[stat] < 12:
-                self.player.upgradeStats(stat, amount)
+                self.player.upgrade_stats(stat, amount)
         self.player.stats["Health"] = self.player.stats["Max Health"]
-        self.player.updateMaxHealth()
+        self.player.update_max_health()
         self.bg_canvas.delete("stats")
         self.bg_canvas.create_text(self.width / 2 - 100, self.height - 500, font=25, fill="white", justify="center",
                                    text=self.player.name + "'s Stats" +
@@ -223,7 +221,8 @@ class MainGUI(tk.Tk):
        
         self.bg_canvas.create_text(1010,400, width=300, font=('Arial', 20), fill="#FFFFFF", anchor="w", text="Choose Next Location")
 
-        self.map = self.gameHandler.getMap()
+        self.map = self.gameHandler.get_map()
+        self.gameHandler.enter_room(self.map.get_current_room())
         self.display_buttons()
 
      
@@ -238,7 +237,7 @@ class MainGUI(tk.Tk):
         
         # print(f"\nCurrent Room is {self.map.getCurrentRoom()}")
         # print(f"\nRooms adjacent to {self.map.getCurrentRoom()} are {self.map.getCurrentRoom().getAdjacentRooms()}\n")
-        for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
+        for adjacentRoom in self.map.get_current_room().get_adjacent_rooms():
             test = lambda room: lambda : self.handleButtonInput(room)
             button_text = adjacentRoom.name  # Button text
 
@@ -256,10 +255,10 @@ class MainGUI(tk.Tk):
             
     def handleButtonInput(self, room):
         self.clicked_button(room)
-        self.gameHandler.enterRoom(room)
+        self.gameHandler.enter_room(room)
 
     def clicked_button(self, room):
-        self.original_image = Image.open(room.mapImagePath).resize((300, 400))
+        self.original_image = Image.open(room.map_image_path).resize((300, 400))
         self.bg = ImageTk.PhotoImage(self.original_image)
         self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
      
@@ -272,14 +271,14 @@ class MainGUI(tk.Tk):
     def enterChestRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains a chest.\n",
                                       "game_text", tk.END)
-        self.map = self.gameHandler.getMap()
+        self.map = self.gameHandler.get_map()
         # self.map.printMap()
         # print(self.map.getCurrentRoom().getAdjacentRooms())
 
     def enterShopRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains a shop.\n",
                                       "game_text", tk.END)
-        self.map = self.gameHandler.getMap()
+        self.map = self.gameHandler.get_map()
         # self.map.printMap()
         self.ready = True
         # print(self.map.getCurrentRoom().getAdjacentRooms())
@@ -287,7 +286,7 @@ class MainGUI(tk.Tk):
     def enterCombatRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains combat.\n",
                                       "game_text", tk.END)
-        self.map = self.gameHandler.getMap()
+        self.map = self.gameHandler.get_map()
         # self.map.printMap()
         # print(self.map.getCurrentRoom().getAdjacentRooms())
 
@@ -298,20 +297,20 @@ class MainGUI(tk.Tk):
     def exitBossRoom(self, room):
         self.textPrinter.animate_text(f"\nCongratulations for beating the boss!\n", "game_text", tk.END)
         
-    def exitRoom(self, room):
+    def exit_room(self, room):
         self.textPrinter.animate_text(f"\nYou have exited {room}.\n", "game_text", tk.END)
     
     def exitCombatRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have beaten the enemies in {room}.\n", "game_text", tk.END)
 
     def openInventoryGUI(self):
-        if self.ready and self.map.getCurrentRoom().getCleared():
+        if self.ready and self.map.get_current_room().get_cleared():
             self.ready = False
-            self.map.getCurrentRoom().clearRoom(False)
-            self.InventoryGUI = InventoryGUI(self.player, self.map.getCurrentRoom(), self)
+            self.map.get_current_room().clear_room(False)
+            self.InventoryGUI = InventoryGUI(self.player, self.map.get_current_room(), self)
 
     def openCharacterGUI(self):
-        if self.ready and self.map.getCurrentRoom().getCleared():
+        if self.ready and self.map.get_current_room().get_cleared():
             self.ready = False
-            self.map.getCurrentRoom().clearRoom(False)
-            CharacterGUI(self.player, self.map.getCurrentRoom(), self)
+            self.map.get_current_room().clear_room(False)
+            CharacterGUI(self.player, self.map.get_current_room(), self)
