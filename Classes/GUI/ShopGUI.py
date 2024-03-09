@@ -78,11 +78,7 @@ class ShopGUI(tk.Toplevel):
     def equipment_grid(self):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
-<<<<<<< HEAD
-            self.bg_canvas.create_text(self.width / 2 - 300, self.height - 450, font="Time_New_Roman 12 bold", fill="#05FF50", justify="left",
-=======
             self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450, font="Time_New_Roman 12 bold", fill="#7A185F", justify="left",
->>>>>>> 51cd0a2174be4336ed8d9e36bdd68101161ef21d
                                        text="\nHead Armor:\t" + str(self.player.equipment["Head"].stats["name"])
                                        + ":\t+" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
                                        + "\nArm Armor:\t" + str(self.player.equipment["Arms"].stats["name"])

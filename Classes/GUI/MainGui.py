@@ -181,13 +181,8 @@ class MainGUI(tk.Tk):
 
 
         # Create Menu Background
-<<<<<<< HEAD
-        self.menu_image = Image.open('Images/info_bg.png').resize((300, 300))
-        self.menu_bg = ImageTk.PhotoImage(self.menu_image)
-=======
         menu_image = Image.open('Images/info_bg.png').resize((300, 200))
         self.menu_bg = ImageTk.PhotoImage(menu_image)
->>>>>>> 51cd0a2174be4336ed8d9e36bdd68101161ef21d
 
         self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
         self.bg_canvas.pack(fill='both', expand=True)
@@ -236,29 +231,10 @@ class MainGUI(tk.Tk):
         # Remove previous buttons
         self.bg_canvas.delete("button")
         offset = 30
-<<<<<<< HEAD
-
-        self.menu_image = Image.open('Images/Stats.jpg').resize((300, 400)) 
-        self.background_image = ImageTk.PhotoImage(self.menu_image)
-        
-        self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', relief=tk.SUNKEN, borderwidth=5)
-        self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
-
-        self.background_label = tk.Label(self.button_frame, image=self.background_image)
-        self.background_label.place(relwidth=1, relheight=1)
-
-
-        # for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
-        #     callback = lambda room: lambda : self.handleButtonInput(room)
-        #     button = tk.Button(self, font=5, height=1, text=(adjacentRoom.name), command=callback(adjacentRoom))
-        #     self.bg_canvas.create_window(50, offset, anchor='nw',window=button,tags="button")
-        #     offset += 50
-=======
 
         # Box for map buttons
         self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', borderwidth=3,highlightcolor="white",highlightthickness=4)
         self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
->>>>>>> 51cd0a2174be4336ed8d9e36bdd68101161ef21d
         
         # print(f"\nCurrent Room is {self.map.getCurrentRoom()}")
         # print(f"\nRooms adjacent to {self.map.getCurrentRoom()} are {self.map.getCurrentRoom().getAdjacentRooms()}\n")
