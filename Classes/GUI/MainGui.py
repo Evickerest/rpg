@@ -258,17 +258,11 @@ class MainGUI(tk.Tk):
         self.clicked_button(room)
         self.gameHandler.enterRoom(room)
 
-
     def clicked_button(self, room):
         self.original_image = Image.open(room.mapImagePath).resize((300, 400))
         self.bg = ImageTk.PhotoImage(self.original_image)
         self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
      
-        
-        
-
-
-
     def animate_text(self, text_id, text):
         self.textPrinter.animate_text(text, text_id, tk.END)
 
