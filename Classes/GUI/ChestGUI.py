@@ -54,6 +54,6 @@ class ChestGUI(tk.Toplevel):
         self.destroy()
 
     def destroy(self):
-        self.room.clearRoom(True)
-        self.gameHandler.exitRoom(self.room)
+        self.room.clear_room(True)
+        self.gameHandler.exit_room(self.room)
         super().destroy()

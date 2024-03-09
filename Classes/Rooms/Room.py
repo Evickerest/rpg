@@ -1,51 +1,97 @@
+"""Module for the parent Room class.
+"""
+
 import csv
 import random
 
 
 class Room:
+    """Parent class for more specialized rooms.
+    """
     def __init__(self):
-        self.adjacentRooms = []
-        self.isCurrentlyEntered = False
-        self.hasEntered = False
+        """Creates the instance.
+        """
+        self.adjacent_rooms = []
+        self.is_currently_entered = False
+        self.has_entered = False
         self.cleared = False
         self.name = None
-        self.mapImagePath = None
+        self.map_image_path = None
 
         self.edges = []
-        self.posX = None
-        self.posY = None
+        self.pos_x = None
+        self.pos_y = None
 
-    def setCoordinates(self, posX, posY):
-        self.posX = posX
-        self.posY = posY
+    def set_coordinates(self, pos_x, pos_y):
+        """Setter for the room coordinates.
+        Args:
+            pos_x (int): The X coordinate.
+            pos_y (int): The Y coordinate.
+        """
+        self.pos_x = pos_x
+        self.pos_y = pos_y
 
-    def getCoordinates(self):
-        return [self.posX, self.posY]
+    def get_coordinates(self):
+        """Getter for the room's coordinates.
+        Returns:
+            list[int, int]: The room's coordinates in the format [x, y].
+        """
+        return [self.pos_x, self.pos_y]
 
-    def clearRoom(self, status: bool):
+    def clear_room(self, status: bool):
+        """Setter for the room's cleared status.
+        Args:
+            status (bool): Whether the room is cleared or not.
+        """
         self.cleared = status
 
-    def getCleared(self):
+    def get_cleared(self):
+        """Getter for the room's cleared status.
+        Returns:
+            cleared (bool): The room's cleared status.
+        """
         return self.cleared
     
-    def setImagePath(self, path):
-        self.mapImagePath = path
+    def set_image_path(self, path):
+        """Setter for the room's image.
+        Args:
+            path (str): The file path for the image.
+        """
+        self.map_image_path = path
 
-    def createAdjacency(self, otherRoom):
-        if otherRoom not in self.adjacentRooms:
-            self.adjacentRooms.append(otherRoom)
-        if self not in otherRoom.getAdjacentRooms():
-            otherRoom.addAdjacentRoom(self)
+    def create_adjacency(self, other_room):
+        """Makes this room adjacent to another room and vice versa.
+        Args:
+            other_room (Room): The other room.
+        """
+        if other_room not in self.adjacent_rooms:
+            self.adjacent_rooms.append(other_room)
+        if self not in other_room.get_adjacent_rooms():
+            other_room.add_adjacent_room(self)
 
-    def addAdjacentRoom(self, otherRoom):
-        self.adjacentRooms.append(otherRoom)
+    def add_adjacent_room(self, other_room):
+        """Makes another room adjacent to this room but not vice versa.
+        Args:
+            other_room (Room): The other room.
+        """
+        self.adjacent_rooms.append(other_room)
 
-    def getAdjacentRooms(self):
-        return self.adjacentRooms
+    def get_adjacent_rooms(self):
+        """Getter for the list of rooms adjacent to this one.
+        Returns:
+            adjacentRooms (list): The list of adjacent Room isntances.
+        """
+        return self.adjacent_rooms
     
-    def generateName(self, roomType):
+    def generate_name(self, room_type):
+        """Setter for the room's name based on its type.
+        Args:
+            room_type (str): The room's type. "Chest", "Boss", "Combat", "Shop", or "Start".
+        Return:
+            name (str): The name of the room.
+        """
         names = []
-        with open(f'Names/{roomType}RoomNames.txt', 'r') as f:
+        with open(f'Names/{room_type}RoomNames.txt', 'r') as f:
             reader = csv.reader(f)
             for row in reader:
                 names.append(row)
@@ -53,7 +99,17 @@ class Room:
         return self.name
     
     def __repr__(self):
+        """Representation of the room.
+        Returns:
+            name (str): The name of the room.
+        """
         return self.name
     
     def __eq__(self, other):
-        return self.posX == other.posX and self.posY == other.posY
+        """Checks whether two rooms are overlapping.
+        Args:
+            other (Room): The room being compared.
+        Returns:
+            bool: True if the room's X- and Y-coordinates are the same.
+        """
+        return self.pos_x == other.pos_x and self.pos_y == other.pos_y

@@ -65,6 +65,6 @@ class Item:
         if random.random() < self.armorBreakPercent:
             enemyDefenseReducer = 0.5
 
-        enemyDefense = enemy.getDefense()
+        enemyDefense = enemy.get_defense()
 
         return appliedDamage - enemyDefense * enemyDefenseReducer

@@ -1,3 +1,7 @@
+"""
+Run Tests from Here. Do not run the test files in the Test Folder.
+"""
+
 import unittest
 from Tests import Map_tests
 from Tests.Edge_tests import *
@@ -26,7 +30,8 @@ test_suite.addTests([ItemTests('test_1load_items1'), ItemTests('test_2load_items
                      ItemTests('test_7item_assign_stats'), ItemTests('test_8item_getDamage'),
                      ItemTests('test_9item_notitem')])
 # Character Tests
-test_suite.addTests([CharacterTests('test_1make_character'), CharacterTests('test_2character_stats'),
+test_suite.addTests([CharacterTests('test_1make_character'),
+                     CharacterTests('test_2character_stats'),
                      CharacterTests('test_3set_living'), CharacterTests('test_4addItem'),
                      CharacterTests('test_5dropItem'), CharacterTests('test_6lv_up'),
                      CharacterTests('test_7updateMaxHealth'), CharacterTests('test_8updateHealth'),
@@ -34,7 +39,8 @@ test_suite.addTests([CharacterTests('test_1make_character'), CharacterTests('tes
                      CharacterTests('test_11defend_action')])
 # Player Tests
 test_suite.addTests([PlayerTests('test_1make_player'), PlayerTests('test_2player_stats'),
-                     PlayerTests('test3_equip_item_Real'), PlayerTests('test4_equip_item_NoneItem'),
+                     PlayerTests('test3_equip_item_Real'),
+                     PlayerTests('test4_equip_item_NoneItem'),
                      PlayerTests('test_5unequipItem_Real'), PlayerTests('test_6unequipItem_None'),
                      PlayerTests('test_7use_medkits'), PlayerTests('test_8get_medkits'),
                      PlayerTests('test_9set_medkits'), PlayerTests('test_10changeName'),
@@ -48,12 +54,14 @@ test_suite.addTests([EnemyTests('test_1make_enemy'), EnemyTests('test_2enemy_sta
 test_suite.addTests([RoomTests('test_1make_room'), RoomTests('test_2room_stats'),
                      RoomTests('test_3setCoordinates'), RoomTests('test_4getCoordinates'),
                      RoomTests('test_5clearRoom'), RoomTests('test_6getCleared'),
-                     RoomTests('test_7createAdjacency'), RoomTests('test_8createAdjacency_AlreadyAdjacent'),
+                     RoomTests('test_7createAdjacency'),
+                     RoomTests('test_8createAdjacency_AlreadyAdjacent'),
                      RoomTests('test_9AddAdjacentRoom'), RoomTests('test_10getAdjacentRooms'),
                      RoomTests('test_11generateName'), RoomTests('test_12__repr__'),
                      RoomTests('test_13__eq__')])
 # ChestRoom Tests
-test_suite.addTests([ChestRoomTests('test_1make_chestroom'), ChestRoomTests('test_2chestroom_stats')])
+test_suite.addTests([ChestRoomTests('test_1make_chestroom'),
+                     ChestRoomTests('test_2chestroom_stats')])
 # CombatRoom Tests
 test_suite.addTests([CombatRoomTests('test_1make_combatroom'),
                      CombatRoomTests('test_2combatroom_stats'),
@@ -62,7 +70,8 @@ test_suite.addTests([CombatRoomTests('test_1make_combatroom'),
 # ShopRoom Tests
 test_suite.addTests([ShopRoomTests('test_1make_shoproom'), ShopRoomTests('test_2shoproom_stats')])
 # StartRoom Tests
-test_suite.addTests([StartRoomTests('test_1make_startroom'), StartRoomTests('test_2startroom_stats')])
+test_suite.addTests([StartRoomTests('test_1make_startroom'),
+                     StartRoomTests('test_2startroom_stats')])
 # BossRoom Tests
 test_suite.addTests([BossRoomTests('test_1make_bossroom'), BossRoomTests('test_2bossroom_stats')])
 # ...

@@ -65,13 +65,13 @@ class CharacterGUI(tk.Toplevel):
 
     def stat_button(self, stat: str, amount: int):
         if self.player.stats["Stat Points"] > 0:
-            self.player.upgradeStats(stat, amount)
+            self.player.upgrade_stats(stat, amount)
         if stat == "Vitality":
-            self.player.updateMaxHealth()
+            self.player.update_max_health()
             self.player.stats["Health"] = self.player.stats["Max Health"]
-            self.player.updateDefense()
+            self.player.update_defense()
         if stat == "Strength":
-            self.player.updateAttack()
+            self.player.update_attack()
         self.updateCharacterGui()
 
     def level_up(self):
@@ -98,6 +98,6 @@ class CharacterGUI(tk.Toplevel):
             self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
 
     def destroy(self):
-        self.room.clearRoom(True)
+        self.room.clear_room(True)
         self.gui.ready = True
         super().destroy()

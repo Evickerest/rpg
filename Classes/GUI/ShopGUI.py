@@ -91,8 +91,8 @@ class ShopGUI(tk.Toplevel):
                                        + ":\t+" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
                                        + "\nWeapon:\t\t" + str(self.player.equipment["Weapon"].stats["name"])
                                        + ":\t+" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
-                                       + "\n\nTotal Attack:\t" + str(self.player.getAttack())
-                                       + "\nTotal Defense:\t" + str(self.player.getDefense())
+                                       + "\n\nTotal Attack:\t" + str(self.player.get_attack())
+                                       + "\nTotal Defense:\t" + str(self.player.get_defense())
                                        + "\nMedkits:\t" + str(self.player.med_kits)
                                        + "\nCredits:\t\t" + str(self.player.stats["Credits"]),tags="equipment")
 
@@ -143,9 +143,9 @@ class ShopGUI(tk.Toplevel):
             item_to_equip = self.item_entry
             for item in self.player.inventory:
                 if item.stats["name"] == item_to_equip:
-                    self.player.equipItem(item)
-                    self.player.updateDefense()
-                    self.player.updateAttack()
+                    self.player.equip_item(item)
+                    self.player.update_defense()
+                    self.player.update_attack()
                     self.updateShopGui()
 
     def removeEquippedItem(self):
@@ -154,9 +154,9 @@ class ShopGUI(tk.Toplevel):
             item_to_remove = self.item_entry
             for item in self.player.equipment.values():
                 if item.stats["name"] == item_to_remove:
-                    self.player.unequipItem(item)
-                    self.player.updateDefense()
-                    self.player.updateAttack()
+                    self.player.unequip_item(item)
+                    self.player.update_defense()
+                    self.player.update_attack()
                     self.updateShopGui()
 
     def BuyItemFromShop(self):
@@ -166,7 +166,7 @@ class ShopGUI(tk.Toplevel):
             for item in self.shop.items:
                 if item.stats["name"] == item_to_buy:
                     if self.player.stats["Credits"] >= item.stats["value"]:
-                        self.player.addItem(item)
+                        self.player.add_item(item)
                         self.shop.items.remove(item)
                         self.player.stats["Credits"] -= item.stats["value"]
                         self.updateShopGui()
@@ -177,7 +177,7 @@ class ShopGUI(tk.Toplevel):
             item_to_sell = self.item_entry
             for item in self.player.inventory:
                 if item.stats["name"] == item_to_sell:
-                    self.player.dropItem(item)
+                    self.player.drop_item(item)
                     self.player.stats["Credits"] += item.stats["value"]
                     self.shop.items.append(item)
                     self.updateShopGui()
@@ -195,6 +195,6 @@ class ShopGUI(tk.Toplevel):
         return self.item_entry
 
     def destroy(self):
-        self.shop.clearRoom(True)
-        self.gameHandler.exitRoom(self.shop)
+        self.shop.clear_room(True)
+        self.gameHandler.exit_room(self.shop)
         super().destroy()

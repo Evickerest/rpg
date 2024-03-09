@@ -9,4 +9,4 @@ class Map_tests(unittest.TestCase):
 
     def test2(self):
         map = Map()
-        self.assertTrue(map.getCurrentRoom())
+        self.assertTrue(map.get_current_room())

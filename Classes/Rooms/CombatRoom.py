@@ -1,10 +1,17 @@
+"""Module for the CombatRoom class.
+"""
+
 import random
+import csv
 from Classes.Rooms.Room import Room
 from Classes.Character import *
-import csv
 
 
 class CombatRoom(Room):
+    """Specialzed Room that contains the generic non-boss enemy encounters.
+    Attributes:
+        ENEMIES (list): Contains the names of all potential enemies
+    """
 
     ENEMIES = []
 
@@ -19,6 +26,11 @@ class CombatRoom(Room):
                     CombatRoom.ENEMIES.append(row)
 
     def __init__(self, *args):
+        """Creates the CombatRoom instance.
+        Args:
+            *args: Currently nonfunctional. Meant to take an optional Player instance
+             and scale enemies in room to said Player's level.
+        """
         super().__init__()
         if not CombatRoom.ENEMIES:
             CombatRoom.load_enemies()
@@ -30,12 +42,13 @@ class CombatRoom(Room):
             self.mon_lv = 1
         self.enemies = []
         self.generate_enemies()
-        self.name = self.generateName("Combat")
-        self.roomType = "Combat"
+        self.name = self.generate_name("Combat")
+        self.room_type = "Combat"
         self.text = "You have entered a Combat room. Prepare to fight."
-        self.isBossRoom = False
 
     def generate_enemies(self):
+        """Method to fill the room with a random number of enemies.
+        """
         num = random.randint(1, 4)
         if self.player:
             self.mon_lv = self.player.stats["Level"]
@@ -44,8 +57,11 @@ class CombatRoom(Room):
             self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))
 
     def lv_enemies(self):
+        """Method to level up enemeis to match the Player instance associated
+         with the Combat Room.
+         """
         for enemy in self.enemies:
             if self.player:
                 enemy.stats["Level"] = self.player.stats["Level"]
                 enemy.stats["Stat Points"] = (self.player.stats["Level"] - 1) * 5
-                enemy.updateStats()
+                enemy.update_stats()

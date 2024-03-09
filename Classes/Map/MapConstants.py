@@ -1,10 +1,16 @@
+"""Module for the various Map constants.
+"""
+
 from Classes.Rooms.BossRoom import BossRoom
 from Classes.Rooms.ChestRoom import ChestRoom
 from Classes.Rooms.ShopRoom import ShopRoom
 from Classes.Rooms.CombatRoom import CombatRoom
 from Classes.Rooms.StartRoom import StartRoom
 
+
 class MapConstants:
+    """Determines the various constants when generating a new Map.
+    """
     TOTAL_ROOMS = 15
     CHANCE_FOR_NEW_EDGE = 0.25
     START_ROOM = StartRoom()

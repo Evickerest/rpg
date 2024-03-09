@@ -66,19 +66,19 @@ class InventoryGUI(tk.Toplevel):
         if self.player.equipment:
             self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450, font=8, fill="#038787",
                                        text="\nHead Armor....." + str(self.player.equipment["Head"].stats["name"])
-                                       + "+" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
+                                       + " +" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
                                        + "\nArm Armor......." + str(self.player.equipment["Arms"].stats["name"])
-                                       + "+" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
+                                       + " +" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
                                        + "\nChest Armor...." + str(self.player.equipment["Chest"].stats["name"])
-                                       + "+" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
+                                       + " +" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
                                        + "\nLeg Armor......." + str(self.player.equipment["Legs"].stats["name"])
-                                       + "+" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
+                                       + " +" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
                                        + "\nFoot Armor......" + str(self.player.equipment["Feet"].stats["name"])
-                                       + "+" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
+                                       + " +" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
                                        + "\nWeapon..........." + str(self.player.equipment["Weapon"].stats["name"])
-                                       + "+" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
-                                       + "\n\nTotal Attack....." + str(self.player.getAttack())
-                                       + "\nTotal Defense.." + str(self.player.getDefense())
+                                       + " +" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
+                                       + "\n\nTotal Attack....." + str(self.player.get_attack())
+                                       + "\nTotal Defense.." + str(self.player.get_defense())
                                        + "\nCredits............" + str(self.player.stats["Credits"]),
                                        tags="equipment", justify="left")
 
@@ -108,7 +108,7 @@ class InventoryGUI(tk.Toplevel):
             item_to_drop = self.item_entry
             for item in self.player.inventory:
                 if item.stats["name"] == item_to_drop:
-                    self.player.dropItem(item)
+                    self.player.drop_item(item)
                     self.item_entry_box.delete(0, 100)
                     self.updateInventoryGui()
 
@@ -118,9 +118,9 @@ class InventoryGUI(tk.Toplevel):
             item_to_equip = self.item_entry
             for item in self.player.inventory:
                 if item.stats["name"] == item_to_equip:
-                    self.player.equipItem(item)
-                    self.player.updateDefense()
-                    self.player.updateAttack()
+                    self.player.equip_item(item)
+                    self.player.update_defense()
+                    self.player.update_attack()
                     self.updateInventoryGui()
 
     def removeEquippedItem(self):
@@ -129,9 +129,9 @@ class InventoryGUI(tk.Toplevel):
             item_to_remove = self.item_entry
             for item in self.player.equipment.values():
                 if item.stats["name"] == item_to_remove:
-                    self.player.unequipItem(item)
-                    self.player.updateDefense()
-                    self.player.updateAttack()
+                    self.player.unequip_item(item)
+                    self.player.update_defense()
+                    self.player.update_attack()
                     self.updateInventoryGui()
 
     def read_entry_box(self) -> None | str:
@@ -141,6 +141,6 @@ class InventoryGUI(tk.Toplevel):
         return self.item_entry
 
     def destroy(self):
-        self.room.clearRoom(True)
+        self.room.clear_room(True)
         self.gui.ready = True
         super().destroy()

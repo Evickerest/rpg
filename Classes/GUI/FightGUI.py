@@ -35,7 +35,7 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
                                    text=self.player.name + "'s Side", tags="equipment_title")
         
-        t = "Enemies' Side" if not self.room.isBossRoom else "Boss Side"
+        t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
                                    text=t, tags="Enemies")
 
@@ -98,8 +98,8 @@ class FightGUI(tk.Toplevel):
                 self.enemies_txt += ("\n" + str(self.count) + ") " + str(enemy.name) + "\n  "
                                      + "LV: " + str(enemy.stats["Level"])
                                      + " | Health: " + str(enemy.stats["Health"]) + "\n  "
-                                     + str(enemy.getAttack()) + " Damage | "
-                                     + str(enemy.getDefense()) + " Defense")
+                                     + str(enemy.get_attack()) + " Damage | "
+                                     + str(enemy.get_defense()) + " Defense")
                 self.count += 1
         else:
             self.enemies_txt = "No Enemies Remain"
@@ -116,7 +116,7 @@ class FightGUI(tk.Toplevel):
         if target.living:
             target.take_damage(attacker)
         if target.stats["Health"] < 1:
-            self.player.setLiving(False)
+            self.player.set_living(False)
             attacker.stats["XP"] += target.stats["Level"] * 10
         if isinstance(attacker, Player):
             self.resolve_player_turn()
@@ -132,7 +132,7 @@ class FightGUI(tk.Toplevel):
                     target.take_damage(self.player)
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
-                        target.setLiving(False)
+                        target.set_living(False)
                         self.enemy_entry_box.delete(0, 100)
                         self.player.stats["XP"] += int(target.stats["Level"] * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
@@ -157,9 +157,9 @@ class FightGUI(tk.Toplevel):
     def resolve_player_turn(self):
         if self.player:
             for enemy in self.enemies:
-                enemy.updateDefense()
+                enemy.update_defense()
                 self.enemy_turn(enemy)
-            self.player.updateDefense()
+            self.player.update_defense()
 
     def enemy_turn(self, enemy: Enemy):
         choice = random.choice(["attack", "defend", "nothing"])
@@ -178,6 +178,6 @@ class FightGUI(tk.Toplevel):
 
     def destroy(self):
         if not self.enemies:
-            self.gameHandler.exitRoom(self.room)
-            self.room.clearRoom(True)
+            self.gameHandler.exit_room(self.room)
+            self.room.clear_room(True)
             super().destroy()

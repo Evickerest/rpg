@@ -1,13 +1,18 @@
-import csv
+"""Module for the ShopRoom class.
+"""
 from Classes.Rooms.Room import Room
 from Classes.Item import *
 
 
 class ShopRoom(Room):
+    """Specialized room the player can buy items in.
+    """
     def __init__(self):
+        """Creates the instance with a random number of items to sell.
+        """
         super().__init__()
-        self.name = self.generateName("Shop")
-        self.roomType = "Shop"
+        self.name = self.generate_name("Shop")
+        self.room_type = "Shop"
         self.items = []
 
         num_items = random.randint(1, 4)

@@ -1,3 +1,7 @@
+"""
+The Character Module. Contains the generic Character class, the Player class, and the Enemy class.
+"""
+
 import random
 
 from Classes.Item import *
@@ -7,8 +11,16 @@ if not Item.ITEMS:
 
 
 class Character:
-    # Stats is a dict
-    def __init__(self, name, stats=None):
+    """The generic Character class.
+     Used as a parent for the more specialized Player and Enemy classes.
+    """
+    def __init__(self, name: str, stats=None):
+        """Creates the character.
+        Args:
+            name (str):
+            stats (None | dict): None gets the default stats below.
+             A dictionary lets you make a character of a higher level.
+        """
         if stats is None:
             stats = {"Strength": 5, "Dexterity": 5, "Vitality": 5,
                      "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0}
@@ -21,56 +33,92 @@ class Character:
         self.defense = 0  # Pull item defense + character vitality?
         self.living = True
 
-    # Set's character's living status
-    def setLiving(self, _bool):
+    def set_living(self, _bool):
+        """Setter for the living attribute.
+        Args:
+            _bool (bool): Boolean value for the character's living status.
+        """
         self.living = _bool
 
-    # Add to the inventory an instance of an item
-    def addItem(self, item: Item):
+    def add_item(self, item: Item):
+        """Adds an Item to the character's inventory.
+        Args:
+            item (Item): Requires an Item object.
+        """
         self.inventory.append(item)
 
-    def dropItem(self, item: Item):
+    def drop_item(self, item: Item):
+        """Removes an Item from the character's inventory.
+        Args:
+            item (Item): Requires an Item object.
+        """
         self.inventory.remove(item)
 
     # Upgrade stats by stat and amount
-    def upgradeStats(self, stat, amount):
+    def upgrade_stats(self, stat, amount):
+        """Method to upgrade a character's stats.
+        Args:
+            stat (str): The stat to increase.
+            amount (int): How much to increase the stat by.
+        """
         if self.stats["Stat Points"] > 0:
             self.stats[stat] += amount
             self.stats["Stat Points"] -= amount
         if stat == "Vitality":
-            self.updateMaxHealth()
-            self.updateHealth(5 * amount)
+            self.update_max_health()
+            self.update_health(5 * amount)
 
-    # Levels up and adds unassigned stat points
     def lv_up(self):
+        """Tries to level up the character if they have enough XP.
+        Adds unassigned stat points if they do.
+        """
         if self.stats["XP"] >= (self.stats["Level"] * 10):
             self.stats["XP"] -= self.stats["Level"] * 10
             self.stats["Level"] += 1
             self.stats["Stat Points"] += 5
 
-    # Recalculates max health
-    def updateMaxHealth(self):
+    def update_max_health(self):
+        """Recalculates the character's Max Health."""
         self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"] + self.stats["Level"]))
         if self.stats["Health"] > self.stats["Max Health"]:
             self.stats["Health"] = self.stats["Max Health"]
 
-    def updateHealth(self, amount: int):
+    def update_health(self, amount: int):
+        """Changes the character's current Health by amount.
+        Args:
+            amount (int): How much to change the character's Health by.
+        """
         self.stats["Health"] += amount
         if self.stats["Health"] > self.stats["Max Health"]:
             self.stats["Health"] = self.stats["Max Health"]
 
-    def getDefense(self):
+    def get_defense(self):
+        """Getter for the character's defense attribute.
+        Returns:
+            defense (int): The character's defense, including equipment bonuses.
+        """
         return self.defense
 
-    def getAttack(self):
+    def get_attack(self):
+        """Getter for the character's attack attribute.
+                Returns:
+                    attack (int): The character's attack, including weapon bonuses.
+                """
         return self.attack
 
     def defend_action(self):
+        """Method to increase character's defense.
+        """
         self.defense = int(self.defense * 1.5)
 
 
 class Player(Character):
+    """Child class of Character. Specialized to be the player character.
+    Adds medkits for healing and the ability to use equipment.
+    """
     def __init__(self, name: str, stats: dict):
+        """Same idea as the parent Character class.
+        """
         super().__init__(name, stats)
         self.stats["Medkits"] = 5
 
@@ -94,10 +142,14 @@ class Player(Character):
         while x.stats["type"] != "Feet":
             x = Item(random.choice(Item.ITEMS))
         self.equipment["Feet"] = x
-        self.updateAttack()
-        self.updateDefense()
+        self.update_attack()
+        self.update_defense()
 
-    def equipItem(self, item: Item):
+    def equip_item(self, item: Item):
+        """Method for the Player to equip an item from their inventory.
+        Args:
+            item (Item): The item to be equipped from the Player's inventory.
+        """
         if item in self.inventory:
             if item.stats["type"] == "Weapon":
                 if self.equipment["Weapon"].stats["name"] == "None":
@@ -105,75 +157,85 @@ class Player(Character):
                 else:
                     tmp = self.equipment["Weapon"]
                     self.equipment["Weapon"] = item
-                    self.addItem(tmp)
+                    self.add_item(tmp)
             elif item.stats["type"] == "Head":
                 if self.equipment["Head"].stats["name"] == "None":
                     self.equipment["Head"] = item
                 else:
                     tmp = self.equipment["Head"]
                     self.equipment["Head"] = item
-                    self.addItem(tmp)
+                    self.add_item(tmp)
             elif item.stats["type"] == "Arms":
                 if self.equipment["Arms"].stats["name"] == "None":
                     self.equipment["Arms"] = item
                 else:
                     tmp = self.equipment["Arms"]
                     self.equipment["Arms"] = item
-                    self.addItem(tmp)
+                    self.add_item(tmp)
             elif item.stats["type"] == "Chest":
                 if self.equipment["Chest"].stats["name"] == "None":
                     self.equipment["Chest"] = item
                 else:
                     tmp = self.equipment["Chest"]
                     self.equipment["Chest"] = item
-                    self.addItem(tmp)
+                    self.add_item(tmp)
             elif item.stats["type"] == "Legs":
                 if self.equipment["Legs"].stats["name"] == "None":
                     self.equipment["Legs"] = item
                 else:
                     tmp = self.equipment["Legs"]
                     self.equipment["Legs"] = item
-                    self.addItem(tmp)
+                    self.add_item(tmp)
             elif item.stats["type"] == "Feet":
                 if self.equipment["Feet"].stats["name"] == "None":
                     self.equipment["Feet"] = item
                 else:
                     tmp = self.equipment["Feet"]
                     self.equipment["Feet"] = item
-                    self.addItem(tmp)
+                    self.add_item(tmp)
             self.inventory.remove(item)
-            self.updateAttack()
-            self.updateDefense()
+            self.update_attack()
+            self.update_defense()
 
-    def unequipItem(self, item: Item):
+    def unequip_item(self, item: Item):
+        """Method for the Player to unequip an item from their equipment
+         and place it into their inventory.
+        Args:
+            item (Item): The item to be unequipped from the Player's equipment.
+        """
         if item.stats["type"] == "Weapon":
             if item.stats["name"] != "None":
-                self.addItem(self.equipment["Weapon"])
+                self.add_item(self.equipment["Weapon"])
             self.equipment["Weapon"] = Item(["Weapon", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Head":
             if item.stats["name"] != "None":
-                self.addItem(self.equipment["Head"])
+                self.add_item(self.equipment["Head"])
             self.equipment["Head"] = Item(["Head", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Arms":
             if item.stats["name"] != "None":
-                self.addItem(self.equipment["Arms"])
+                self.add_item(self.equipment["Arms"])
             self.equipment["Arms"] = Item(["Arms", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Chest":
             if item.stats["name"] != "None":
-                self.addItem(self.equipment["Chest"])
+                self.add_item(self.equipment["Chest"])
             self.equipment["Chest"] = Item(["Chest", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Legs":
             if item.stats["name"] != "None":
-                self.addItem(self.equipment["Legs"])
+                self.add_item(self.equipment["Legs"])
             self.equipment["Legs"] = Item(["Legs", "None", 0, 0, 0, 0.8])
         elif item.stats["type"] == "Feet":
             if item.stats["name"] != "None":
-                self.addItem(self.equipment["Feet"])
+                self.add_item(self.equipment["Feet"])
             self.equipment["Feet"] = Item(["Feet", "None", 0, 0, 0, 0.8])
-        self.updateAttack()
-        self.updateDefense()
+        self.update_attack()
+        self.update_defense()
 
     def use_medkits(self):
+        """Method to heal by spending a medkit.
+        Returns:
+            amt (int): The amount the medkit healed the Player for.
+            0: If no medkits are available.
+        """
         if self.med_kits > 0:
             self.med_kits = -1
             amt = self.stats["Intelligence"] + self.stats["Level"] + 20
@@ -191,56 +253,93 @@ class Player(Character):
 
     @property
     def med_kits(self) -> int:
+        """Getter for the Player's medkits.
+        Returns:
+            stats["Medkits"] (int): The number of medkits the Player has.
+        """
         return self.stats["Medkits"]
 
     @med_kits.setter
     def med_kits(self, change: int):
+        """Changes the number of medkits by change.
+        Args:
+            change (int): How much the medkits are being changed by.
+        """
         self.stats["Medkits"] += change
         if self.stats["Medkits"] < 0:
             self.stats["Medkits"] = 0
 
-    def changeName(self, name):
+    def change_name(self, name):
+        """Method to change the Player's name.
+        Returns:
+            name (str): The player's new name.
+        """
         self.name = name
 
-    def updateDefense(self):
+    def update_defense(self):
+        """Updates the Player's defense attribute.
+        """
         self.defense = int((self.stats["Vitality"] + self.stats["Level"]) / 5)
         for equipment in self.equipment.values():
             self.defense += equipment.stats["defense"]
 
-    def updateAttack(self):
+    def update_attack(self):
+        """Updates the Player's attack attribute.
+        """
         self.attack = int((self.stats["Strength"] + self.stats["Level"]) / 5)
         for equipment in self.equipment.values():
             self.attack += equipment.stats["damage"]
 
     def take_damage(self, attacker: Character):
-        damage = attacker.getAttack()
+        """Method used when a Player takes damage.
+        Args:
+            attacker (Character): The Character object that is attacking the Player.
+        """
+        damage = attacker.get_attack()
         self.stats["Health"] -= int(damage)
 
 
 class Enemy(Character):
-    def __init__(self, name, stats: dict, enemy_lv: int):
-        super().__init__(stats)
+    """Child of the Character class. Specialzed for enemies specifically.
+    Allows for enemies' stats to scale based on an input level.
+    """
+    def __init__(self, name: str, stats: dict, enemy_lv: int):
+        """Creates the Enemy object.
+        New Args:
+            enemy_lv (int): The level the enemy is scaled to.
+        """
+        super().__init__(name, stats)
         self.stats["Level"] = enemy_lv
-        self.name = name
         self.stats["Stat Points"] = self.stats["Level"] * 5
-        self.updateStats()
-        self.updateAttack()
-        self.updateDefense()
+        self.name = name
+        self.update_stats()
+        self.update_attack()
+        self.update_defense()
 
     def take_damage(self, attacker: Player):
+        """Method for the Enemy to take damage.
+        Returns:
+            attacker (Player): Player instance that is attacking.
+        """
         item = attacker.equipment["Weapon"]
-        damage = item.getDamageDealt(self) + attacker.getAttack()
+        damage = item.getDamageDealt(self) + attacker.get_attack()
         if damage < 1:
             damage = 1
         self.stats["Health"] -= int(damage)
 
-    def updateDefense(self):
+    def update_defense(self):
+        """Updates the Enemy's defense attribute.
+        """
         self.defense = int((self.stats["Vitality"] / 5) + self.stats["Level"])
 
-    def updateAttack(self):
+    def update_attack(self):
+        """Updates the Enemy's defense attribute.
+        """
         self.attack = int((self.stats["Strength"] / 5) + self.stats["Level"])
 
-    def updateStats(self):
+    def update_stats(self):
+        """Randomly increases the Enemy's stats until they're out of Stat Points.
+        """
         while self.stats["Stat Points"] > 1:
             stat = random.choice(['Strength', 'Dexterity', 'Vitality', 'Intelligence'])
-            self.upgradeStats(stat, 1)
+            self.upgrade_stats(stat, 1)

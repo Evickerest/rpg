@@ -1,3 +1,5 @@
+"""Module containing the unittests for Character.
+"""
 import unittest
 from Classes.Character import *
 
@@ -6,12 +8,16 @@ from Classes.Item import *
 
 
 class CharacterTests(unittest.TestCase):
-
+    """Testcase for the Character class.
+    """
     def test_1make_character(self):
+        """Check that the Character initializes properly.
+        """
         x = Character("Bob", None)
         self.assertTrue(isinstance(x, Character))
 
     def test_2character_stats(self):
+        """Check that the character's stats are initialized."""
         x = Character("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
                       "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0})
         self.assertEqual(x.stats["Strength"], 5)
@@ -24,66 +30,90 @@ class CharacterTests(unittest.TestCase):
         self.assertEqual(x.stats["Credits"], 0)
 
     def test_3set_living(self):
+        """Test for the set_living method.
+        """
         x = Character("Bob", None)
-        x.setLiving(False)
+        x.set_living(False)
         self.assertFalse(x.living)
 
     def test_4addItem(self):
+        """Test for the add_item method.
+        """
         x = Character("Bob", None)
         Item.load_items()
         item = Item(random.choice(Item.ITEMS))
         self.assertFalse(x.inventory)
-        x.addItem(item)
+        x.add_item(item)
         self.assertTrue(x.inventory)
 
     def test_5dropItem(self):
+        """Test for the drop_item method.
+        """
         x = Character("Bob", None)
         Item.load_items()
         item = Item(random.choice(Item.ITEMS))
         self.assertFalse(x.inventory)
-        x.addItem(item)
-        x.dropItem(item)
+        x.add_item(item)
+        x.drop_item(item)
         self.assertFalse(x.inventory)
 
     def test_6lv_up(self):
+        """Test for the lv_up method.
+        """
         x = Character("Bob", None)
         x.stats["XP"] += 11
         x.lv_up()
         self.assertEqual(x.stats["Level"], 2)
 
     def test_7updateMaxHealth(self):
+        """Test for the update_max_health method.
+        """
         x = Character("Bob", None)
         x.stats["Health"] += 11
-        x.updateMaxHealth()
+        x.update_max_health()
         self.assertEqual(x.stats["Health"], x.stats["Max Health"])
 
     def test_8updateHealth(self):
+        """Test for the update_health method.
+        """
         x = Character("Bob", None)
-        x.updateHealth(100)
+        x.update_health(100)
         self.assertEqual(x.stats["Health"], x.stats["Max Health"])
 
     def test_9getDefense(self):
+        """Test for the get_defense method.
+        """
         x = Character("Bob", None)
-        self.assertEqual(x.getDefense(), 0)
+        self.assertEqual(x.get_defense(), 0)
 
     def test_10getAttack(self):
+        """Test for the get_attack method.
+        """
         x = Character("Bob", None)
-        self.assertEqual(x.getAttack(), 0)
+        self.assertEqual(x.get_attack(), 0)
 
     def test_11defend_action(self):
+        """Test for the defend_action method.
+        """
         x = Character("Bob", None)
         x.defense = 10
-        self.assertEqual(x.getDefense(), 10)
+        self.assertEqual(x.get_defense(), 10)
         x.defend_action()
-        self.assertEqual(x.getDefense(), 15)
+        self.assertEqual(x.get_defense(), 15)
 
 
 class PlayerTests(unittest.TestCase):
+    """Testcase for the Player class.
+    """
     def test_1make_player(self):
+        """Test that the Player initializes correctly.
+        """
         x = Player("Bob", None)
         self.assertTrue(isinstance(x, Player))
 
     def test_2player_stats(self):
+        """Test that the Player's instance attributes are correct.
+        """
         x = Player("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
                    "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0})
         self.assertEqual(x.stats["Strength"], 5)
@@ -96,86 +126,92 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x.stats["Credits"], 0)
 
     def test3_equip_item_Real(self):
+        """Test for the equip_item method with various Item instances.
+        """
         player = Player("Bob", None)
         x = Item(random.choice(Item.ITEMS))
         while x.stats["type"] != "Weapon":
             x = Item(random.choice(Item.ITEMS))
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Weapon"], x)
 
         while x.stats["type"] != "Head":
             x = Item(random.choice(Item.ITEMS))
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Head"], x)
 
         while x.stats["type"] != "Arms":
             x = Item(random.choice(Item.ITEMS))
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Arms"], x)
 
         while x.stats["type"] != "Chest":
             x = Item(random.choice(Item.ITEMS))
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Chest"], x)
 
         while x.stats["type"] != "Legs":
             x = Item(random.choice(Item.ITEMS))
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Legs"], x)
 
         while x.stats["type"] != "Feet":
             x = Item(random.choice(Item.ITEMS))
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Feet"], x)
 
     def test4_equip_item_NoneItem(self):
+        """Test for the equip_item method if the Item's have a name of "None".
+        """
         player = Player("Bob", None)
         x = Item(["Weapon", "None", 0, 0, 0, 0.8])
         player.equipment["Weapon"] = x
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Weapon"], x)
 
         x = Item(["Head", "None", 0, 0, 0, 0.8])
         player.equipment["Head"] = x
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Head"], x)
 
         x = Item(["Chest", "None", 0, 0, 0, 0.8])
         player.equipment["Chest"] = x
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Chest"], x)
 
         x = Item(["Arms", "None", 0, 0, 0, 0.8])
         player.equipment["Arms"] = x
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Arms"], x)
 
         x = Item(["Legs", "None", 0, 0, 0, 0.8])
         player.equipment["Legs"] = x
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Legs"], x)
 
         x = Item(["Feet", "None", 0, 0, 0, 0.8])
         player.equipment["Feet"] = x
-        player.addItem(x)
-        player.equipItem(x)
+        player.add_item(x)
+        player.equip_item(x)
         self.assertEqual(player.equipment["Feet"], x)
 
     def test_5unequipItem_Real(self):
+        """Test for the unequip_item method with various Item instances.
+        """
         player = Player("Bob", None)
         x = player.equipment["Weapon"]
-        player.unequipItem(x)
+        player.unequip_item(x)
         unequipped = None
         for item in player.inventory:
             if item == x:
@@ -183,7 +219,7 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x, unequipped)
 
         x = player.equipment["Head"]
-        player.unequipItem(x)
+        player.unequip_item(x)
         unequipped = None
         for item in player.inventory:
             if item == x:
@@ -191,7 +227,7 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x, unequipped)
 
         x = player.equipment["Arms"]
-        player.unequipItem(x)
+        player.unequip_item(x)
         unequipped = None
         for item in player.inventory:
             if item == x:
@@ -199,7 +235,7 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x, unequipped)
 
         x = player.equipment["Chest"]
-        player.unequipItem(x)
+        player.unequip_item(x)
         unequipped = None
         for item in player.inventory:
             if item == x:
@@ -207,7 +243,7 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x, unequipped)
 
         x = player.equipment["Legs"]
-        player.unequipItem(x)
+        player.unequip_item(x)
         unequipped = None
         for item in player.inventory:
             if item == x:
@@ -215,7 +251,7 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x, unequipped)
 
         x = player.equipment["Feet"]
-        player.unequipItem(x)
+        player.unequip_item(x)
         unequipped = None
         for item in player.inventory:
             if item == x:
@@ -223,44 +259,48 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x, unequipped)
 
     def test_6unequipItem_None(self):
+        """Test for the unequip_item method if the Items have the name "None".
+        """
         player = Player("Bob", None)
         x = Item(["Weapon", "None", 0, 0, 0, 0.8])
         player.equipment["Weapon"] = x
-        player.equipItem(x)
-        player.unequipItem(x)
+        player.equip_item(x)
+        player.unequip_item(x)
         self.assertEqual(player.inventory, [])
 
         x = Item(["Head", "None", 0, 0, 0, 0.8])
         player.equipment["Head"] = x
-        player.equipItem(x)
-        player.unequipItem(x)
+        player.equip_item(x)
+        player.unequip_item(x)
         self.assertFalse(player.inventory)
 
         x = Item(["Chest", "None", 0, 0, 0, 0.8])
         player.equipment["Chest"] = x
-        player.equipItem(x)
-        player.unequipItem(x)
+        player.equip_item(x)
+        player.unequip_item(x)
         self.assertFalse(player.inventory)
 
         x = Item(["Arms", "None", 0, 0, 0, 0.8])
         player.equipment["Arms"] = x
-        player.equipItem(x)
-        player.unequipItem(x)
+        player.equip_item(x)
+        player.unequip_item(x)
         self.assertFalse(player.inventory)
 
         x = Item(["Legs", "None", 0, 0, 0, 0.8])
         player.equipment["Legs"] = x
-        player.equipItem(x)
-        player.unequipItem(x)
+        player.equip_item(x)
+        player.unequip_item(x)
         self.assertFalse(player.inventory)
 
         x = Item(["Feet", "None", 0, 0, 0, 0.8])
         player.equipment["Feet"] = x
-        player.equipItem(x)
-        player.unequipItem(x)
+        player.equip_item(x)
+        player.unequip_item(x)
         self.assertFalse(player.inventory)
 
     def test_7use_medkits(self):
+        """Test for the use_medkits method.
+        """
         player = Player("Bob", None)
         player.use_medkits()
         self.assertEqual(player.stats["Medkits"], 4)
@@ -272,10 +312,14 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(player.stats["Medkits"], 0)
 
     def test_8get_medkits(self):
+        """Test for the medkits property.
+        """
         player = Player("Bob", None)
         self.assertEqual(player.med_kits, 5)
 
     def test_9set_medkits(self):
+        """Test for the medkits setter.
+        """
         player = Player("Bob", None)
         player.med_kits = -1
         self.assertEqual(player.med_kits, 4)
@@ -284,25 +328,33 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(player.med_kits, 0)
 
     def test_10changeName(self):
+        """Test for the change_name method.
+        """
         player = Player("Bob", None)
-        player.changeName("SD")
+        player.change_name("SD")
         self.assertEqual(player.name, "SD")
 
     def test_11updateDefense(self):
+        """Test for the update_defense method.
+        """
         player = Player("Bob", None)
-        defense = player.getDefense()
+        defense = player.get_defense()
         player.stats["Vitality"] += 5
-        player.updateDefense()
-        self.assertTrue(player.getDefense() > defense)
+        player.update_defense()
+        self.assertTrue(player.get_defense() > defense)
 
     def test_12updateAttack(self):
+        """Test for the update_attack method.
+        """
         player = Player("Bob", None)
-        attack = player.getAttack()
+        attack = player.get_attack()
         player.stats["Strength"] += 5
-        player.updateAttack()
-        self.assertTrue(player.getAttack() > attack)
+        player.update_attack()
+        self.assertTrue(player.get_attack() > attack)
 
     def test_13takeDamage(self):
+        """Test for the take_damage method.
+        """
         player = Player("Bob", None)
         health = player.stats["Health"]
         player.take_damage(player)
@@ -310,47 +362,61 @@ class PlayerTests(unittest.TestCase):
 
 
 class EnemyTests(unittest.TestCase):
+    """Testcase for the Enemy class.
+    """
     def test_1make_enemy(self):
+        """Test for the Enemy instance initialization.
+        """
         enemy = Enemy("Bob", None, 10)
         self.assertTrue(isinstance(enemy, Enemy))
 
     def test_2enemy_stats(self):
+        """Test for the instance attributes.
+        """
         enemy = Enemy("Bob", None, 10)
         self.assertEqual(enemy.stats["Level"], 10)
         self.assertEqual(enemy.name, "Bob")
 
     def test_3take_damage(self):
+        """Test for the take_damage method.
+        """
         enemy = Enemy("Bob", None, 10)
         player = Player("Ded", None)
         health = enemy.stats["Health"]
         enemy.take_damage(player)
         self.assertTrue(enemy.stats["Health"] < health)
 
-        player.unequipItem(player.equipment["Weapon"])
+        player.unequip_item(player.equipment["Weapon"])
         player.damage = 0
         enemy.take_damage(player)
         self.assertTrue(enemy.stats["Health"] < health)
 
     def test_4updateDefense(self):
+        """Test for the update_defense method.
+        """
         enemy = Enemy("Bob", None, 10)
-        defense = enemy.getDefense()
+        defense = enemy.get_defense()
         enemy.stats["Vitality"] += 10
-        enemy.updateDefense()
-        self.assertTrue(enemy.getDefense() > defense)
+        enemy.update_defense()
+        self.assertTrue(enemy.get_defense() > defense)
 
     def test_5updateAttack(self):
+        """Test for the update_attack method.
+        """
         enemy = Enemy("Bob", None, 10)
-        attack = enemy.getAttack()
+        attack = enemy.get_attack()
         enemy.stats["Strength"] += 10
-        enemy.updateAttack()
-        self.assertTrue(enemy.getAttack() > attack)
+        enemy.update_attack()
+        self.assertTrue(enemy.get_attack() > attack)
 
     def test_6updateStats(self):
+        """Test for the update_stats method.
+        """
         enemy = Enemy("Bob", None, 1)
         stat_sum = (enemy.stats["Strength"] + enemy.stats["Dexterity"] +
                     enemy.stats["Vitality"] + enemy.stats["Intelligence"])
         enemy.stats["Stat Points"] += 10
-        enemy.updateStats()
+        enemy.update_stats()
         final_stat_sum = (enemy.stats["Strength"] + enemy.stats["Dexterity"] +
                           enemy.stats["Vitality"] + enemy.stats["Intelligence"])
         self.assertTrue(final_stat_sum > stat_sum)

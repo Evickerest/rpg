@@ -1,3 +1,7 @@
+"""
+Main File. Run game from here.
+"""
+
 from Classes.GameHandler import GameHandler
 
 if __name__ == "__main__":
