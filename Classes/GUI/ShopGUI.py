@@ -9,7 +9,7 @@ class ShopGUI(tk.Toplevel):
     def __init__(self, room: ShopRoom, player: Player, gameHandler):
         super().__init__()
         self.title("Shop Inventory")
-        self.geometry(f'{1000}x{700}+400+50')
+        self.geometry(f'{1100}x{700}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
@@ -33,11 +33,11 @@ class ShopGUI(tk.Toplevel):
         self.exit_button_window = self.bg_canvas.create_window(self.width - 100, 50,
                                                                anchor='sw', window=self.exit_button)
 
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=8, fill="#7A185F", justify="left",
+        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=8, fill="#05FF50", justify="left",
                                    text=self.player.name + "'s Equipment", tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580, font=8, fill="#7A185F", justify="left",
+        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580, font=8, fill="#05FF50", justify="left",
                                    text=self.player.name + "'s Inventory", tags="inventory_title")
-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580, font=8, fill="#7A185F", justify="left",
+        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580, font=8, fill="#05FF50", justify="left",
                                    text=self.shop.name + "'s Shop", tags="shop_title")
 
         self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
@@ -111,7 +111,7 @@ class ShopGUI(tk.Toplevel):
                                             + "\nValue: " + str(item.stats["value"]))
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450, font=8, fill="#7A185F", justify="left",
+        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450, font=8, fill="#05FF50", justify="left",
                                    text=self.inventory_text, tags="inventory")
 
     def shop_grid(self):
@@ -129,7 +129,7 @@ class ShopGUI(tk.Toplevel):
                                        + "\nValue: " + str(item.stats["value"]))
         else:
             self.shop_text = "The Shop Is Empty"
-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450, font=8, fill="#7A185F", justify="left",
+        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450, font=8, fill="#05FF50", justify="left",
                                    text=self.shop_text, tags="shop")
 
     def updateShopGui(self):
