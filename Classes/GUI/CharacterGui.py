@@ -61,6 +61,7 @@ class CharacterGUI(tk.Toplevel):
             if stat == "Vitality":
                 self.player.update_max_health()
                 self.player.stats["Health"] += 5
+                self.player.update_max_health()
                 self.player.update_defense()
             if stat == "Strength":
                 self.player.update_attack()

@@ -227,6 +227,10 @@ class FightGUI(tk.Toplevel):
         choice = random.choice(["attack", "defend", "nothing"])
         if choice == "attack":
             self.player.take_damage(enemy)
+            if self.player.stats["Health"] < 1:
+                self.player.set_living(False)
+                self.character_dead_gui()
+                self.destroy()
         elif choice == "defend":
             self.defend(enemy)
 
@@ -252,7 +256,7 @@ class FightGUI(tk.Toplevel):
     def destroy(self):
         """Method handling when the instance can he exited and what happens.
         """
-        if not self.enemies:
+        if not self.enemies or not self.player.living:
             self.game_handler.exit_room(self.room)
             self.room.clear_room(True)
             super().destroy()

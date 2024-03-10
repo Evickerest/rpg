@@ -328,8 +328,9 @@ class MainGUI(tk.Tk):
         Args:
             room (Room): The Room instance just entered.
         """
-        self.change_map_image(room)
-        self.game_handler.enter_room(room)
+        if self.ready and self.player.living and self.map.current_room.cleared:
+            self.change_map_image(room)
+            self.game_handler.enter_room(room)
 
     def change_map_image(self, room):
         """Changes the minimap to the new image.
@@ -416,13 +417,21 @@ class MainGUI(tk.Tk):
         Args:
             room (CombatRoom): The CombatRoom instance that was just cleared.
         """
-        self.text_printer.animate_text(f"\nYou have beaten the enemies in {room}.\n",
-                                       "game_text", tk.END)
+        if self.player.living:
+            self.text_printer.animate_text(f"\nYou have beaten the enemies in {room}.\n",
+                                           "game_text", tk.END)
+        else:
+            self.text_printer.animate_text(f"\nYou have lost to the enemies in {room}.\n",
+                                           "game_text", tk.END)
+            # Display End Game Button
+            end_game_button = tk.Button(self, font=("Calibri", 16), width=10, height=2, text="End Game",
+                                        command=lambda: self.game_handler.end_game(False))
+            self.bg_canvas.create_window(self.width - 100, 300, anchor='e', window=end_game_button)
 
     def open_inventory_gui(self):
         """Opens an InventoryGUI instance.
         """
-        if self.ready and self.map.get_current_room().get_cleared():
+        if self.ready and self.map.get_current_room().get_cleared() and self.player.living:
             self.ready = False
             self.map.get_current_room().clear_room(False)
             InventoryGUI(self.player, self.map.get_current_room(), self)
@@ -430,7 +439,7 @@ class MainGUI(tk.Tk):
     def open_character_gui(self):
         """Opens a CharacterGUI instance.
         """
-        if self.ready and self.map.get_current_room().get_cleared():
+        if self.ready and self.map.get_current_room().get_cleared() and self.player.living:
             self.ready = False
             self.map.get_current_room().clear_room(False)
             CharacterGUI(self.player, self.map.get_current_room(), self)

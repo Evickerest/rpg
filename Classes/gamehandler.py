@@ -40,6 +40,7 @@ class GameHandler:
         self.player = Player(old_name, {"Strength": 5, "Dexterity": 5, "Vitality": 5,
                                         "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
                                         "Credits": 0})
+
         # Reset game stats
         self.initial_time = time.time()
         self.total_enemies_killed = 0
