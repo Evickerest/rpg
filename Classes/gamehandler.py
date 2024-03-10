@@ -43,7 +43,7 @@ class GameHandler:
         self.totalRoomsEntered = 0
 
         self.map = Map()
-        self.GUI.createMainGUI()
+        self.GUI.create_main_gui()
 
     def get_map(self):
         """Getter for the map attribute.
@@ -72,7 +72,7 @@ class GameHandler:
         self.GUI.display_buttons()
 
         if room.cleared:
-            self.GUI.enterRepeatedRoom(room)
+            self.GUI.enter_repeated_room(room)
             return
         
         self.totalRoomsEntered += 1
@@ -81,16 +81,16 @@ class GameHandler:
             case "Combat":
                 room.player = self.player
                 room.lv_enemies()
-                self.GUI.enterCombatRoom(room)
+                self.GUI.enter_combat_room(room)
                 self.FightGUI = FightGUI(room, self.player, self)
             case "Chest":
-                self.GUI.enterChestRoom(room)
+                self.GUI.enter_chest_room(room)
                 self.ChestGUI = ChestGUI(room, self.player, self)
             case "Shop":
-                self.GUI.enterShopRoom(room)
+                self.GUI.enter_shop_room(room)
                 self.ShopGUI = ShopGUI(room, self.player, self)
             case "Boss":
-                self.GUI.enterBossRoom(room)
+                self.GUI.enter_boss_room(room)
                 self.FightGUI = FightGUI(room, self.player, self)
             case "Start":
                 room.clear_room(True)
@@ -101,11 +101,11 @@ class GameHandler:
         room.clear_room(True)
 
         if room.room_type == "Boss":
-            self.GUI.exitBossRoom()
+            self.GUI.exit_boss_room()
             self.totalEnemiesKilled += 1
         elif room.room_type == "Combat":
             self.totalEnemiesKilled += room.enemiesKilled
-            self.GUI.exitCombatRoom(room)
+            self.GUI.exit_combat_room(room)
         else:
             self.GUI.exit_room(room)
 
@@ -119,6 +119,6 @@ class GameHandler:
         totalTime = math.trunc(time.time() - self.initialTime)
 
         if isGameWon:
-            self.GUI.displayGameWonGUI(totalTime, self.totalEnemiesKilled, self.totalRoomsEntered)
+            self.GUI.display_game_won_gui(totalTime, self.totalEnemiesKilled, self.totalRoomsEntered)
         else:
-             self.GUI.displayGameLostGUI(totalTime, self.totalEnemiesKilled, self.totalRoomsEntered)
+             self.GUI.display_game_lost_gui(totalTime, self.totalEnemiesKilled, self.totalRoomsEntered)
