@@ -5,7 +5,116 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/rpg" beforeDir="false" afterPath="$PROJECT_DIR$/rpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/GUI/CharacterGui.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Map/edge.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Map/map.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Map/mapconstants.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Rooms/chest_room.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Rooms/combat_room.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Rooms/room.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Rooms/shop_room.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/Rooms/start_room.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/character.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/gamehandler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/item.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Classes/textprinter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Barracks.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Bathroom.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Bridge.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Cabin 1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Cabin 2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Cabin 3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Cafeteria.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Captains Cabin.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Docking Port.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Elevator 1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Elevator 2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Elevator 3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Engine Room.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/GameOver.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/GameWon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Hangar.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Inventory2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Kitchen.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Life Pod 1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Life Pod 2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Life Pod 3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Main Cabin.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Pod Bay.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/ShopStore.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Showers.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Stats.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Storage Area.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Images/Weapons Bay.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/SP.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Barracks.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Bridge.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Cabin 1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Cabin 2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Cabin 3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Cafeteria.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Captains Cabin.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Docking Port.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Elevator 1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Elevator 2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Elevator 3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Engine Room.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Hangar.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Kitchen.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Life Pod 1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Life Pod 2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Main Cabin.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Main.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Original.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Showers.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Storage Area.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/Set/Weapons Bay.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/guide2 (2).jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Map/guide2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/boss_room_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/character_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/chest_room_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/combat_room_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/edge_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/item_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/map_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/room_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/shop_room_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/start_room_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Character.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/CharacterGui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/CharacterGui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/ChestGUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/ChestGUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/FightGUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/FightGUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/InventoryGui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/InventoryGui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/MainGui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/MainGui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/ShopGUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/ShopGUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GameHandler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Item.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Map/Edge.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Map/Map.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Map/MapConstants.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/ChestRoom.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/CombatRoom.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/Room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/ShopRoom.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/TextPrinter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Project Report Template .docx" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Project Report Template .docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Images/bg.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/CombatRoomNames.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Names/CombatRoomNames.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/enemy_txt/monster_names" beforeDir="false" afterPath="$PROJECT_DIR$/Names/enemy_txt/monster_names" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Character_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Item_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Map_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/dungeon_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/character.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/game.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/item.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/printer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpg~HEAD" beforeDir="false" afterPath="$PROJECT_DIR$/rpg~HEAD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +122,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/rpg" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -44,8 +153,8 @@
     "Python.main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "inlay.hints"
+    "git-widget-placeholder": "Merging main",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -60,7 +169,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5a2391486177-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13763.11" />
+        <option value="bundled-python-sdk-d68999036c7f-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.14475.56" />
       </set>
     </attachedChunks>
   </component>
