@@ -30,16 +30,11 @@ class MainGUI(tk.Tk):
         self.name = None
         self.gameHandler = gameHandler
         self.gameHandler.set_gui(self)
-        self.displayed_buttons = []
         self.ready = True
-
 
         self.createIntroScreen1()
         self.mainloop()
-        #self.display_buttons() 
-
-
-
+      
     def createIntroScreen1(self):
         self.original_image = Image.open('Images/bg2.jpeg').resize((self.screenWidth, self.screenHeight))
         self.bg = ImageTk.PhotoImage(self.original_image)
@@ -190,11 +185,7 @@ class MainGUI(tk.Tk):
         self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
         self.bg_canvas.create_image(self.screenWidth - 1280 , (self.screenHeight / 2), image=self.menu_bg, anchor='nw')    
 
-
-        self.start_game()
-
-    def start_game(self):
-        # Name's Stat text
+          # Name's Stat text
         self.bg_canvas.create_text(70,485, width=300, font=('Arial', 20), fill="#FFFFFF", anchor="w", text=f"{self.name}'s Stats")
 
          # Character Detail Button
@@ -208,6 +199,19 @@ class MainGUI(tk.Tk):
                                       command=lambda: self.openInventoryGUI())
         self.bg_canvas.create_window(self.screenWidth - 1110, self.screenHeight - 385,
                                      anchor='nw',window=inv_screen_button, tags="Inv_Screen")
+        
+        # For testing purposes
+        beatBossTest = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Beat\nBoss",
+                                      command=lambda: self.exitBossRoom())
+        self.bg_canvas.create_window(600, 700,anchor='nw',window=beatBossTest)
+
+        lostTest = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Lose",
+                                      command=lambda: self.gameHandler.end_game(False))
+        self.bg_canvas.create_window(700, 700,anchor='nw',window=lostTest)
+
+        winTest = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Win",
+                                      command=lambda: self.gameHandler.end_game(True))
+        self.bg_canvas.create_window(800, 700,anchor='nw',window=winTest)
 
         # Exit Button
         self.exit_button = tk.Button(self, text="Exit", font="Calibri 20", command=self.destroy)
@@ -221,22 +225,20 @@ class MainGUI(tk.Tk):
        
         self.bg_canvas.create_text(1010,400, width=300, font=('Arial', 20), fill="#FFFFFF", anchor="w", text="Choose Next Location")
 
+        self.start_game()
+
+    def start_game(self):
         self.map = self.gameHandler.get_map()
         self.gameHandler.enter_room(self.map.get_current_room())
         self.display_buttons()
 
-     
     def display_buttons(self):
-        # Remove previous buttons
-        self.bg_canvas.delete("button")
         offset = 30
 
         # Box for map buttons
         self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0', borderwidth=3,highlightcolor="white",highlightthickness=4)
         self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
         
-        # print(f"\nCurrent Room is {self.map.getCurrentRoom()}")
-        # print(f"\nRooms adjacent to {self.map.getCurrentRoom()} are {self.map.getCurrentRoom().getAdjacentRooms()}\n")
         for adjacentRoom in self.map.get_current_room().get_adjacent_rooms():
             test = lambda room: lambda : self.handleButtonInput(room)
             button_text = adjacentRoom.name  # Button text
@@ -251,13 +253,12 @@ class MainGUI(tk.Tk):
                                 bg=color)
             button.pack(pady=5)
             offset += 50
-            # print(f"Printing button for {button_text}\n")
             
     def handleButtonInput(self, room):
-        self.clicked_button(room)
+        self.change_map_image(room)
         self.gameHandler.enter_room(room)
 
-    def clicked_button(self, room):
+    def change_map_image(self, room):
         self.original_image = Image.open(room.map_image_path).resize((300, 400))
         self.bg = ImageTk.PhotoImage(self.original_image)
         self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
@@ -271,31 +272,31 @@ class MainGUI(tk.Tk):
     def enterChestRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains a chest.\n",
                                       "game_text", tk.END)
-        self.map = self.gameHandler.get_map()
-        # self.map.printMap()
-        # print(self.map.getCurrentRoom().getAdjacentRooms())
-
+        
     def enterShopRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains a shop.\n",
                                       "game_text", tk.END)
-        self.map = self.gameHandler.get_map()
-        # self.map.printMap()
-        self.ready = True
-        # print(self.map.getCurrentRoom().getAdjacentRooms())
-
+      
     def enterCombatRoom(self, room):
         self.textPrinter.animate_text(f"\nYou have entered {room} which contains combat.\n",
                                       "game_text", tk.END)
-        self.map = self.gameHandler.get_map()
-        # self.map.printMap()
-        # print(self.map.getCurrentRoom().getAdjacentRooms())
-
 
     def enterBossRoom(self, room):
         self.textPrinter.animate_text(f"\n You have entered {room} which is the boss room.\n", "game_text", tk.END)
 
-    def exitBossRoom(self, room):
+    def exitBossRoom(self):
         self.textPrinter.animate_text(f"\nCongratulations for beating the boss!\n", "game_text", tk.END)
+
+        # Display End Game Button
+        endGameButton = tk.Button(self, font=("Calibri", 16), width=10, height=2, text="End Game",
+                                      command=lambda: self.gameHandler.end_game(True))
+        self.bg_canvas.create_window(self.width-100, 300 ,anchor='e',window=endGameButton)
+
+        # Display Text
+        self.bg_canvas.create_text(1010,235, width=300, font=('Arial', 20), fill="#FFFFFF", anchor="w", text="Move to Next Round")
+
+
+
         
     def exit_room(self, room):
         self.textPrinter.animate_text(f"\nYou have exited {room}.\n", "game_text", tk.END)
@@ -314,3 +315,89 @@ class MainGUI(tk.Tk):
             self.ready = False
             self.map.get_current_room().clear_room(False)
             CharacterGUI(self.player, self.map.get_current_room(), self)
+
+
+    def displayGameLostGUI(self, totalTime, enemiesKilled, roomsEntered):
+         # Clear previous window
+        self.bg_canvas.destroy()
+
+        # Import Map Background
+        img = Image.open('Images/GameOver.png').resize((self.screenWidth, self.screenHeight))
+        self.img = ImageTk.PhotoImage(img)
+
+        # Create canvas and background
+        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        self.bg_canvas.pack(fill='both', expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.img, anchor='nw')
+      
+           # Heading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100, font=('Calibri', 50), fill="#ffffff", justify="center",
+                                   text="You have lost the game!")
+        # Subheading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5, font=('Calibri', 35), fill="#ffffff", justify="center",
+                                   text="You have failed to eradicate all the monsters in the wreckages.")
+    
+        # Final stats
+        self.bg_canvas.create_text(300, self.height / 4 + 275, font=('Calibri', 25), fill="#ffffff", justify="left",
+                                   text=f'{self.player.name}\'s Stats:\n\n' + 
+                                        f'Total Time (s): {totalTime}.\n' +
+                                        f'Enemies Slain: {enemiesKilled}.\n' +
+                                        f'Rooms Entered: {roomsEntered}.\n' +
+                                        f'Max Health: {self.player.stats["Max Health"]}.\n' +
+                                        f'Strength: {self.player.stats["Strength"]}.\n' +
+                                        f'Dexterity: {self.player.stats["Dexterity"]}.\n' +
+                                        f'Vitality: {self.player.stats["Vitality"]}.\n' +
+                                        f'Intelligence: {self.player.stats["Intelligence"]}.'
+                                   )
+        
+        retryButton = tk.Button(self, font=("Calibri", 20), width=8, height=3, text="Retry?",
+                                      command=lambda: self.gameHandler.startNewGame())
+        self.bg_canvas.create_window(700, self.screenHeight/2,
+                                     anchor='nw',window=retryButton, tags="Inv_Screen")
+
+        # Exit Button
+        self.exit_button = tk.Button(self, text="Exit", font=("Calibri", 20), width=8, height=3,
+                                    command=self.destroy)
+        self.bg_canvas.create_window(550, self.screenHeight/2, anchor='w',window=self.exit_button)
+
+                
+    def displayGameWonGUI(self, totalTime, enemiesKilled, roomsEntered):
+         # Clear previous window
+        self.bg_canvas.destroy()
+
+        # Import Map Background
+        img = Image.open('Images/GameWon.png').resize((self.screenWidth, self.screenHeight))
+        self.img = ImageTk.PhotoImage(img)
+
+        # Create canvas and background
+        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        self.bg_canvas.pack(fill='both', expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.img, anchor='nw')
+      
+           # Heading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100, font=('Calibri', 50), fill="#ffffff", justify="center",
+                                   text="You have won the game!")
+        # Subheading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5, font=('Calibri', 30), fill="#ffffff", justify="center",
+                                   text="You have successfully eradicated all the monsters in the wreckages.")
+    
+        # Final stats
+        self.bg_canvas.create_text(300, self.height / 4 + 275, font=('Calibri', 25), fill="#ffffff", justify="left",
+                                   text=f'{self.player.name}\'s Stats:\n\n' + 
+                                        f'Total Time (s): {totalTime}.\n' +
+                                        f'Enemies Slain: {enemiesKilled}.\n' +
+                                        f'Rooms Entered: {roomsEntered}.\n' +
+                                        f'Max Health: {self.player.stats["Max Health"]}.\n' +
+                                        f'Strength: {self.player.stats["Strength"]}.\n' +
+                                        f'Dexterity: {self.player.stats["Dexterity"]}.\n' +
+                                        f'Vitality: {self.player.stats["Vitality"]}.\n' +
+                                        f'Intelligence: {self.player.stats["Intelligence"]}.'
+                                   )
+        
+        # Exit Button
+        self.exit_button = tk.Button(self, text="Exit", font=("Calibri", 20), width=8, height=3,
+                                    command=self.destroy)
+        self.bg_canvas.create_window(550, self.screenHeight/2, anchor='w',window=self.exit_button)
+
+        
+

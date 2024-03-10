@@ -244,6 +244,11 @@ class Player(Character):
         damage = attacker.get_attack()
         self.stats["Health"] -= int(damage)
 
+        # Return state of character
+        if self.stats["Health"] <= 0:
+            return True
+        return False
+
 
 class Enemy(Character):
     """Child of the Character class. Specialzed for enemies specifically.

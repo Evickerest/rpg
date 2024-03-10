@@ -14,6 +14,7 @@ class BossRoom(Room):
         super().__init__()
         self.name = self.generate_name("Combat")
         self.room_type = "Boss"
+        self.enemiesKilled = 0
 
         # mon_name = random.choice(CombatRoom.ENEMIES)
         mon_name = "BOSS"

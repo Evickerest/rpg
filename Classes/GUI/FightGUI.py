@@ -155,10 +155,16 @@ class FightGUI(tk.Toplevel):
             target (Player): The Player instance being attacked.
         """
         if target.living:
-            target.take_damage(attacker)
+            dead = target.take_damage(attacker)
+            if dead: self.characterDeadGUI()
+
+        # For some reason not working
         if target.stats["Health"] < 1:
             self.player.set_living(False)
             attacker.stats["XP"] += target.stats["Level"] * 10
+
+            self.characterDeadGUI()
+
         if isinstance(attacker, Player):
             self.resolve_player_turn()
         self.update_combat_gui()
@@ -174,6 +180,7 @@ class FightGUI(tk.Toplevel):
                     target.take_damage(self.player)
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
+                        self.room.enemiesKilled += 1
                         target.set_living(False)
                         self.enemy_entry_box.delete(0, 100)
                         self.player.stats["XP"] += int(target.stats["Level"] * 2.5)
@@ -231,6 +238,14 @@ class FightGUI(tk.Toplevel):
                                                                    window=self.exit_button)
             self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
                                   "enemy_entry", "enemy_entry_text")
+            
+    def characterDeadGUI(self):
+        """Display GUI if character dies during combat.
+        """
+        print("charcter is dead")
+        self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
+                                "enemy_entry", "enemy_entry_text")
+
 
     def destroy(self):
         """Method handling when the instance can he exited and what happens.

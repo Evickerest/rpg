@@ -1,5 +1,6 @@
 """Module for the GameHandler class.
 """
+import math
 import tkinter
 from Classes.GUI.FightGUI import FightGUI
 from Classes.GUI.MainGui import MainGUI
@@ -7,6 +8,7 @@ from Classes.GUI.ChestGUI import ChestGUI
 from Classes.GUI.ShopGUI import ShopGUI
 from Classes.character import Player
 from Classes.Map.map import Map
+import time
 
 
 class GameHandler:
@@ -20,7 +22,28 @@ class GameHandler:
                                          "Credits": 0})
         self.map = Map()
         self.GUI = None
+
+        # Overall game stats
+        self.initialTime = time.time()
+        self.totalEnemiesKilled = 0
+        self.totalRoomsEntered = 0
+
         MainGUI(self.player, self)
+
+    def startNewGame(self):
+        """Starts a new game.
+        """
+        oldName = self.player.name
+        self.player = Player(oldName, {"Strength": 5, "Dexterity": 5, "Vitality": 5,
+                                         "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
+                                         "Credits": 0})
+        # Reset game stats
+        self.initialTime = time.time()
+        self.totalEnemiesKilled = 0
+        self.totalRoomsEntered = 0
+
+        self.map = Map()
+        self.GUI.createMainGUI()
 
     def get_map(self):
         """Getter for the map attribute.
@@ -51,6 +74,8 @@ class GameHandler:
         if room.cleared:
             self.GUI.enterRepeatedRoom(room)
             return
+        
+        self.totalRoomsEntered += 1
 
         match room.room_type:
             case "Combat":
@@ -76,8 +101,24 @@ class GameHandler:
         room.clear_room(True)
 
         if room.room_type == "Boss":
-            self.GUI.exitBossRoom(room)
+            self.GUI.exitBossRoom()
+            self.totalEnemiesKilled += 1
         elif room.room_type == "Combat":
+            self.totalEnemiesKilled += room.enemiesKilled
             self.GUI.exitCombatRoom(room)
         else:
             self.GUI.exit_room(room)
+
+    def end_game(self, isGameWon: bool):
+        """Ends the game and display corresponding GUI.
+        Args:
+            isGameWon (bool): If the game has been won or lost.
+        """
+        
+        # Display to player total time spent 
+        totalTime = math.trunc(time.time() - self.initialTime)
+
+        if isGameWon:
+            self.GUI.displayGameWonGUI(totalTime, self.totalEnemiesKilled, self.totalRoomsEntered)
+        else:
+             self.GUI.displayGameLostGUI(totalTime, self.totalEnemiesKilled, self.totalRoomsEntered)

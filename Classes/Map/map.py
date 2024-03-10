@@ -5,6 +5,7 @@ import math
 import random
 from Classes.Map.edge import Edge
 from Classes.Map.mapconstants import MapConstants
+from Classes.Rooms.start_room import StartRoom
 
 # Manages the rooms and room connections
 
@@ -18,6 +19,7 @@ class Map:
         self.rooms = None
         self.current_room = None
         self.edges = []
+        self.startRoom = StartRoom()
 
         self.generate_map()
 
@@ -27,7 +29,7 @@ class Map:
         self.generate_random_rooms()
         self.connect_every_room_together()
         self.prims_algorithm()
-        self.set_current_room(MapConstants.START_ROOM)
+        self.set_current_room(self.startRoom)
         self.assign_random_images()
         # self.printMap()
 
@@ -118,7 +120,7 @@ class Map:
             edge.rooms[0].create_adjacency(edge.rooms[1])
 
         # Create Start room
-        MapConstants.START_ROOM.add_adjacent_room(self.rooms[0])
+        self.startRoom.add_adjacent_room(self.rooms[0])
 
     def assign_random_images(self):
         """Method to assign an image path to all rooms in the map.
@@ -136,8 +138,15 @@ class Map:
     def print_map(self):
         """Method to print all the rooms in the map and their adjacent rooms.
         """
-        print(f"{MapConstants.START_ROOM} is adjacent to:"
-              f" {MapConstants.START_ROOM.get_adjacent_rooms()}\n\n")
+        print(f"{self.startRoom} is adjacent to:"
+              f" {self.startRoom.get_adjacent_rooms()}\n\n")
         for room in self.rooms:
             print(f"{room} is adjacent to: {room.get_adjacent_rooms()}\n\n")
+
+    # def resetGame(self):
+    #     self.rooms = None
+    #     self.current_room = None
+    #     self.edges = []
+    #     self.startRoom = StartRoom()
+    #     self.generate_map()
         

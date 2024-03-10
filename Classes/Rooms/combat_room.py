@@ -46,6 +46,7 @@ class CombatRoom(Room):
         self.room_type = "Combat"
         self.text = "You have entered a Combat room. Prepare to fight."
         self.is_boss_room = False
+        self.enemiesKilled = 0
 
     def generate_enemies(self):
         """Method to fill the room with a random number of enemies.

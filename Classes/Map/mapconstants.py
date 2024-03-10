@@ -13,8 +13,6 @@ class MapConstants:
     """
     TOTAL_ROOMS = 15
     CHANCE_FOR_NEW_EDGE = 0.25
-    START_ROOM = StartRoom()
-
     ROOM_TYPES = {
         "Combat": {
             "desired_number": 10,
