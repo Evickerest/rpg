@@ -250,8 +250,11 @@ class FightGUI(tk.Toplevel):
         """Display GUI if character dies during combat.
         """
         print("Character is dead")
-        self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
-                              "enemy_entry", "enemy_entry_text")
+        super().destroy()
+        self.game_handler.end_game(False)
+
+        # self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
+        #                       "enemy_entry", "enemy_entry_text")
 
     def destroy(self):
         """Method handling when the instance can he exited and what happens.

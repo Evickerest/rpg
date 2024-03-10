@@ -262,18 +262,18 @@ class MainGUI(tk.Tk):
                                      anchor='nw', window=inv_screen_button, tags="Inv_Screen")
         
         # For testing purposes
-        beat_boss_test = tk.Button(self, font=("Calibri", 16), width=8, height=3,
-                                   text="Beat\nBoss",
-                                   command=lambda: self.exit_boss_room())
-        self.bg_canvas.create_window(600, 700, anchor='nw', window=beat_boss_test)
+        # beat_boss_test = tk.Button(self, font=("Calibri", 16), width=8, height=3,
+        #                            text="Beat\nBoss",
+        #                            command=lambda: self.exit_boss_room())
+        # self.bg_canvas.create_window(600, 700, anchor='nw', window=beat_boss_test)
 
-        lost_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Lose",
-                              command=lambda: self.game_handler.end_game(False))
-        self.bg_canvas.create_window(700, 700, anchor='nw', window=lost_test)
+        # lost_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Lose",
+        #                       command=lambda: self.game_handler.end_game(False))
+        # self.bg_canvas.create_window(700, 700, anchor='nw', window=lost_test)
 
-        win_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Win",
-                             command=lambda: self.game_handler.end_game(True))
-        self.bg_canvas.create_window(800, 700, anchor='nw', window=win_test)
+        # win_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Win",
+        #                      command=lambda: self.game_handler.end_game(True))
+        # self.bg_canvas.create_window(800, 700, anchor='nw', window=win_test)
 
         # Exit Button
         self.exit_button = tk.Button(self, text="Exit", font="Calibri 20", command=self.destroy)
@@ -392,6 +392,8 @@ class MainGUI(tk.Tk):
     def exit_boss_room(self):
         """Prints text when exiting a BossRoom.
         """
+        if not self.player.living: return
+
         self.text_printer.animate_text(f"\nCongratulations for beating the boss!\n",
                                        "game_text", tk.END)
 
@@ -421,12 +423,13 @@ class MainGUI(tk.Tk):
             self.text_printer.animate_text(f"\nYou have beaten the enemies in {room}.\n",
                                            "game_text", tk.END)
         else:
-            self.text_printer.animate_text(f"\nYou have lost to the enemies in {room}.\n",
-                                           "game_text", tk.END)
-            # Display End Game Button
-            end_game_button = tk.Button(self, font=("Calibri", 16), width=10, height=2, text="End Game",
-                                        command=lambda: self.game_handler.end_game(False))
-            self.bg_canvas.create_window(self.width - 100, 300, anchor='e', window=end_game_button)
+            self.game_handler.end_game(False)
+            # self.text_printer.animate_text(f"\nYou have lost to the enemies in {room}.\n",
+            #                                "game_text", tk.END)
+            # # Display End Game Button
+            # end_game_button = tk.Button(self, font=("Calibri", 16), width=10, height=2, text="End Game",
+            #                             command=lambda: self.game_handler.end_game(False))
+            # self.bg_canvas.create_window(self.width - 100, 300, anchor='e', window=end_game_button)
 
     def open_inventory_gui(self):
         """Opens an InventoryGUI instance.
@@ -447,7 +450,7 @@ class MainGUI(tk.Tk):
     def display_game_lost_gui(self, total_time, enemies_killed, rooms_entered):
         """The screen that shows when you lose the game.
         Args:
-            total_time (ChestRoom): The ChestRoom instance to enter.
+            total_time (int): The total time spent.
             enemies_killed (int): The number of enemies killed.
             rooms_entered (int): The number of rooms entered.
         """
@@ -466,7 +469,7 @@ class MainGUI(tk.Tk):
         # Heading
         self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100, font=('Calibri', 50),
                                    fill="#ffffff", justify="center",
-                                   text="You have lost the game!")
+                                   text="You have died!")
         # Subheading
         self.bg_canvas.create_text(self.width / 2, self.height / 5, font=('Calibri', 35),
                                    fill="#ffffff", justify="center",
@@ -519,7 +522,7 @@ class MainGUI(tk.Tk):
       
         # Heading
         self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100, font=('Calibri', 50),
-                                   fill="#ffffff", justify="center", text="You have won the game!")
+                                   fill="#ffffff", justify="center", text="You have won!")
         # Subheading
         self.bg_canvas.create_text(self.width / 2, self.height / 5, font=('Calibri', 30),
                                    fill="#ffffff", justify="center",
