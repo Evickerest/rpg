@@ -22,7 +22,7 @@ class CombatRoomTests(unittest.TestCase):
         x = CombatRoom()
         self.assertEqual(x.room_type, "Combat")
         self.assertTrue(x.name)
-        self.assertEqual(x.text, "You have entered a Combat room. Prepare to fight.")
+        self.assertFalse(x.is_boss_room)
         self.assertEqual(x.mon_lv, 1)
         self.assertTrue(x.enemies)
 
