@@ -3,10 +3,9 @@
 
 import random
 import tkinter as tk
+from PIL import ImageTk, Image
 from Classes.character import Player, Enemy, Character
 from Classes.Rooms.combat_room import CombatRoom
-from Classes.Rooms.room import Room
-from PIL import ImageTk, Image
 
 
 class FightGUI(tk.Toplevel):
@@ -52,7 +51,7 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10,
                                    fill="#ff0d1d", justify="center",
                                    text=self.player.name + "'s Side", tags="equipment_title")
-        
+
         t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10,
                                    fill="#ff0d1d", justify="center", text=t, tags="Enemies")
@@ -65,7 +64,7 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_window(50, 450, anchor='sw', window=self.enemy_entry_box,
                                      tags="enemy_entry")
 
-        self.attack_button = tk.Button(self, text=f'Attack',
+        self.attack_button = tk.Button(self, text='Attack',
                                        font='Time_New_Roman 8',
                                        command=lambda: self.player_attack())
         self.attack_button_window = self.bg_canvas.create_window(50, 400, anchor='sw',
@@ -245,7 +244,7 @@ class FightGUI(tk.Toplevel):
                                                                    window=self.exit_button)
             self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
                                   "enemy_entry", "enemy_entry_text")
-            
+
     def character_dead_gui(self):
         """Display GUI if character dies during combat.
         """

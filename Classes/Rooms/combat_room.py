@@ -8,7 +8,7 @@ from Classes.character import Enemy, Player
 
 
 class CombatRoom(Room):
-    """Specialzed Room that contains the generic non-boss enemy encounters.
+    """Specialized Room that contains the generic non-boss enemy encounters.
     Attributes:
         ENEMIES (list): Contains the names of all potential enemies
     """
@@ -20,7 +20,7 @@ class CombatRoom(Room):
         """Static method to load the different types of items from a specified file.
         """
         if not CombatRoom.ENEMIES:
-            with open('Names/enemy_txt/monster_names', 'r') as f:
+            with open('Names/enemy_txt/monster_names', 'r',encoding="utf-8") as f:
                 reader = csv.reader(f)
                 for row in reader:
                     CombatRoom.ENEMIES.append(row)
@@ -44,7 +44,6 @@ class CombatRoom(Room):
         self.generate_enemies()
         self.name = self.generate_name("Combat")
         self.room_type = "Combat"
-        self.text = "You have entered a Combat room. Prepare to fight."
         self.is_boss_room = False
         self.enemies_killed = 0
 
@@ -54,7 +53,7 @@ class CombatRoom(Room):
         num = random.randint(1, 4)
         if self.player:
             self.mon_lv = self.player.stats["Level"]
-        for i in range(0, num):
+        for _ in range(0, num):
             mon_name = random.choice(CombatRoom.ENEMIES)
             self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))
 

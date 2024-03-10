@@ -16,7 +16,7 @@ class Item:
         """Static method to load the different types of items from a specified file.
         """
         if not Item.ITEMS:
-            with open('Names/items_txt/item_types', 'r') as f:
+            with open('Names/items_txt/item_types', 'r', encoding="utf-8") as f:
                 reader = csv.reader(f)
                 for row in reader:
                     Item.ITEMS.append(row)
@@ -72,7 +72,7 @@ class Item:
         if random.random() < self.crit_percent:
             applied_damage *= 2
 
-        # If crit is 
+        # If crit is
         enemy_defense_reducer = 1
         if random.random() < self.armor_break_percent:
             enemy_defense_reducer = 0.5

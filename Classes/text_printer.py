@@ -24,7 +24,7 @@ class TextPrinter:
         """
         if self.ready is False:
             return
-        
+
         self.ready = False
 
         delta = 25
@@ -38,9 +38,9 @@ class TextPrinter:
                                                                        method_of_printing, s)
             self.tkinter.bg_canvas.after(delay, update_text)
             delay += delta
-        else:
-            delay += delta
-            self.tkinter.bg_canvas.after(delay, self.toggle_ready)
+
+        delay += delta
+        self.tkinter.bg_canvas.after(delay, self.toggle_ready)
 
     def toggle_ready(self):
         """Setter for the ready attribute.
@@ -53,7 +53,7 @@ class TextPrinter:
             ready (bool): If the text is done printing yet.
         """
         return self.ready
-    
+
     def offset_text_box(self, text_box_id, amount):
         """Method to determine how much to offset the text by.
         Args:

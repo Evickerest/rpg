@@ -1,11 +1,10 @@
-"""Module for the InventoryGui class.
+"""Module for the InventoryGUI class.
 """
 
 import tkinter as tk
+from PIL import ImageTk, Image
 from Classes.character import Player
 from Classes.Rooms.room import Room
-from Classes.GUI.MainGui import *
-from PIL import ImageTk, Image
 
 
 class InventoryGUI(tk.Toplevel):

@@ -2,11 +2,9 @@
 """
 
 import tkinter as tk
+from PIL import ImageTk, Image
 from Classes.character import Player
 from Classes.Rooms.room import Room
-from Classes.GUI.MainGui import *
-from PIL import ImageTk, Image
-
 
 class CharacterGUI(tk.Toplevel):
     """Class governing all player-game interactions involving the Character's stats.
@@ -40,11 +38,9 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 15",
+        exit_button = tk.Button(self, text="Close", font="Time_New_Roman 15",
                                      command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 80, 475,
-                                                               anchor='sw',
-                                                               window=self.exit_button)
+        self.bg_canvas.create_window(self.width / 2 + 80, 475,anchor='sw',window=exit_button)
 
         self.update_character_gui()
 

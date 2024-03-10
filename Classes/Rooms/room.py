@@ -51,7 +51,7 @@ class Room:
             cleared (bool): The room's cleared status.
         """
         return self.cleared
-    
+
     def set_image_path(self, path):
         """Setter for the room's image.
         Args:
@@ -82,7 +82,7 @@ class Room:
             adjacentRooms (list): The list of adjacent Room isntances.
         """
         return self.adjacent_rooms
-    
+
     def generate_name(self, room_type):
         """Setter for the room's name based on its type.
         Args:
@@ -91,20 +91,20 @@ class Room:
             name (str): The name of the room.
         """
         names = []
-        with open(f'Names/{room_type}RoomNames.txt', 'r') as f:
+        with open(f'Names/{room_type}RoomNames.txt', 'r', encoding="utf-8") as f:
             reader = csv.reader(f)
             for row in reader:
                 names.append(row)
         self.name = random.choice(*names)
         return self.name
-    
+
     def __repr__(self):
         """Representation of the room.
         Returns:
             name (str): The name of the room.
         """
         return self.name
-    
+
     def __eq__(self, other):
         """Checks whether two rooms are overlapping.
         Args:

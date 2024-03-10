@@ -1,7 +1,6 @@
 """Module for the Map class.
 """
 
-import math
 import random
 from Classes.Map.edge import Edge
 from Classes.Map.mapconstants import MapConstants
@@ -39,7 +38,7 @@ class Map:
             current_room (Room): The Room the player is in.
         """
         return self.current_room
-    
+
     def set_current_room(self, room):
         """Setter for the current room of the map.
         Args:
@@ -64,7 +63,6 @@ class Map:
                 room = MapConstants.ROOM_TYPES[room_type]["room"]()
                 # room.image = randomImage()
 
-                # TODO: delete later
                 room.number = str(counter)
                 counter += 1
 
@@ -107,7 +105,7 @@ class Map:
             # Throw random edges in
             while (random.random() < MapConstants.CHANCE_FOR_NEW_EDGE
                    and len(available_edges) != 0):
-                
+
                 random_edge = random.choice(available_edges)
                 # Max of 6 room connections per room
                 if (len(random_edge.rooms[0].get_adjacent_rooms()) < 6 and
@@ -129,7 +127,7 @@ class Map:
                          "Barracks", "Cafeteria", "Life Pod 1", "Cabin 2", "Showers", "Cabin 1",
                          "Docking Port", "Bridge", "Elevator 3", "Elevator 2", "Cabin 3",
                          "Captains Cabin", "Hangar", "Life Pod 2", "Engine Room"]
-        
+
         random.shuffle(button_images)
 
         for room in self.rooms:

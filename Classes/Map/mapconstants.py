@@ -5,8 +5,6 @@ from Classes.Rooms.boss_room import BossRoom
 from Classes.Rooms.chest_room import ChestRoom
 from Classes.Rooms.shop_room import ShopRoom
 from Classes.Rooms.combat_room import CombatRoom
-from Classes.Rooms.start_room import StartRoom
-
 
 class MapConstants:
     """Determines the various constants when generating a new Map.
@@ -30,5 +28,4 @@ class MapConstants:
             "desired_number": 1,
             "room": BossRoom
         }
-
     }

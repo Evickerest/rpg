@@ -17,7 +17,7 @@ class ShopRoom(Room):
         self.items = []
 
         num_items = random.randint(1, 4)
-        for i in range(0, num_items):
+        for _ in range(0, num_items):
             self.items.append(Item(random.choice(Item.ITEMS)))
 
         self.text = "You have entered a Shop room. Prepare to buy items."

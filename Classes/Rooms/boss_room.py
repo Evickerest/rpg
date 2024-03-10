@@ -1,10 +1,8 @@
 """Module for the BossRoom class.
 """
 
-from Classes.Rooms.combat_room import CombatRoom
 from Classes.Rooms.room import Room
 from Classes.character import Enemy
-
 
 class BossRoom(Room):
     """Acts similarly to CombatRoom.
@@ -18,7 +16,7 @@ class BossRoom(Room):
 
         # mon_name = random.choice(CombatRoom.ENEMIES)
         mon_name = "BOSS"
-        
+
         self.is_boss_room = True
         self.enemies = [Enemy(mon_name, None, 10)]
     

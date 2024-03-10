@@ -2,9 +2,9 @@
 """
 
 import tkinter as tk
+from PIL import ImageTk, Image
 from Classes.character import Player
 from Classes.Rooms.shop_room import ShopRoom
-from PIL import ImageTk, Image
 
 
 class ShopGUI(tk.Toplevel):

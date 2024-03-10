@@ -2,9 +2,9 @@
 """
 
 import tkinter as tk
+from PIL import ImageTk, Image
 from Classes.character import Player
 from Classes.Rooms.chest_room import ChestRoom
-from PIL import ImageTk, Image
 
 
 class ChestGUI(tk.Toplevel):
@@ -40,21 +40,17 @@ class ChestGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         if self.room.item:
-            self.loot_button = tk.Button(self, text=f"Take " + str(self.room.item.stats["name"]),
+            loot_button = tk.Button(self, text="Take " + str(self.room.item.stats["name"]),
                                          font='Time_New_Roman 8',
                                          command=lambda: self.loot_chest())
-            self.loot_button_window = self.bg_canvas.create_window(100, 200, anchor='sw',
-                                                                   window=self.loot_button,
-                                                                   tags="loot_button")
+            self.bg_canvas.create_window(100, 200, anchor='sw',window=loot_button,tags="loot_button")
 
-            self.scrap_button = tk.Button(self, text=f"Scrap It For "
+            scrap_button = tk.Button(self, text="Scrap It For "
                                                      + str(self.room.item.stats["value"])
                                                      + " Credits",
                                           font='Time_New_Roman 8',
                                           command=lambda: self.scrap_chest())
-            self.scrap_button_window = self.bg_canvas.create_window(100, 300, anchor='sw',
-                                                                    window=self.scrap_button,
-                                                                    tags="scrap_button")
+            self.bg_canvas.create_window(100, 300, anchor='sw',window=scrap_button,tags="scrap_button")
 
     def loot_chest(self):
         """Method for what happens if the player chooses to take the item.
