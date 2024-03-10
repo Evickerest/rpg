@@ -1,5 +1,8 @@
+# pylint: disable=duplicate-code,too-many-instance-attributes
 """Module containing the ChestGUI class.
 """
+
+
 
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -17,6 +20,8 @@ class ChestGUI(tk.Toplevel):
             player (Player): The Player instance.
             gameHandler: The game_handler instance.
         """
+        # pylint: disable=W0108
+
         super().__init__()
         self.title("Chest Screen")
         self.geometry(f'{300}x{400}+400+50')
@@ -43,14 +48,14 @@ class ChestGUI(tk.Toplevel):
             loot_button = tk.Button(self, text="Take " + str(self.room.item.stats["name"]),
                                          font='Time_New_Roman 8',
                                          command=lambda: self.loot_chest())
-            self.bg_canvas.create_window(100, 200, anchor='sw',window=loot_button,tags="loot_button")
+            self.bg_canvas.create_window(100, 200, anchor='sw',
+                                         window=loot_button,tags="loot_button")
 
-            scrap_button = tk.Button(self, text="Scrap It For "
-                                                     + str(self.room.item.stats["value"])
-                                                     + " Credits",
-                                          font='Time_New_Roman 8',
-                                          command=lambda: self.scrap_chest())
-            self.bg_canvas.create_window(100, 300, anchor='sw',window=scrap_button,tags="scrap_button")
+            scrap_button = tk.Button(self, text="Scrap It For "+
+                                    str(self.room.item.stats["value"])+ " Credits",
+                                    font='Time_New_Roman 8', command=lambda: self.scrap_chest())
+            self.bg_canvas.create_window(100, 300, anchor='sw',
+                                         window=scrap_button,tags="scrap_button")
 
     def loot_chest(self):
         """Method for what happens if the player chooses to take the item.

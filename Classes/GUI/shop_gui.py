@@ -1,5 +1,7 @@
+# pylint: disable=duplicate-code,too-many-instance-attributes
 """Module containing the ShopGUI class.
 """
+
 
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -17,6 +19,8 @@ class ShopGUI(tk.Toplevel):
             player (Player): The Player instance to interact with.
             gameHandler: The game_handler instance.
         """
+        # pylint: disable=W0108
+
         super().__init__()
         self.title("Shop Inventory")
         self.geometry(f'{1100}x{700}+400+50')

@@ -36,5 +36,5 @@ class EdgeTests(unittest.TestCase):
         room2 = CombatRoom()
         room2.set_coordinates(10, 5)
         edge = Edge(room1, room2)
-        x = edge.__repr__()
+        x = repr(edge)
         self.assertEqual(x, f"{room1} <-> {room2} | {edge.weight}")

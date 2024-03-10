@@ -13,7 +13,7 @@ class ItemTests(unittest.TestCase):
     def test_1load_items1(self):
         """Test that the list of item details loads properly.
         """
-        self.assertNotEquals(Item.ITEMS, [])
+        self.assertFalse(not Item.ITEMS)
 
     def test_2load_items2(self):
         """Test that the list of item details exists.

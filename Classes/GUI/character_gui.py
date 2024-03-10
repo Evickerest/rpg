@@ -1,5 +1,7 @@
+# pylint: disable=duplicate-code,too-many-instance-attributes
 """Module for the CharacterGUI class.
 """
+
 
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -16,6 +18,8 @@ class CharacterGUI(tk.Toplevel):
             room (Room): The current room the Player is in.
             gui: The parent gui.
         """
+
+
         super().__init__()
         self.title("Character Screen")
         self.geometry(f'{300}x{500}+400+50')
@@ -74,6 +78,8 @@ class CharacterGUI(tk.Toplevel):
     def update_character_gui(self):
         """Method to update the display whenever a button is clicked.
         """
+        # pylint: disable=W0108
+
         self.bg_canvas.delete("stats")
         self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
         self.bg_canvas.delete("level_up")

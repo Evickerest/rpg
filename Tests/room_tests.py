@@ -111,13 +111,13 @@ class RoomTests(unittest.TestCase):
         """
         x = Room()
         x_name = x.generate_name("Combat")
-        self.assertEqual(x.__repr__(), x_name)
+        self.assertEqual(repr(x), x_name)
 
     def test_13__eq__(self):
         """Test for the __eq__ method.
         """
         x = Room()
         y = Room()
-        self.assertTrue(x.__eq__(y))
+        self.assertTrue(x == y)
         x.set_coordinates(5, 1)
-        self.assertFalse(x.__eq__(y))
+        self.assertFalse(x == y)
