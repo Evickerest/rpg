@@ -358,6 +358,9 @@ class PlayerTests(unittest.TestCase):
         health = player.stats["Health"]
         player.take_damage(player)
         self.assertTrue(player.stats["Health"] < health)
+        player.stats["Health"] = 1
+        self.assertTrue(player.take_damage(player))
+
 
 
 class EnemyTests(unittest.TestCase):

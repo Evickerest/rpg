@@ -15,7 +15,7 @@ class ShopGUI(tk.Toplevel):
         Args:
             room (ShopRoom): The ShopRoom instance to interact with
             player (Player): The Player instance to interact with.
-            gameHandler: The gameHandler instance.
+            gameHandler: The game_handler instance.
         """
         super().__init__()
         self.title("Shop Inventory")

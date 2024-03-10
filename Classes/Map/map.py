@@ -19,7 +19,7 @@ class Map:
         self.rooms = None
         self.current_room = None
         self.edges = []
-        self.startRoom = StartRoom()
+        self.start_room = StartRoom()
 
         self.generate_map()
 
@@ -29,7 +29,7 @@ class Map:
         self.generate_random_rooms()
         self.connect_every_room_together()
         self.prims_algorithm()
-        self.set_current_room(self.startRoom)
+        self.set_current_room(self.start_room)
         self.assign_random_images()
         # self.printMap()
 
@@ -120,7 +120,7 @@ class Map:
             edge.rooms[0].create_adjacency(edge.rooms[1])
 
         # Create Start room
-        self.startRoom.add_adjacent_room(self.rooms[0])
+        self.start_room.add_adjacent_room(self.rooms[0])
 
     def assign_random_images(self):
         """Method to assign an image path to all rooms in the map.
@@ -138,8 +138,8 @@ class Map:
     def print_map(self):
         """Method to print all the rooms in the map and their adjacent rooms.
         """
-        print(f"{self.startRoom} is adjacent to:"
-              f" {self.startRoom.get_adjacent_rooms()}\n\n")
+        print(f"{self.start_room} is adjacent to:"
+              f" {self.start_room.get_adjacent_rooms()}\n\n")
         for room in self.rooms:
             print(f"{room} is adjacent to: {room.get_adjacent_rooms()}\n\n")
 
@@ -147,6 +147,6 @@ class Map:
     #     self.rooms = None
     #     self.current_room = None
     #     self.edges = []
-    #     self.startRoom = StartRoom()
+    #     self.start_room = StartRoom()
     #     self.generate_map()
         

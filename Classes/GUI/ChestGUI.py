@@ -15,7 +15,7 @@ class ChestGUI(tk.Toplevel):
         Args:
             room (ChestRoom): The ChestRoom instance.
             player (Player): The Player instance.
-            gameHandler: The gameHandler instance.
+            gameHandler: The game_handler instance.
         """
         super().__init__()
         self.title("Chest Screen")

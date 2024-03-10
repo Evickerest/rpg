@@ -1,0 +1,236 @@
+************* Module gamehandler
+rpg\Classes\gamehandler.py:66:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\gamehandler.py:80:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\gamehandler.py:122:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\gamehandler.py:123:44: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\gamehandler.py:24:8: C0103: Attribute name "GUI" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\gamehandler.py:25:8: C0103: Attribute name "FightGUI" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\gamehandler.py:26:8: C0103: Attribute name "ShopGUI" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\gamehandler.py:27:8: C0103: Attribute name "ChestGUI" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\gamehandler.py:14:0: R0902: Too many instance attributes (9/7) (too-many-instance-attributes)
+rpg\Classes\gamehandler.py:5:0: W0611: Unused import tkinter (unused-import)
+************* Module item
+rpg\Classes\item.py:75:20: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\item.py:19:17: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+************* Module textprinter
+rpg\Classes\textprinter.py:27:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\textprinter.py:56:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\textprinter.py:41:8: W0120: Else clause on loop without a break statement, remove the else and de-indent all the code inside it (useless-else-on-loop)
+rpg\Classes\textprinter.py:37:26: C3001: Lambda expression assigned to a variable. Define a function using the "def" keyword instead. (unnecessary-lambda-assignment)
+************* Module GUI.CharacterGui
+rpg\Classes\GUI\CharacterGui.py:1:0: C0103: Module name "CharacterGui" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\GUI\CharacterGui.py:7:0: W0401: Wildcard import Classes.GUI.MainGui (wildcard-import)
+rpg\Classes\GUI\CharacterGui.py:11:0: E0102: class already defined line 7 (function-redefined)
+rpg\Classes\GUI\CharacterGui.py:11:0: R0902: Too many instance attributes (10/7) (too-many-instance-attributes)
+rpg\Classes\GUI\CharacterGui.py:118:39: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\CharacterGui.py:7:0: W0614: Unused import(s) CharacterGUI, random, ttk, MainGUI, InventoryGUI, FightGUI, ShopGUI and TextPrinter from wildcard import of Classes.GUI.MainGui (unused-wildcard-import)
+************* Module GUI.ChestGUI
+rpg\Classes\GUI\ChestGUI.py:1:0: C0103: Module name "ChestGUI" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\GUI\ChestGUI.py:10:0: R0902: Too many instance attributes (12/7) (too-many-instance-attributes)
+rpg\Classes\GUI\ChestGUI.py:43:52: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+rpg\Classes\GUI\ChestGUI.py:45:49: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\ChestGUI.py:50:53: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+rpg\Classes\GUI\ChestGUI.py:54:50: W0108: Lambda may not be necessary (unnecessary-lambda)
+************* Module GUI.FightGUI
+rpg\Classes\GUI\FightGUI.py:55:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\FightGUI.py:244:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\FightGUI.py:1:0: C0103: Module name "FightGUI" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\GUI\FightGUI.py:12:0: R0902: Too many instance attributes (26/7) (too-many-instance-attributes)
+rpg\Classes\GUI\FightGUI.py:68:50: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+rpg\Classes\GUI\FightGUI.py:70:47: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\FightGUI.py:84:51: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\FightGUI.py:90:74: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\FightGUI.py:8:0: W0611: Unused Room imported from Classes.Rooms.room (unused-import)
+************* Module GUI.InventoryGui
+rpg\Classes\GUI\InventoryGui.py:1:0: C0103: Module name "InventoryGui" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\GUI\InventoryGui.py:7:0: W0401: Wildcard import Classes.GUI.MainGui (wildcard-import)
+rpg\Classes\GUI\InventoryGui.py:11:0: E0102: class already defined line 7 (function-redefined)
+rpg\Classes\GUI\InventoryGui.py:11:0: R0902: Too many instance attributes (21/7) (too-many-instance-attributes)
+rpg\Classes\GUI\InventoryGui.py:58:48: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\InventoryGui.py:65:46: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\InventoryGui.py:72:45: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\InventoryGui.py:7:0: W0614: Unused import(s) InventoryGUI, random, ttk, MainGUI, CharacterGUI, FightGUI, ShopGUI and TextPrinter from wildcard import of Classes.GUI.MainGui (unused-wildcard-import)
+************* Module GUI.MainGui
+rpg\Classes\GUI\MainGui.py:65:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:105:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:188:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:239:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:263:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:282:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:310:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:320:91: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:325:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:343:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:366:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:374:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:405:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:413:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:456:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:466:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:470:77: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:480:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:491:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:510:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:519:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:523:77: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\GUI\MainGui.py:537:0: C0301: Line too long (102/100) (line-too-long)
+rpg\Classes\GUI\MainGui.py:1:0: C0103: Module name "MainGui" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\GUI\MainGui.py:7:0: W0404: Reimport 'tkinter' (imported line 5) (reimported)
+rpg\Classes\GUI\MainGui.py:15:0: W0401: Wildcard import Images (wildcard-import)
+rpg\Classes\GUI\MainGui.py:18:0: R0902: Too many instance attributes (26/7) (too-many-instance-attributes)
+rpg\Classes\GUI\MainGui.py:253:47: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\MainGui.py:260:46: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\MainGui.py:267:43: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\MainGui.py:311:12: C0103: Variable name "adjacentRoom" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\GUI\MainGui.py:312:19: C3001: Lambda expression assigned to a variable. Define a function using the "def" keyword instead. (unnecessary-lambda-assignment)
+rpg\Classes\GUI\MainGui.py:394:39: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
+rpg\Classes\GUI\MainGui.py:482:41: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\MainGui.py:18:0: R0904: Too many public methods (22/20) (too-many-public-methods)
+rpg\Classes\GUI\MainGui.py:4:0: W0611: Unused import random (unused-import)
+rpg\Classes\GUI\MainGui.py:7:0: W0611: Unused tkinter imported as ttk (unused-import)
+rpg\Classes\GUI\MainGui.py:11:0: W0611: Unused FightGUI imported from Classes.GUI.FightGUI (unused-import)
+rpg\Classes\GUI\MainGui.py:12:0: W0611: Unused ShopGUI imported from Classes.GUI.ShopGUI (unused-import)
+rpg\Classes\GUI\MainGui.py:13:0: W0611: Unused Room imported from Classes.Rooms.room (unused-import)
+************* Module GUI.ShopGUI
+rpg\Classes\GUI\ShopGUI.py:1:0: C0103: Module name "ShopGUI" doesn't conform to snake_case naming style (invalid-name)
+rpg\Classes\GUI\ShopGUI.py:10:0: R0902: Too many instance attributes (25/7) (too-many-instance-attributes)
+rpg\Classes\GUI\ShopGUI.py:61:48: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\ShopGUI.py:68:46: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\ShopGUI.py:75:49: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\ShopGUI.py:82:45: W0108: Lambda may not be necessary (unnecessary-lambda)
+rpg\Classes\GUI\ShopGUI.py:89:51: W0108: Lambda may not be necessary (unnecessary-lambda)
+************* Module map
+rpg\Classes\Map\map.py:42:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\Map\map.py:110:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\Map\map.py:132:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\Map\map.py:67:17: W0511: TODO: delete later (fixme)
+rpg\Classes\Map\map.py:57:8: C0206: Consider iterating with .items() (consider-using-dict-items)
+rpg\Classes\Map\map.py:4:0: W0611: Unused import math (unused-import)
+************* Module mapconstants
+rpg\Classes\Map\mapconstants.py:11:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+rpg\Classes\Map\mapconstants.py:8:0: W0611: Unused StartRoom imported from Classes.Rooms.start_room (unused-import)
+************* Module Rooms.boss_room
+rpg\Classes\Rooms\boss_room.py:21:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\Rooms\boss_room.py:4:0: W0611: Unused CombatRoom imported from Classes.Rooms.combat_room (unused-import)
+************* Module Rooms.combat_room
+rpg\Classes\Rooms\combat_room.py:10:0: R0902: Too many instance attributes (8/7) (too-many-instance-attributes)
+rpg\Classes\Rooms\combat_room.py:23:17: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+rpg\Classes\Rooms\combat_room.py:56:26: E1101: Instance of 'tuple' has no 'stats' member (no-member)
+rpg\Classes\Rooms\combat_room.py:57:12: W0612: Unused variable 'i' (unused-variable)
+rpg\Classes\Rooms\combat_room.py:67:39: E1101: Instance of 'tuple' has no 'stats' member (no-member)
+rpg\Classes\Rooms\combat_room.py:68:46: E1101: Instance of 'tuple' has no 'stats' member (no-member)
+************* Module Rooms.room
+rpg\Classes\Rooms\room.py:54:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\Rooms\room.py:85:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\Rooms\room.py:100:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\Rooms\room.py:107:0: C0303: Trailing whitespace (trailing-whitespace)
+rpg\Classes\Rooms\room.py:8:0: R0902: Too many instance attributes (9/7) (too-many-instance-attributes)
+rpg\Classes\Rooms\room.py:94:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+rpg\Classes\Rooms\room.py:98:20: E1120: No value for argument 'seq' in method call (no-value-for-parameter)
+************* Module Rooms.shop_room
+rpg\Classes\Rooms\shop_room.py:20:12: W0612: Unused variable 'i' (unused-variable)
+************* Module Tests.edge_tests
+rpg\Tests\edge_tests.py:39:12: C2801: Unnecessarily calls dunder method __repr__. Use repr built-in function. (unnecessary-dunder-call)
+************* Module Tests.item_tests
+rpg\Tests\item_tests.py:16:8: W4902: Using deprecated method assertNotEquals() (deprecated-method)
+************* Module Tests.room_tests
+rpg\Tests\room_tests.py:114:25: C2801: Unnecessarily calls dunder method __repr__. Use repr built-in function. (unnecessary-dunder-call)
+rpg\Tests\room_tests.py:121:24: C2801: Unnecessarily calls dunder method __eq__. Use == operator. (unnecessary-dunder-call)
+rpg\Tests\room_tests.py:123:25: C2801: Unnecessarily calls dunder method __eq__. Use == operator. (unnecessary-dunder-call)
+************* Module Tests.start_room_tests
+rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
+==GUI.CharacterGui:[23:35]
+==GUI.InventoryGui:[23:33]
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+        self.iconbitmap('Images/SpaceShip.ico')
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+
+        self.player = player
+        self.room = room
+        self.gui = gui
+
+        # Customize screen (duplicate-code)
+rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
+==GUI.InventoryGui:[174:182]
+==GUI.ShopGUI:[199:207]
+        self.read_entry_box()
+        if self.read_entry_box() is not None:
+            item_to_remove = self.item_entry
+            for item in self.player.equipment.values():
+                if item.stats["name"] == item_to_remove:
+                    self.player.unequip_item(item)
+                    self.player.update_defense()
+                    self.player.update_attack() (duplicate-code)
+rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
+==GUI.InventoryGui:[160:168]
+==GUI.ShopGUI:[186:194]
+        self.read_entry_box()
+        if self.read_entry_box() is not None:
+            item_to_equip = self.item_entry
+            for item in self.player.inventory:
+                if item.stats["name"] == item_to_equip:
+                    self.player.equip_item(item)
+                    self.player.update_defense()
+                    self.player.update_attack() (duplicate-code)
+rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
+==GUI.FightGUI:[24:33]
+==GUI.InventoryGui:[23:32]
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+        self.iconbitmap('Images/SpaceShip.ico')
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+
+        self.player = player
+        self.room = room (duplicate-code)
+rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
+==GUI.CharacterGui:[84:92]
+==GUI.MainGui:[142:150]
+                                   text=self.player.name + "'s Stats" +
+                                   "\n\nHealth: " + str(self.player.stats["Health"]) +
+                                   "/" + str(self.player.stats["Max Health"]) +
+                                   "\n\nStr: " + str(self.player.stats["Strength"]) +
+                                   "\n\nDex: " + str(self.player.stats["Dexterity"]) +
+                                   "\n\nVit: " + str(self.player.stats["Vitality"]) +
+                                   "\n\nInt: " + str(self.player.stats["Intelligence"]) +
+                                   "\n\nFree Points: " + str(self.player.stats["Stat Points"]) + (duplicate-code)
+rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
+==GUI.CharacterGui:[23:32]
+==GUI.ChestGUI:[22:32]
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+        self.iconbitmap('Images/SpaceShip.ico')
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+
+        self.player = player
+        self.room = room
+ (duplicate-code)
+rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
+==GUI.CharacterGui:[23:31]
+==GUI.ShopGUI:[22:30]
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+        self.iconbitmap('Images/SpaceShip.ico')
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+
+        self.player = player (duplicate-code)
+rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
+==GUI.InventoryGui:[121:126]
+==GUI.ShopGUI:[139:144]
+        self.bg_canvas.delete("inventory")
+        self.inventory_text = ""
+        if len(self.player.inventory) > 0:
+            for item in self.player.inventory:
+                if item.stats["type"] == "Weapon": (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.13/10 (previous run: 8.88/10, +0.25)
+

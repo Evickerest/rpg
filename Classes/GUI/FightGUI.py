@@ -12,12 +12,12 @@ from PIL import ImageTk, Image
 class FightGUI(tk.Toplevel):
     """Class governing player-system interactions during an active FightRoom.
     """
-    def __init__(self, room: CombatRoom, player: Player, gameHandler):
+    def __init__(self, room: CombatRoom, player: Player, game_handler):
         """Creates the instance.
         Args:
             room (CombatRoom): The CombatRoom instance.
             player (Player): The Player instance being controlled.
-            gameHandler: The gameHandler instance.
+            game_handler: The gameHandler instance.
         """
         super().__init__()
         self.title("Combat Screen")
@@ -33,11 +33,13 @@ class FightGUI(tk.Toplevel):
         self.room = room
         self.enemies = room.enemies
         self.room_name = room.__repr__()
-        self.game_handler = gameHandler
+        self.game_handler = game_handler
         self.no_enemy = False
         self.enemies_txt = ""
         self.count = 0
         self.enemy_entry = None
+        self.exit_button = None
+        self.exit_button_window = None
 
         self.original_image = Image.open('Images/' + self.room_name + '.jpg').resize((self.width,
                                                                                       self.height))
@@ -156,14 +158,15 @@ class FightGUI(tk.Toplevel):
         """
         if target.living:
             dead = target.take_damage(attacker)
-            if dead: self.characterDeadGUI()
+            if dead:
+                self.character_dead_gui()
 
         # For some reason not working
         if target.stats["Health"] < 1:
             self.player.set_living(False)
             attacker.stats["XP"] += target.stats["Level"] * 10
 
-            self.characterDeadGUI()
+            self.character_dead_gui()
 
         if isinstance(attacker, Player):
             self.resolve_player_turn()
@@ -180,7 +183,7 @@ class FightGUI(tk.Toplevel):
                     target.take_damage(self.player)
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
-                        self.room.enemiesKilled += 1
+                        self.room.enemies_killed += 1
                         target.set_living(False)
                         self.enemy_entry_box.delete(0, 100)
                         self.player.stats["XP"] += int(target.stats["Level"] * 2.5)
@@ -239,13 +242,12 @@ class FightGUI(tk.Toplevel):
             self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
                                   "enemy_entry", "enemy_entry_text")
             
-    def characterDeadGUI(self):
+    def character_dead_gui(self):
         """Display GUI if character dies during combat.
         """
-        print("charcter is dead")
+        print("Character is dead")
         self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
-                                "enemy_entry", "enemy_entry_text")
-
+                              "enemy_entry", "enemy_entry_text")
 
     def destroy(self):
         """Method handling when the instance can he exited and what happens.

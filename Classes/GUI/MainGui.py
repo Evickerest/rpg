@@ -24,7 +24,7 @@ class MainGUI(tk.Tk):
         """Creates the instance.
         Args:
             player: The player instance
-            game_handler: The gameHandler instance.
+            game_handler: The game_handler instance.
         """
         super().__init__()
         self.title("Spaceship Game")
@@ -33,8 +33,26 @@ class MainGUI(tk.Tk):
         self.iconbitmap('Images/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
-        self.screenWidth = 1300
-        self.screenHeight = 900
+        self.screen_width = 1300
+        self.screen_height = 900
+        self.original_image = None
+        self.bg = None
+        self.bg_canvas = None
+        self.user_name = None
+        self.user_name_entry = None
+        self.user_name_window = None
+        self.start_button = None
+        self.start_button_window = None
+        self.exit_button = None
+        self.exit_button_window = None
+        self.text_printer = None
+        self.next_text = None
+        self.background_image = None
+        self.backg = None
+        self.button_frame = None
+        self.img = None
+        self.menu_bg = None
+        self.map = None
 
         self.player = player
         self.name = None
@@ -48,19 +66,19 @@ class MainGUI(tk.Tk):
     def create_intro_screen1(self):
         """Creates the title screen.
         """
-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.screenWidth,
-                                                                    self.screenHeight))
+        self.original_image = Image.open('Images/bg2.jpeg').resize((self.screen_width,
+                                                                    self.screen_height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width, height=self.screen_height)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.bg_canvas.create_text(self.screenWidth / 2, self.screenHeight / 2,
+        self.bg_canvas.create_text(self.screen_width / 2, self.screen_height / 2,
                                    text="Are You Ready For a New Adventure?",
                                    font="Time_New_Roman 45", fill='#041A00',
                                    anchor="center", tags="MainMenu_Text")
-        self.bg_canvas.create_text(self.screenWidth / 2, self.screenHeight / 2,
+        self.bg_canvas.create_text(self.screen_width / 2, self.screen_height / 2,
                                    text="Are You Ready For a New Adventure?",
                                    font="TTime_New_Roman 44", fill='white',
                                    anchor="center", tags="MainMenu_Text")
@@ -94,14 +112,14 @@ class MainGUI(tk.Tk):
             self.player.change_name(self.name)
 
         self.bg_canvas.destroy()
-        self.original_image = Image.open('Images/bg.jpg').resize((self.screenWidth,
-                                                                  self.screenHeight))
+        self.original_image = Image.open('Images/bg.jpg').resize((self.screen_width,
+                                                                  self.screen_height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         # Make text printer object
-        self.textPrinter = TextPrinter(self)
+        self.text_printer = TextPrinter(self)
 
-        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width, height=self.screen_height)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
         self.bg_canvas.create_text(self.width/2, self.height-600, font="Time_New_Roman 22",
@@ -204,8 +222,8 @@ class MainGUI(tk.Tk):
         self.bg_canvas.destroy()
 
         # Create Map Background
-        self.background_image = Image.open('Images/HallWay.png').resize((self.screenWidth,
-                                                                         self.screenHeight))
+        self.background_image = Image.open('Images/HallWay.png').resize((self.screen_width,
+                                                                         self.screen_height))
         self.backg = ImageTk.PhotoImage(self.background_image)
 
         self.original_image = Image.open('Map/Set/Main.jpg').resize((300, 400))
@@ -215,14 +233,14 @@ class MainGUI(tk.Tk):
         menu_image = Image.open('Images/info_bg.png').resize((300, 200))
         self.menu_bg = ImageTk.PhotoImage(menu_image)
 
-        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width, height=self.screen_height)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.backg, anchor='nw')
       
         # Create Canvas and Images
-        self.bg_canvas.create_image(self.screenWidth - 1280, self.screenWidth - 1280,
+        self.bg_canvas.create_image(self.screen_width - 1280, self.screen_width - 1280,
                                     image=self.bg, anchor='nw')
-        self.bg_canvas.create_image(self.screenWidth - 1280, (self.screenHeight / 2),
+        self.bg_canvas.create_image(self.screen_width - 1280, (self.screen_height / 2),
                                     image=self.menu_bg, anchor='nw')
 
         # Name's Stat text
@@ -233,14 +251,14 @@ class MainGUI(tk.Tk):
         char_screen_button = tk.Button(self, font=("Calibri", 16), width=8, height=3,
                                        text="Character\nDetails",
                                        command=lambda: self.open_character_gui())
-        self.bg_canvas.create_window(self.screenWidth - 1250, self.screenHeight - 385,
+        self.bg_canvas.create_window(self.screen_width - 1250, self.screen_height - 385,
                                      anchor='nw', window=char_screen_button, tags="Char_Screen")
 
         # Inventory Detail Button
         inv_screen_button = tk.Button(self, font=("Calibri", 16), width=8, height=3,
                                       text="Inventory\nDetails",
                                       command=lambda: self.open_inventory_gui())
-        self.bg_canvas.create_window(self.screenWidth - 1110, self.screenHeight - 385,
+        self.bg_canvas.create_window(self.screen_width - 1110, self.screen_height - 385,
                                      anchor='nw', window=inv_screen_button, tags="Inv_Screen")
         
         # For testing purposes
@@ -253,13 +271,13 @@ class MainGUI(tk.Tk):
                               command=lambda: self.game_handler.end_game(False))
         self.bg_canvas.create_window(700, 700, anchor='nw', window=lost_test)
 
-        winTest = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Win",
-                            command=lambda: self.game_handler.end_game(True))
-        self.bg_canvas.create_window(800, 700, anchor='nw', window=winTest)
+        win_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Win",
+                             command=lambda: self.game_handler.end_game(True))
+        self.bg_canvas.create_window(800, 700, anchor='nw', window=win_test)
 
         # Exit Button
         self.exit_button = tk.Button(self, text="Exit", font="Calibri 20", command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(10, self.screenHeight-150,
+        self.exit_button_window = self.bg_canvas.create_window(10, self.screen_height - 150,
                                                                anchor='w', window=self.exit_button)
         
         self.bg_canvas.create_text(450, 350, width=500, font=('Time_New_Roman', 15),
@@ -320,7 +338,8 @@ class MainGUI(tk.Tk):
         """
         self.original_image = Image.open(room.map_image_path).resize((300, 400))
         self.bg = ImageTk.PhotoImage(self.original_image)
-        self.bg_canvas.create_image(self.screenWidth - 1280, self.screenWidth - 1280, image=self.bg, anchor='nw')
+        self.bg_canvas.create_image(self.screen_width - 1280, self.screen_width - 1280,
+                                    image=self.bg, anchor='nw')
      
     def animate_text(self, text_id, text):
         """Prints text to the MainGUI.
@@ -328,52 +347,52 @@ class MainGUI(tk.Tk):
             text_id (str): The text_box to print to.
             text (str): The text to print.
         """
-        self.textPrinter.animate_text(text, text_id, tk.END)
+        self.text_printer.animate_text(text, text_id, tk.END)
 
     def enter_repeated_room(self, room):
         """Prints text when entering a previously cleared room.
         Args:
             room (Room): The already cleared room.
         """
-        self.textPrinter.animate_text(f"\n{room} has already been entered.\n", "game_text", tk.END)
+        self.text_printer.animate_text(f"\n{room} has already been entered.\n", "game_text", tk.END)
 
     def enter_chest_room(self, room):
         """Prints text when entering a ChestRoom.
         Args:
             room (ChestRoom): The ChestRoom instance to enter.
         """
-        self.textPrinter.animate_text(f"\nYou have entered {room} which contains a chest.\n",
-                                      "game_text", tk.END)
+        self.text_printer.animate_text(f"\nYou have entered {room} which contains a chest.\n",
+                                       "game_text", tk.END)
         
     def enter_shop_room(self, room):
         """Prints text when entering a ShopRoom.
         Args:
             room (ShopRoom): The ShopRoom instance to enter.
         """
-        self.textPrinter.animate_text(f"\nYou have entered {room} which contains a shop.\n",
-                                      "game_text", tk.END)
+        self.text_printer.animate_text(f"\nYou have entered {room} which contains a shop.\n",
+                                       "game_text", tk.END)
       
     def enter_combat_room(self, room):
         """Prints text when entering a CombatRoom.
         Args:
             room (CombatRoom): The CombatRoom instance to enter.
         """
-        self.textPrinter.animate_text(f"\nYou have entered {room} which contains combat.\n",
-                                      "game_text", tk.END)
+        self.text_printer.animate_text(f"\nYou have entered {room} which contains combat.\n",
+                                       "game_text", tk.END)
 
     def enter_boss_room(self, room):
         """Prints text when entering a BossRoom.
         Args:
             room (BossRoom): The BossRoom instance to enter.
         """
-        self.textPrinter.animate_text(f"\n You have entered {room} which is the boss room.\n",
-                                      "game_text", tk.END)
+        self.text_printer.animate_text(f"\n You have entered {room} which is the boss room.\n",
+                                       "game_text", tk.END)
 
     def exit_boss_room(self):
         """Prints text when exiting a BossRoom.
         """
-        self.textPrinter.animate_text(f"\nCongratulations for beating the boss!\n",
-                                      "game_text", tk.END)
+        self.text_printer.animate_text(f"\nCongratulations for beating the boss!\n",
+                                       "game_text", tk.END)
 
         # Display End Game Button
         end_game_button = tk.Button(self, font=("Calibri", 16), width=10, height=2, text="End Game",
@@ -389,14 +408,16 @@ class MainGUI(tk.Tk):
         Args:
             room (Room): The Room instance that was just cleared.
         """
-        self.textPrinter.animate_text(f"\nYou have exited {room}.\n", "game_text", tk.END)
+        self.text_printer.animate_text(f"\nYou have exited {room}.\n",
+                                       "game_text", tk.END)
     
     def exit_combat_room(self, room):
         """Prints text when exiting a CombatRoom.
         Args:
             room (CombatRoom): The CombatRoom instance that was just cleared.
         """
-        self.textPrinter.animate_text(f"\nYou have beaten the enemies in {room}.\n", "game_text", tk.END)
+        self.text_printer.animate_text(f"\nYou have beaten the enemies in {room}.\n",
+                                       "game_text", tk.END)
 
     def open_inventory_gui(self):
         """Opens an InventoryGUI instance.
@@ -404,7 +425,7 @@ class MainGUI(tk.Tk):
         if self.ready and self.map.get_current_room().get_cleared():
             self.ready = False
             self.map.get_current_room().clear_room(False)
-            self.InventoryGUI = InventoryGUI(self.player, self.map.get_current_room(), self)
+            InventoryGUI(self.player, self.map.get_current_room(), self)
 
     def open_character_gui(self):
         """Opens a CharacterGUI instance.
@@ -425,11 +446,11 @@ class MainGUI(tk.Tk):
         self.bg_canvas.destroy()
 
         # Import Map Background
-        img = Image.open('Images/GameOver.png').resize((self.screenWidth, self.screenHeight))
+        img = Image.open('Images/GameOver.png').resize((self.screen_width, self.screen_height))
         self.img = ImageTk.PhotoImage(img)
 
         # Create canvas and background
-        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width, height=self.screen_height)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.img, anchor='nw')
       
@@ -458,14 +479,15 @@ class MainGUI(tk.Tk):
                                    )
         
         retry_button = tk.Button(self, font=("Calibri", 20), width=8, height=3, text="Retry?",
-                                 command=lambda: self.game_handler.startNewGame())
-        self.bg_canvas.create_window(700, self.screenHeight/2,
+                                 command=lambda: self.game_handler.start_new_game())
+        self.bg_canvas.create_window(700, self.screen_height / 2,
                                      anchor='nw', window=retry_button, tags="Inv_Screen")
 
         # Exit Button
         self.exit_button = tk.Button(self, text="Exit", font=("Calibri", 20), width=8, height=3,
                                      command=self.destroy)
-        self.bg_canvas.create_window(550, self.screenHeight / 2, anchor='w', window=self.exit_button)
+        self.bg_canvas.create_window(550, self.screen_height / 2, anchor='w',
+                                     window=self.exit_button)
                 
     def display_game_won_gui(self, total_time, enemies_killed, rooms_entered):
         """The screen that shows when you win the game.
@@ -478,11 +500,11 @@ class MainGUI(tk.Tk):
         self.bg_canvas.destroy()
 
         # Import Map Background
-        img = Image.open('Images/GameWon.png').resize((self.screenWidth, self.screenHeight))
+        img = Image.open('Images/GameWon.png').resize((self.screen_width, self.screen_height))
         self.img = ImageTk.PhotoImage(img)
 
         # Create canvas and background
-        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width, height=self.screen_height)
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.img, anchor='nw')
       
@@ -512,4 +534,4 @@ class MainGUI(tk.Tk):
         # Exit Button
         self.exit_button = tk.Button(self, text="Exit", font=("Calibri", 20), width=8, height=3,
                                      command=self.destroy)
-        self.bg_canvas.create_window(550, self.screenHeight/2, anchor='w', window=self.exit_button)
+        self.bg_canvas.create_window(550, self.screen_height / 2, anchor='w', window=self.exit_button)

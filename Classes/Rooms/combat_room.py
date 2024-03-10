@@ -46,7 +46,7 @@ class CombatRoom(Room):
         self.room_type = "Combat"
         self.text = "You have entered a Combat room. Prepare to fight."
         self.is_boss_room = False
-        self.enemiesKilled = 0
+        self.enemies_killed = 0
 
     def generate_enemies(self):
         """Method to fill the room with a random number of enemies.
@@ -59,7 +59,7 @@ class CombatRoom(Room):
             self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))
 
     def lv_enemies(self):
-        """Method to level up enemeis to match the Player instance associated
+        """Method to level up enemies to match the Player instance associated
          with the Combat Room.
          """
         for enemy in self.enemies:
