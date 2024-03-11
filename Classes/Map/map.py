@@ -125,6 +125,8 @@ class Map:
 
         # Create Start room
         self.start_room.add_adjacent_room(self.rooms[0])
+        self.start_room.cleared = True
+        
 
     def assign_random_images(self):
         """Method to assign an image path to all rooms in the map.
@@ -148,10 +150,3 @@ class Map:
               f" {self.start_room.get_adjacent_rooms()}\n\n")
         for room in self.rooms:
             print(f"{room} is adjacent to: {room.get_adjacent_rooms()}\n\n")
-
-    # def resetGame(self):
-    #     self.rooms = None
-    #     self.current_room = None
-    #     self.edges = []
-    #     self.start_room = StartRoom()
-    #     self.generate_map()

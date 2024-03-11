@@ -96,13 +96,13 @@ class FightGUI(tk.Toplevel):
                                                                      window=self.use_medkit_button,
                                                                      tags="medkit_button")
 
-        self.use_item_button = tk.Button(self, text='Placeholder\n',
-                                         font='Time_New_Roman 8',
-                                         command=lambda: self.destroy())
-        self.use_item_button_window = self.bg_canvas.create_window(650, 400,
-                                                                   anchor='sw',
-                                                                   window=self.use_item_button,
-                                                                   tags="use_item_button")
+        # self.use_item_button = tk.Button(self, text='Placeholder\n',
+        #                                  font='Time_New_Roman 8',
+        #                                  command=lambda: self.destroy())
+        # self.use_item_button_window = self.bg_canvas.create_window(650, 400,
+        #                                                            anchor='sw',
+        #                                                            window=self.use_item_button,
+        #                                                            tags="use_item_button")
 
         self.update_combat_gui()
         self.mainloop()
@@ -171,30 +171,30 @@ class FightGUI(tk.Toplevel):
             self.enemy_entry = self.enemy_entry_box.get()
         return self.enemy_entry
 
-    def enemy_attack(self, attacker: Character, target: Player):
-        """Method governing how an Enemy instance attacks the Player instance.
-        Args:
-            attacker (Character): The Character instance doing the attack.
-            target (Player): The Player instance being attacked.
-        """
-        if target.living:
-            dead = target.take_damage(attacker)
-            if dead:
-                self.player.set_living(False)
-                self.character_dead_gui()
+    # def enemy_attack(self, attacker: Character, target: Player):
+    #     """Method governing how an Enemy instance attacks the Player instance.
+    #     Args:
+    #         attacker (Character): The Character instance doing the attack.
+    #         target (Player): The Player instance being attacked.
+    #     """
+    #     if target.living:
+    #         dead = target.take_damage(attacker)
+    #         if dead:
+    #             self.player.set_living(False)
+    #             self.character_dead_gui()
 
-        # For some reason not working
-        if target.stats["Health"] < 1:
-            self.player.set_living(False)
-            attacker.stats["XP"] += target.stats["Level"] * 10
+    #     # For some reason not working
+    #     if target.stats["Health"] < 1:
+    #         self.player.set_living(False)
+    #         attacker.stats["XP"] += target.stats["Level"] * 10
 
-            self.character_dead_gui()
+    #         self.character_dead_gui()
 
-        if isinstance(attacker, Player):
-            self.resolve_player_turn()
+    #     if isinstance(attacker, Player):
+    #         self.resolve_player_turn()
 
-        if self.player.living:
-            self.update_combat_gui()
+    #     if self.player.living:
+    #         self.update_combat_gui()
 
     def player_attack(self):
         """Method governing how a Player attacks a target specified using
@@ -220,7 +220,8 @@ class FightGUI(tk.Toplevel):
                     self.resolve_player_turn()
         else:
             pass
-        self.update_combat_gui()
+        if self.player.living:
+            self.update_combat_gui()
 
     def defend(self, defender: Character):
         """Method to temporarily increase a Character's defense
@@ -230,7 +231,8 @@ class FightGUI(tk.Toplevel):
         defender.defend_action()
         if isinstance(defender, Player):
             self.resolve_player_turn()
-        self.update_combat_gui()
+        if self.player.living:
+            self.update_combat_gui()
 
     def use_medkit(self):
         """Method to use a medkit and update the display.
@@ -245,7 +247,8 @@ class FightGUI(tk.Toplevel):
         if self.player:
             for enemy in self.enemies:
                 enemy.update_defense()
-                self.enemy_turn(enemy)
+                if self.player.living:
+                    self.enemy_turn(enemy)
             self.player.update_defense()
 
     def enemy_turn(self, enemy: Enemy):
@@ -259,7 +262,6 @@ class FightGUI(tk.Toplevel):
             if self.player.stats["Health"] < 1:
                 self.player.set_living(False)
                 self.character_dead_gui()
-                self.destroy()
         elif choice == "defend":
             self.defend(enemy)
 
@@ -269,7 +271,7 @@ class FightGUI(tk.Toplevel):
         if not self.enemies:
             self.exit_button = tk.Button(self, text="Exit",
                                          font="Time_New_Roman 10",
-                                         command=self.destroy)
+                                         command=self.endFight)
             self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
                                                                    anchor='sw',
                                                                    window=self.exit_button)
@@ -288,7 +290,7 @@ class FightGUI(tk.Toplevel):
         #                       "use_item_button", "enemy_entry",
         #                       "enemy_entry_text")
 
-    def destroy(self):
+    def endFight(self):
         """Method handling when the instance can he exited and what happens.
         """
         if not self.enemies or not self.player.living:

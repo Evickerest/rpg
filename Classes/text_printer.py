@@ -49,12 +49,12 @@ class TextPrinter:
         """
         self.ready = not self.ready
 
-    def is_text_ready(self):
-        """Getter for the ready attribute.
-        Returns:
-            ready (bool): If the text is done printing yet.
-        """
-        return self.ready
+    # def is_text_ready(self):
+    #     """Getter for the ready attribute.
+    #     Returns:
+    #         ready (bool): If the text is done printing yet.
+    #     """
+    #     return self.ready
 
     def offset_text_box(self, text_box_id, amount):
         """Method to determine how much to offset the text by.

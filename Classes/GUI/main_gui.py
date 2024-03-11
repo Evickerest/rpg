@@ -302,9 +302,9 @@ class MainGUI(tk.Tk):
         #                            command=lambda: self.exit_boss_room())
         # self.bg_canvas.create_window(600, 700, anchor='nw', window=beat_boss_test)
 
-        lost_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Lose",
-                              command=lambda: self.game_handler.end_game(False))
-        self.bg_canvas.create_window(700, 700, anchor='nw', window=lost_test)
+        # lost_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Lose",
+        #                       command=lambda: self.game_handler.end_game(False))
+        # self.bg_canvas.create_window(700, 700, anchor='nw', window=lost_test)
 
         # win_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Win",
         #                      command=lambda: self.game_handler.end_game(True))
@@ -336,8 +336,10 @@ class MainGUI(tk.Tk):
         """
         # Make text printer object
         self.text_printer = TextPrinter(self)
-        
+
+        self.ready = True
         self.map = self.game_handler.get_map()
+        self.player = self.game_handler.player
         self.game_handler.enter_room(self.map.get_current_room())
         self.display_buttons()
 
@@ -498,6 +500,9 @@ class MainGUI(tk.Tk):
     def open_character_gui(self):
         """Opens a CharacterGUI instance.
         """
+        print("clicking character")
+        print(f"ready: {self.ready}, current: {self.map.get_current_room().get_cleared()}")
+        print(f"living: {self.player.living}")
         if (self.ready and self.map.get_current_room().get_cleared()
                 and self.player.living):
             self.ready = False
