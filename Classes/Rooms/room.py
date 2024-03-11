@@ -1,3 +1,4 @@
+# pylint: disable=too-many-instance-attributes
 """Module for the parent Room class.
 """
 

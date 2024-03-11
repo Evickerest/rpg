@@ -1,10 +1,11 @@
+# pylint: disable=too-many-instance-attributes
 """Module for the CombatRoom class.
 """
 
 import random
 import csv
 from Classes.Rooms.room import Room
-from Classes.character import Enemy, Player
+from Classes.character import Enemy
 
 
 class CombatRoom(Room):
@@ -27,7 +28,7 @@ class CombatRoom(Room):
                 for row in reader:
                     CombatRoom.ENEMIES.append(row)
 
-    def __init__(self, *args):
+    def __init__(self):
         """Creates the CombatRoom instance.
         Args:
             *args: Currently nonfunctional. Meant to take an optional Player
@@ -37,15 +38,17 @@ class CombatRoom(Room):
         if not CombatRoom.ENEMIES:
             CombatRoom.load_enemies()
         self.player = None
-        if isinstance(args, Player):
-            self.player = args
-            self.mon_lv = self.player.stats["Level"]
-        else:
-            self.mon_lv = 1
+        # if isinstance(args, Player):
+        #     self.player = args
+        #     self.mon_lv = self.player.stats["Level"]
+        # else:
+
+        self.mon_lv = 1
         self.enemies = []
         self.generate_enemies()
         self.name = self.generate_name("Combat")
         self.room_type = "Combat"
+        self.text = "You have entered a Combat room. Prepare to fight."
         self.is_boss_room = False
         self.enemies_killed = 0
 

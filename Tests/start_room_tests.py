@@ -7,6 +7,7 @@ from Classes.Rooms.start_room import StartRoom
 class StartRoomTests(unittest.TestCase):
     """Testcase for the StartRoom class.
     """
+
     def test_1make_startroom(self):
         """Test for the StartRoom initialization.
         """

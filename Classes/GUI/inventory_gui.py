@@ -1,5 +1,7 @@
+# pylint: disable=duplicate-code,too-many-instance-attributes
 """Module for the InventoryGUI class.
 """
+
 
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -18,6 +20,8 @@ class InventoryGUI(tk.Toplevel):
             room (Room): The room the Player instance is in.
             gui: The MainGui instance that is a parent of this instance.
         """
+        # pylint: disable=W0108
+
         super().__init__()
         self.title("Character Inventory")
         self.geometry(f'{1000}x{600}+400+50')
