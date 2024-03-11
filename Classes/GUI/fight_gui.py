@@ -25,7 +25,7 @@ class FightGUI(tk.Toplevel):
         self.geometry(f'{800}x{600}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
-        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+        self.minsize(self.width, self.height)  # Min size, can be maximized.
         self.iconbitmap('Images/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
@@ -46,50 +46,61 @@ class FightGUI(tk.Toplevel):
                                                                                       self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
+        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
+                                   bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10,
-                                   fill="#ff0d1d", justify="center",
-                                   text=self.player.name + "'s Side", tags="equipment_title")
+        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580,
+                                   font=10, fill="#ff0d1d", justify="center",
+                                   text=self.player.name + "'s Side",
+                                   tags="equipment_title")
 
         t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10,
-                                   fill="#ff0d1d", justify="center", text=t, tags="Enemies")
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580,
+                                   font=10, fill="#ff0d1d", justify="center",
+                                   text=t, tags="Enemies")
 
-        self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack', font='Time_New_Roman 8')
-        self.enemy_entry_text = self.bg_canvas.create_window(50, 430, anchor='sw',
+        self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack',
+                                         font='Time_New_Roman 8')
+        self.enemy_entry_text = self.bg_canvas.create_window(50, 430,
+                                                             anchor='sw',
                                                              window=self.enemy_entry_text,
                                                              tags="enemy_entry_text")
         self.enemy_entry_box = tk.Entry(self, font='Time_New_Roman 8')
-        self.bg_canvas.create_window(50, 450, anchor='sw', window=self.enemy_entry_box,
+        self.bg_canvas.create_window(50, 450, anchor='sw',
+                                     window=self.enemy_entry_box,
                                      tags="enemy_entry")
 
         self.attack_button = tk.Button(self, text='Attack',
                                        font='Time_New_Roman 8',
                                        command=lambda: self.player_attack())
-        self.attack_button_window = self.bg_canvas.create_window(50, 400, anchor='sw',
+        self.attack_button_window = self.bg_canvas.create_window(50, 400,
+                                                                 anchor='sw',
                                                                  window=self.attack_button,
                                                                  tags="attack_button")
 
         self.defend_button = tk.Button(self, text='Defend',
                                        font='Time_New_Roman 8',
                                        command=lambda: self.defend(self.player))
-        self.defend_button_window = self.bg_canvas.create_window(250, 400, anchor='sw',
+        self.defend_button_window = self.bg_canvas.create_window(250, 400,
+                                                                 anchor='sw',
                                                                  window=self.defend_button,
                                                                  tags="defend_button")
 
         self.use_medkit_button = tk.Button(self, text='Use Medkit',
                                            font='Time_New_Roman 8',
                                            command=lambda: self.use_medkit())
-        self.use_medkit_button_window = self.bg_canvas.create_window(450, 400, anchor='sw',
+        self.use_medkit_button_window = self.bg_canvas.create_window(450, 400,
+                                                                     anchor='sw',
                                                                      window=self.use_medkit_button,
                                                                      tags="medkit_button")
 
         self.use_item_button = tk.Button(self, text='Placeholder\n',
-                                         font='Time_New_Roman 8', command=lambda: self.destroy())
-        self.use_item_button_window = self.bg_canvas.create_window(650, 400, anchor='sw',
+                                         font='Time_New_Roman 8',
+                                         command=lambda: self.destroy())
+        self.use_item_button_window = self.bg_canvas.create_window(650, 400,
+                                                                   anchor='sw',
                                                                    window=self.use_item_button,
                                                                    tags="use_item_button")
 
@@ -102,17 +113,23 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.delete("health", "attack", "defense", "medkits")
         self.bg_canvas.create_text(50, self.height - 300, anchor='sw', font=8,
                                    fill="#ff0d1d", justify="center",
-                                   text="Health: " + str(self.player.stats["Health"])
-                                   + " / " + str(self.player.stats["Max Health"]), tags="health")
-        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8, fill="#ff0d1d",
-                                   justify="center", text="Attack: " + str(self.player.attack),
+                                   text="Health: "
+                                   + str(self.player.stats["Health"]) + " / "
+                                   + str(self.player.stats["Max Health"]),
+                                   tags="health")
+        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8,
+                                   fill="#ff0d1d", justify="center",
+                                   text="Attack: " + str(self.player.attack),
                                    tags="ff0d1d")
-        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8, fill="#ff0d1d",
-                                   justify="center", text="Defense: " + str(self.player.defense),
+        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8,
+                                   fill="#ff0d1d", justify="center",
+                                   text="Defense: " + str(self.player.defense),
                                    tags="defense")
-        self.bg_canvas.create_text(self.width / 2 + 50, self.height - 240, anchor='sw',
-                                   font=8, fill="#ff0d1d", justify="center", tags="medkits",
-                                   text="Medkits: " + str(self.player.stats["Medkits"]))
+        self.bg_canvas.create_text(self.width / 2 + 50, self.height - 240,
+                                   anchor='sw', font=8, fill="#ff0d1d",
+                                   justify="center", tags="medkits",
+                                   text="Medkits: "
+                                        + str(self.player.stats["Medkits"]))
 
     def update_combat_gui(self):
         """Calls all parts of the GUI display and updates it.
@@ -129,16 +146,19 @@ class FightGUI(tk.Toplevel):
         self.count = 0
         if len(self.enemies) > 0:
             for enemy in self.enemies:
-                self.enemies_txt += ("\n" + str(self.count) + ") " + str(enemy.name) + "\n  "
+                self.enemies_txt += ("\n" + str(self.count) + ") "
+                                     + str(enemy.name) + "\n  "
                                      + "LV: " + str(enemy.stats["Level"])
-                                     + " | Health: " + str(enemy.stats["Health"]) + "\n  "
+                                     + " | Health: "
+                                     + str(enemy.stats["Health"]) + "\n  "
                                      + str(enemy.get_attack()) + " Damage | "
                                      + str(enemy.get_defense()) + " Defense")
                 self.count += 1
         else:
             self.enemies_txt = "No Enemies Remain"
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 430, font=8, fill="#ff0d1d",
-                                   justify="center", text=self.enemies_txt, tags="enemies")
+        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 430,
+                                   font=8, fill="#ff0d1d", justify="center",
+                                   text=self.enemies_txt, tags="enemies")
 
     def read_entry_box(self) -> None | str:
         """Reads the input from the enemy_entry_box.
@@ -174,7 +194,8 @@ class FightGUI(tk.Toplevel):
         self.update_combat_gui()
 
     def player_attack(self):
-        """Method governing how a Player attacks a target specified using the enemy_entry_box.
+        """Method governing how a Player attacks a target specified using
+         the enemy_entry_box.
         """
         to_target = self.read_entry_box()
         if to_target is not None:
@@ -187,7 +208,8 @@ class FightGUI(tk.Toplevel):
                         self.room.enemies_killed += 1
                         target.set_living(False)
                         self.enemy_entry_box.delete(0, 100)
-                        self.player.stats["XP"] += int(target.stats["Level"] * 2.5)
+                        self.player.stats["XP"] += int(target.stats["Level"]
+                                                       * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
                     self.resolve_player_turn()
         else:
@@ -239,13 +261,15 @@ class FightGUI(tk.Toplevel):
         """Method to make an exit after the fight is won.
         """
         if not self.enemies:
-            self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 10",
+            self.exit_button = tk.Button(self, text="Exit",
+                                         font="Time_New_Roman 10",
                                          command=self.destroy)
             self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
                                                                    anchor='sw',
                                                                    window=self.exit_button)
-            self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
-                                  "enemy_entry", "enemy_entry_text")
+            self.bg_canvas.delete("attack_button", "defend_button",
+                                  "use_item_button", "enemy_entry",
+                                  "enemy_entry_text")
 
     def character_dead_gui(self):
         """Display GUI if character dies during combat.
@@ -254,8 +278,9 @@ class FightGUI(tk.Toplevel):
         super().destroy()
         self.game_handler.end_game(False)
 
-        # self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
-        #                       "enemy_entry", "enemy_entry_text")
+        # self.bg_canvas.delete("attack_button", "defend_button",
+        #                       "use_item_button", "enemy_entry",
+        #                       "enemy_entry_text")
 
     def destroy(self):
         """Method handling when the instance can he exited and what happens.

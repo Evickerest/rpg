@@ -19,6 +19,7 @@ class ShopRoomTests(unittest.TestCase):
         x = ShopRoom()
         self.assertEqual(x.room_type, "Shop")
         self.assertTrue(x.name)
-        self.assertEqual(x.text, "You have entered a Shop room. Prepare to buy items.")
+        self.assertEqual(x.text, "You have entered a Shop room."
+                                 " Prepare to buy items.")
         self.assertTrue(x.items)
         self.assertTrue(1 <= len(x.items) <= 4)

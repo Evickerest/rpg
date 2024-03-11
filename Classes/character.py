@@ -1,5 +1,6 @@
 """
-The Character Module. Contains the generic Character class, the Player class, and the Enemy class.
+The Character Module. Contains the generic Character class, the Player class,
+ and the Enemy class.
 """
 
 import random
@@ -23,11 +24,13 @@ class Character:
         """
         if stats is None:
             stats = {"Strength": 5, "Dexterity": 5, "Vitality": 5,
-                     "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0}
+                     "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
+                     "Credits": 0}
         self.name = name
         self.inventory = []
         self.stats = stats
-        self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"] + self.stats["Level"]))
+        self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"]
+                                              + self.stats["Level"]))
         self.stats["Health"] = self.stats["Max Health"]
         self.attack = 0  # Pull item attack + character strength?
         self.defense = 0  # Pull item defense + character vitality?
@@ -79,7 +82,8 @@ class Character:
 
     def update_max_health(self):
         """Recalculates the character's Max Health."""
-        self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"] + self.stats["Level"]))
+        self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"]
+                                              + self.stats["Level"]))
         if self.stats["Health"] > self.stats["Max Health"]:
             self.stats["Health"] = self.stats["Max Health"]
 
@@ -95,14 +99,16 @@ class Character:
     def get_defense(self):
         """Getter for the character's defense attribute.
         Returns:
-            defense (int): The character's defense, including equipment bonuses.
+            defense (int): The character's defense, including
+             equipment bonuses.
         """
         return self.defense
 
     def get_attack(self):
         """Getter for the character's attack attribute.
                 Returns:
-                    attack (int): The character's attack, including weapon bonuses.
+                    attack (int): The character's attack, including
+                     weapon bonuses.
                 """
         return self.attack
 
@@ -151,7 +157,8 @@ class Player(Character):
             item (Item): The item to be equipped from the Player's inventory.
         """
         if item in self.inventory:
-            for item_type in ["Weapon", "Head", "Chest", "Arms", "Legs", "Feet"]:
+            for item_type in ["Weapon", "Head", "Chest",
+                              "Arms", "Legs", "Feet"]:
                 if item.stats["type"] == item_type:
                     if self.equipment[item_type].stats["name"] == "None":
                         self.equipment[item_type] = item
@@ -173,14 +180,16 @@ class Player(Character):
             if item.stats["type"] == item_type:
                 if item.stats["name"] != "None":
                     self.add_item((self.equipment[item_type]))
-                self.equipment[item_type] = Item([item_type, "None", 0, 0, 0, 0.8])
+                self.equipment[item_type] = Item([item_type, "None", 0,
+                                                  0, 0, 0.8])
         self.update_attack()
         self.update_defense()
 
     def use_medkits(self):
         """Method to heal by spending a medkit.
         Returns:
-            amt (int): The amount the medkit healed the Player for. 0 if no medkit was used.
+            amt (int): The amount the medkit healed the Player for. 0 if no
+             medkit was used.
         """
         amt = 0
         if self.med_kits > 0:
@@ -192,7 +201,8 @@ class Player(Character):
                 self.stats["Health"] = self.stats["Max Health"]
             else:
                 self.stats["Health"] = tmp
-            print(self.name + " used a med kit and healed for " + str(amt) + " health.")
+            print(self.name + " used a med kit and healed for " + str(amt)
+                  + " health.")
         else:
             print("No med kits left.")
         return amt
@@ -239,7 +249,8 @@ class Player(Character):
     def take_damage(self, attacker: Character):
         """Method used when a Player takes damage.
         Args:
-            attacker (Character): The Character object that is attacking the Player.
+            attacker (Character): The Character object that is attacking
+             the Player.
         """
         damage = attacker.get_attack()
         self.stats["Health"] -= int(damage)
@@ -288,8 +299,10 @@ class Enemy(Character):
         self.attack = int((self.stats["Strength"] / 5) + self.stats["Level"])
 
     def update_stats(self):
-        """Randomly increases the Enemy's stats until they're out of Stat Points.
+        """Randomly increases the Enemy's stats until they're out
+         of Stat Points.
         """
         while self.stats["Stat Points"] > 1:
-            stat = random.choice(['Strength', 'Dexterity', 'Vitality', 'Intelligence'])
+            stat = random.choice(['Strength', 'Dexterity',
+                                  'Vitality', 'Intelligence'])
             self.upgrade_stats(stat, 1)
