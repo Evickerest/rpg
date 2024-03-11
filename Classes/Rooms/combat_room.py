@@ -1,4 +1,3 @@
-# pylint: disable=too-many-instance-attributes
 """Module for the CombatRoom class.
 """
 

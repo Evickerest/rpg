@@ -1,4 +1,4 @@
-# pylint: disable=duplicate-code,too-many-instance-attributes
+
 """Module containing the ShopGUI class.
 """
 
@@ -19,7 +19,7 @@ class ShopGUI(tk.Toplevel):
             player (Player): The Player instance to interact with.
             gameHandler: The game_handler instance.
         """
-        # pylint: disable=W0108
+    
 
         super().__init__()
         self.title("Shop Inventory")

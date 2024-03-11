@@ -1,4 +1,3 @@
-# pylint: disable=duplicate-code,too-many-instance-attributes
 """Module containing the MainGUI class.
 """
 
@@ -212,7 +211,6 @@ class MainGUI(tk.Tk):
     def create_main_gui(self):
         """Deletes the character screen and makes the main screen.
         """
-        # pylint: disable=W0108
 
         # Clear previous window
         self.bg_canvas.destroy()
@@ -305,7 +303,6 @@ class MainGUI(tk.Tk):
         self.button_frame.place(relwidth=0.20, relheight=0.4, relx=0.78, rely=0.5)
 
         for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
-            # pylint: disable=C3001
             test = lambda room: lambda: self.handle_button_input(room)
             button_text = adjacent_room.name  # Button text
 
@@ -447,7 +444,6 @@ class MainGUI(tk.Tk):
             enemies_killed (int): The number of enemies killed.
             rooms_entered (int): The number of rooms entered.
         """
-        # pylint: disable=W0108
 
         # Clear previous window
         self.bg_canvas.destroy()

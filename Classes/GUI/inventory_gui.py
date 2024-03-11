@@ -1,4 +1,3 @@
-# pylint: disable=duplicate-code,too-many-instance-attributes
 """Module for the InventoryGUI class.
 """
 
@@ -19,7 +18,6 @@ class InventoryGUI(tk.Toplevel):
             room (Room): The room the Player instance is in.
             gui: The MainGui instance that is a parent of this instance.
         """
-        # pylint: disable=W0108
 
         super().__init__()
         self.title("Character Inventory")

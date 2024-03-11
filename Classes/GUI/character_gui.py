@@ -1,4 +1,3 @@
-# pylint: disable=duplicate-code,too-many-instance-attributes
 """Module for the CharacterGUI class.
 """
 

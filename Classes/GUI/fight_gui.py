@@ -1,6 +1,5 @@
 """Module containing the FightGUI class.
 """
-# pylint: disable=duplicate-code,too-many-instance-attributes
 
 
 import random
@@ -20,7 +19,6 @@ class FightGUI(tk.Toplevel):
             player (Player): The Player instance being controlled.
             game_handler: The gameHandler instance.
         """
-        # pylint: disable=W0108
 
         super().__init__()
         self.title("Combat Screen")

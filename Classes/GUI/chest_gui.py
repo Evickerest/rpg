@@ -1,4 +1,3 @@
-# pylint: disable=duplicate-code,too-many-instance-attributes
 """Module containing the ChestGUI class.
 """
 
@@ -20,7 +19,6 @@ class ChestGUI(tk.Toplevel):
             player (Player): The Player instance.
             gameHandler: The game_handler instance.
         """
-        # pylint: disable=W0108
 
         super().__init__()
         self.title("Chest Screen")
