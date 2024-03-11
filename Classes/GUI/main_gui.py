@@ -120,9 +120,6 @@ class MainGUI(tk.Tk):
                                                                   self.screen_height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        # Make text printer object
-        self.text_printer = TextPrinter(self)
-
         self.bg_canvas = tk.Canvas(self, width=self.screen_width,
                                    height=self.screen_height)
         self.bg_canvas.pack(fill='both', expand=True)
@@ -305,9 +302,9 @@ class MainGUI(tk.Tk):
         #                            command=lambda: self.exit_boss_room())
         # self.bg_canvas.create_window(600, 700, anchor='nw', window=beat_boss_test)
 
-        # lost_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Lose",
-        #                       command=lambda: self.game_handler.end_game(False))
-        # self.bg_canvas.create_window(700, 700, anchor='nw', window=lost_test)
+        lost_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Lose",
+                              command=lambda: self.game_handler.end_game(False))
+        self.bg_canvas.create_window(700, 700, anchor='nw', window=lost_test)
 
         # win_test = tk.Button(self, font=("Calibri", 16), width=8, height=3, text="Win",
         #                      command=lambda: self.game_handler.end_game(True))
@@ -337,6 +334,9 @@ class MainGUI(tk.Tk):
     def start_game(self):
         """Start the game and load available rooms.
         """
+        # Make text printer object
+        self.text_printer = TextPrinter(self)
+        
         self.map = self.game_handler.get_map()
         self.game_handler.enter_room(self.map.get_current_room())
         self.display_buttons()

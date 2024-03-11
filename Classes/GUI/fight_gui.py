@@ -180,6 +180,7 @@ class FightGUI(tk.Toplevel):
         if target.living:
             dead = target.take_damage(attacker)
             if dead:
+                self.player.set_living(False)
                 self.character_dead_gui()
 
         # For some reason not working
@@ -191,12 +192,17 @@ class FightGUI(tk.Toplevel):
 
         if isinstance(attacker, Player):
             self.resolve_player_turn()
-        self.update_combat_gui()
+
+        if self.player.living:
+            self.update_combat_gui()
 
     def player_attack(self):
         """Method governing how a Player attacks a target specified using
          the enemy_entry_box.
         """
+        if not self.player.living:
+            return
+
         to_target = self.read_entry_box()
         if to_target is not None:
             if to_target.isnumeric():
