@@ -18,7 +18,8 @@ class CharacterTests(unittest.TestCase):
     def test_2character_stats(self):
         """Check that the character's stats are initialized."""
         x = Character("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
-                      "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0})
+                      "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
+                                  "Credits": 0})
         self.assertEqual(x.stats["Strength"], 5)
         self.assertEqual(x.stats["Dexterity"], 5)
         self.assertEqual(x.stats["Vitality"], 5)
@@ -114,7 +115,8 @@ class PlayerTests(unittest.TestCase):
         """Test that the Player's instance attributes are correct.
         """
         x = Player("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
-                   "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0})
+                   "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
+                               "Credits": 0})
         self.assertEqual(x.stats["Strength"], 5)
         self.assertEqual(x.stats["Dexterity"], 5)
         self.assertEqual(x.stats["Vitality"], 5)
@@ -362,7 +364,6 @@ class PlayerTests(unittest.TestCase):
         self.assertTrue(player.take_damage(player))
 
 
-
 class EnemyTests(unittest.TestCase):
     """Testcase for the Enemy class.
     """
@@ -420,5 +421,6 @@ class EnemyTests(unittest.TestCase):
         enemy.stats["Stat Points"] += 10
         enemy.update_stats()
         final_stat_sum = (enemy.stats["Strength"] + enemy.stats["Dexterity"] +
-                          enemy.stats["Vitality"] + enemy.stats["Intelligence"])
+                          enemy.stats["Vitality"] +
+                          enemy.stats["Intelligence"])
         self.assertTrue(final_stat_sum > stat_sum)

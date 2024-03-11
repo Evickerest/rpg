@@ -1,4 +1,3 @@
-# pylint: disable=too-many-instance-attributes
 """Module for the parent Room class.
 """
 
@@ -87,12 +86,14 @@ class Room:
     def generate_name(self, room_type):
         """Setter for the room's name based on its type.
         Args:
-            room_type (str): The room's type. "Chest", "Boss", "Combat", "Shop", or "Start".
+            room_type (str): The room's type. "Chest", "Boss", "Combat",
+             "Shop", or "Start".
         Return:
             name (str): The name of the room.
         """
         names = []
-        with open(f'Names/{room_type}RoomNames.txt', 'r', encoding="utf-8") as f:
+        with open(f'Names/{room_type}RoomNames.txt',
+                  'r', encoding="utf-8") as f:
             reader = csv.reader(f)
             for row in reader:
                 names.append(row)

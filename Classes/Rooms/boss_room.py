@@ -4,11 +4,13 @@
 from Classes.Rooms.room import Room
 from Classes.character import Enemy
 
+
 class BossRoom(Room):
     """Acts similarly to CombatRoom.
     """
     def __init__(self):
-        """Creates the instance."""
+        """Creates the instance.
+        """
         super().__init__()
         self.name = self.generate_name("Combat")
         self.room_type = "Boss"
@@ -19,4 +21,3 @@ class BossRoom(Room):
 
         self.is_boss_room = True
         self.enemies = [Enemy(mon_name, None, 10)]
-    

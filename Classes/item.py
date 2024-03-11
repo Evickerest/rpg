@@ -13,10 +13,12 @@ class Item:
 
     @staticmethod
     def load_items() -> None:
-        """Static method to load the different types of items from a specified file.
+        """Static method to load the different types of items
+         from a specified file.
         """
         if not Item.ITEMS:
-            with open('Names/items_txt/item_types', 'r', encoding="utf-8") as f:
+            with open('Names/items_txt/item_types', 'r',
+                      encoding="utf-8") as f:
                 reader = csv.reader(f)
                 for row in reader:
                     Item.ITEMS.append(row)
@@ -24,15 +26,16 @@ class Item:
     def __init__(self, stats: list):
         """Creates the Item instance.
         Args:
-            stats (list): The 5-element list of item details. Must follow the format below.
+            stats (list): The 5-element list of item details.
+             Must follow the format below.
         """
         if not Item.ITEMS:
             Item.load_items()
 
-        self.stats = {"type": stats[0], "name": stats[1], "damage": int(stats[2]),
-                      "defense": int(stats[3]), "value": int(stats[4]),
-                      "damagePercent": float(stats[5]), "critPercent": 0.1,
-                      "armorBreakPercent": 0.1}
+        self.stats = {"type": stats[0], "name": stats[1],
+                      "damage": int(stats[2]), "defense": int(stats[3]),
+                      "value": int(stats[4]), "damagePercent": float(stats[5]),
+                      "critPercent": 0.1, "armorBreakPercent": 0.1}
         self.name = "None"
         self.damage = 0
         self.damage_percent = 0
@@ -65,7 +68,8 @@ class Item:
         Returns:
             float: The calculated damage dealt by this Item.
         """
-        damage_range_value = random.uniform(1 - self.damage_percent, 1 + self.damage_percent)
+        damage_range_value = random.uniform(1 - self.damage_percent,
+                                            1 + self.damage_percent)
         base_damage_dealt = self.damage * damage_range_value
 
         applied_damage = base_damage_dealt

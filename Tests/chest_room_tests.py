@@ -20,4 +20,5 @@ class ChestRoomTests(unittest.TestCase):
         x = ChestRoom()
         self.assertEqual(x.room_type, "Chest")
         self.assertTrue(x.name)
-        self.assertEqual(x.text, "You have entered a Chest room. Prepare to open a chest.")
+        self.assertEqual(x.text, "You have entered a Chest room."
+                                 " Prepare to open a chest.")
