@@ -67,7 +67,8 @@ class RoomTests(unittest.TestCase):
         self.assertTrue(x in y.adjacent_rooms)
 
     def test_8create_adjacency_alreadyadjacent(self):
-        """Test for the create_adjacency method if the rooms are already adjacent.
+        """Test for the create_adjacency method if the rooms
+         are already adjacent.
         """
         x = Room()
         y = Room()

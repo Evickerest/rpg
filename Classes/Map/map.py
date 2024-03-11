@@ -55,7 +55,8 @@ class Map:
         # Loop through each room type
         for room_type in MapConstants.ROOM_TYPES:
             # Loop for the desired number of rooms
-            for _ in range(MapConstants.ROOM_TYPES[room_type]["desired_number"]):
+            for _ in range(
+                    MapConstants.ROOM_TYPES[room_type]["desired_number"]):
                 random_x = random.random()
                 random_y = random.random()
 
@@ -80,10 +81,12 @@ class Map:
                     room.edges.append(Edge(room, other_room))
 
     # Implementation of Prim's Algorithm
-    # Takes a graph of nodes (rooms) and edges, and constructs a minimum spanning tree
-    # Downside is that a mst doesn't produce cycles, so additional edges will have to be added in
+    # Takes a graph of nodes (rooms) and edges, and constructs a minimum
+    # spanning tree. Downside is that a mst doesn't produce cycles, so
+    # additional edges will have to be added in.
     def prims_algorithm(self):
-        """Method to create a minimum spanning tree to connect all rooms together.
+        """Method to create a minimum spanning tree to connect all
+         rooms together.
         """
         seen_rooms = [self.rooms[0]]
         default_edge = Edge(self.rooms[0], self.rooms[1])
@@ -95,10 +98,12 @@ class Map:
             for seenroom in seen_rooms:
                 for edge in seenroom.edges:
 
-                    if edge.rooms[0] in seen_rooms and edge.rooms[1] not in seen_rooms:
+                    if (edge.rooms[0] in seen_rooms and edge.rooms[1]
+                            not in seen_rooms):
                         available_edges.append(edge)
 
-            minimum_edge = min(available_edges, key=lambda edge: edge.weight, default=default_edge)
+            minimum_edge = min(available_edges, key=lambda edge: edge.weight,
+                               default=default_edge)
             seen_rooms.append(minimum_edge.rooms[1])
             mst.append(minimum_edge)
 
@@ -112,7 +117,8 @@ class Map:
                         len(random_edge.rooms[1].get_adjacent_rooms()) < 6):
                     mst.append(random_edge)
 
-        # From what was created from Prim's algorithm, create adjacency between rooms
+        # From what was created from Prim's algorithm, create adjacency between
+        # rooms.
         # Edges and adjacency are kinda redundant tbh
         for edge in mst:
             edge.rooms[0].create_adjacency(edge.rooms[1])
@@ -123,10 +129,12 @@ class Map:
     def assign_random_images(self):
         """Method to assign an image path to all rooms in the map.
         """
-        button_images = ["Weapons Bay", "Main Cabin", "Elevator 1", "Storage Area", "Kitchen",
-                         "Barracks", "Cafeteria", "Life Pod 1", "Cabin 2", "Showers", "Cabin 1",
-                         "Docking Port", "Bridge", "Elevator 3", "Elevator 2", "Cabin 3",
-                         "Captains Cabin", "Hangar", "Life Pod 2", "Engine Room"]
+        button_images = ["Weapons Bay", "Main Cabin", "Elevator 1",
+                         "Storage Area", "Kitchen", "Barracks", "Cafeteria",
+                         "Life Pod 1", "Cabin 2", "Showers", "Cabin 1",
+                         "Docking Port", "Bridge", "Elevator 3", "Elevator 2",
+                         "Cabin 3", "Captains Cabin", "Hangar", "Life Pod 2",
+                         "Engine Room"]
 
         random.shuffle(button_images)
 
@@ -147,4 +155,3 @@ class Map:
     #     self.edges = []
     #     self.start_room = StartRoom()
     #     self.generate_map()
-        

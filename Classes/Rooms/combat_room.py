@@ -17,10 +17,12 @@ class CombatRoom(Room):
 
     @staticmethod
     def load_enemies() -> None:
-        """Static method to load the different types of items from a specified file.
+        """Static method to load the different types of items from a specified
+         file.
         """
         if not CombatRoom.ENEMIES:
-            with open('Names/enemy_txt/monster_names', 'r',encoding="utf-8") as f:
+            with (open('Names/enemy_txt/monster_names', 'r', encoding="utf-8")
+                  as f):
                 reader = csv.reader(f)
                 for row in reader:
                     CombatRoom.ENEMIES.append(row)
@@ -28,8 +30,8 @@ class CombatRoom(Room):
     def __init__(self, *args):
         """Creates the CombatRoom instance.
         Args:
-            *args: Currently nonfunctional. Meant to take an optional Player instance
-             and scale enemies in room to said Player's level.
+            *args: Currently nonfunctional. Meant to take an optional Player
+             instance and scale enemies in room to said Player's level.
         """
         super().__init__()
         if not CombatRoom.ENEMIES:
@@ -64,5 +66,6 @@ class CombatRoom(Room):
         for enemy in self.enemies:
             if self.player:
                 enemy.stats["Level"] = self.player.stats["Level"]
-                enemy.stats["Stat Points"] = (self.player.stats["Level"] - 1) * 5
+                enemy.stats["Stat Points"] = ((self.player.stats["Level"] - 1)
+                                              * 5)
                 enemy.update_stats()

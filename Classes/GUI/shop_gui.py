@@ -8,7 +8,8 @@ from Classes.Rooms.shop_room import ShopRoom
 
 
 class ShopGUI(tk.Toplevel):
-    """Class governing player actions while the Player instance is in a ShopRoom.
+    """Class governing player actions while the Player instance is in
+     a ShopRoom.
     """
     def __init__(self, room: ShopRoom, player: Player, gameHandler):
         """Method to equip an item from the Player's inventory.
@@ -22,7 +23,7 @@ class ShopGUI(tk.Toplevel):
         self.geometry(f'{1100}x{700}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
-        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+        self.minsize(self.width, self.height)  # Min size, can be maximized.
         self.iconbitmap('Images/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
@@ -37,68 +38,86 @@ class ShopGUI(tk.Toplevel):
         self.original_image = Image.open('Images/ShopStore.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="black")
+        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
+                                   bg="black")
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 8 bold",
+        self.exit_button = tk.Button(self, text="Close",
+                                     font="Time_New_Roman 8 bold",
                                      command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.width - 100, 50,
-                                                               anchor='sw', window=self.exit_button)
+                                                               anchor='sw',
+                                                               window=self.exit_button)
 
-        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 580, font=8, fill="#05FF50",
-                                   justify="left", text=self.player.name + "'s Equipment",
+        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 580,
+                                   font=8, fill="#05FF50", justify="left",
+                                   text=self.player.name + "'s Equipment",
                                    tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580, font=8, fill="#05FF50",
-                                   justify="left", text=self.player.name + "'s Inventory",
+        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580,
+                                   font=8, fill="#05FF50", justify="left",
+                                   text=self.player.name + "'s Inventory",
                                    tags="inventory_title")
-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580, font=8, fill="#05FF50",
-                                   justify="left", text=self.shop.name + "'s Shop",
+        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580,
+                                   font=8, fill="#05FF50", justify="left",
+                                   text=self.shop.name + "'s Shop",
                                    tags="shop_title")
 
-        self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
+        self.unequip_button = tk.Button(self, text='Unequip Entered Item'
+                                                   '\nFrom Equipment',
                                         font='Time_New_Roman 8 bold',
                                         command=lambda: self.remove_equipped_item())
-        self.unequip_button_window = self.bg_canvas.create_window(50, 500, anchor='sw',
+        self.unequip_button_window = self.bg_canvas.create_window(50, 500,
+                                                                  anchor='sw',
                                                                   window=self.unequip_button,
                                                                   tags="unequip_button")
 
-        self.equip_button = tk.Button(self, text='Equip Entered Item\nFrom Inventory',
+        self.equip_button = tk.Button(self, text='Equip Entered Item'
+                                                 '\nFrom Inventory',
                                       font='Time_New_Roman 8 bold',
                                       command=lambda: self.equip_item_inventory())
-        self.equip_button_window = self.bg_canvas.create_window(250, 500, anchor='sw',
+        self.equip_button_window = self.bg_canvas.create_window(250, 500,
+                                                                anchor='sw',
                                                                 window=self.equip_button,
                                                                 tags="equip_button")
 
-        self.purchase_button = tk.Button(self, text='Purchase Entered Item\nFrom Shop',
+        self.purchase_button = tk.Button(self, text='Purchase Entered Item'
+                                                    '\nFrom Shop',
                                          font='Time_New_Roman 8 bold',
                                          command=lambda: self.buy_item_from_shop())
-        self.purchase_button_window = self.bg_canvas.create_window(450, 500, anchor='sw',
+        self.purchase_button_window = self.bg_canvas.create_window(450, 500,
+                                                                   anchor='sw',
                                                                    window=self.purchase_button,
                                                                    tags="buy_button")
 
-        self.sell_button = tk.Button(self, text='Sell Entered Item\nFrom Inventory',
+        self.sell_button = tk.Button(self, text='Sell Entered Item'
+                                                '\nFrom Inventory',
                                      font='Time_New_Roman 8 bold',
                                      command=lambda: self.sell_item_inventory())
-        self.sell_button_window = self.bg_canvas.create_window(650, 500, anchor='sw',
+        self.sell_button_window = self.bg_canvas.create_window(650, 500,
+                                                               anchor='sw',
                                                                window=self.sell_button,
                                                                tags="sell_button")
 
-        self.buy_medkit_button = tk.Button(self, text='Buy Medkit\nFor 3 Credits',
+        self.buy_medkit_button = tk.Button(self, text='Buy Medkit\n'
+                                                      'For 3 Credits',
                                            font='Time_New_Roman 8 bold',
                                            command=lambda: self.buy_medkits())
-        self.buy_medkit_button_window = self.bg_canvas.create_window(850, 500, anchor='sw',
-                                                               window=self.buy_medkit_button,
+        self.buy_medkit_button_window = self.bg_canvas.create_window(850, 500,
+                                                                     anchor='sw',
+                                                                     window=self.buy_medkit_button,
                                                                      tags="medkit_button")
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
                                         font='Time_New_Roman 10')
-        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 550, anchor='sw',
+        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 550,
+                                                            anchor='sw',
                                                             window=self.item_entry_text,
                                                             tags="item_entry_text")
         self.item_entry_box = tk.Entry(self, font='Time_New_Roman 8 bold')
         self.bg_canvas.create_window(self.width / 2 - 100, 580, anchor='sw',
-                                     window=self.item_entry_box, tags="item_entry")
+                                     window=self.item_entry_box,
+                                     tags="item_entry")
 
         self.update_shop_gui()
         self.mainloop()
@@ -109,8 +128,9 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
             self.bg_canvas.create_text(self.width / 2 - 300, self.height - 450,
-                                       font="Time_New_Roman 12 bold", fill="#05FF50",
-                                       justify="left", text="\nHead Armor:\t"
+                                       font="Time_New_Roman 12 bold",
+                                       fill="#05FF50", justify="left",
+                                       text="\nHead Armor:\t"
                                        + str(self.player.equipment["Head"].stats["name"]) + ":\t+"
                                        + str(self.player.equipment["Head"].stats["defense"])
                                        + " Defense" + "\nArm Armor:\t"
@@ -129,10 +149,14 @@ class ShopGUI(tk.Toplevel):
                                        + str(self.player.equipment["Weapon"].stats["name"]) + ":\t+"
                                        + str(self.player.equipment["Weapon"].stats["damage"])
                                        + " Damage" + "\n\nTotal Attack:\t"
-                                       + str(self.player.get_attack()) + "\nTotal Defense:\t"
-                                       + str(self.player.get_defense()) + "\nMedkits:\t"
-                                       + str(self.player.med_kits) + "\nCredits:\t"
-                                       + str(self.player.stats["Credits"]),tags="equipment")
+                                       + str(self.player.get_attack()) +
+                                       "\nTotal Defense:\t"
+                                       + str(self.player.get_defense())
+                                       + "\nMedkits:\t"
+                                       + str(self.player.med_kits)
+                                       + "\nCredits:\t"
+                                       + str(self.player.stats["Credits"]),
+                                       tags="equipment")
 
     def inventory_grid(self):
         """Creates and updates the Player instance's inventory display.
@@ -142,17 +166,20 @@ class ShopGUI(tk.Toplevel):
         if len(self.player.inventory) > 0:
             for item in self.player.inventory:
                 if item.stats["type"] == "Weapon":
-                    self.inventory_text += ("\n\n" + str(item.stats["name"]) + ": +"
-                                            + str(item.stats["damage"]) + " Damage"
-                                            + "\nValue: " + str(item.stats["value"]))
+                    self.inventory_text += ("\n\n" + str(item.stats["name"]) +
+                                            ": +" + str(item.stats["damage"])
+                                            + " Damage" + "\nValue: "
+                                            + str(item.stats["value"]))
                 else:
-                    self.inventory_text += ("\n\n" + str(item.stats["name"]) + ": +"
-                                            + str(item.stats["defense"]) + " Defense"
-                                            + "\nValue: " + str(item.stats["value"]))
+                    self.inventory_text += ("\n\n" + str(item.stats["name"]) +
+                                            ": +" + str(item.stats["defense"])
+                                            + " Defense" + "\nValue: " +
+                                            str(item.stats["value"]))
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450, font=8, fill="#05FF50",
-                                   justify="left", text=self.inventory_text, tags="inventory")
+        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450,
+                                   font=8, fill="#05FF50", justify="left",
+                                   text=self.inventory_text, tags="inventory")
 
     def shop_grid(self):
         """Creates and updates the ShopRoom instance's items.
@@ -164,15 +191,18 @@ class ShopGUI(tk.Toplevel):
                 if item.stats["type"] == "Weapon":
                     self.shop_text += ("\n" + str(item.stats["name"]) + ": +"
                                        + str(item.stats["damage"]) + " Damage"
-                                       + "\nValue: " + str(item.stats["value"]))
+                                       + "\nValue: "
+                                       + str(item.stats["value"]))
                 else:
                     self.shop_text += ("\n" + str(item.stats["name"]) + ": +"
-                                       + str(item.stats["defense"]) + " Defense"
-                                       + "\nValue: " + str(item.stats["value"]))
+                                       + str(item.stats["defense"])
+                                       + " Defense" + "\nValue: " +
+                                       str(item.stats["value"]))
         else:
             self.shop_text = "The Shop Is Empty"
-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450, font=8, fill="#05FF50",
-                                   justify="left", text=self.shop_text, tags="shop")
+        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450,
+                                   font=8, fill="#05FF50", justify="left",
+                                   text=self.shop_text, tags="shop")
 
     def update_shop_gui(self):
         """Calls on and updates the entire display..
@@ -195,7 +225,8 @@ class ShopGUI(tk.Toplevel):
                     self.update_shop_gui()
 
     def remove_equipped_item(self):
-        """Method to read input from an entry_box and unequip the specified Item.
+        """Method to read input from an entry_box and unequip the
+         specified Item.
         """
         self.read_entry_box()
         if self.read_entry_box() is not None:
@@ -208,7 +239,8 @@ class ShopGUI(tk.Toplevel):
                     self.update_shop_gui()
 
     def buy_item_from_shop(self):
-        """Method to read input from an entry_box and buy the specified Item from the ShopRoom.
+        """Method to read input from an entry_box and buy the specified
+         Item from the ShopRoom.
         """
         self.read_entry_box()
         if self.read_entry_box() is not None:
@@ -222,7 +254,8 @@ class ShopGUI(tk.Toplevel):
                         self.update_shop_gui()
 
     def sell_item_inventory(self):
-        """Method to read input from an entry_box and sell the specified Item to the ShopRoom.
+        """Method to read input from an entry_box and sell the specified
+         Item to the ShopRoom.
         """
         self.read_entry_box()
         if self.read_entry_box() is not None:
@@ -235,7 +268,8 @@ class ShopGUI(tk.Toplevel):
                     self.update_shop_gui()
 
     def buy_medkits(self):
-        """Method for the Player instance to buy Medkits in exchange for Credits.
+        """Method for the Player instance to buy Medkits in exchange
+         for Credits.
         """
         if self.player.stats["Credits"] >= 3:
             self.player.med_kits = 1

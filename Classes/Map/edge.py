@@ -13,7 +13,8 @@ class Edge:
             room2 (Room): The second room.
         """
         self.rooms = (room1, room2)
-        self.weight = math.dist(room1.get_coordinates(), room2.get_coordinates())
+        self.weight = math.dist(room1.get_coordinates(),
+                                room2.get_coordinates())
 
     def get_weight(self):
         """Getter for the edge weight.
@@ -25,7 +26,7 @@ class Edge:
     def __repr__(self):
         """The representation of the edge.
         Returns:
-            str: The string representing two connected rooms and their edge weight.
+            str: The string representing two connected rooms and their
+             edge weight.
         """
         return f"{self.rooms[0]} <-> {self.rooms[1]} | {self.weight}"
-                      
