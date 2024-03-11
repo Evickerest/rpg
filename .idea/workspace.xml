@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?">
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/character_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/character_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/chest_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/chest_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/inventory_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/inventory_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/main_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/main_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/shop_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/shop_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Rooms/combat_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/combat_room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Rooms/room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/text_printer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/text_printer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Project Report Template  (2).docx" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Project Report Template  (2).docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/edge_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/edge_tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/item_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/item_tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/room_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/room_tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/start_room_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/start_room_tests.py" afterDir="false" />
-    </list>
+    <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +43,7 @@
     "Python.test.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
