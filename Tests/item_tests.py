@@ -35,18 +35,8 @@ class ItemTests(unittest.TestCase):
         Item.load_items()
         self.assertEqual(len(Item.ITEMS), x)
 
-    def test_5make_item1(self):
+    def test_5item_init(self):
         """Test that the Item instance initializes properly.
-        """
-        x = None
-        Item.load_items()
-        self.assertFalse(x)
-        x = Item(random.choice(Item.ITEMS))
-        self.assertTrue(x)
-        self.assertTrue(isinstance(x, Item))
-
-    def test_6item_stats1(self):
-        """Test that Item instance attributes are correct.
         """
         Item.load_items()
         stats = random.choice(Item.ITEMS)
@@ -64,7 +54,7 @@ class ItemTests(unittest.TestCase):
         self.assertEqual(x.stats["value"], value)
         self.assertEqual(x.stats["damagePercent"], damagepercent)
 
-    def test_7item_assign_stats(self):
+    def test_6item_assign_stats(self):
         """Test that the assignStats method works.
         """
         Item.load_items()
@@ -77,7 +67,7 @@ class ItemTests(unittest.TestCase):
         self.assertEqual(x.stats["critPercent"], x.crit_percent)
         self.assertEqual(x.stats["damagePercent"], x.damage_percent)
 
-    def test_8item_get_damage(self):
+    def test_7item_get_damage(self):
         """Test that the get_damage_dealt method works.
         """
         Item.load_items()
@@ -86,7 +76,7 @@ class ItemTests(unittest.TestCase):
         enemy = Enemy("Tester", None, 1)
         self.assertTrue(x.get_damage_dealt(enemy))
 
-    def test_9item_notitem(self):
+    def test_8item_notitem(self):
         """Test that a new Item instance doesn't duplicate the ITEMS list.
         """
         stats = random.choice(Item.ITEMS)

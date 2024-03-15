@@ -67,9 +67,9 @@ class Character:
         if self.stats["Stat Points"] > 0:
             self.stats[stat] += amount
             self.stats["Stat Points"] -= amount
-        if stat == "Vitality":
-            self.update_max_health()
-            self.update_health(5 * amount)
+            if stat == "Vitality":
+                self.update_max_health()
+                self.update_health(5 * amount)
 
     def lv_up(self):
         """Tries to level up the character if they have enough XP.
@@ -275,6 +275,7 @@ class Enemy(Character):
         self.stats["Stat Points"] = self.stats["Level"] * 5
         self.name = name
         self.update_stats()
+        self.stats["Health"] = self.stats["Max Health"]
         self.update_attack()
         self.update_defense()
 
@@ -302,7 +303,7 @@ class Enemy(Character):
         """Randomly increases the Enemy's stats until they're out
          of Stat Points.
         """
-        while self.stats["Stat Points"] > 1:
+        while self.stats["Stat Points"] >= 1:
             stat = random.choice(['Strength', 'Dexterity',
                                   'Vitality', 'Intelligence'])
             self.upgrade_stats(stat, 1)
