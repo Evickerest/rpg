@@ -235,14 +235,14 @@ class Player(Character):
     def update_defense(self):
         """Updates the Player's defense attribute.
         """
-        self.defense = int((self.stats["Vitality"] + self.stats["Level"]) / 5)
+        self.defense = int((self.stats["Vitality"] + self.stats["Level"]) / 3)
         for equipment in self.equipment.values():
             self.defense += equipment.stats["defense"]
 
     def update_attack(self):
         """Updates the Player's attack attribute.
         """
-        self.attack = int((self.stats["Strength"] + self.stats["Level"]) / 5)
+        self.attack = int((self.stats["Strength"] + self.stats["Level"]) / 3)
         for equipment in self.equipment.values():
             self.attack += equipment.stats["damage"]
 
@@ -252,13 +252,14 @@ class Player(Character):
             attacker (Character): The Character object that is attacking
              the Player.
         """
-        damage = attacker.get_attack()
+        damage = attacker.get_attack() - (self.get_defense() / 5)
+        damage = max(int(damage), 1)
         self.stats["Health"] -= int(damage)
 
         # Return state of character
         if self.stats["Health"] <= 0:
-            return True
-        return False
+            self.set_living(False)
+        return damage
 
 
 class Enemy(Character):
@@ -285,19 +286,20 @@ class Enemy(Character):
             attacker (Player): Player instance that is attacking.
         """
         item = attacker.equipment["Weapon"]
-        damage = item.get_damage_dealt(self) + attacker.get_attack()
-        damage = max(damage, 1)
-        self.stats["Health"] -= int(damage)
+        damage = item.get_damage_dealt(self) + attacker.get_attack() - self.get_defense()
+        damage = max(int(damage), 1)
+        self.stats["Health"] -= damage
+        return damage
 
     def update_defense(self):
         """Updates the Enemy's defense attribute.
         """
-        self.defense = int((self.stats["Vitality"] / 5) + self.stats["Level"])
+        self.defense = int((self.stats["Vitality"] / 3) + self.stats["Level"])
 
     def update_attack(self):
         """Updates the Enemy's defense attribute.
         """
-        self.attack = int((self.stats["Strength"] / 5) + self.stats["Level"])
+        self.attack = int((self.stats["Strength"] / 3) + self.stats["Level"])
 
     def update_stats(self):
         """Randomly increases the Enemy's stats until they're out

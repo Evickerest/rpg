@@ -3,10 +3,13 @@
 
 
 import random
+import time
+import math
 import tkinter as tk
 from PIL import ImageTk, Image
 from Classes.character import Player, Enemy, Character
 from Classes.Rooms.combat_room import CombatRoom
+from Classes.text_printer import TextPrinter
 
 
 class FightGUI(tk.Toplevel):
@@ -41,6 +44,8 @@ class FightGUI(tk.Toplevel):
         self.enemy_entry = None
         self.exit_button = None
         self.exit_button_window = None
+        self.text_printer = TextPrinter(self)
+        self.time = time.time()
 
         self.original_image = Image.open('Images/' + self.room_name + '.jpg').resize((self.width,
                                                                                       self.height))
@@ -95,6 +100,12 @@ class FightGUI(tk.Toplevel):
                                                                      anchor='sw',
                                                                      window=self.use_medkit_button,
                                                                      tags="medkit_button")
+
+        self.bg_canvas.create_text(250, 200, width=300,
+                                   font=('Time_New_Roman', 12), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text="\nYou are ready to start combat.\nWhat"
+                                        " will you do?\n", tags="combat_text")
 
         # self.use_item_button = tk.Button(self, text='Placeholder\n',
         #                                  font="Cambria_Math 14 bold",
@@ -202,18 +213,29 @@ class FightGUI(tk.Toplevel):
         """
         if not self.player.living:
             return
-
         to_target = self.read_entry_box()
         if to_target is not None:
             if to_target.isnumeric():
                 if int(to_target) < len(self.enemies):
                     target = self.enemies[int(to_target)]
-                    target.take_damage(self.player)
+                    damage = target.take_damage(self.player)
+                    self.text_printer.animate_text(f"You hit {target.name} for"
+                                                   f" {damage} damage.\n\n",
+                                                   "combat_text", tk.END)
+                    while math.trunc(time.time() - self.time) < 0.1:
+                        pass
+                    self.time = time.time()
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
                         self.room.enemies_killed += 1
                         target.set_living(False)
                         self.enemy_entry_box.delete(0, 100)
+                        self.text_printer.animate_text("You killed"
+                                                       f" {target.name}\n\n.",
+                                                       "combat_text", tk.END)
+                        while math.trunc(time.time() - self.time) < 0.1:
+                            pass
+                        self.time = time.time()
                         self.player.stats["XP"] += int(target.stats["Level"]
                                                        * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
@@ -230,6 +252,13 @@ class FightGUI(tk.Toplevel):
         """
         defender.defend_action()
         if isinstance(defender, Player):
+            self.text_printer.animate_text(f"You are defending.\nYour defense"
+                                           f" is temporarily increased to"
+                                           f" {self.player.defense}.\n\n",
+                                           "combat_text", tk.END)
+            while math.trunc(time.time() - self.time) < 0.1:
+                pass
+            self.time = time.time()
             self.resolve_player_turn()
         if self.player.living:
             self.update_combat_gui()
@@ -237,7 +266,13 @@ class FightGUI(tk.Toplevel):
     def use_medkit(self):
         """Method to use a medkit and update the display.
         """
-        self.player.use_medkits()
+        heal = self.player.use_medkits()
+        self.text_printer.animate_text(f"You used a medkit and healed for"
+                                       f" {heal} health.\n\n", "combat_text",
+                                       tk.END)
+        while math.trunc(time.time() - self.time) < 0.1:
+            pass
+        self.time = time.time()
         self.resolve_player_turn()
         self.update_combat_gui()
 
@@ -258,12 +293,36 @@ class FightGUI(tk.Toplevel):
         """
         choice = random.choice(["attack", "defend", "nothing"])
         if choice == "attack":
-            self.player.take_damage(enemy)
+            damage = self.player.take_damage(enemy)
+            self.text_printer.animate_text(f"{enemy.name} attacked"
+                                           f" {self.player.name} for {damage}"
+                                           f" damage.\n\n", "combat_text",
+                                           tk.END)
+            while math.trunc(time.time() - self.time) < 0.1:
+                pass
+            self.time = time.time()
             if self.player.stats["Health"] < 1:
                 self.player.set_living(False)
+                self.text_printer.animate_text("You were killed!\n\n",
+                                               "combat_text", tk.END)
+                while math.trunc(time.time() - self.time) < 0.1:
+                    pass
+                self.time = time.time()
                 self.character_dead_gui()
         elif choice == "defend":
             self.defend(enemy)
+            self.text_printer.animate_text(f"{enemy.name} is defending.\nTheir"
+                                           f" defense is {enemy.defense}.\n\n",
+                                           "combat_text", tk.END)
+            while math.trunc(time.time() - self.time) < 0.1:
+                pass
+            self.time = time.time()
+        else:
+            self.text_printer.animate_text(f"{enemy.name} did nothing.\n\n",
+                                           "combat_text", tk.END)
+            while math.trunc(time.time() - self.time) < 0.1:
+                pass
+            self.time = time.time()
 
     def make_exit(self):
         """Method to make an exit after the fight is won.
