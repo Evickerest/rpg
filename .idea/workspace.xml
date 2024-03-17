@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?">
-      <change beforePath="$PROJECT_DIR$/Documentation/Project Report Template  (2) (4).docx" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Project Report Template  (2) (4).docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/character.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/boss_room_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/boss_room_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/character_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/character_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/chest_room_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/chest_room_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/combat_room_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/combat_room_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/edge_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/edge_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/item_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/item_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

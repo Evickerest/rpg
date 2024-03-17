@@ -9,17 +9,11 @@ from Classes.item import Item
 class CharacterTests(unittest.TestCase):
     """Testcase for the Character class.
     """
-    def test_1make_character(self):
+    def test_1character_init(self):
         """Check that the Character initializes properly.
         """
         x = Character("Bob", None)
-        self.assertTrue(isinstance(x, Character))
-
-    def test_2character_stats(self):
-        """Check that the character's stats are initialized."""
-        x = Character("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
-                      "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
-                                  "Credits": 0})
+        self.assertEqual(x.name, "Bob")
         self.assertEqual(x.stats["Strength"], 5)
         self.assertEqual(x.stats["Dexterity"], 5)
         self.assertEqual(x.stats["Vitality"], 5)
@@ -28,6 +22,35 @@ class CharacterTests(unittest.TestCase):
         self.assertEqual(x.stats["XP"], 0)
         self.assertEqual(x.stats["Stat Points"], 5)
         self.assertEqual(x.stats["Credits"], 0)
+        self.assertFalse(x.inventory)
+        self.assertEqual(x.stats["Max Health"], 20 + (5 * (x.stats["Vitality"] + x.stats["Level"])))
+        self.assertEqual(x.stats["Health"], x.stats["Max Health"])
+        self.assertEqual(x.attack, 0)
+        self.assertEqual(x.defense, 0)
+        self.assertTrue(x.living)
+
+
+
+    def test_2character_init2(self):
+        """Check that the character's stats are initialized."""
+        x = Character("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
+                      "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
+                                  "Credits": 0})
+        self.assertEqual(x.name, "Default")
+        self.assertEqual(x.stats["Strength"], 5)
+        self.assertEqual(x.stats["Dexterity"], 5)
+        self.assertEqual(x.stats["Vitality"], 5)
+        self.assertEqual(x.stats["Intelligence"], 5)
+        self.assertEqual(x.stats["Level"], 1)
+        self.assertEqual(x.stats["XP"], 0)
+        self.assertEqual(x.stats["Stat Points"], 5)
+        self.assertEqual(x.stats["Credits"], 0)
+        self.assertFalse(x.inventory)
+        self.assertEqual(x.stats["Max Health"], 20 + (5 * (x.stats["Vitality"] + x.stats["Level"])))
+        self.assertEqual(x.stats["Health"], x.stats["Max Health"])
+        self.assertEqual(x.attack, 0)
+        self.assertEqual(x.defense, 0)
+        self.assertTrue(x.living)
 
     def test_3set_living(self):
         """Test for the set_living method.
@@ -105,18 +128,11 @@ class CharacterTests(unittest.TestCase):
 class PlayerTests(unittest.TestCase):
     """Testcase for the Player class.
     """
-    def test_1make_player(self):
+    def test_1player_init1(self):
         """Test that the Player initializes correctly.
         """
         x = Player("Bob", None)
-        self.assertTrue(isinstance(x, Player))
-
-    def test_2player_stats(self):
-        """Test that the Player's instance attributes are correct.
-        """
-        x = Player("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
-                   "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
-                               "Credits": 0})
+        self.assertEqual(x.name, "Bob")
         self.assertEqual(x.stats["Strength"], 5)
         self.assertEqual(x.stats["Dexterity"], 5)
         self.assertEqual(x.stats["Vitality"], 5)
@@ -125,6 +141,48 @@ class PlayerTests(unittest.TestCase):
         self.assertEqual(x.stats["XP"], 0)
         self.assertEqual(x.stats["Stat Points"], 5)
         self.assertEqual(x.stats["Credits"], 0)
+        self.assertEqual(x.stats["Max Health"], 20 + (5 * (x.stats["Vitality"] + x.stats["Level"])))
+        self.assertEqual(x.stats["Health"], x.stats["Max Health"])
+        self.assertEqual(x.stats["Medkits"], 5)
+        self.assertFalse(x.inventory)
+        self.assertIsInstance(x.equipment["Head"], Item)
+        self.assertIsInstance(x.equipment["Chest"], Item)
+        self.assertIsInstance(x.equipment["Arms"], Item)
+        self.assertIsInstance(x.equipment["Legs"], Item)
+        self.assertIsInstance(x.equipment["Feet"], Item)
+        self.assertIsInstance(x.equipment["Weapon"], Item)
+        self.assertTrue(x.attack > 0)
+        self.assertTrue(x.defense > 0)
+        self.assertTrue(x.living)
+
+    def test_2player_init2(self):
+        """Test that the Player's instance attributes are correct.
+        """
+        x = Player("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
+                   "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5,
+                               "Credits": 0})
+        self.assertEqual(x.name, "Default")
+        self.assertEqual(x.stats["Strength"], 5)
+        self.assertEqual(x.stats["Dexterity"], 5)
+        self.assertEqual(x.stats["Vitality"], 5)
+        self.assertEqual(x.stats["Intelligence"], 5)
+        self.assertEqual(x.stats["Level"], 1)
+        self.assertEqual(x.stats["XP"], 0)
+        self.assertEqual(x.stats["Stat Points"], 5)
+        self.assertEqual(x.stats["Credits"], 0)
+        self.assertEqual(x.stats["Max Health"], 20 + (5 * (x.stats["Vitality"] + x.stats["Level"])))
+        self.assertEqual(x.stats["Health"], x.stats["Max Health"])
+        self.assertEqual(x.stats["Medkits"], 5)
+        self.assertFalse(x.inventory)
+        self.assertIsInstance(x.equipment["Head"], Item)
+        self.assertIsInstance(x.equipment["Chest"], Item)
+        self.assertIsInstance(x.equipment["Arms"], Item)
+        self.assertIsInstance(x.equipment["Legs"], Item)
+        self.assertIsInstance(x.equipment["Feet"], Item)
+        self.assertIsInstance(x.equipment["Weapon"], Item)
+        self.assertTrue(x.attack > 0)
+        self.assertTrue(x.defense > 0)
+        self.assertTrue(x.living)
 
     def test3_equip_item_real(self):
         """Test for the equip_item method with various Item instances.
@@ -367,18 +425,45 @@ class PlayerTests(unittest.TestCase):
 class EnemyTests(unittest.TestCase):
     """Testcase for the Enemy class.
     """
-    def test_1make_enemy(self):
+    def test_1enemy_init1(self):
         """Test for the Enemy instance initialization.
         """
-        enemy = Enemy("Bob", None, 10)
-        self.assertTrue(isinstance(enemy, Enemy))
+        x = Enemy("Bob", None, 1)
+        self.assertEqual(x.name, "Bob")
+        self.assertTrue(x.stats["Strength"] >= 5)
+        self.assertTrue(x.stats["Dexterity"] >= 5)
+        self.assertTrue(x.stats["Vitality"] >= 5)
+        self.assertTrue(x.stats["Intelligence"] >= 5)
+        self.assertEqual(x.stats["Level"], 1)
+        self.assertEqual(x.stats["XP"], 0)
+        self.assertEqual(x.stats["Stat Points"], 0)
+        self.assertEqual(x.stats["Credits"], 0)
+        self.assertEqual(x.stats["Max Health"], 20 + (5 * (x.stats["Vitality"] + x.stats["Level"])))
+        self.assertEqual(x.stats["Health"], x.stats["Max Health"])
+        self.assertFalse(x.inventory)
+        self.assertTrue(x.attack > 0)
+        self.assertTrue(x.defense > 0)
+        self.assertTrue(x.living)
 
-    def test_2enemy_stats(self):
+    def test_2enemy_init2(self):
         """Test for the instance attributes.
         """
-        enemy = Enemy("Bob", None, 10)
-        self.assertEqual(enemy.stats["Level"], 10)
-        self.assertEqual(enemy.name, "Bob")
+        x = Enemy("Bob", None, 10)
+        self.assertEqual(x.stats["Level"], 10)
+        self.assertEqual(x.name, "Bob")
+        self.assertTrue(x.stats["Strength"] > 5)
+        self.assertTrue(x.stats["Dexterity"] > 5)
+        self.assertTrue(x.stats["Vitality"] > 5)
+        self.assertTrue(x.stats["Intelligence"] > 5)
+        self.assertEqual(x.stats["XP"], 0)
+        self.assertEqual(x.stats["Stat Points"], 0)
+        self.assertEqual(x.stats["Credits"], 0)
+        self.assertEqual(x.stats["Max Health"], 20 + (5 * (x.stats["Vitality"] + x.stats["Level"])))
+        self.assertEqual(x.stats["Health"], x.stats["Max Health"])
+        self.assertFalse(x.inventory)
+        self.assertTrue(x.attack > 0)
+        self.assertTrue(x.defense > 0)
+        self.assertTrue(x.living)
 
     def test_3take_damage(self):
         """Test for the take_damage method.
