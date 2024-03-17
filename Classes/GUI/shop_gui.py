@@ -48,28 +48,28 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.exit_button = tk.Button(self, text="Close",
-                                     font="Time_New_Roman 8 bold",
+                                     font="Cambria_Math 8 bold",
                                      command=self.destroy)
         self.exit_button_window = self.bg_canvas.create_window(self.width - 100, 50,
                                                                anchor='sw',
                                                                window=self.exit_button)
 
         self.bg_canvas.create_text(self.width / 2 - 350, self.height - 580,
-                                   font=8, fill="#05FF50", justify="left",
+                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
                                    text=self.player.name + "'s Equipment",
                                    tags="equipment_title")
         self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580,
-                                   font=8, fill="#05FF50", justify="left",
+                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
                                    text=self.player.name + "'s Inventory",
                                    tags="inventory_title")
         self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580,
-                                   font=8, fill="#05FF50", justify="left",
+                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
                                    text=self.shop.name + "'s Shop",
                                    tags="shop_title")
 
         self.unequip_button = tk.Button(self, text='Unequip Entered Item'
                                                    '\nFrom Equipment',
-                                        font='Time_New_Roman 8 bold',
+                                        font='Cambria_Math 8 bold',
                                         command=lambda: self.remove_equipped_item())
         self.unequip_button_window = self.bg_canvas.create_window(50, 500,
                                                                   anchor='sw',
@@ -78,7 +78,7 @@ class ShopGUI(tk.Toplevel):
 
         self.equip_button = tk.Button(self, text='Equip Entered Item'
                                                  '\nFrom Inventory',
-                                      font='Time_New_Roman 8 bold',
+                                      font='Cambria_Math 8 bold',
                                       command=lambda: self.equip_item_inventory())
         self.equip_button_window = self.bg_canvas.create_window(250, 500,
                                                                 anchor='sw',
@@ -87,7 +87,7 @@ class ShopGUI(tk.Toplevel):
 
         self.purchase_button = tk.Button(self, text='Purchase Entered Item'
                                                     '\nFrom Shop',
-                                         font='Time_New_Roman 8 bold',
+                                         font='Cambria_Math 8 bold',
                                          command=lambda: self.buy_item_from_shop())
         self.purchase_button_window = self.bg_canvas.create_window(450, 500,
                                                                    anchor='sw',
@@ -96,7 +96,7 @@ class ShopGUI(tk.Toplevel):
 
         self.sell_button = tk.Button(self, text='Sell Entered Item'
                                                 '\nFrom Inventory',
-                                     font='Time_New_Roman 8 bold',
+                                     font='Cambria_Math 8 bold',
                                      command=lambda: self.sell_item_inventory())
         self.sell_button_window = self.bg_canvas.create_window(650, 500,
                                                                anchor='sw',
@@ -105,7 +105,7 @@ class ShopGUI(tk.Toplevel):
 
         self.buy_medkit_button = tk.Button(self, text='Buy Medkit\n'
                                                       'For 3 Credits',
-                                           font='Time_New_Roman 8 bold',
+                                           font='Cambria_Math 8 bold',
                                            command=lambda: self.buy_medkits())
         self.buy_medkit_button_window = self.bg_canvas.create_window(850, 500,
                                                                      anchor='sw',
@@ -113,12 +113,12 @@ class ShopGUI(tk.Toplevel):
                                                                      tags="medkit_button")
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
-                                        font='Time_New_Roman 10')
+                                        font='Cambria_Math 8 bold')
         self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 550,
                                                             anchor='sw',
                                                             window=self.item_entry_text,
                                                             tags="item_entry_text")
-        self.item_entry_box = tk.Entry(self, font='Time_New_Roman 8 bold')
+        self.item_entry_box = tk.Entry(self, font='Cambria_Math 8 bold')
         self.bg_canvas.create_window(self.width / 2 - 100, 580, anchor='sw',
                                      window=self.item_entry_box,
                                      tags="item_entry")
@@ -132,8 +132,8 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
             self.bg_canvas.create_text(self.width / 2 - 300, self.height - 450,
-                                       font="Time_New_Roman 12 bold",
-                                       fill="#05FF50", justify="left",
+                                       font="Cambria_Math 13 bold",
+                                       fill="#FFFFFF", justify="left",
                                        text="\nHead Armor:\t"
                                        + str(self.player.equipment["Head"].stats["name"]) + ":\t+"
                                        + str(self.player.equipment["Head"].stats["defense"])
@@ -182,7 +182,7 @@ class ShopGUI(tk.Toplevel):
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
         self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450,
-                                   font=8, fill="#05FF50", justify="left",
+                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
                                    text=self.inventory_text, tags="inventory")
 
     def shop_grid(self):
@@ -205,7 +205,7 @@ class ShopGUI(tk.Toplevel):
         else:
             self.shop_text = "The Shop Is Empty"
         self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450,
-                                   font=8, fill="#05FF50", justify="left",
+                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
                                    text=self.shop_text, tags="shop")
 
     def update_shop_gui(self):

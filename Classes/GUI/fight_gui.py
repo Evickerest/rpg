@@ -52,28 +52,28 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580,
-                                   font=10, fill="#ff0d1d", justify="center",
+                                   font="Cambria_Math 14 bold", fill="white", justify="center",
                                    text=self.player.name + "'s Side",
                                    tags="equipment_title")
 
         t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580,
-                                   font=10, fill="#ff0d1d", justify="center",
+                                   font="Cambria_Math 14 bold", fill="white", justify="center",
                                    text=t, tags="Enemies")
 
         self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack',
-                                         font='Time_New_Roman 8')
+                                         font="Cambria_Math 9 bold")
         self.enemy_entry_text = self.bg_canvas.create_window(50, 430,
                                                              anchor='sw',
                                                              window=self.enemy_entry_text,
                                                              tags="enemy_entry_text")
-        self.enemy_entry_box = tk.Entry(self, font='Time_New_Roman 8')
+        self.enemy_entry_box = tk.Entry(self, font="Cambria_Math 9 bold")
         self.bg_canvas.create_window(50, 450, anchor='sw',
                                      window=self.enemy_entry_box,
                                      tags="enemy_entry")
 
         self.attack_button = tk.Button(self, text='Attack',
-                                       font='Time_New_Roman 8',
+                                       font="Cambria_Math 9 bold",
                                        command=lambda: self.player_attack())
         self.attack_button_window = self.bg_canvas.create_window(50, 400,
                                                                  anchor='sw',
@@ -81,7 +81,7 @@ class FightGUI(tk.Toplevel):
                                                                  tags="attack_button")
 
         self.defend_button = tk.Button(self, text='Defend',
-                                       font='Time_New_Roman 8',
+                                       font="Cambria_Math 9 bold",
                                        command=lambda: self.defend(self.player))
         self.defend_button_window = self.bg_canvas.create_window(250, 400,
                                                                  anchor='sw',
@@ -89,7 +89,7 @@ class FightGUI(tk.Toplevel):
                                                                  tags="defend_button")
 
         self.use_medkit_button = tk.Button(self, text='Use Medkit',
-                                           font='Time_New_Roman 8',
+                                           font="Cambria_Math 9 bold",
                                            command=lambda: self.use_medkit())
         self.use_medkit_button_window = self.bg_canvas.create_window(450, 400,
                                                                      anchor='sw',
@@ -97,7 +97,7 @@ class FightGUI(tk.Toplevel):
                                                                      tags="medkit_button")
 
         # self.use_item_button = tk.Button(self, text='Placeholder\n',
-        #                                  font='Time_New_Roman 8',
+        #                                  font="Cambria_Math 14 bold",
         #                                  command=lambda: self.destroy())
         # self.use_item_button_window = self.bg_canvas.create_window(650, 400,
         #                                                            anchor='sw',
@@ -111,22 +111,22 @@ class FightGUI(tk.Toplevel):
         """Creates and updates the player's side of the display.
         """
         self.bg_canvas.delete("health", "attack", "defense", "medkits")
-        self.bg_canvas.create_text(50, self.height - 300, anchor='sw', font=8,
-                                   fill="#ff0d1d", justify="center",
-                                   text="Health: "
+        self.bg_canvas.create_text(50, self.height - 300, anchor='sw', font="Cambria_Math 14 bold",
+                                   fill="white", justify="center",
+                                   text="Health:\t"
                                    + str(self.player.stats["Health"]) + " / "
                                    + str(self.player.stats["Max Health"]),
                                    tags="health")
-        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8,
-                                   fill="#ff0d1d", justify="center",
-                                   text="Attack: " + str(self.player.attack),
+        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font="Cambria_Math 14 bold",
+                                   fill="white", justify="center",
+                                   text="Attack:\t" + str(self.player.attack),
                                    tags="ff0d1d")
-        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8,
-                                   fill="#ff0d1d", justify="center",
-                                   text="Defense: " + str(self.player.defense),
+        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font="Cambria_Math 14 bold",
+                                   fill="white", justify="center",
+                                   text="Defense:\t" + str(self.player.defense),
                                    tags="defense")
         self.bg_canvas.create_text(self.width / 2 + 50, self.height - 240,
-                                   anchor='sw', font=8, fill="#ff0d1d",
+                                   anchor='sw', font="Cambria_Math 14 bold", fill="white",
                                    justify="center", tags="medkits",
                                    text="Medkits: "
                                         + str(self.player.stats["Medkits"]))
@@ -157,7 +157,7 @@ class FightGUI(tk.Toplevel):
         else:
             self.enemies_txt = "No Enemies Remain"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 430,
-                                   font=8, fill="#ff0d1d", justify="center",
+                                   font="Cambria_Math 14 bold", fill="white", justify="center",
                                    text=self.enemies_txt, tags="enemies")
 
     def read_entry_box(self) -> None | str:
@@ -270,7 +270,7 @@ class FightGUI(tk.Toplevel):
         """
         if not self.enemies:
             self.exit_button = tk.Button(self, text="Exit",
-                                         font="Time_New_Roman 10",
+                                         font="Cambria_Math 9 bold",
                                          command=self.endFight)
             self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
                                                                    anchor='sw',

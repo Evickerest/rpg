@@ -52,11 +52,11 @@ class InventoryGUI(tk.Toplevel):
                                                                anchor='sw', window=self.exit_button)
 
         self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580,
-                                   font=10, fill="#038787", justify="center",
+                                   font="Cambria_Math 12 bold", fill="#FFFFFF", justify="center",
                                    text=self.player.name + "'s Equipment",
                                    tags="equipment_title")
         self.bg_canvas.create_text(self.width / 2 + 200, self.height - 580,
-                                   font=10, fill="#038787", justify="center",
+                                   font="Cambria_Math 12 bold", fill="#FFFFFF", justify="center",
                                    text=self.player.name + "'s Inventory",
                                    tags="inventory_title")
 
@@ -109,10 +109,10 @@ class InventoryGUI(tk.Toplevel):
         if self.player.equipment:
             self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450,
                                        font=8,
-                                       fill="#038787", text="\nHead Armor....."
+                                       fill="#FFFFFF", text="\nHead Armor....."
                                        + str(self.player.equipment["Head"].stats["name"])
                                        + " +" + str(self.player.equipment["Head"].stats["defense"])
-                                       + " Defense" + "\nArm Armor......."
+                                       + " Defense" + "\nArm Armor......"
                                        + str(self.player.equipment["Arms"].stats["name"])
                                        + " +" + str(self.player.equipment["Arms"].stats["defense"])
                                        + " Defense" + "\nChest Armor...."
@@ -154,7 +154,7 @@ class InventoryGUI(tk.Toplevel):
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
         self.bg_canvas.create_text(self.width / 2 + 200, self.height - 450,
-                                   font=10, fill="#038787", justify="center",
+                                   font="Cambria_Math 12 bold", fill="#FFFFFF", justify="center",
                                    text=self.inventory_text, tags="inventory")
 
     def update_inventory_gui(self):
