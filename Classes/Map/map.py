@@ -126,7 +126,6 @@ class Map:
         # Create Start room
         self.start_room.add_adjacent_room(self.rooms[0])
         self.start_room.cleared = True
-        
 
     def assign_random_images(self):
         """Method to assign an image path to all rooms in the map.

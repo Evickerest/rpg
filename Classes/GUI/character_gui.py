@@ -44,7 +44,7 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        exit_button = tk.Button(self, text="Close", font="Time_New_Roman 15",
+        exit_button = tk.Button(self, text="Close", font="Cambria_Math 10 bold",
                                 command=self.destroy)
         self.bg_canvas.create_window(self.width / 2 + 80, 475, anchor='sw',
                                      window=exit_button)
@@ -88,7 +88,7 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
         self.bg_canvas.delete("level_up")
         self.bg_canvas.create_text(self.width / 2 - 30, self.height - 225,
-                                   font="Time_New_Roman 15", fill="#038787",
+                                   font="Cambria_Math 14 bold", fill="#FFFFFF",
                                    justify="center",
                                    text=self.player.name + "'s Stats" +
                                    "\n\nHealth: "

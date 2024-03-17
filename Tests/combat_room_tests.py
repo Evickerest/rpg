@@ -3,30 +3,28 @@
 
 import unittest
 from Classes.Rooms.combat_room import CombatRoom
-from Classes.character import Player
+from Classes.character import Player, Enemy
 
 
 class CombatRoomTests(unittest.TestCase):
     """Testcase for CombatRoom.
     """
-    def test_1make_combatroom(self):
+    def test_1combatroom_init(self):
         """Check that the CombatRoom initializes.
-        """
-        x = CombatRoom()
-        self.assertTrue(isinstance(x, CombatRoom))
-        self.assertEqual(x.player, None)
-
-    def test_2combatroom_stats(self):
-        """Check that the CombatRoom's instance attributes are correct.
         """
         x = CombatRoom()
         self.assertEqual(x.room_type, "Combat")
         self.assertTrue(x.name)
+        self.assertFalse(x.player)
         self.assertFalse(x.is_boss_room)
         self.assertEqual(x.mon_lv, 1)
+        self.assertEqual(x.text, "You have entered a Combat room. Prepare to fight.")
         self.assertTrue(x.enemies)
+        self.assertEqual(x.enemies_killed, 0)
+        for enemy in x.enemies:
+            self.assertIsInstance(enemy, Enemy)
 
-    def test_3generate_enemies(self):
+    def test_2generate_enemies(self):
         """Check that the CombatRoom correctly generates enemies at LV 1.
         """
         x = CombatRoom()
@@ -34,7 +32,7 @@ class CombatRoomTests(unittest.TestCase):
         for enemy in x.enemies:
             self.assertEqual(enemy.stats["Level"], 1)
 
-    def test_4lv_enemies(self):
+    def test_3lv_enemies(self):
         """Check that the CombatRoom correctly updates enemy levels.
         """
         x = CombatRoom()
@@ -44,3 +42,4 @@ class CombatRoomTests(unittest.TestCase):
         x.lv_enemies()
         for enemy in x.enemies:
             self.assertEqual(enemy.stats["Level"], x.player.stats["Level"])
+        self.assertEqual(x.player, character)

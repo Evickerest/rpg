@@ -3,10 +3,13 @@
 
 
 import random
+import time
+import math
 import tkinter as tk
 from PIL import ImageTk, Image
 from Classes.character import Player, Enemy, Character
 from Classes.Rooms.combat_room import CombatRoom
+from Classes.text_printer import TextPrinter
 
 
 class FightGUI(tk.Toplevel):
@@ -41,6 +44,8 @@ class FightGUI(tk.Toplevel):
         self.enemy_entry = None
         self.exit_button = None
         self.exit_button_window = None
+        self.text_printer = TextPrinter(self)
+        self.time = time.time()
 
         self.original_image = Image.open('Images/' + self.room_name + '.jpg').resize((self.width,
                                                                                       self.height))
@@ -52,28 +57,28 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580,
-                                   font=10, fill="#ff0d1d", justify="center",
+                                   font="Cambria_Math 14 bold", fill="white", justify="center",
                                    text=self.player.name + "'s Side",
                                    tags="equipment_title")
 
         t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580,
-                                   font=10, fill="#ff0d1d", justify="center",
+                                   font="Cambria_Math 14 bold", fill="white", justify="center",
                                    text=t, tags="Enemies")
 
         self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack',
-                                         font='Time_New_Roman 8')
+                                         font="Cambria_Math 9 bold")
         self.enemy_entry_text = self.bg_canvas.create_window(50, 430,
                                                              anchor='sw',
                                                              window=self.enemy_entry_text,
                                                              tags="enemy_entry_text")
-        self.enemy_entry_box = tk.Entry(self, font='Time_New_Roman 8')
+        self.enemy_entry_box = tk.Entry(self, font="Cambria_Math 9 bold")
         self.bg_canvas.create_window(50, 450, anchor='sw',
                                      window=self.enemy_entry_box,
                                      tags="enemy_entry")
 
         self.attack_button = tk.Button(self, text='Attack',
-                                       font='Time_New_Roman 8',
+                                       font="Cambria_Math 9 bold",
                                        command=lambda: self.player_attack())
         self.attack_button_window = self.bg_canvas.create_window(50, 400,
                                                                  anchor='sw',
@@ -81,7 +86,7 @@ class FightGUI(tk.Toplevel):
                                                                  tags="attack_button")
 
         self.defend_button = tk.Button(self, text='Defend',
-                                       font='Time_New_Roman 8',
+                                       font="Cambria_Math 9 bold",
                                        command=lambda: self.defend(self.player))
         self.defend_button_window = self.bg_canvas.create_window(250, 400,
                                                                  anchor='sw',
@@ -89,15 +94,21 @@ class FightGUI(tk.Toplevel):
                                                                  tags="defend_button")
 
         self.use_medkit_button = tk.Button(self, text='Use Medkit',
-                                           font='Time_New_Roman 8',
+                                           font="Cambria_Math 9 bold",
                                            command=lambda: self.use_medkit())
         self.use_medkit_button_window = self.bg_canvas.create_window(450, 400,
                                                                      anchor='sw',
                                                                      window=self.use_medkit_button,
                                                                      tags="medkit_button")
 
+        self.bg_canvas.create_text(250, 200, width=300,
+                                   font=('Time_New_Roman', 12), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text="\nYou are ready to start combat.\nWhat"
+                                        " will you do?\n", tags="combat_text")
+
         # self.use_item_button = tk.Button(self, text='Placeholder\n',
-        #                                  font='Time_New_Roman 8',
+        #                                  font="Cambria_Math 14 bold",
         #                                  command=lambda: self.destroy())
         # self.use_item_button_window = self.bg_canvas.create_window(650, 400,
         #                                                            anchor='sw',
@@ -111,22 +122,22 @@ class FightGUI(tk.Toplevel):
         """Creates and updates the player's side of the display.
         """
         self.bg_canvas.delete("health", "attack", "defense", "medkits")
-        self.bg_canvas.create_text(50, self.height - 300, anchor='sw', font=8,
-                                   fill="#ff0d1d", justify="center",
-                                   text="Health: "
+        self.bg_canvas.create_text(50, self.height - 300, anchor='sw', font="Cambria_Math 14 bold",
+                                   fill="white", justify="center",
+                                   text="Health:\t"
                                    + str(self.player.stats["Health"]) + " / "
                                    + str(self.player.stats["Max Health"]),
                                    tags="health")
-        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8,
-                                   fill="#ff0d1d", justify="center",
-                                   text="Attack: " + str(self.player.attack),
+        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font="Cambria_Math 14 bold",
+                                   fill="white", justify="center",
+                                   text="Attack:\t" + str(self.player.attack),
                                    tags="ff0d1d")
-        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8,
-                                   fill="#ff0d1d", justify="center",
-                                   text="Defense: " + str(self.player.defense),
+        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font="Cambria_Math 14 bold",
+                                   fill="white", justify="center",
+                                   text="Defense:\t" + str(self.player.defense),
                                    tags="defense")
         self.bg_canvas.create_text(self.width / 2 + 50, self.height - 240,
-                                   anchor='sw', font=8, fill="#ff0d1d",
+                                   anchor='sw', font="Cambria_Math 14 bold", fill="white",
                                    justify="center", tags="medkits",
                                    text="Medkits: "
                                         + str(self.player.stats["Medkits"]))
@@ -157,7 +168,7 @@ class FightGUI(tk.Toplevel):
         else:
             self.enemies_txt = "No Enemies Remain"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 430,
-                                   font=8, fill="#ff0d1d", justify="center",
+                                   font="Cambria_Math 14 bold", fill="white", justify="center",
                                    text=self.enemies_txt, tags="enemies")
 
     def read_entry_box(self) -> None | str:
@@ -202,18 +213,29 @@ class FightGUI(tk.Toplevel):
         """
         if not self.player.living:
             return
-
         to_target = self.read_entry_box()
         if to_target is not None:
             if to_target.isnumeric():
                 if int(to_target) < len(self.enemies):
                     target = self.enemies[int(to_target)]
-                    target.take_damage(self.player)
+                    damage = target.take_damage(self.player)
+                    self.text_printer.animate_text(f"You hit {target.name} for"
+                                                   f" {damage} damage.\n\n",
+                                                   "combat_text", tk.END)
+                    while math.trunc(time.time() - self.time) < 0.1:
+                        pass
+                    self.time = time.time()
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
                         self.room.enemies_killed += 1
                         target.set_living(False)
                         self.enemy_entry_box.delete(0, 100)
+                        self.text_printer.animate_text("You killed"
+                                                       f" {target.name}\n\n.",
+                                                       "combat_text", tk.END)
+                        while math.trunc(time.time() - self.time) < 0.1:
+                            pass
+                        self.time = time.time()
                         self.player.stats["XP"] += int(target.stats["Level"]
                                                        * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
@@ -230,6 +252,13 @@ class FightGUI(tk.Toplevel):
         """
         defender.defend_action()
         if isinstance(defender, Player):
+            self.text_printer.animate_text(f"You are defending.\nYour defense"
+                                           f" is temporarily increased to"
+                                           f" {self.player.defense}.\n\n",
+                                           "combat_text", tk.END)
+            while math.trunc(time.time() - self.time) < 0.1:
+                pass
+            self.time = time.time()
             self.resolve_player_turn()
         if self.player.living:
             self.update_combat_gui()
@@ -237,7 +266,13 @@ class FightGUI(tk.Toplevel):
     def use_medkit(self):
         """Method to use a medkit and update the display.
         """
-        self.player.use_medkits()
+        heal = self.player.use_medkits()
+        self.text_printer.animate_text(f"You used a medkit and healed for"
+                                       f" {heal} health.\n\n", "combat_text",
+                                       tk.END)
+        while math.trunc(time.time() - self.time) < 0.1:
+            pass
+        self.time = time.time()
         self.resolve_player_turn()
         self.update_combat_gui()
 
@@ -258,19 +293,43 @@ class FightGUI(tk.Toplevel):
         """
         choice = random.choice(["attack", "defend", "nothing"])
         if choice == "attack":
-            self.player.take_damage(enemy)
+            damage = self.player.take_damage(enemy)
+            self.text_printer.animate_text(f"{enemy.name} attacked"
+                                           f" {self.player.name} for {damage}"
+                                           f" damage.\n\n", "combat_text",
+                                           tk.END)
+            while math.trunc(time.time() - self.time) < 0.1:
+                pass
+            self.time = time.time()
             if self.player.stats["Health"] < 1:
                 self.player.set_living(False)
+                self.text_printer.animate_text("You were killed!\n\n",
+                                               "combat_text", tk.END)
+                while math.trunc(time.time() - self.time) < 0.1:
+                    pass
+                self.time = time.time()
                 self.character_dead_gui()
         elif choice == "defend":
             self.defend(enemy)
+            self.text_printer.animate_text(f"{enemy.name} is defending.\nTheir"
+                                           f" defense is {enemy.defense}.\n\n",
+                                           "combat_text", tk.END)
+            while math.trunc(time.time() - self.time) < 0.1:
+                pass
+            self.time = time.time()
+        else:
+            self.text_printer.animate_text(f"{enemy.name} did nothing.\n\n",
+                                           "combat_text", tk.END)
+            while math.trunc(time.time() - self.time) < 0.1:
+                pass
+            self.time = time.time()
 
     def make_exit(self):
         """Method to make an exit after the fight is won.
         """
         if not self.enemies:
             self.exit_button = tk.Button(self, text="Exit",
-                                         font="Time_New_Roman 10",
+                                         font="Cambria_Math 9 bold",
                                          command=self.endFight)
             self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
                                                                    anchor='sw',

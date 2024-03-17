@@ -1,6 +1,7 @@
 """Module containing the unittests for the Edge class.
 """
 import unittest
+import math
 from Classes.Map.edge import Edge
 from Classes.Rooms.combat_room import CombatRoom
 
@@ -16,7 +17,8 @@ class EdgeTests(unittest.TestCase):
         room2 = CombatRoom()
         room2.set_coordinates(10, 5)
         edge = Edge(room1, room2)
-        self.assertIsInstance(edge, Edge)
+        self.assertEqual(edge.rooms, (room1, room2))
+        self.assertEqual(edge.weight, math.dist(room1.get_coordinates(), room2.get_coordinates()))
 
     def test2(self):
         """Test for the get_weight method.
