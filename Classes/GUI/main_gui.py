@@ -224,7 +224,7 @@ class MainGUI(tk.Tk):
         self.player.stats["Health"] = self.player.stats["Max Health"]
         self.bg_canvas.delete("stats")
         self.bg_canvas.create_text(self.width / 2 - 100, self.height - 500,
-                                   font=25, fill="white", justify="center",
+                                   font="Time_New_Roman 22", fill="white", justify="center",
                                    text=self.player.name + "'s Stats" +
                                    "\n\nHealth: "
                                    + str(self.player.stats["Health"]) +
