@@ -254,9 +254,17 @@ class Player(Character):
         """
         damage = attacker.get_attack() - (self.get_defense() / 5)
         damage = max(int(damage), 1)
-        self.stats["Health"] -= int(damage)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats["Dexterity"]
+                               + attacker.stats["Level"])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats["Dexterity"] + self.stats["Level"])
+        if attacker_hit_chance > defender_dodge_chance:
+            self.stats["Health"] -= int(damage)
+        else:
+            damage = 0
 
-        # Return state of character
+        # Set state of character
         if self.stats["Health"] <= 0:
             self.set_living(False)
         return damage
@@ -275,10 +283,12 @@ class Enemy(Character):
         self.stats["Level"] = enemy_lv
         self.stats["Stat Points"] = self.stats["Level"] * 5
         self.name = name
+        self.action = "nothing"
         self.update_stats()
         self.stats["Health"] = self.stats["Max Health"]
         self.update_attack()
         self.update_defense()
+        self.randomize_action()
 
     def take_damage(self, attacker: Player):
         """Method for the Enemy to take damage.
@@ -288,6 +298,15 @@ class Enemy(Character):
         item = attacker.equipment["Weapon"]
         damage = item.get_damage_dealt(self) + attacker.get_attack() - self.get_defense()
         damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats["Dexterity"]
+                               + attacker.stats["Level"])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats["Dexterity"] + self.stats["Level"])
+        if attacker_hit_chance > defender_dodge_chance:
+            self.stats["Health"] -= int(damage)
+        else:
+            damage = 0
         self.stats["Health"] -= damage
         return damage
 
@@ -309,3 +328,6 @@ class Enemy(Character):
             stat = random.choice(['Strength', 'Dexterity',
                                   'Vitality', 'Intelligence'])
             self.upgrade_stats(stat, 1)
+
+    def randomize_action(self):
+        self.action = random.choice(["attack", "defend", "nothing"])

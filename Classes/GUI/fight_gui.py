@@ -3,13 +3,10 @@
 
 
 import random
-import time
-import math
 import tkinter as tk
 from PIL import ImageTk, Image
 from Classes.character import Player, Enemy, Character
 from Classes.Rooms.combat_room import CombatRoom
-from Classes.text_printer import TextPrinter
 
 
 class FightGUI(tk.Toplevel):
@@ -43,9 +40,11 @@ class FightGUI(tk.Toplevel):
         self.count = 0
         self.enemy_entry = None
         self.exit_button = None
-        self.exit_button_window = None
-        self.text_printer = TextPrinter(self)
-        self.time = time.time()
+        self.turn_counter = 0
+        self.player_txt1 = ""
+        self.player_txt2 = ""
+        self.enemy_txt1 = ""
+        self.enemy_txt2 = ""
 
         self.original_image = Image.open('Images/' + self.room_name + '.jpg').resize((self.width,
                                                                                       self.height))
@@ -68,10 +67,9 @@ class FightGUI(tk.Toplevel):
 
         self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack',
                                          font="Cambria_Math 9 bold")
-        self.enemy_entry_text = self.bg_canvas.create_window(50, 430,
-                                                             anchor='sw',
-                                                             window=self.enemy_entry_text,
-                                                             tags="enemy_entry_text")
+        self.bg_canvas.create_window(50, 430, anchor='sw',
+                                     window=self.enemy_entry_text,
+                                     tags="enemy_entry_text")
         self.enemy_entry_box = tk.Entry(self, font="Cambria_Math 9 bold")
         self.bg_canvas.create_window(50, 450, anchor='sw',
                                      window=self.enemy_entry_box,
@@ -80,32 +78,26 @@ class FightGUI(tk.Toplevel):
         self.attack_button = tk.Button(self, text='Attack',
                                        font="Cambria_Math 9 bold",
                                        command=lambda: self.player_attack())
-        self.attack_button_window = self.bg_canvas.create_window(50, 400,
-                                                                 anchor='sw',
-                                                                 window=self.attack_button,
-                                                                 tags="attack_button")
+        self.bg_canvas.create_window(50, 400, anchor='sw',
+                                     window=self.attack_button,
+                                     tags="attack_button")
 
         self.defend_button = tk.Button(self, text='Defend',
                                        font="Cambria_Math 9 bold",
                                        command=lambda: self.defend(self.player))
-        self.defend_button_window = self.bg_canvas.create_window(250, 400,
-                                                                 anchor='sw',
-                                                                 window=self.defend_button,
-                                                                 tags="defend_button")
+        self.bg_canvas.create_window(250, 400, anchor='sw',
+                                     window=self.defend_button,
+                                     tags="defend_button")
 
         self.use_medkit_button = tk.Button(self, text='Use Medkit',
                                            font="Cambria_Math 9 bold",
                                            command=lambda: self.use_medkit())
-        self.use_medkit_button_window = self.bg_canvas.create_window(450, 400,
-                                                                     anchor='sw',
-                                                                     window=self.use_medkit_button,
-                                                                     tags="medkit_button")
-
-        self.bg_canvas.create_text(250, 200, width=300,
-                                   font=('Time_New_Roman', 12), fill="#FFFFFF",
-                                   justify="left", anchor="w",
-                                   text="\nYou are ready to start combat.\nWhat"
-                                        " will you do?\n", tags="combat_text")
+        self.bg_canvas.create_window(450, 400, anchor='sw',
+                                     window=self.use_medkit_button,
+                                     tags="medkit_button")
+        for enemy in self.enemies:
+            self.set_enemy_actions(enemy)
+        self.combat_log()
 
         # self.use_item_button = tk.Button(self, text='Placeholder\n',
         #                                  font="Cambria_Math 14 bold",
@@ -168,7 +160,7 @@ class FightGUI(tk.Toplevel):
         else:
             self.enemies_txt = "No Enemies Remain"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 430,
-                                   font="Cambria_Math 14 bold", fill="white", justify="center",
+                                   font="Cambria_Math 12 bold", fill="white", justify="center",
                                    text=self.enemies_txt, tags="enemies")
 
     def read_entry_box(self) -> None | str:
@@ -211,6 +203,7 @@ class FightGUI(tk.Toplevel):
         """Method governing how a Player attacks a target specified using
          the enemy_entry_box.
         """
+        self.player_txt1 = ""
         if not self.player.living:
             return
         to_target = self.read_entry_box()
@@ -219,23 +212,18 @@ class FightGUI(tk.Toplevel):
                 if int(to_target) < len(self.enemies):
                     target = self.enemies[int(to_target)]
                     damage = target.take_damage(self.player)
-                    self.text_printer.animate_text(f"You hit {target.name} for"
-                                                   f" {damage} damage.\n\n",
-                                                   "combat_text", tk.END)
-                    while math.trunc(time.time() - self.time) < 0.1:
-                        pass
-                    self.time = time.time()
+                    if damage == 0:
+                        self.player_txt1 += (f"You attacked {target.name} but"
+                                             f" they dodged!\n")
+                    else:
+                        self.player_txt1 += (f"You hit {target.name} for {damage}"
+                                             f" damage.\n")
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
                         self.room.enemies_killed += 1
                         target.set_living(False)
                         self.enemy_entry_box.delete(0, 100)
-                        self.text_printer.animate_text("You killed"
-                                                       f" {target.name}\n\n.",
-                                                       "combat_text", tk.END)
-                        while math.trunc(time.time() - self.time) < 0.1:
-                            pass
-                        self.time = time.time()
+                        self.player_txt1 += f"You killed {target.name}."
                         self.player.stats["XP"] += int(target.stats["Level"]
                                                        * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
@@ -252,13 +240,10 @@ class FightGUI(tk.Toplevel):
         """
         defender.defend_action()
         if isinstance(defender, Player):
-            self.text_printer.animate_text(f"You are defending.\nYour defense"
-                                           f" is temporarily increased to"
-                                           f" {self.player.defense}.\n\n",
-                                           "combat_text", tk.END)
-            while math.trunc(time.time() - self.time) < 0.1:
-                pass
-            self.time = time.time()
+            self.player_txt1 = ""
+            self.player_txt1 += (f"You are defending.\nYour defense is"
+                                 f" temporarily increased to"
+                                 f" {self.player.defense}.")
             self.resolve_player_turn()
         if self.player.living:
             self.update_combat_gui()
@@ -267,12 +252,8 @@ class FightGUI(tk.Toplevel):
         """Method to use a medkit and update the display.
         """
         heal = self.player.use_medkits()
-        self.text_printer.animate_text(f"You used a medkit and healed for"
-                                       f" {heal} health.\n\n", "combat_text",
-                                       tk.END)
-        while math.trunc(time.time() - self.time) < 0.1:
-            pass
-        self.time = time.time()
+        self.player_txt1 = ""
+        self.player_txt1 = f"You used a medkit and healed for {heal} health."
         self.resolve_player_turn()
         self.update_combat_gui()
 
@@ -280,49 +261,106 @@ class FightGUI(tk.Toplevel):
         """Method to resolve enemy actions after the player's turn is over.
         """
         if self.player:
+            self.player_txt2 = self.player_txt1
+            self.player_txt1 = ""
+            self.enemy_txt1 = ""
+            self.enemy_txt2 = ""
             for enemy in self.enemies:
                 enemy.update_defense()
                 if self.player.living:
                     self.enemy_turn(enemy)
+                self.set_enemy_actions(enemy)
             self.player.update_defense()
+            self.combat_log()
+            self.turn_count()
 
     def enemy_turn(self, enemy: Enemy):
         """Method to randomly determine what an Enemy instance does.
         Args:
             enemy (Enemy): The Enemy instance doing the action.
         """
-        choice = random.choice(["attack", "defend", "nothing"])
-        if choice == "attack":
+        if enemy.action == "attack":
             damage = self.player.take_damage(enemy)
-            self.text_printer.animate_text(f"{enemy.name} attacked"
-                                           f" {self.player.name} for {damage}"
-                                           f" damage.\n\n", "combat_text",
-                                           tk.END)
-            while math.trunc(time.time() - self.time) < 0.1:
-                pass
-            self.time = time.time()
+            if damage == 0:
+                self.enemy_txt1 += (f"{self.enemies.index(enemy)})"
+                                    f" {enemy.name} attacked"
+                                    f" {self.player.name} but you dodged!\n")
+            else:
+                self.enemy_txt1 += (f"{self.enemies.index(enemy)})"
+                                    f" {enemy.name} attacked {self.player.name}"
+                                    f" for {damage} damage.\n")
             if self.player.stats["Health"] < 1:
                 self.player.set_living(False)
-                self.text_printer.animate_text("You were killed!\n\n",
-                                               "combat_text", tk.END)
-                while math.trunc(time.time() - self.time) < 0.1:
-                    pass
-                self.time = time.time()
+                self.enemy_txt1 += "You were killed!\n"
                 self.character_dead_gui()
-        elif choice == "defend":
+        elif enemy.action == "defend":
             self.defend(enemy)
-            self.text_printer.animate_text(f"{enemy.name} is defending.\nTheir"
-                                           f" defense is {enemy.defense}.\n\n",
-                                           "combat_text", tk.END)
-            while math.trunc(time.time() - self.time) < 0.1:
-                pass
-            self.time = time.time()
+            self.enemy_txt1 += (f"{self.enemies.index(enemy)}) {enemy.name} is"
+                                f" defending. Their defense is temporarily"
+                                f" {enemy.defense} now.\n")
         else:
-            self.text_printer.animate_text(f"{enemy.name} did nothing.\n\n",
-                                           "combat_text", tk.END)
-            while math.trunc(time.time() - self.time) < 0.1:
-                pass
-            self.time = time.time()
+            self.enemy_txt1 += (f"{self.enemies.index(enemy)}) {enemy.name}"
+                                f" did nothing.\n")
+
+    def set_enemy_actions(self, enemy: Enemy):
+        enemy.randomize_action()
+        enemy_predict_resist = (random.randint(1, 100) +
+                                enemy.stats["Intelligence"] +
+                                enemy.stats["Level"])
+        player_predict_chance = (random.randint(1, 100) +
+                                 self.player.stats["Intelligence"]
+                                 + self.player.stats["Level"])
+        if enemy_predict_resist < player_predict_chance:
+            if enemy.action == "nothing":
+                self.enemy_txt2 += (f"{self.enemies.index(enemy)})"
+                                    f" {enemy.name} chose to do {enemy.action}."
+                                    f"\n")
+            else:
+                self.enemy_txt2 += (f"{self.enemies.index(enemy)})"
+                                    f" {enemy.name} chose to {enemy.action}."
+                                    f"\n")
+        else:
+            self.enemy_txt2 += (f"{self.enemies.index(enemy)}) {enemy.name}"
+                                f" can't be predicted.\n")
+
+    def turn_count(self):
+        """Increments turn_counter by 1.
+        Returns:
+            turn_counter (int): The current turn.
+        """
+        self.turn_counter += 1
+        return self.turn_counter
+
+    def combat_log(self):
+        """Updates the combat log.
+        """
+        self.bg_canvas.delete("player_txt1", "player_txt2", "enemy_txt1",
+                              "enemy_txt2")
+        self.bg_canvas.create_text(50, 100, width=200,
+                                   font=('Time_New_Roman', 10), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text=f"Last Turn (Turn {self.turn_counter})"
+                                   f":\n{self.player_txt2}",
+                                   tags="player_txt2")
+        self.bg_canvas.create_text(50, 200, width=200,
+                                   font=('Time_New_Roman', 10), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text=f"This Turn (Turn "
+                                   f"{self.turn_counter + 1})"
+                                   f":\nWhat will you do?", tags="player_txt1")
+        self.bg_canvas.create_text(250, 100, width=300,
+                                   font=('Time_New_Roman', 10), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text=f"Last Turn (Turn {self.turn_counter})"
+                                   f":\n{self.enemy_txt1}", tags="enemy_txt1")
+        self.bg_canvas.create_text(250, 250, width=300,
+                                   font=('Time_New_Roman', 10), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text=f"This Turn (Turn "
+                                   f"{self.turn_counter + 1}):\nYour"
+                                   f" Intelligence Stat lets you predict that:"
+                                   f"\n{self.enemy_txt2}",
+                                   tags="enemy_txt2")
 
     def make_exit(self):
         """Method to make an exit after the fight is won.
@@ -331,9 +369,9 @@ class FightGUI(tk.Toplevel):
             self.exit_button = tk.Button(self, text="Exit",
                                          font="Cambria_Math 9 bold",
                                          command=self.endFight)
-            self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
-                                                                   anchor='sw',
-                                                                   window=self.exit_button)
+            self.bg_canvas.create_window(self.width / 2 - 60, 380,
+                                         anchor='sw',
+                                         window=self.exit_button)
             self.bg_canvas.delete("attack_button", "defend_button",
                                   "use_item_button", "enemy_entry",
                                   "enemy_entry_text")

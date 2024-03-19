@@ -42,6 +42,7 @@
     &quot;Python.Gui.executor&quot;: &quot;Run&quot;,
     &quot;Python.character.executor&quot;: &quot;Run&quot;,
     &quot;Python.dungeon.executor&quot;: &quot;Run&quot;,
+    &quot;Python.fight_gui.executor&quot;: &quot;Run&quot;,
     &quot;Python.item.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.test.executor&quot;: &quot;Run&quot;,
