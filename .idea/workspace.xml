@@ -7,6 +7,7 @@
     <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/character.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
