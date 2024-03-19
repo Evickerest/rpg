@@ -3,13 +3,10 @@
 
 
 import random
-import time
-import math
 import tkinter as tk
 from PIL import ImageTk, Image
 from Classes.character import Player, Enemy, Character
 from Classes.Rooms.combat_room import CombatRoom
-from Classes.text_printer import TextPrinter
 
 
 class FightGUI(tk.Toplevel):
@@ -44,8 +41,12 @@ class FightGUI(tk.Toplevel):
         self.enemy_entry = None
         self.exit_button = None
         self.exit_button_window = None
-        self.text_printer = TextPrinter(self)
-        self.time = time.time()
+        self.turn_counter = 0
+        self.player_txt1 = ""
+        self.player_txt2 = ""
+        self.enemy_txt1 = ""
+        self.enemy_txt2 = ""
+
 
         self.original_image = Image.open('Images/' + self.room_name + '.jpg').resize((self.width,
                                                                                       self.height))
@@ -101,11 +102,7 @@ class FightGUI(tk.Toplevel):
                                                                      window=self.use_medkit_button,
                                                                      tags="medkit_button")
 
-        self.bg_canvas.create_text(250, 200, width=300,
-                                   font=('Cambria_Math', 12), fill="#FFFFFF",
-                                   justify="left", anchor="w",
-                                   text="\nYou are ready to start combat.\nWhat"
-                                        " will you do?\n", tags="combat_text")
+        self.combat_log()
 
         # self.use_item_button = tk.Button(self, text='Placeholder\n',
         #                                  font="Cambria_Math 14 bold",
@@ -211,6 +208,7 @@ class FightGUI(tk.Toplevel):
         """Method governing how a Player attacks a target specified using
          the enemy_entry_box.
         """
+        self.player_txt1 = ""
         if not self.player.living:
             return
         to_target = self.read_entry_box()
@@ -219,26 +217,18 @@ class FightGUI(tk.Toplevel):
                 if int(to_target) < len(self.enemies):
                     target = self.enemies[int(to_target)]
                     damage = target.take_damage(self.player)
-                    self.text_printer.animate_text(f"You hit {target.name} for"
-                                                   f" {damage} damage.\n\n",
-                                                   "combat_text", tk.END)
-                    while math.trunc(time.time() - self.time) < 0.1:
-                        pass
-                    self.time = time.time()
+                    self.player_txt1 += (f"You hit {target.name} for {damage}"
+                                         f" damage.\n")
                     if target.stats["Health"] < 1:
                         self.enemies.remove(target)
                         self.room.enemies_killed += 1
                         target.set_living(False)
                         self.enemy_entry_box.delete(0, 100)
-                        self.text_printer.animate_text("You killed"
-                                                       f" {target.name}\n\n.",
-                                                       "combat_text", tk.END)
-                        while math.trunc(time.time() - self.time) < 0.1:
-                            pass
-                        self.time = time.time()
+                        self.player_txt1 += f"You killed {target.name}."
                         self.player.stats["XP"] += int(target.stats["Level"]
                                                        * 2.5)
                         self.player.stats["Credits"] += target.stats["Level"]
+                    self.player_txt2 = self.player_txt1
                     self.resolve_player_turn()
         else:
             pass
@@ -252,13 +242,11 @@ class FightGUI(tk.Toplevel):
         """
         defender.defend_action()
         if isinstance(defender, Player):
-            self.text_printer.animate_text(f"You are defending.\nYour defense"
-                                           f" is temporarily increased to"
-                                           f" {self.player.defense}.\n\n",
-                                           "combat_text", tk.END)
-            while math.trunc(time.time() - self.time) < 0.1:
-                pass
-            self.time = time.time()
+            self.player_txt1 = ""
+            self.player_txt1 += (f"You are defending.\nYour defense is"
+                                 f" temporarily increased to"
+                                 f" {self.player.defense}.")
+            self.player_txt2 = self.player_txt1
             self.resolve_player_turn()
         if self.player.living:
             self.update_combat_gui()
@@ -267,12 +255,9 @@ class FightGUI(tk.Toplevel):
         """Method to use a medkit and update the display.
         """
         heal = self.player.use_medkits()
-        self.text_printer.animate_text(f"You used a medkit and healed for"
-                                       f" {heal} health.\n\n", "combat_text",
-                                       tk.END)
-        while math.trunc(time.time() - self.time) < 0.1:
-            pass
-        self.time = time.time()
+        self.player_txt1 = ""
+        self.player_txt1 = f"You used a medkit and healed for {heal} health."
+        self.player_txt2 = self.player_txt1
         self.resolve_player_turn()
         self.update_combat_gui()
 
@@ -280,11 +265,15 @@ class FightGUI(tk.Toplevel):
         """Method to resolve enemy actions after the player's turn is over.
         """
         if self.player:
+            self.enemy_txt1 = ""
             for enemy in self.enemies:
                 enemy.update_defense()
                 if self.player.living:
                     self.enemy_turn(enemy)
             self.player.update_defense()
+            self.enemy_txt2 = self.enemy_txt1
+            self.combat_log()
+            self.turn_count()
 
     def enemy_turn(self, enemy: Enemy):
         """Method to randomly determine what an Enemy instance does.
@@ -294,35 +283,53 @@ class FightGUI(tk.Toplevel):
         choice = random.choice(["attack", "defend", "nothing"])
         if choice == "attack":
             damage = self.player.take_damage(enemy)
-            self.text_printer.animate_text(f"{enemy.name} attacked"
-                                           f" {self.player.name} for {damage}"
-                                           f" damage.\n\n", "combat_text",
-                                           tk.END)
-            while math.trunc(time.time() - self.time) < 0.1:
-                pass
-            self.time = time.time()
+            self.enemy_txt1 += (f"{self.enemies.index(enemy)}) {enemy.name}"
+                                f" attacked {self.player.name} for {damage}"
+                                f" damage.\n")
             if self.player.stats["Health"] < 1:
                 self.player.set_living(False)
-                self.text_printer.animate_text("You were killed!\n\n",
-                                               "combat_text", tk.END)
-                while math.trunc(time.time() - self.time) < 0.1:
-                    pass
-                self.time = time.time()
+                self.enemy_txt1 += "You were killed!\n"
                 self.character_dead_gui()
         elif choice == "defend":
             self.defend(enemy)
-            self.text_printer.animate_text(f"{enemy.name} is defending.\nTheir"
-                                           f" defense is {enemy.defense}.\n\n",
-                                           "combat_text", tk.END)
-            while math.trunc(time.time() - self.time) < 0.1:
-                pass
-            self.time = time.time()
+            self.enemy_txt1 += (f"{self.enemies.index(enemy)}) {enemy.name} is defending. Their defense is"
+                                f" temporarily {enemy.defense} now.\n")
         else:
-            self.text_printer.animate_text(f"{enemy.name} did nothing.\n\n",
-                                           "combat_text", tk.END)
-            while math.trunc(time.time() - self.time) < 0.1:
-                pass
-            self.time = time.time()
+            self.enemy_txt1 += f"{self.enemies.index(enemy)}) {enemy.name} did nothing.\n"
+
+
+    def turn_count(self):
+        """Increments turn_counter by 1.
+        Returns:
+            turn_counter (int): The current turn.
+        """
+        self.turn_counter += 1
+        return self.turn_counter
+
+    def combat_log(self):
+        """Updates the combat log.
+        """
+        self.bg_canvas.delete("player_txt1", "player_txt2", "enemy_txt1", "enemy_txt2")
+        self.bg_canvas.create_text(50, 100, width=200,
+                                   font=('Time_New_Roman', 10), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text=f"Last Turn (Turn {self.turn_counter}):\n"
+                                   f"{self.player_txt2}", tags="player_txt1")
+        self.bg_canvas.create_text(50, 250, width=200,
+                                   font=('Time_New_Roman', 10), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text=f"This Turn (Turn {self.turn_counter + 1}):\n"
+                                   f"{self.player_txt1}", tags="player_txt2")
+        self.bg_canvas.create_text(250, 100, width=300,
+                                   font=('Time_New_Roman', 10), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text=f"Last Turn (Turn {self.turn_counter}):\n"
+                                   f"{self.enemy_txt1}", tags="enemy_txt1")
+        self.bg_canvas.create_text(250, 250, width=300,
+                                   font=('Time_New_Roman', 10), fill="#FFFFFF",
+                                   justify="left", anchor="w",
+                                   text=f"This Turn (Turn {self.turn_counter + 1}):\n"
+                                   f"{self.enemy_txt2}", tags="enemy_txt1")
 
     def make_exit(self):
         """Method to make an exit after the fight is won.
