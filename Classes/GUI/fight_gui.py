@@ -102,7 +102,7 @@ class FightGUI(tk.Toplevel):
                                                                      tags="medkit_button")
 
         self.bg_canvas.create_text(250, 200, width=300,
-                                   font=('Time_New_Roman', 12), fill="#FFFFFF",
+                                   font=('Cambria_Math', 12), fill="#FFFFFF",
                                    justify="left", anchor="w",
                                    text="\nYou are ready to start combat.\nWhat"
                                         " will you do?\n", tags="combat_text")
@@ -168,7 +168,7 @@ class FightGUI(tk.Toplevel):
         else:
             self.enemies_txt = "No Enemies Remain"
         self.bg_canvas.create_text(self.width / 2 + 250, self.height - 430,
-                                   font="Cambria_Math 14 bold", fill="white", justify="center",
+                                   font="Cambria_Math 12 bold", fill="white", justify="center",
                                    text=self.enemies_txt, tags="enemies")
 
     def read_entry_box(self) -> None | str:
