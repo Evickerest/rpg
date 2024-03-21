@@ -100,7 +100,7 @@ class MainGUI(tk.Tk):
             " wrecks that pollute space."
             f"\n\n Welcome, {self.name} to being a"
             f" Space Janitor. \nRise to the top.",
-            self.width/2, self.height-600, font=("Times New Romans", 22),color="white",shadow=True
+            self.width/2, self.height-600, font=("Times New Romans", 20),color="white",shadow=True
         )
         self.createButton("Click Here to Continue", self.create_intro_screen3, self.width/2,self.height-100,anchor="center")
 
