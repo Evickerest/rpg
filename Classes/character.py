@@ -252,7 +252,7 @@ class Player(Character):
             attacker (Character): The Character object that is attacking
              the Player.
         """
-        damage = attacker.get_attack() - (self.get_defense() / 5)
+        damage = attacker.get_attack() - self.get_defense() / 3
         damage = max(int(damage), 1)
         attacker_hit_chance = (random.randint(1, 100) + damage +
                                attacker.stats["Dexterity"]
@@ -282,8 +282,8 @@ class Enemy(Character):
         super().__init__(name, stats)
         self.stats["Level"] = enemy_lv
         self.stats["Stat Points"] = self.stats["Level"] * 5
-        self.name = name
         self.action = "nothing"
+        self.actions = ["attack", "defend", "nothing"]
         self.update_stats()
         self.stats["Health"] = self.stats["Max Health"]
         self.update_attack()
@@ -296,7 +296,7 @@ class Enemy(Character):
             attacker (Player): Player instance that is attacking.
         """
         item = attacker.equipment["Weapon"]
-        damage = item.get_damage_dealt(self) + attacker.get_attack() - self.get_defense()
+        damage = item.get_damage_dealt(self) + attacker.get_attack() - self.get_defense() / 2
         damage = max(int(damage), 1)
         attacker_hit_chance = (random.randint(1, 100) + damage +
                                attacker.stats["Dexterity"]
@@ -330,4 +330,15 @@ class Enemy(Character):
             self.upgrade_stats(stat, 1)
 
     def randomize_action(self):
-        self.action = random.choice(["attack", "defend", "nothing"])
+        """Randomize the Enemy instance's chosen action.
+        """
+        self.action = random.choice(self.actions)
+
+    def set_actions(self, action: str):
+        """Adds new action to the Enemy instance's choices.
+        Args:
+            action (str): The action to be added. Action functionality is not
+             guaranteed without a corresponding method.
+        """
+        if isinstance(action, str):
+            self.actions.append(action)
