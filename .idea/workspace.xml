@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?">
-      <change beforePath="$PROJECT_DIR$/Classes/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/character.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/main_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/main_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/combat_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/combat_room.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/game_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/game_handler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +66,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-d68999036c7f-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.14475.56" />
+        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
       </set>
     </attachedChunks>
   </component>

@@ -27,6 +27,7 @@ class GameHandler:
         self.initial_time = time.time()
         self.total_enemies_killed = 0
         self.total_rooms_entered = 0
+        self.round = 0
 
         MainGUI(self.player, self)
 
@@ -43,7 +44,15 @@ class GameHandler:
         self.initial_time = time.time()
         self.total_enemies_killed = 0
         self.total_rooms_entered = 0
+        self.round = 1
 
+        self.map = Map()
+        self.gui.create_main_gui()
+
+    def start_next_map(self):
+        """Creates a new map for the player if they want to continue.
+        """
+        self.round = 2
         self.map = Map()
         self.gui.create_main_gui()
 
@@ -93,6 +102,8 @@ class GameHandler:
                 self.gui.enter_shop_room(room)
                 ShopGUI(room, self.player, self)
             case "Boss":
+                if self.round > 1:
+                    room.lv_boss(5 * (self.round - 1))
                 self.gui.enter_boss_room(room)
                 FightGUI(room, self.player, self)
             case "Start":

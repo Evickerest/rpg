@@ -71,3 +71,6 @@ class CombatRoom(Room):
                 enemy.stats["Stat Points"] = ((self.player.stats["Level"] - 1)
                                               * 5)
                 enemy.update_stats()
+                enemy.stats["Health"] = enemy.stats["Max Health"]
+                enemy.update_attack()
+                enemy.update_defense()

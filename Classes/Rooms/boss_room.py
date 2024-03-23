@@ -17,7 +17,20 @@ class BossRoom(Room):
         self.enemies_killed = 0
 
         # mon_name = random.choice(CombatRoom.ENEMIES)
-        mon_name = "BOSS"
+        self.mon_name = "BOSS"
 
         self.is_boss_room = True
-        self.enemies = [Enemy(mon_name, None, 10)]
+        self.enemies = [Enemy(self.mon_name, None, 10)]
+
+    def lv_boss(self, lv_change: int):
+        """Method to level up the boss associated with the Boss Room.
+        Args:
+            lv_change (int): How many levels to increase the boss by.
+         """
+        for enemy in self.enemies:
+            enemy.stats["Level"] += lv_change
+            enemy.stats["Stat Points"] = (lv_change * 5)
+            enemy.update_stats()
+            enemy.stats["Health"] = enemy.stats["Max Health"]
+            enemy.update_attack()
+            enemy.update_defense()
