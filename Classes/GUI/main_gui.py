@@ -26,7 +26,7 @@ class MainGUI(tk.Tk):
         self.title("Spaceship Game")
         self.geometry('1300x900')  # Window size is provided by user.
         self.minsize(800, 500)  # Minimum size of the window, can be maximized.
-        self.iconbitmap('Images/SpaceShip.ico')
+        self.iconbitmap('Images/LevelOne/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.screen_width = 1300
@@ -80,7 +80,7 @@ class MainGUI(tk.Tk):
 
     def create_intro_screen1(self):
         """Creates the title screen."""
-        self.clearGUI('Images/bg2.jpeg')
+        self.clearGUI('Images/LevelOne/bg2.jpeg')
         self.createText("Are You Ready For a New Adventure?",self.screen_width / 2,self.screen_height / 2,font="Time_New_Roman 45", color='white', shadow=True)
         self.user_name = tk.Label(self, text='User Name:',font='Time_New_Roman 15')
         self.user_name_window = self.bg_canvas.create_window(30, 100,anchor='sw',window=self.user_name,tags="Login_Text")
@@ -91,7 +91,7 @@ class MainGUI(tk.Tk):
 
     def create_intro_screen2(self):
         """Destroys the title screen and Creates the game intro screen."""
-        self.clearGUI('Images/bg.jpg')
+        self.clearGUI('Images/LevelOne/bg.jpg')
         self.name = self.user_name_entry.get() or "Default"
         self.player.change_name(self.name)
         self.createText(
@@ -133,7 +133,7 @@ class MainGUI(tk.Tk):
 
     def create_intro_screen3(self):
         """Creates the character creation screen after deleting the introscreen text."""
-        self.clearGUI('Images/bg.jpg')
+        self.clearGUI('Images/LevelOne/bg.jpg')
         self.createButton("Start Game", self.create_main_gui,self.width/2,self.height-100,anchor="center")
         self.printPlayerStats()
         
@@ -149,11 +149,11 @@ class MainGUI(tk.Tk):
     def create_main_gui(self):
         """Deletes the character screen and makes the main screen.
         """
-        self.clearGUI('Images/HallWay.png')
+        self.clearGUI('Images/LevelOne/HallWay.png')
 
-        self.original_image = Image.open('Map/Set/Main.jpg').resize((300, 400))
+        self.original_image = Image.open('Images/LevelOneMap/Set/Main.jpg').resize((300, 400))
         self.bg = ImageTk.PhotoImage(self.original_image)
-        menu_image = Image.open('Images/info_bg.png').resize((300, 200))
+        menu_image = Image.open('Images/LevelOne/info_bg.png').resize((300, 200))
         self.menu_bg = ImageTk.PhotoImage(menu_image)
 
         # Create Canvas and Images
@@ -362,7 +362,7 @@ class MainGUI(tk.Tk):
         self.bg_canvas.destroy()
 
         # Import Map Background
-        img = Image.open('Images/GameOver.png').resize((self.screen_width,
+        img = Image.open('Images/LevelOne/GameOver.png').resize((self.screen_width,
                                                         self.screen_height))
         self.img = ImageTk.PhotoImage(img)
 
@@ -426,7 +426,7 @@ class MainGUI(tk.Tk):
         self.bg_canvas.destroy()
 
         # Import Map Background
-        img = Image.open('Images/GameWon.png').resize((self.screen_width,
+        img = Image.open('Images/LevelOne/GameWon.png').resize((self.screen_width,
                                                        self.screen_height))
         self.img = ImageTk.PhotoImage(img)
 

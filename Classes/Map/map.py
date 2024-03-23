@@ -140,7 +140,7 @@ class Map:
         random.shuffle(button_images)
 
         for room in self.rooms:
-            room.set_image_path(f"Map/Set/{button_images.pop()}.jpg")
+            room.set_image_path(f"Images/LevelOneMap/Set/{button_images.pop()}.jpg")
 
     def print_map(self):
         """Method to print all the rooms in the map and their adjacent rooms.

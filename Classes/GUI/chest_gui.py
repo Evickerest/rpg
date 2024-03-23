@@ -24,7 +24,7 @@ class ChestGUI(tk.Toplevel):
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.
-        self.iconbitmap('Images/SpaceShip.ico')
+        self.iconbitmap('Images/LevelOne/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
 
@@ -33,7 +33,7 @@ class ChestGUI(tk.Toplevel):
 
         self.game_handler = gameHandler
 
-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width,
+        self.original_image = Image.open('Images/LevelOne/bg2.jpeg').resize((self.width,
                                                                     self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 

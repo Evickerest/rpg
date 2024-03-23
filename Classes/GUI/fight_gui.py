@@ -26,7 +26,7 @@ class FightGUI(tk.Toplevel):
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.
-        self.iconbitmap('Images/SpaceShip.ico')
+        self.iconbitmap('Images/LevelOne/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
 
@@ -59,7 +59,7 @@ class FightGUI(tk.Toplevel):
 
         self.text_color = self.rooms.get(self.room_name)
 
-        self.original_image = Image.open('Images/' + self.room_name + '.jpg').resize((self.width,
+        self.original_image = Image.open('Images/LevelOne/' + self.room_name + '.jpg').resize((self.width,
                                                                                       self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 

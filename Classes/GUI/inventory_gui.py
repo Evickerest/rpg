@@ -26,7 +26,7 @@ class InventoryGUI(tk.Toplevel):
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.
-        self.iconbitmap('Images/SpaceShip.ico')
+        self.iconbitmap('Images/LevelOne/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
 
@@ -36,7 +36,7 @@ class InventoryGUI(tk.Toplevel):
         self.item_entry = None
         self.inventory_text = ""
 
-        self.original_image = Image.open('Images/Inventory2.jpg').resize((self.width, self.height))
+        self.original_image = Image.open('Images/LevelOne/Inventory2.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,

@@ -28,7 +28,7 @@ class ShopGUI(tk.Toplevel):
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.
-        self.iconbitmap('Images/SpaceShip.ico')
+        self.iconbitmap('Images/LevelOne/SpaceShip.ico')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
 
@@ -39,7 +39,7 @@ class ShopGUI(tk.Toplevel):
         self.inventory_text = ""
         self.shop_text = ""
 
-        self.original_image = Image.open('Images/ShopStore.jpg').resize((self.width, self.height))
+        self.original_image = Image.open('Images/LevelOne/ShopStore.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
