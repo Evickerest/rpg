@@ -4,6 +4,7 @@
 
 import tkinter as tk
 from PIL import ImageTk, Image
+from Classes.GUI.button import Button
 from Classes.character import Player
 from Classes.Rooms.room import Room
 
@@ -44,13 +45,8 @@ class InventoryGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Close",
-                                     font="Time_New_Roman 10",
-                                     command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width - 60,
-                                                               580,
-                                                               anchor='sw', window=self.exit_button)
-
+        Button(self, "Close", self.destroy, self.width-60, 580, font=("Times New Roman", 10))
+    
         self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580,
                                    font="Cambria_Math 12 bold", fill="#FFFFFF", justify="center",
                                    text=self.player.name + "'s Equipment",
@@ -59,33 +55,10 @@ class InventoryGUI(tk.Toplevel):
                                    font="Cambria_Math 12 bold", fill="#FFFFFF", justify="center",
                                    text=self.player.name + "'s Inventory",
                                    tags="inventory_title")
-
-        self.unequip_button = tk.Button(self, text='Unequip Entered Item\n'
-                                                   'From Equipment',
-                                        font='Time_New_Roman 10',
-                                        command=lambda: self.remove_equipped_item())
-        self.unequip_button_window = self.bg_canvas.create_window(150, 400,
-                                                                  anchor='sw',
-                                                                  window=self.unequip_button,
-                                                                  tags="unequip_button")
-
-        self.equip_button = tk.Button(self, text='Equip Entered Item\n'
-                                                 'From Inventory',
-                                      font='Time_New_Roman 10',
-                                      command=lambda: self.equip_item_inventory())
-        self.equip_button_window = self.bg_canvas.create_window(350, 400,
-                                                                anchor='sw',
-                                                                window=self.equip_button,
-                                                                tags="equip_button")
-
-        self.drop_button = tk.Button(self, text='Drop Entered Item\n'
-                                                'From Inventory',
-                                     font='Time_New_Roman 10',
-                                     command=lambda: self.drop_item_inventory())
-        self.drop_button_window = self.bg_canvas.create_window(550, 400,
-                                                               anchor='sw',
-                                                               window=self.drop_button,
-                                                               tags="equip_button")
+        
+        Button(self, "Unequip Entered Item\nFrom Equipment", self.remove_equipped_item, 150, 400, font=("Times New Roman", 10))
+        Button(self, "Equip Entered Item\nFrom Inventory", self.equip_item_inventory, 350, 400, font=("Times New Roman", 10))
+        Button(self, "Drop Entered Item\nFrom Inventory", self.drop_item_inventory, 550, 400, font=("Times New Roman", 10))
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
                                         font='Time_New_Roman 10')

@@ -5,8 +5,10 @@
 import random
 import tkinter as tk
 from PIL import ImageTk, Image
+from Classes.GUI.button import Button
 from Classes.character import Player, Enemy, Character
 from Classes.Rooms.combat_room import CombatRoom
+from functools import partial
 
 
 class FightGUI(tk.Toplevel):
@@ -88,26 +90,12 @@ class FightGUI(tk.Toplevel):
                                      window=self.enemy_entry_box,
                                      tags="enemy_entry")
 
-        self.attack_button = tk.Button(self, text='Attack',
-                                       font="Cambria_Math 9 bold",
-                                       command=lambda: self.player_attack())
-        self.bg_canvas.create_window(50, 400, anchor='sw',
-                                     window=self.attack_button,
-                                     tags="attack_button")
+        Button(self, "Attack", self.player_attack, 50,400, font=("Cambria Math",9,"bold"),tags="attack_button")
+        
+        # "Partial" binds a parameter to the function, another way to do this without a lambda expression
+        Button(self, "Defend", partial(self.defend, self.player), 250, 400,  font=("Cambria Math",9,"bold"), tags="defend_button")
+        Button(self, "Use Medkit", self.use_medkit, 450, 400, font=("Cambria Math",9,"bold"))
 
-        self.defend_button = tk.Button(self, text='Defend',
-                                       font="Cambria_Math 9 bold",
-                                       command=lambda: self.defend(self.player))
-        self.bg_canvas.create_window(250, 400, anchor='sw',
-                                     window=self.defend_button,
-                                     tags="defend_button")
-
-        self.use_medkit_button = tk.Button(self, text='Use Medkit',
-                                           font="Cambria_Math 9 bold",
-                                           command=lambda: self.use_medkit())
-        self.bg_canvas.create_window(450, 400, anchor='sw',
-                                     window=self.use_medkit_button,
-                                     tags="medkit_button")
         for enemy in self.enemies:
             self.set_enemy_actions(enemy)
         self.combat_log()
@@ -379,12 +367,7 @@ class FightGUI(tk.Toplevel):
         """Method to make an exit after the fight is won.
         """
         if not self.enemies:
-            self.exit_button = tk.Button(self, text="Exit",
-                                         font="Cambria_Math 9 bold",
-                                         command=self.endFight)
-            self.bg_canvas.create_window(self.width / 2 - 60, 380,
-                                         anchor='sw',
-                                         window=self.exit_button)
+            Button(self, "Exit", self.endFight, self.width/2-60, 380,  font=("Cambria Math",9,"bold"))
             self.bg_canvas.delete("attack_button", "defend_button",
                                   "use_item_button", "enemy_entry",
                                   "enemy_entry_text")

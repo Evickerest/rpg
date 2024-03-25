@@ -5,6 +5,7 @@
 
 import tkinter as tk
 from PIL import ImageTk, Image
+from Classes.GUI.button import Button
 from Classes.character import Player
 from Classes.Rooms.shop_room import ShopRoom
 
@@ -47,12 +48,7 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.exit_button = tk.Button(self, text="Close",
-                                     font="Cambria_Math 8 bold",
-                                     command=self.destroy)
-        self.exit_button_window = self.bg_canvas.create_window(self.width - 100, 50,
-                                                               anchor='sw',
-                                                               window=self.exit_button)
+        Button(self, "Close", self.destroy, self.width - 100, 50,font=("Cambria Math",8,"bold"))
 
         self.bg_canvas.create_text(self.width / 2 - 350, self.height - 580,
                                    font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
@@ -67,50 +63,11 @@ class ShopGUI(tk.Toplevel):
                                    text=self.shop.name + "'s Shop",
                                    tags="shop_title")
 
-        self.unequip_button = tk.Button(self, text='Unequip Entered Item'
-                                                   '\nFrom Equipment',
-                                        font='Cambria_Math 8 bold',
-                                        command=lambda: self.remove_equipped_item())
-        self.unequip_button_window = self.bg_canvas.create_window(50, 500,
-                                                                  anchor='sw',
-                                                                  window=self.unequip_button,
-                                                                  tags="unequip_button")
-
-        self.equip_button = tk.Button(self, text='Equip Entered Item'
-                                                 '\nFrom Inventory',
-                                      font='Cambria_Math 8 bold',
-                                      command=lambda: self.equip_item_inventory())
-        self.equip_button_window = self.bg_canvas.create_window(250, 500,
-                                                                anchor='sw',
-                                                                window=self.equip_button,
-                                                                tags="equip_button")
-
-        self.purchase_button = tk.Button(self, text='Purchase Entered Item'
-                                                    '\nFrom Shop',
-                                         font='Cambria_Math 8 bold',
-                                         command=lambda: self.buy_item_from_shop())
-        self.purchase_button_window = self.bg_canvas.create_window(450, 500,
-                                                                   anchor='sw',
-                                                                   window=self.purchase_button,
-                                                                   tags="buy_button")
-
-        self.sell_button = tk.Button(self, text='Sell Entered Item'
-                                                '\nFrom Inventory',
-                                     font='Cambria_Math 8 bold',
-                                     command=lambda: self.sell_item_inventory())
-        self.sell_button_window = self.bg_canvas.create_window(650, 500,
-                                                               anchor='sw',
-                                                               window=self.sell_button,
-                                                               tags="sell_button")
-
-        self.buy_medkit_button = tk.Button(self, text='Buy Medkit\n'
-                                                      'For 3 Credits',
-                                           font='Cambria_Math 8 bold',
-                                           command=lambda: self.buy_medkits())
-        self.buy_medkit_button_window = self.bg_canvas.create_window(850, 500,
-                                                                     anchor='sw',
-                                                                     window=self.buy_medkit_button,
-                                                                     tags="medkit_button")
+        Button(self, "Unequip Entered Item\nFrom Equipment", self.remove_equipped_item, 50, 500,font=("Cambria Math",8,"bold"))
+        Button(self, "Equip Entered Item\nFrom Equipment", self.equip_item_inventory, 250, 500,font=("Cambria Math",8,"bold"))
+        Button(self, "Purchase Entered Item\nFrom Shop", self.buy_item_from_shop, 450, 500, font=("Cambria Math",8,"bold"))
+        Button(self, "Sell Entered Item", self.sell_item_inventory, 650, 500, font=("Cambria Math",8,"bold"))
+        Button(self, "Buy Medkit\nFor 3 Credits", self.buy_medkits, 850, 500, font=("Cambria Math",8,"bold"))
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
                                         font='Cambria_Math 8 bold')

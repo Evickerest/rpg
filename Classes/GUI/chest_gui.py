@@ -3,6 +3,7 @@
 
 import tkinter as tk
 from PIL import ImageTk, Image
+from Classes.GUI.button import Button
 from Classes.character import Player
 from Classes.Rooms.chest_room import ChestRoom
 
@@ -43,24 +44,8 @@ class ChestGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         if self.room.item:
-            loot_button = tk.Button(self,
-                                    text="Take "
-                                         + str(self.room.item.stats["name"]),
-                                    font='Time_New_Roman 8',
-                                    command=lambda: self.loot_chest())
-            self.bg_canvas.create_window(100, 200, anchor='sw',
-                                         window=loot_button,
-                                         tags="loot_button")
-
-            scrap_button = tk.Button(self,
-                                     text="Scrap It For "
-                                     + str(self.room.item.stats["value"])
-                                     + " Credits",
-                                     font='Time_New_Roman 8',
-                                     command=lambda: self.scrap_chest())
-            self.bg_canvas.create_window(100, 300, anchor='sw',
-                                         window=scrap_button,
-                                         tags="scrap_button")
+            Button(self, f"Take {self.room.item.stats['name']}", self.loot_chest, 100, 200, font=("Times New Roman", 8), tags="loot_button")
+            Button(self, f"Scrap It For {self.room.item.stats['value']} Credits", self.scrap_chest, 100, 300,  font=("Cambria Math",9,"bold"), tags="scrap_button")
 
     def loot_chest(self):
         """Method for what happens if the player chooses to take the item.

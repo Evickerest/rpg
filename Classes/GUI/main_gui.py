@@ -2,8 +2,10 @@
 """
 
 
+from functools import partial
 import tkinter as tk
 from PIL import ImageTk, Image
+from Classes.GUI.button import Button
 from Classes.GUI.character_gui import CharacterGUI
 from Classes.GUI.inventory_gui import InventoryGUI
 from Classes.text_printer import TextPrinter
@@ -59,11 +61,7 @@ class MainGUI(tk.Tk):
         self.create_intro_screen1()
         self.mainloop()
 
-    def createButton(self, msg: str, command: callable, x: int, y: int, anchor: str = "sw", font: tuple[str, int] = ("Time New Romans", 20), width=140, height=28, padding=10):
-        button = customtkinter.CTkButton(
-            self, font=font, text=msg, command=command, corner_radius=0, text_color="black", hover_color="#CCCCCC",
-            border_spacing=padding, fg_color="white", width=width, height=height)
-        self.bg_canvas.create_window(x, y, anchor=anchor, window=button)
+    
 
     def createText(self, msg: str, x: int, y: int, font: tuple[str, int] = ("Time New Romans", 20), color: str = 'black', anchor: str = "center", tags: str = None, width: int = None, shadow: bool = False, justify="left"):
         if shadow:
@@ -87,8 +85,9 @@ class MainGUI(tk.Tk):
         self.user_name_window = self.bg_canvas.create_window(30, 100, anchor='sw', window=self.user_name, tags="Login_Text")
         self.user_name_entry = tk.Entry(self, font='Time_New_Roman 20')
         self.bg_canvas.create_window(150, 100, anchor='sw', window=self.user_name_entry, tags="Login Button")
-        self.createButton("Start Game", self.create_intro_screen2, 30, 200)
-        self.createButton("Exit", self.destroy, self.width-200, self.height-100, font=("Time New Romans", 30))
+
+        Button(self, "Start Game", self.create_intro_screen2, 30, 200)
+        Button(self, "Exit", self.destroy, self.width-200, self.height-100, font=("Times", 30))
 
     def create_intro_screen2(self):
         """Destroys the title screen and Creates the game intro screen."""
@@ -103,7 +102,7 @@ class MainGUI(tk.Tk):
             f" Space Janitor. \nRise to the top.",
             self.width/2, self.height-600, font=("Times New Romans", 20), color="white", shadow=True
         )
-        self.createButton("Click Here to Continue", self.create_intro_screen3, self.width/2, self.height-100, anchor="center")
+        Button(self, "Click Here to Continue", self.create_intro_screen3, self.width/2, self.height-100, anchor="center")
 
     def printPlayerStats(self):
         self.bg_canvas.delete("stats")
@@ -135,17 +134,17 @@ class MainGUI(tk.Tk):
     def create_intro_screen3(self):
         """Creates the character creation screen after deleting the introscreen text."""
         self.clearGUI('Images/LevelOne/bg.jpg')
-        self.createButton("Start Game", self.create_main_gui, self.width/2, self.height-100, anchor="center")
+        Button(self,"Start Game", self.create_main_gui, self.width/2, self.height-100, anchor="center" )
         self.printPlayerStats()
         
         for i, stat in enumerate(["Strength", "Dexterity", "Vitality", "Intelligence"]):
             cmd = lambda s, n: lambda: self.update_init_stats(s, n)
-            self.createButton("-", cmd(stat, -1), self.width/2 - 30, self.height - 600 + 70 * i,
-                width=1, height=1, font=("Time New Romans", 20), anchor="center", padding=5
-            )
-            self.createButton("+", cmd(stat, 1), self.width/2, self.height - 600 + 70 * i,
-                width=1, height=1, font=("Time New Romans", 20), anchor="center", padding=5
-            )
+
+            Button(self, "-", cmd(stat, -1), self.width/2 - 30, self.height - 600 + 70 * i,
+                width=1, height=1, font=("Time New Romans", 20), anchor="center", padding=5)
+            Button(self, "+", cmd(stat, 1), self.width/2, self.height - 600 + 70 * i,
+                width=1, height=1, font=("Time New Romans", 20), anchor="center", padding=5)
+           
     
     def create_main_gui(self):
         """Deletes the character screen and makes the main screen.
@@ -161,11 +160,14 @@ class MainGUI(tk.Tk):
         self.bg_canvas.create_image(self.screen_width - 1280, self.screen_width - 1280, image=self.bg, anchor='nw')
         self.bg_canvas.create_image(self.screen_width - 1280, self.screen_height / 2, image=self.menu_bg, anchor='nw')
         self.createText(f"{self.name}'s Stats", 70, 485, font=("Arial", 20), color="white", anchor="w")
-        self.createButton("Character\nDetails", self.open_character_gui, 
-            self.screen_width - 1250, self.screen_height - 385, anchor="nw")
-        self.createButton("Inventory\nDetails", self.open_inventory_gui, 
-            self.screen_width - 1110, self.screen_height - 385, anchor="nw")
-        self.createButton("Exit", self.destroy, 10, self.screen_height - 150, anchor="w", font=("Calibri", 20))
+
+        Button(self,"Character\nDetails", self.open_character_gui, 
+            self.screen_width - 1250, self.screen_height - 385, anchor="nw",width=50,color="#faa19b",hcolor="#f06b62")
+        Button(self,"Inventory\nDetails", self.open_inventory_gui, 
+            self.screen_width - 1110, self.screen_height - 385, anchor="nw", width = 50,color="#faa19b",hcolor="#f06b62")
+        Button(self,"Exit", self.destroy, 10, self.screen_height - 150, anchor="w", font=("Calibri", 20))
+
+
 
         self.createText("\nYou are ready to start cleaning up"
                         " the wreckage. Which wreckage should you"
@@ -188,9 +190,6 @@ class MainGUI(tk.Tk):
     def display_buttons(self):
         """Display available rooms to interact with.
         """
-        offset = 30
-
-        # Box for map buttons
         self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0',
                                      borderwidth=3, highlightcolor="white",
                                      highlightthickness=4)
@@ -199,20 +198,15 @@ class MainGUI(tk.Tk):
 
         for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
             test = lambda room: lambda: self.handle_button_input(room)
-            button_text = adjacent_room.name  # Button text
+            button_text = adjacent_room.name  
 
-            # Determine button color
-            # Red means room has been cleared already
             color = "#f69697" if adjacent_room.cleared else "#FFFFFF"
 
-            # Create a button with a lambda function to pass the button_text
-            # as an argument
-            button = tk.Button(self.button_frame, width=75,
-                               font=("Calibri", 15), height=1,
-                               text=button_text, command=test(adjacent_room),
-                               bg=color)
+            button = customtkinter.CTkButton(
+                self.button_frame, width=200, height=3, font=("Calibri",15), 
+                text_color="black", text=button_text, command=test(adjacent_room), fg_color=color
+            )
             button.pack(pady=5)
-            offset += 50
 
     def handle_button_input(self, room):
         """Enters the Room instance and changes the map image to the
@@ -299,12 +293,8 @@ class MainGUI(tk.Tk):
                                        " boss!\n", "game_text", tk.END)
 
         # Display End Game Button
-        end_game_button = tk.Button(self, font=("Calibri", 16), width=10,
-                                    height=2, text="End Game",
-                                    command=lambda: self.game_handler.end_game(True))
-        self.bg_canvas.create_window(self.width-100, 300, anchor='e',
-                                     window=end_game_button)
-
+        Button(self, "End Game", partial(self.game_handler.end_game, True), self.width-100,300,anchor="e",width=10, font=("Calibri", 16), height=2)
+     
         # Display Text
         self.bg_canvas.create_text(1010, 235, width=300, font=('Arial', 20),
                                    fill="#FFFFFF", anchor="w",
@@ -404,17 +394,9 @@ class MainGUI(tk.Tk):
                                         f'{self.player.stats["Intelligence"]}.'
                                    )
 
-        retry_button = tk.Button(self, font=("Calibri", 20), width=8, height=3,
-                                 text="Retry?",
-                                 command=lambda: self.game_handler.start_new_game())
-        self.bg_canvas.create_window(700, self.screen_height / 2, anchor='nw',
-                                     window=retry_button, tags="Inv_Screen")
-
-        # Exit Button
-        self.exit_button = tk.Button(self, text="Exit", font=("Calibri", 20),
-                                     width=8, height=3, command=self.destroy)
-        self.bg_canvas.create_window(550, self.screen_height / 2, anchor='w',
-                                     window=self.exit_button)
+        Button(self, "Retry?", self.game_handler.start_new_game, 700, self.screen_height/2, anchor="nw",width=8,height=3,font=("Calibri", 20))
+        Button(self, "Exit", self.destroy, 550, self.screen_height/2, anchor="w",width=8,height=3,font=("Calibri", 20))
+    
 
     def display_game_won_gui(self, total_time, enemies_killed, rooms_entered):
         """The screen that shows when you win the game.
@@ -468,14 +450,5 @@ class MainGUI(tk.Tk):
                                         f'{self.player.stats["Intelligence"]}.'
                                    )
 
-        next_map_button = tk.Button(self, font=("Calibri", 20), width=8,
-                                    height=3, text="Continue?",
-                                    command=lambda: self.game_handler.start_next_map())
-        self.bg_canvas.create_window(700, self.screen_height / 2, anchor='nw',
-                                     window=next_map_button, tags="Inv_Screen")
-
-        # Exit Button
-        self.exit_button = tk.Button(self, text="Exit", font=("Calibri", 20),
-                                     width=8, height=3, command=self.destroy)
-        self.bg_canvas.create_window(550, self.screen_height / 2, anchor='w',
-                                     window=self.exit_button)
+        Button(self, "Continue", self.game_handler.start_next_map, 700, self.screen_height/2, anchor="nw",width=8,height=3,font=("Calibri", 20))
+        Button(self, "Exit", self.destroy, 550, self.screen_height/2, anchor="w",width=8,height=3,font=("Calibri", 20))

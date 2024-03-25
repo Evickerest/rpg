@@ -4,6 +4,7 @@
 
 import tkinter as tk
 from PIL import ImageTk, Image
+from Classes.GUI.button import Button
 from Classes.character import Player
 from Classes.Rooms.room import Room
 
@@ -44,10 +45,7 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        exit_button = tk.Button(self, text="Close", font="Cambria_Math 10 bold",
-                                command=self.destroy)
-        self.bg_canvas.create_window(self.width / 2 + 80, 475, anchor='sw',
-                                     window=exit_button)
+        Button(self, "Close", self.destroy, self.width/2+40, 475, font=("Cambria", 20, "bold"))
 
         self.update_character_gui()
 
@@ -85,63 +83,28 @@ class CharacterGUI(tk.Toplevel):
         # pylint: disable=W0108
 
         self.bg_canvas.delete("stats")
-        self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
+        self.bg_canvas.delete("button")
         self.bg_canvas.delete("level_up")
-        self.bg_canvas.create_text(self.width / 2 - 30, self.height - 225,
-                                   font="Cambria_Math 14 bold", fill="#FFFFFF",
-                                   justify="center",
-                                   text=self.player.name + "'s Stats" +
-                                   "\n\nHealth: "
-                                   + str(self.player.stats["Health"]) +
-                                   "/" + str(self.player.stats["Max Health"]) +
-                                   "\n\nStr: "
-                                   + str(self.player.stats["Strength"]) +
-                                   "\n\nDex: "
-                                   + str(self.player.stats["Dexterity"]) +
-                                   "\n\nVit: "
-                                   + str(self.player.stats["Vitality"]) +
-                                   "\n\nInt: "
-                                   + str(self.player.stats["Intelligence"]) +
-                                   "\n\nFree Points: "
-                                   + str(self.player.stats["Stat Points"]) +
-                                   "\n\nLevel: "
-                                   + str(self.player.stats["Level"]) +
-                                   "\n\nXP: " + str(self.player.stats["XP"]) +
-                                   "/" + str(self.player.stats["Level"] * 10),
-                                   tags="stats")
-        if self.player.stats["Stat Points"] > 0:
-            str_up = tk.Button(self, font=5, width=1, height=1, text="+",
-                               command=lambda: self.stat_button("Strength", 1))
-            self.bg_canvas.create_window(self.width / 2 + 30,
-                                         self.height - 315, anchor='center',
-                                         window=str_up, tags="str_up")
+        
+        self.bg_canvas.create_text( 
+            self.width/2 - 50,self.height - 300, 
+            text = f"{self.player.name}'s Stats:\n\nHealth:" +
+            f"\n{self.player.stats['Health']}/{self.player.stats['Max Health']}" +
+            "".join([f'\n\n{stat[0:3]}: {self.player.stats[stat]}' for stat in ["Strength", "Dexterity", "Vitality", "Intelligence"]]) +
+            f"\n\nFree Points: {self.player.stats['Stat Points']}" +
+            f"\nLevel: {self.player.stats['Level']}" +
+            f"\nXP: {self.player.stats['XP']}/{self.player.stats['Level'] * 10}",
+            font=("Cambria", 20, "bold"), fill="#FFFFFF", justify="center", tags="stats"
+        )
+        
+        if self.player.stats["Stat Points"] > -1:
+            for i, stat in enumerate(["Strength", "Dexterity", "Vitality", "Intelligence"]):
+                cmd = lambda s, n: lambda: self.stat_button(s, 1)
 
-            dex_up = tk.Button(self, font=5, width=1, height=1, text="+",
-                               command=lambda: self.stat_button("Dexterity",
-                                                                1))
-            self.bg_canvas.create_window(self.width / 2 + 30,
-                                         self.height - 265, anchor='center',
-                                         window=dex_up, tags="dex_up")
+                Button(self, "+", cmd(stat, 1), self.width/2+60,  self.height - 360 + 50 * i,
+                    width=1, height=1, font=("Time New Romans", 20), anchor="center",tags="button")
 
-            vit_up = tk.Button(self, font=5, width=1, height=1, text="+",
-                               command=lambda: self.stat_button("Vitality", 1))
-            self.bg_canvas.create_window(self.width / 2 + 30,
-                                         self.height - 215, anchor='center',
-                                         window=vit_up, tags="vit_up")
-
-            int_up = tk.Button(self, font=5, width=1, height=1, text="+",
-                               command=lambda: self.stat_button("Intelligence",
-                                                                1))
-            self.bg_canvas.create_window(self.width / 2 + 30,
-                                         self.height - 165, anchor='center',
-                                         window=int_up, tags="int_up")
-        if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
-            level_up = tk.Button(self, font=3, width=5, height=1, text="LV-Up",
-                                 command=lambda: self.level_up())
-            self.bg_canvas.create_window(self.width / 2 + 60,
-                                         self.height - 85, anchor='center',
-                                         window=level_up, tags="level_up")
-
+    
     def destroy(self):
         """Method governing what happens when the window is destroyed.
         """
