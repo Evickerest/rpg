@@ -21,7 +21,6 @@ class CharacterGUI(tk.Toplevel):
             gui: The parent gui.
         """
 
-
         super().__init__()
         self.title("Character Screen")
         self.geometry(f'{300}x{500}+400+50')
@@ -72,7 +71,8 @@ class CharacterGUI(tk.Toplevel):
     def level_up(self):
         """Method to increase the player's level when the button is clicked.
         """
-        self.player.lv_up()
+        if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
+            self.player.lv_up()
         if self.player.stats["XP"] < self.player.stats["Level"] * 10:
             self.bg_canvas.delete("level_up")
         self.update_character_gui()
@@ -87,8 +87,8 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.delete("level_up")
         
         self.bg_canvas.create_text( 
-            self.width/2 - 50,self.height - 300, 
-            text = f"{self.player.name}'s Stats:\n\nHealth:" +
+            self.width/2 - 50, self.height - 300,
+            text=f"{self.player.name}'s Stats:\n\nHealth:" +
             f"\n{self.player.stats['Health']}/{self.player.stats['Max Health']}" +
             "".join([f'\n\n{stat[0:3]}: {self.player.stats[stat]}' for stat in ["Strength", "Dexterity", "Vitality", "Intelligence"]]) +
             f"\n\nFree Points: {self.player.stats['Stat Points']}" +
@@ -102,9 +102,12 @@ class CharacterGUI(tk.Toplevel):
                 cmd = lambda s, n: lambda: self.stat_button(s, 1)
 
                 Button(self, "+", cmd(stat, 1), self.width/2+60,  self.height - 360 + 50 * i,
-                    width=1, height=1, font=("Time New Romans", 20), anchor="center",tags="button")
+                       width=1, height=1, font=("Time New Romans", 20), anchor="center", tags="button")
 
-    
+        if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
+            Button(self, "LV Up", lambda: self.level_up(), self.width / 2 + 60, self.height - 360 + 300,
+                   width=1, height=1, font=("Time New Romans", 20), anchor="center", tags="level_up")
+
     def destroy(self):
         """Method governing what happens when the window is destroyed.
         """

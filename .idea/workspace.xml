@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/main_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/main_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Rooms/combat_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/combat_room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/game_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/game_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/character_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/character_gui.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
