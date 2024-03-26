@@ -13,6 +13,7 @@ from Classes.Map.map import Map
 class GameHandler:
     """Manages the various game events.
     """
+    counter = 1
     def __init__(self):
         """Creates the instance.
         """
@@ -27,7 +28,7 @@ class GameHandler:
         self.initial_time = time.time()
         self.total_enemies_killed = 0
         self.total_rooms_entered = 0
-        self.round = 0
+        self.round = GameHandler.counter
 
         MainGUI(self.player, self)
 
@@ -44,7 +45,7 @@ class GameHandler:
         self.initial_time = time.time()
         self.total_enemies_killed = 0
         self.total_rooms_entered = 0
-        self.round = 1
+        self.round = GameHandler.counter
 
         self.map = Map()
         self.gui.create_main_gui()
@@ -52,7 +53,10 @@ class GameHandler:
     def start_next_map(self):
         """Creates a new map for the player if they want to continue.
         """
-        self.round = 2
+
+        GameHandler.counter += 1
+        self.rounds = GameHandler.counter  # Variable to increase each level.
+
         self.map = Map()
         self.gui.create_main_gui()
 

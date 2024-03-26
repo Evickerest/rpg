@@ -130,17 +130,32 @@ class Map:
     def assign_random_images(self):
         """Method to assign an image path to all rooms in the map.
         """
-        button_images = ["Weapons Bay", "Main Cabin", "Elevator 1",
-                         "Storage Area", "Kitchen", "Barracks", "Cafeteria",
-                         "Life Pod 1", "Cabin 2", "Showers", "Cabin 1",
-                         "Docking Port", "Bridge", "Elevator 3", "Elevator 2",
-                         "Cabin 3", "Captains Cabin", "Hangar", "Life Pod 2",
-                         "Engine Room"]
+        from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+        button_images1 = ["Weapons Bay", "Main Cabin", "Elevator 1",
+                          "Storage Area", "Kitchen", "Barracks", "Cafeteria",
+                          "Life Pod 1", "Cabin 2", "Showers", "Cabin 1",
+                          "Docking Port", "Bridge", "Elevator 3", "Elevator 2",
+                          "Cabin 3", "Captains Cabin", "Hangar", "Life Pod 2",
+                          "Engine Room"]
+        button_images2 = ['A-1', 'A-2', 'Access Shaft', 'Access Shaft 2',
+                          'Access Shaft 3', 'Arms Room', 'Bridge 1',
+                          'Bridge 2', 'C-1', 'C-2', 'Command Module', 'Computer',
+                          'Freezer', 'Infirmary', 'Lab', 'Living Quarters',
+                          'Mess', 'Power', 'Shuttle Dock 1', 'Shuttle Dock 2', 'Storage',
+                          'Storage 2', 'Storage 3', 'Main Airlock']
 
-        random.shuffle(button_images)
 
-        for room in self.rooms:
-            room.set_image_path(f"Images/LevelOneMap/Set/{button_images.pop()}.jpg")
+        if self.lvl_counter == 1:
+            random.shuffle(button_images1)
+            for room in self.rooms:
+                room.set_image_path(f"Images/LevelOneMap/Set/{button_images1.pop()}.jpg")
+
+
+        elif self.lvl_counter == 2:
+            random.shuffle(button_images2)
+            for room in self.rooms:
+                room.set_image_path(f"Images/LevelTwoMap/{button_images2.pop()}.jpg")
 
     def print_map(self):
         """Method to print all the rooms in the map and their adjacent rooms.

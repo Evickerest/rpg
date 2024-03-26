@@ -23,6 +23,8 @@ class FightGUI(tk.Toplevel):
         """
 
         super().__init__()
+        from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
+
         self.title("Combat Screen")
         self.geometry(f'{800}x{600}+400+50')
         self.width = self.winfo_width()
@@ -47,6 +49,7 @@ class FightGUI(tk.Toplevel):
         self.player_txt2 = ""
         self.enemy_txt1 = ""
         self.enemy_txt2 = ""
+        self.lvl_counter = GameHandler.counter
 
 
         self.rooms = { 
@@ -58,12 +61,16 @@ class FightGUI(tk.Toplevel):
             'Pod Bay': '#54B851', 'Life Pod 3': '#00FFFC', 'Bathroom': '#95F21C'
         }
 
-
-        self.text_color = self.rooms.get(self.room_name)
-
-        self.original_image = Image.open('Images/LevelOne/' + self.room_name + '.jpg').resize((self.width,
-                                                                                      self.height))
-        self.bg = ImageTk.PhotoImage(self.original_image)
+        if self.lvl_counter == 1:  
+            self.text_color = self.rooms.get(self.room_name)
+            self.original_image = Image.open('Images/LevelOne/' + self.room_name + '.jpg').resize((self.width,
+                                                                                          self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+        elif self.lvl_counter == 2:
+            self.text_color = 'white'
+            self.original_image = Image.open('Images/LevelTwo/' + self.room_name + '.jpg').resize((self.width,
+                                                                                          self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
                                    bg="#043F5B")
@@ -145,6 +152,9 @@ class FightGUI(tk.Toplevel):
     def enemy_grid(self):
         """Creates and updates the display for all enemies.
         """
+        from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+
         self.bg_canvas.delete("enemies")
         self.enemies_txt = ""
         self.count = 0
@@ -152,7 +162,7 @@ class FightGUI(tk.Toplevel):
             for enemy in self.enemies:
                 self.enemies_txt += ("\n" + str(self.count) + ") "
                                      + str(enemy.name) + "\n  "
-                                     + "LV: " + str(enemy.stats["Level"])
+                                     + "LV: " + str(self.lvl_counter) # <- str(enemy.stats["Level"]) was replaced by self.lvl_counter
                                      + " | Health: "
                                      + str(enemy.stats["Health"]) + "\n  "
                                      + str(enemy.get_attack()) + " Damage | "

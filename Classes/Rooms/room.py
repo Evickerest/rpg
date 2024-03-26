@@ -91,14 +91,34 @@ class Room:
         Return:
             name (str): The name of the room.
         """
-        names = []
-        with open(f'Names/{room_type}RoomNames.txt',
-                  'r', encoding="utf-8") as f:
-            reader = csv.reader(f)
-            for row in reader:
-                names.append(row)
-        self.name = random.choice(*names)
-        return self.name
+
+        level_two_rooms = ['A-1', 'A-2', 'Access Shaft', 'Access Shaft 2',
+                           'Access Shaft 3', 'Arms Room', 'Bridge 1',
+                           'Bridge 2', 'C-1', 'C-2', 'Command Module', 'Computer',
+                           'Freezer', 'Infirmary', 'Lab', 'Living Quarters',
+                           'Mess', 'Power', 'Shuttle Dock 1', 'Shuttle Dock 2', 'Storage',
+                           'Storage 2', 'Storage 3', 'Main Airlock']
+
+        from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+
+        if self.lvl_counter == 1:            
+            names = []
+            with open(f'Names/{room_type}RoomNames.txt',
+                      'r', encoding="utf-8") as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    names.append(row)
+            self.name = random.choice(*names)
+            return self.name
+        elif self.lvl_counter == 2:
+            names = []
+            for room_name in level_two_rooms:
+                names.append(room_name)
+
+            self.name = random.choice(names)
+
+            return self.name
 
     def __repr__(self):
         """Representation of the room.

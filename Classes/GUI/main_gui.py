@@ -1,7 +1,6 @@
 """Module containing the MainGUI class.
 """
 
-
 from functools import partial
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -51,6 +50,7 @@ class MainGUI(tk.Tk):
         self.img = None
         self.menu_bg = None
         self.map = None
+        self.lvl_counter = None
 
         self.player = player
         self.name = None
@@ -59,9 +59,7 @@ class MainGUI(tk.Tk):
         self.ready = True
 
         self.create_intro_screen1()
-        self.mainloop()
-
-    
+        self.mainloop()    
 
     def createText(self, msg: str, x: int, y: int, font: tuple[str, int] = ("Time New Romans", 20), color: str = 'black', anchor: str = "center", tags: str = None, width: int = None, shadow: bool = False, justify="left"):
         if shadow:
@@ -149,12 +147,23 @@ class MainGUI(tk.Tk):
     def create_main_gui(self):
         """Deletes the character screen and makes the main screen.
         """
+        from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+
         self.clearGUI('Images/LevelOne/HallWay.png')
 
-        self.original_image = Image.open('Images/LevelOneMap/Set/Main.jpg').resize((300, 400))
-        self.bg = ImageTk.PhotoImage(self.original_image)
-        menu_image = Image.open('Images/LevelOne/info_bg.png').resize((300, 200))
-        self.menu_bg = ImageTk.PhotoImage(menu_image)
+        if self.lvl_counter == 1:
+
+            self.original_image = Image.open('Images/LevelOneMap/Set/Main.jpg').resize((300, 400))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((300, 200))
+            self.menu_bg = ImageTk.PhotoImage(menu_image)
+
+        elif self.lvl_counter == 2:
+            self.original_image = Image.open('Images/LevelTwoMap/Level2.jpg').resize((300, 400))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((300, 200))
+            self.menu_bg = ImageTk.PhotoImage(menu_image)
 
         # Create Canvas and Images
         self.bg_canvas.create_image(self.screen_width - 1280, self.screen_width - 1280, image=self.bg, anchor='nw')
