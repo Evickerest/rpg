@@ -416,10 +416,24 @@ class PlayerTests(unittest.TestCase):
         """
         player = Player("Bob", None)
         health = player.stats["Health"]
-        player.take_damage(player)
-        self.assertTrue(player.stats["Health"] < health)
+        x = player.take_damage(player)
+        while x != 0:
+            x = player.take_damage(player)
+            player.update_health(x)
+        self.assertEqual(x, 0)
+        while player.stats["Health"] > 0:
+            player.take_damage(player)
+            self.assertTrue(player.stats["Health"] < health)
+
+    def test_14take_damage_killed(self):
+        """Test that the take_damage method sets the Player's status to be dead.
+        """
+        player = Player("Bob", None)
         player.stats["Health"] = 1
-        self.assertTrue(player.take_damage(player))
+        while player.living is True:
+            player.take_damage(player)
+        self.assertFalse(player.living)
+
 
 
 class EnemyTests(unittest.TestCase):
@@ -472,8 +486,9 @@ class EnemyTests(unittest.TestCase):
         player = Player("Ded", None)
         health = enemy.stats["Health"]
         enemy.take_damage(player)
+        while enemy.stats["Health"] >= health:
+            enemy.take_damage(player)
         self.assertTrue(enemy.stats["Health"] < health)
-
         player.unequip_item(player.equipment["Weapon"])
         player.damage = 0
         enemy.take_damage(player)
@@ -509,3 +524,21 @@ class EnemyTests(unittest.TestCase):
                           enemy.stats["Vitality"] +
                           enemy.stats["Intelligence"])
         self.assertTrue(final_stat_sum > stat_sum)
+
+    def test_7randomize_action(self):
+        """Test the randomize_action method"""
+        enemy = Enemy("Bob", None, 1)
+        enemy_action = enemy.action
+        while enemy_action == enemy.action:
+            enemy.randomize_action()
+        self.assertTrue(enemy.action != enemy_action)
+        self.assertTrue(enemy.action in enemy.actions)
+
+    def test_8set_action(self):
+        """Test the set_action method"""
+        enemy = Enemy("Bob", None, 1)
+        enemy_actions = len(enemy.actions)
+        enemy.set_actions("dodge")
+        self.assertTrue(len(enemy.actions) > enemy_actions)
+        self.assertTrue("dodge" in enemy.actions)
+

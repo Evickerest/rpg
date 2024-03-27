@@ -27,7 +27,8 @@ test_suite.addTests([MapTests('test1_map_init'),
                      MapTests('test6_connect_every_room_together'),
                      MapTests('test7_prims_algorithm'),
                      MapTests('test8_assign_random_images'),
-                     MapTests('test9_print_map')])
+                     MapTests('test9_assign_random_images_round2'),
+                     MapTests('test10_print_map')])
 # Edge Tests
 test_suite.addTests([EdgeTests('test1'), EdgeTests('test2'),
                      EdgeTests('test3')])
@@ -65,14 +66,17 @@ test_suite.addTests([PlayerTests('test_1player_init1'),
                      PlayerTests('test_10change_name'),
                      PlayerTests('test_11update_defense'),
                      PlayerTests('test_12update_attack'),
-                     PlayerTests('test_13take_damage')])
+                     PlayerTests('test_13take_damage'),
+                     PlayerTests('test_14take_damage_killed')])
 # Enemy Tests
 test_suite.addTests([EnemyTests('test_1enemy_init1'),
                      EnemyTests('test_2enemy_init2'),
                      EnemyTests('test_3take_damage'),
                      EnemyTests('test_4update_defense'),
                      EnemyTests('test_5update_attack'),
-                     EnemyTests('test_6update_stats')])
+                     EnemyTests('test_6update_stats'),
+                     EnemyTests('test_7randomize_action'),
+                     EnemyTests('test_8set_action')])
 # Room Tests
 test_suite.addTests([RoomTests('test_1room_init'),
                      RoomTests('test_2set_coordinates'),
@@ -84,20 +88,22 @@ test_suite.addTests([RoomTests('test_1room_init'),
                      RoomTests('test_8add_adjacent_room'),
                      RoomTests('test_9get_adjacent_rooms'),
                      RoomTests('test_10generate_name'),
-                     RoomTests('test_11__repr__'),
-                     RoomTests('test_12__eq__')])
+                     RoomTests('test_11generate_name_round2'),
+                     RoomTests('test_12__repr__'),
+                     RoomTests('test_13__eq__')])
 # ChestRoom Tests
 test_suite.addTest(ChestRoomTests('test_1chestroom_init'))
 # CombatRoom Tests
 test_suite.addTests([CombatRoomTests('test_1combatroom_init'),
                      CombatRoomTests('test_2generate_enemies'),
-                     CombatRoomTests('test_3lv_enemies')])
+                     CombatRoomTests('test_3generate_enemies_player_exists'),
+                     CombatRoomTests('test_4lv_enemies')])
 # ShopRoom Tests
 test_suite.addTest(ShopRoomTests('test_1shoproom_init'))
 # StartRoom Tests
 test_suite.addTest(StartRoomTests('test_1startroom_init'))
 # BossRoom Tests
-test_suite.addTest(BossRoomTests('test_1bossroom_init'))
+test_suite.addTests([BossRoomTests('test_1bossroom_init'), BossRoomTests('test_2lv_boss')])
 # ...
 
 runner = unittest.TextTestRunner(verbosity=2)

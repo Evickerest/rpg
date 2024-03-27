@@ -14,6 +14,7 @@ class GameHandler:
     """Manages the various game events.
     """
     counter = 1
+
     def __init__(self):
         """Creates the instance.
         """
@@ -55,7 +56,7 @@ class GameHandler:
         """
 
         GameHandler.counter += 1
-        self.rounds = GameHandler.counter  # Variable to increase each level.
+        self.round = GameHandler.counter  # Variable to increase each level.
 
         self.map = Map()
         self.gui.create_main_gui()

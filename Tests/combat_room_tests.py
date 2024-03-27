@@ -32,7 +32,19 @@ class CombatRoomTests(unittest.TestCase):
         for enemy in x.enemies:
             self.assertEqual(enemy.stats["Level"], 1)
 
-    def test_3lv_enemies(self):
+    def test_3generate_enemies_player_exists(self):
+        """Check that the CombatRoom correctly generates enemies at player's lv.
+        """
+        x = CombatRoom()
+        player = Player("Default", None)
+        player.stats["Level"] = 5
+        x.player = player
+        x.enemies = []
+        x.generate_enemies()
+        for enemy in x.enemies:
+            self.assertEqual(enemy.stats["Level"], player.stats["Level"])
+
+    def test_4lv_enemies(self):
         """Check that the CombatRoom correctly updates enemy levels.
         """
         x = CombatRoom()

@@ -111,6 +111,8 @@ class Room:
                     names.append(row)
             self.name = random.choice(*names)
             return self.name
+        """
+        # Currently does nothing, no different room names from round 1 and 2 currently.
         elif self.lvl_counter == 2:
             names = []
             for room_name in level_two_rooms:
@@ -119,6 +121,7 @@ class Room:
             self.name = random.choice(names)
 
             return self.name
+        """
 
     def __repr__(self):
         """Representation of the room.

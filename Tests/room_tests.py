@@ -102,14 +102,19 @@ class RoomTests(unittest.TestCase):
         x = Room()
         self.assertTrue(x.generate_name("Chest"))
 
-    def test_11__repr__(self):
+    def test_11generate_name_round2(self):
+        """Test for the generate_name method if it's Round 2.
+        """
+        self.skipTest("Currently no difference")
+
+    def test_12__repr__(self):
         """Test for the __repr__ method.
         """
         x = Room()
         x_name = x.generate_name("Combat")
         self.assertEqual(repr(x), x_name)
 
-    def test_12__eq__(self):
+    def test_13__eq__(self):
         """Test for the __eq__ method.
         """
         x = Room()
