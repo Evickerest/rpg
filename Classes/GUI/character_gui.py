@@ -44,7 +44,7 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        Button(self, "Close", self.destroy, self.width/2+40, 475, font=("Cambria", 20, "bold"))
+        Button(self, "Close", self.destroy, int(self.width / 2 + 40), 475, font=("Cambria", 20, "bold"))
 
         self.update_character_gui()
 
@@ -97,15 +97,15 @@ class CharacterGUI(tk.Toplevel):
             font=("Cambria", 20, "bold"), fill="#FFFFFF", justify="center", tags="stats"
         )
         
-        if self.player.stats["Stat Points"] > -1:
+        if self.player.stats["Stat Points"] > 0:
             for i, stat in enumerate(["Strength", "Dexterity", "Vitality", "Intelligence"]):
                 cmd = lambda s, n: lambda: self.stat_button(s, 1)
 
-                Button(self, "+", cmd(stat, 1), self.width/2+60,  self.height - 360 + 50 * i,
+                Button(self, "+", cmd(stat, 1), int(self.width / 2 + 60),  self.height - 360 + 50 * i,
                        width=1, height=1, font=("Time New Romans", 20), anchor="center", tags="button")
 
         if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
-            Button(self, "LV Up", lambda: self.level_up(), self.width / 2 + 60, self.height - 360 + 300,
+            Button(self, "LV Up", lambda: self.level_up(), int(self.width / 2 + 60), self.height - 360 + 300,
                    width=1, height=1, font=("Time New Romans", 20), anchor="center", tags="level_up")
 
     def destroy(self):

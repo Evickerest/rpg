@@ -68,10 +68,10 @@ class MapTests(unittest.TestCase):
             self.assertTrue("Images/LevelOneMap/Set/" in room.map_image_path)
 
     def test9_assign_random_images_round2(self):
-        self.skipTest("lvl_counter assigned using GameHandler.counter")
         test_map = Map()
         test_map.lvl_counter += 1
         test_map.assign_random_images()
+        self.skipTest("lvl_counter assigned using GameHandler.counter")
         for room in test_map.rooms:
             self.assertTrue("Images/LevelTwoMap/" in room.map_image_path)
 
