@@ -32,33 +32,15 @@ class MainGUI(tk.Tk):
         self.height = self.winfo_height()
         self.screen_width = 1300
         self.screen_height = 900
-        self.original_image = None
-        self.bg = None
-        self.bg_canvas = None
-        self.user_name = None
-        self.user_name_entry = None
-        self.user_name_window = None
-        self.start_button = None
-        self.start_button_window = None
-        self.exit_button = None
-        self.exit_button_window = None
-        self.text_printer = None
-        self.next_text = None
-        self.background_image = None
-        self.backg = None
-        self.button_frame = None
-        self.img = None
-        self.menu_bg = None
-        self.map = None
-        self.lvl_counter = None
-
         self.player = player
-        self.name = None
         self.game_handler = game_handler
         self.game_handler.set_gui(self)
         self.ready = True
+        self.bg = None
+        self.bg_canvas = None
 
-        self.create_intro_screen1()
+        # self.create_intro_screen1()
+        self.create_main_screen()
         self.mainloop()    
 
     def createText(self, msg: str, x: int, y: int, font: tuple[str, int] = ("Time New Romans", 20), color: str = 'black', anchor: str = "center", tags: str = None, width: int = None, shadow: bool = False, justify="left"):
@@ -75,7 +57,24 @@ class MainGUI(tk.Tk):
         self.image = ImageTk.PhotoImage(self.img)
         self.bg_canvas.create_image(0, 0, image=self.image, anchor='nw')
 
+    def create_main_screen(self):
+        self.clearGUI("Images/download.jpg")
+
+        self.createText("Game Title", self.screen_width/2, 200, font=("Arial", 40), color="white")
+
+        Button(self, "New Game", self.create_intro_screen1, self.screen_width/2, 500, font=("Arial", 20))
+        Button(self, "Load Game", self.load_game, self.screen_width/2, 600, font=("Arial", 20))
+        #Button(self, "Save Game", self.save_game, self.screen_width/2, 700, font=("Arial", 20))
+
+    def load_game(self):
+        self.game_handler.load_game()
+
+    def save_game(self):
+        self.game_handler.save_game()
+
+
     def create_intro_screen1(self):
+        self.game_handler.clear_save_file()
         """Creates the title screen."""
         self.clearGUI('Images/LevelOne/bg2.jpeg')
         self.createText("Are You Ready For a New Adventure?", self.screen_width / 2, self.screen_height / 2, font="Time_New_Roman 45", color='white', shadow=True)
@@ -145,6 +144,8 @@ class MainGUI(tk.Tk):
            
     
     def create_main_gui(self):
+        self.start_game()
+
         """Deletes the character screen and makes the main screen.
         """
         from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
@@ -184,7 +185,10 @@ class MainGUI(tk.Tk):
             450, 350, font=("Times New Roman", 15), color="white", anchor="w", tags="game_text", width=500)
         self.createText("Choose Next Location", 1010, 400, font=("Arial", 20), color="white", anchor="w")
 
-        self.start_game()
+        Button(self, "Load Game", self.load_game, self.screen_width/2, 600, font=("Arial", 20))
+        Button(self, "Save Game", self.save_game, self.screen_width/2, 700, font=("Arial", 20))
+
+        self.display_buttons()
 
     def start_game(self):
         """Start the game and load available rooms.
@@ -193,8 +197,8 @@ class MainGUI(tk.Tk):
         self.ready = True
         self.map = self.game_handler.get_map()
         self.player = self.game_handler.player
+        self.name = self.game_handler.player.name
         self.game_handler.enter_room(self.map.get_current_room())
-        self.display_buttons()
 
     def display_buttons(self):
         """Display available rooms to interact with.

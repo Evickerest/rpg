@@ -8,6 +8,7 @@ from Classes.GUI.main_gui import MainGUI
 from Classes.GUI.shop_gui import ShopGUI
 from Classes.character import Player
 from Classes.Map.map import Map
+from Classes.save_manager import SaveManager
 
 
 class GameHandler:
@@ -23,19 +24,26 @@ class GameHandler:
                                          "Level": 1, "XP": 0, "Stat Points": 5,
                                          "Credits": 0})
         self.map = Map()
-        self.gui = None
-
-        # Overall game stats
         self.initial_time = time.time()
         self.total_enemies_killed = 0
         self.total_rooms_entered = 0
         self.round = GameHandler.counter
 
+        self.gui = None
+        self.save_manager = SaveManager()  
         MainGUI(self.player, self)
+      
+
+    def start_from_save(self, save):
+        self.player = save["Player"]
+        self.map = save["Map"]
+        self.gui.create_main_gui()
 
     def start_new_game(self):
         """Starts a new game.
         """
+
+
         old_name = self.player.name
         self.player = Player(old_name, {"Strength": 5, "Dexterity": 5,
                                         "Vitality": 5, "Intelligence": 5,
@@ -147,3 +155,22 @@ class GameHandler:
             self.gui.display_game_lost_gui(total_time,
                                            self.total_enemies_killed,
                                            self.total_rooms_entered)
+
+    def save_game(self):
+        self.save_manager.write_to_save_file(
+            {
+                "Round_Number": self.counter,
+                "Map": self.map,
+                "Player": self.player
+            }
+        )
+
+    def load_game(self):
+        content = self.save_manager.get_save()
+        print(content)
+
+        print(f"Player Health: {content['Player'].stats['Health']}")
+        self.start_from_save(content)
+
+    def clear_save_file(self):
+        self.save_manager.clear_save_file()
