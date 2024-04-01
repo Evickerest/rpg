@@ -382,4 +382,11 @@ class FightGUI(tk.Toplevel):
         if not self.enemies or not self.player.living:
             self.game_handler.exit_room(self.room)
             self.room.clear_room(True)
+            self.destroy()
+
+    def destroy(self):
+        """Overrides the standard destroy method. Prevents the fight window
+         from being destroyed until the fight ends.
+        """
+        if not self.enemies or not self.player.living:
             super().destroy()
