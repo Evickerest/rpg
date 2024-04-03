@@ -48,7 +48,7 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        Button(self, "Close", self.destroy, self.width - 100, 50,font=("Cambria Math",8,"bold"))
+        Button(self, "Close", self.destroy, self.width - 150, 100,font=("Cambria Math",12,"bold"))
 
         self.bg_canvas.create_text(self.width / 2 - 350, self.height - 580,
                                    font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
@@ -63,20 +63,20 @@ class ShopGUI(tk.Toplevel):
                                    text=self.shop.name + "'s Shop",
                                    tags="shop_title")
 
-        Button(self, "Unequip Entered Item\nFrom Equipment", self.remove_equipped_item, 50, 500,font=("Cambria Math",8,"bold"))
-        Button(self, "Equip Entered Item\nFrom Equipment", self.equip_item_inventory, 250, 500,font=("Cambria Math",8,"bold"))
-        Button(self, "Purchase Entered Item\nFrom Shop", self.buy_item_from_shop, 450, 500, font=("Cambria Math",8,"bold"))
-        Button(self, "Sell Entered Item", self.sell_item_inventory, 650, 500, font=("Cambria Math",8,"bold"))
-        Button(self, "Buy Medkit\nFor 3 Credits", self.buy_medkits, 850, 500, font=("Cambria Math",8,"bold"))
+        Button(self, "Unequip Entered Item\nFrom Equipment", self.remove_equipped_item, 50, 620,font=("Cambria Math",12,"bold"))
+        Button(self, "Equip Entered Item\nFrom Equipment", self.equip_item_inventory, 250, 620,font=("Cambria Math",12,"bold"))
+        Button(self, "Purchase Entered Item\nFrom Shop", self.buy_item_from_shop, 450, 620, font=("Cambria Math",12,"bold"))
+        Button(self, "Sell Entered Item", self.sell_item_inventory, 650, 620, font=("Cambria Math",12,"bold"))
+        Button(self, "Buy Medkit\nFor 3 Credits", self.buy_medkits, 850, 620, font=("Cambria Math",12,"bold"))
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
-                                        font='Cambria_Math 8 bold')
-        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 550,
+                                        font='Cambria_Math 10 bold')
+        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 650,
                                                             anchor='sw',
                                                             window=self.item_entry_text,
                                                             tags="item_entry_text")
-        self.item_entry_box = tk.Entry(self, font='Cambria_Math 8 bold')
-        self.bg_canvas.create_window(self.width / 2 - 100, 580, anchor='sw',
+        self.item_entry_box = tk.Entry(self, font='Cambria_Math 12 bold')
+        self.bg_canvas.create_window(self.width / 2 - 100, 680, anchor='sw',
                                      window=self.item_entry_box,
                                      tags="item_entry")
 

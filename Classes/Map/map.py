@@ -1,6 +1,7 @@
 """Module for the Map class.
 """
 
+import csv
 import random
 from Classes.Map.edge import Edge
 from Classes.Map.mapconstants import MapConstants
@@ -132,30 +133,42 @@ class Map:
         """
         from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
         self.lvl_counter = GameHandler.counter
-        button_images1 = ["Weapons Bay", "Main Cabin", "Elevator 1",
-                          "Storage Area", "Kitchen", "Barracks", "Cafeteria",
-                          "Life Pod 1", "Cabin 2", "Showers", "Cabin 1",
-                          "Docking Port", "Bridge", "Elevator 3", "Elevator 2",
-                          "Cabin 3", "Captains Cabin", "Hangar", "Life Pod 2",
-                          "Engine Room"]
-        button_images2 = ['A-1', 'A-2', 'Access Shaft', 'Access Shaft 2',
-                          'Access Shaft 3', 'Arms Room', 'Bridge 1',
-                          'Bridge 2', 'C-1', 'C-2', 'Command Module', 'Computer',
-                          'Freezer', 'Infirmary', 'Lab', 'Living Quarters',
-                          'Mess', 'Power', 'Shuttle Dock 1', 'Shuttle Dock 2', 'Storage',
-                          'Storage 2', 'Storage 3', 'Main Airlock']
 
+
+
+        button_images1 = []
+        button_images2 = []
+        button_images3 = []
+        
+        names = []
+        #Text File created with button names(Room names).
+        with open('Names/ButtonNames.txt',
+                  'r', encoding="utf-8") as f:
+            reader = csv.reader(f)
+            for row in reader:                    
+                names.extend(row)        
+
+        button_images1 = names[:20] #There are 20 Possible Button names
+        button_images2 = names[20:45] #From the 20th to the 45th position extracted for Round 2.
+        button_images3 = names[45:]
+ 
 
         if self.lvl_counter == 1:
             random.shuffle(button_images1)
             for room in self.rooms:
-                room.set_image_path(f"Images/LevelOneMap/Set/{button_images1.pop()}.jpg")
+                room.set_image_path(f"Images/LevelOneMap/{button_images1.pop()}.jpg")
 
 
         elif self.lvl_counter == 2:
             random.shuffle(button_images2)
             for room in self.rooms:
                 room.set_image_path(f"Images/LevelTwoMap/{button_images2.pop()}.jpg")
+
+        elif self.lvl_counter == 3:
+            random.shuffle(button_images3)
+            for room in self.rooms:
+                room.set_image_path(f"Images/Level3/LevelThreeMap/{button_images3.pop()}.jpg")
+
 
     def print_map(self):
         """Method to print all the rooms in the map and their adjacent rooms.

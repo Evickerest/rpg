@@ -44,8 +44,8 @@ class ChestGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         if self.room.item:
-            Button(self, f"Take {self.room.item.stats['name']}", self.loot_chest, 100, 200, font=("Times New Roman", 8), tags="loot_button")
-            Button(self, f"Scrap It For {self.room.item.stats['value']} Credits", self.scrap_chest, 100, 300,  font=("Cambria Math",9,"bold"), tags="scrap_button")
+            Button(self, f"Take {self.room.item.stats['name']}", self.loot_chest, 100, 200, font=("Times New Roman", 12, "bold"), tags="loot_button")
+            Button(self, f"Scrap It For {self.room.item.stats['value']} Credits", self.scrap_chest, 100, 300,  font=("Cambria Math",12,"bold"), tags="scrap_button")
 
     def loot_chest(self):
         """Method for what happens if the player chooses to take the item.

@@ -155,27 +155,33 @@ class MainGUI(tk.Tk):
 
         if self.lvl_counter == 1:
 
-            self.original_image = Image.open('Images/LevelOneMap/Set/Main.jpg').resize((300, 400))
+            self.original_image = Image.open('Images/LevelOneMap/Main.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((300, 200))
+            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((400, 200))
             self.menu_bg = ImageTk.PhotoImage(menu_image)
 
         elif self.lvl_counter == 2:
-            self.original_image = Image.open('Images/LevelTwoMap/Level2.jpg').resize((300, 400))
+            self.original_image = Image.open('Images/LevelTwoMap/Level2.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((300, 200))
+            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((400, 200))
+            self.menu_bg = ImageTk.PhotoImage(menu_image)
+        
+        elif self.lvl_counter == 3:
+            self.original_image = Image.open('Images/Level3/LevelThreeMap/Level_3.jpg').resize((400, 500))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((400, 200))
             self.menu_bg = ImageTk.PhotoImage(menu_image)
 
         # Create Canvas and Images
         self.bg_canvas.create_image(self.screen_width - 1280, self.screen_width - 1280, image=self.bg, anchor='nw')
-        self.bg_canvas.create_image(self.screen_width - 1280, self.screen_height / 2, image=self.menu_bg, anchor='nw')
-        self.createText(f"{self.name}'s Stats", 70, 485, font=("Arial", 20), color="white", anchor="w")
+        self.bg_canvas.create_image(self.screen_width - 1280, self.screen_height -350 , image=self.menu_bg, anchor='nw')
+        self.createText(f"{self.name}'s Stats", 120, 580, font=("Arial", 20), color="white", anchor="w")
 
         Button(self,"Character\nDetails", self.open_character_gui, 
-            self.screen_width - 1250, self.screen_height - 385, anchor="nw",width=50,color="#faa19b",hcolor="#f06b62")
+            self.screen_width - 1210, self.screen_height - 275, anchor="nw",width=50,color="#faa19b",hcolor="#f06b62")
         Button(self,"Inventory\nDetails", self.open_inventory_gui, 
-            self.screen_width - 1110, self.screen_height - 385, anchor="nw", width = 50,color="#faa19b",hcolor="#f06b62")
-        Button(self,"Exit", self.destroy, 10, self.screen_height - 150, anchor="w", font=("Calibri", 20))
+            self.screen_width - 1060, self.screen_height - 275, anchor="nw", width = 50,color="#faa19b",hcolor="#f06b62")
+        Button(self,"Exit", self.destroy, 20, self.screen_height - 50, anchor="w", font=("Calibri", 20))
 
 
 
@@ -236,8 +242,8 @@ class MainGUI(tk.Tk):
         Args:
             room (Room): The Room instance with the associated image.
         """
-        self.original_image = Image.open(room.map_image_path).resize((300,
-                                                                      400))
+        self.original_image = Image.open(room.map_image_path).resize((400,
+                                                                      500))
         self.bg = ImageTk.PhotoImage(self.original_image)
         self.bg_canvas.create_image(self.screen_width - 1280,
                                     self.screen_width - 1280, image=self.bg,

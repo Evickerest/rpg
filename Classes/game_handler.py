@@ -2,6 +2,7 @@
 """
 import math
 import time
+import random
 from Classes.GUI.chest_gui import ChestGUI
 from Classes.GUI.fight_gui import FightGUI
 from Classes.GUI.main_gui import MainGUI
@@ -9,6 +10,7 @@ from Classes.GUI.shop_gui import ShopGUI
 from Classes.character import Player
 from Classes.Map.map import Map
 from Classes.save_manager import SaveManager
+
 
 
 class GameHandler:
@@ -65,6 +67,8 @@ class GameHandler:
 
         GameHandler.counter += 1
         self.round = GameHandler.counter  # Variable to increase each level.
+        if GameHandler.counter > 3:
+            GameHandler.counter = random.randint(1, 3)
 
         self.map = Map()
         self.gui.create_main_gui()

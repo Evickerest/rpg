@@ -64,6 +64,7 @@ class FightGUI(tk.Toplevel):
             'Engine Room': '#95F21C', 'Pod Bay': '#54B851',
             'Life Pod 3': '#00FFFC', 'Bathroom': '#95F21C'
         }
+        
 
         if self.lvl_counter == 1:  
             self.text_color = self.rooms.get(self.room_name)
@@ -73,6 +74,12 @@ class FightGUI(tk.Toplevel):
             self.text_color = 'white'
             self.original_image = Image.open('Images/LevelTwo/' + self.room_name + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
+        
+        elif self.lvl_counter == 3:
+            self.text_color = 'white'
+            self.original_image = Image.open('Images/Level3/LevelThree/' + self.room_name + '.jpg').resize((self.width, self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
                                    bg="#043F5B")
@@ -85,7 +92,7 @@ class FightGUI(tk.Toplevel):
                                    text=self.player.name + "'s Side",
                                    tags="equipment_title")
 
-        self.bg_canvas.create_text(self.width / 2 - 150, self.height - 580,
+        self.bg_canvas.create_text(self.width - 65, self.height - 25,
                                    font="Cambria_Math 14 bold",
                                    fill=self.text_color, justify="center",
                                    text="Round: " + str(self.lvl_counter),
@@ -100,9 +107,9 @@ class FightGUI(tk.Toplevel):
         # "Partial" binds a parameter to the function, another way to do this
         # without a lambda expression
         Button(self, "Defend", partial(self.defend, self.player), 50, 550,
-               font=("Cambria Math", 9, "bold"), tags="defend_button")
+               font=("Cambria Math", 12, "bold"), tags="defend_button")
         Button(self, "Use Medkit", self.use_medkit, 200, 550,
-               font=("Cambria Math", 9, "bold"))
+               font=("Cambria Math", 12, "bold"))
 
         for enemy in self.enemies:
             self.set_enemy_actions(enemy)
@@ -181,16 +188,16 @@ class FightGUI(tk.Toplevel):
                               "attack_button3", "attack_button4")
         if len(self.enemies) > 0:
             Button(self, "Attack #0", lambda: self.player_attack(self.enemies[0]),
-                   50, 450, font=("Cambria Math", 9), tags="attack_button1")
+                   50, 450, font=("Cambria Math", 12, "bold"), tags="attack_button1")
         if len(self.enemies) > 1:
             Button(self, "Attack #1", lambda: self.player_attack(self.enemies[1]),
-                   200, 450, font=("Cambria Math", 9), tags="attack_button2")
+                   200, 450, font=("Cambria Math", 12, "bold"), tags="attack_button2")
         if len(self.enemies) > 2:
             Button(self, "Attack #2", lambda: self.player_attack(self.enemies[2]),
-                   350, 450, font=("Cambria Math", 9), tags="attack_button3")
+                   350, 450, font=("Cambria Math", 12, "bold"), tags="attack_button3")
         if len(self.enemies) > 3:
             Button(self, "Attack #3", lambda: self.player_attack(self.enemies[0]),
-                   500, 450, font=("Cambria Math", 9), tags="attack_button4")
+                   500, 450, font=("Cambria Math", 12, "bold"), tags="attack_button4")
 
     def player_attack(self, enemy: Enemy):
         """Method governing how a Player attacks a specified target.
@@ -364,7 +371,7 @@ class FightGUI(tk.Toplevel):
         """
         if not self.enemies:
             Button(self, "Exit", self.endFight, int(self.width / 2 - 60), 380,
-                   font=("Cambria Math", 9, "bold"))
+                   font=("Cambria Math", 12, "bold"))
             self.bg_canvas.delete("attack_button", "defend_button",
                                   "use_item_button", "enemy_entry",
                                   "enemy_entry_text")
