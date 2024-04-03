@@ -64,7 +64,6 @@ class MainGUI(tk.Tk):
 
         Button(self, "New Game", self.create_intro_screen1, self.screen_width/2, 500, font=("Arial", 20))
         Button(self, "Load Game", self.load_game, self.screen_width/2, 600, font=("Arial", 20))
-        #Button(self, "Save Game", self.save_game, self.screen_width/2, 700, font=("Arial", 20))
 
     def load_game(self):
         self.game_handler.load_game()
@@ -191,8 +190,8 @@ class MainGUI(tk.Tk):
             450, 350, font=("Times New Roman", 15), color="white", anchor="w", tags="game_text", width=500)
         self.createText("Choose Next Location", 1010, 400, font=("Arial", 20), color="white", anchor="w")
 
-        Button(self, "Load Game", self.load_game, self.screen_width/2, 600, font=("Arial", 20))
-        Button(self, "Save Game", self.save_game, self.screen_width/2, 700, font=("Arial", 20))
+        Button(self, "Load Game", self.load_game, self.screen_width - 180, 80, font=("Arial", 20))
+        Button(self, "Save Game", self.save_game, self.screen_width - 180, 130, font=("Arial", 20))
 
         self.display_buttons()
 

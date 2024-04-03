@@ -12,15 +12,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_8_2024_11_11_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_8_2024_11_11_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_9_2024_9_22_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_9_2024_9_22_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/character_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/character_gui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/main_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/main_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Rooms/room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/character.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/~$oject Report Template  (2).docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/~$oject Report Template .docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/~WRL0005.tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Names/CombatRoomNames.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Names/CombatRoomNames.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Saves/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Saves/save.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/map_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/map_tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
