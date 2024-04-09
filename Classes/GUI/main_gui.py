@@ -26,6 +26,7 @@ class MainGUI(tk.Tk):
         super().__init__()
         self.title("Spaceship Game")
         self.geometry('1300x900')  # Window size is provided by user.
+        self.resizable(False,False)
         self.minsize(800, 500)  # Minimum size of the window, can be maximized.
         self.iconbitmap('Images/LevelOne/SpaceShip.ico')
         self.width = self.winfo_width()
@@ -152,28 +153,30 @@ class MainGUI(tk.Tk):
 
         self.clearGUI('Images/LevelOne/HallWay.png')
 
+        menu_image = Image.open('Images/LevelOne/info_bg.png').resize((350, 210))
+        self.menu_bg = ImageTk.PhotoImage(menu_image)
+
+        self.image_border = Image.open('Images/LevelOne/Button_image.png').resize((650, 270))
+        self.border = ImageTk.PhotoImage(self.image_border)
+
         if self.lvl_counter == 1:
 
             self.original_image = Image.open('Images/LevelOneMap/Main.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((400, 200))
-            self.menu_bg = ImageTk.PhotoImage(menu_image)
-
+        
         elif self.lvl_counter == 2:
             self.original_image = Image.open('Images/LevelTwoMap/Level2.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((400, 200))
-            self.menu_bg = ImageTk.PhotoImage(menu_image)
+      
         
         elif self.lvl_counter == 3:
             self.original_image = Image.open('Images/Level3/LevelThreeMap/Level_3.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((400, 200))
-            self.menu_bg = ImageTk.PhotoImage(menu_image)
-
+        
         # Create Canvas and Images
         self.bg_canvas.create_image(self.screen_width - 1280, self.screen_width - 1280, image=self.bg, anchor='nw')
-        self.bg_canvas.create_image(self.screen_width - 1280, self.screen_height -350 , image=self.menu_bg, anchor='nw')
+        self.bg_canvas.create_image(self.screen_width - 1400, self.screen_height -360, image=self.border, anchor='nw')
+        self.bg_canvas.create_image(self.screen_width - 1250, self.screen_height -330 , image=self.menu_bg, anchor='nw')
         self.createText(f"{self.name}'s Stats", 120, 580, font=("Arial", 20), color="white", anchor="w")
 
         Button(self,"Character\nDetails", self.open_character_gui, 
@@ -187,7 +190,7 @@ class MainGUI(tk.Tk):
         self.createText("\nYou are ready to start cleaning up"
                         " the wreckage. Which wreckage should you"
                         " visit first? Choose a location on the map.\n",
-            450, 350, font=("Times New Roman", 15), color="white", anchor="w", tags="game_text", width=500)
+            450, 350, font=("Times New Roman", 17), color="white", anchor="w", tags="game_text", width=500)
         self.createText("Choose Next Location", 1010, 400, font=("Arial", 20), color="white", anchor="w")
 
         Button(self, "Load Game", self.load_game, self.screen_width - 180, 80, font=("Arial", 20))
@@ -208,11 +211,15 @@ class MainGUI(tk.Tk):
     def display_buttons(self):
         """Display available rooms to interact with.
         """
-        self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0',
+        self.button_frame = tk.Frame(self.bg_canvas, bg='#023552',
                                      borderwidth=3, highlightcolor="white",
                                      highlightthickness=4)
         self.button_frame.place(relwidth=0.20, relheight=0.4,
                                 relx=0.78, rely=0.5)
+        
+        self.button_image = Image.open('Images/LevelOne/Button_image.png').resize((500, 450))
+        self.button_background = ImageTk.PhotoImage(self.button_image)
+        self.bg_canvas.create_image(890, 400, image=self.button_background, anchor='nw')
 
         for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
             test = lambda room: lambda: self.handle_button_input(room)

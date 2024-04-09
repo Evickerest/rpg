@@ -152,12 +152,6 @@ class Map:
         button_images2 = names[20:44] #From the 20th to the 45th position extracted for Round 2.
         button_images3 = names[44:]
  
-        print("========================")
-        print("This is Button_1--->",  button_images1 )
-        print("========================")
-        print("This is Button_2--->", button_images2)
-        print("========================")
-        print("This is Button_3--->",  button_images3)
         if self.lvl_counter == 1:
             random.shuffle(button_images1)
             for room in self.rooms:

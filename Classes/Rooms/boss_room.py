@@ -20,7 +20,7 @@ class BossRoom(Room):
         self.mon_name = "BOSS"
 
         self.is_boss_room = True
-        self.enemies = [Enemy(self.mon_name, None, 10)]
+        self.enemies = [Enemy(self.mon_name, None, 0)]
 
     def lv_boss(self, lv_change: int):
         """Method to level up the boss associated with the Boss Room.

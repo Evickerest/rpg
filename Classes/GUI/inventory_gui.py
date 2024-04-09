@@ -61,7 +61,7 @@ class InventoryGUI(tk.Toplevel):
         Button(self, "Drop Entered Item\nFrom Inventory", self.drop_item_inventory, 550, 400, font=("Times New Roman", 15))
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
-                                        font='Time_New_Roman 10')
+                                        font=('Time_New_Roman 10'))
         self.item_entry_text_window = self.bg_canvas.create_window(150, 450,
                                                                    anchor='sw',
                                                                    window=self.item_entry_text,
