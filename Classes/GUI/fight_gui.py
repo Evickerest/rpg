@@ -83,19 +83,19 @@ class FightGUI(tk.Toplevel):
 
 
         #Stats images and image name box.
-        self.health_icon = Image.open('Images/LevelOne/Health.png').resize((30, 30))
+        self.health_icon = Image.open('Images/Items/Health.png').resize((30, 30))
         self.health_stat_icon = ImageTk.PhotoImage(self.health_icon)
 
-        self.attack_icon = Image.open('Images/LevelOne/Attack.png').resize((30, 30))
+        self.attack_icon = Image.open('Images/Items/Attack.png').resize((30, 30))
         self.att_stat_icon = ImageTk.PhotoImage(self.attack_icon)
 
-        self.def_icon = Image.open('Images/LevelOne/defense.png').resize((30, 30))
+        self.def_icon = Image.open('Images/Items/defense.png').resize((30, 30))
         self.deff_stat_icon = ImageTk.PhotoImage(self.def_icon)
 
-        self.med_image = Image.open('Images/LevelOne/Medkit.png').resize((30, 30))
+        self.med_image = Image.open('Images/Items/Medkit.png').resize((30, 30))
         self.med_kit_image = ImageTk.PhotoImage(self.med_image)
 
-        self.name_b = Image.open('Images/LevelOne/name_bar.png').resize((300, 80))
+        self.name_b = Image.open('Images/Items/name_bar.png').resize((300, 80))
         self.name_box = ImageTk.PhotoImage(self.name_b)
 
         self.enemy_name_bx = self.name_box
@@ -110,20 +110,20 @@ class FightGUI(tk.Toplevel):
 
 
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 760,
-                                   font="Cambria_Math 14 bold",
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text=self.player.name + "'s Side",
                                    tags="equipment_title")
 
         self.bg_canvas.create_text(self.width - 65, self.height - 25,
-                                   font="Cambria_Math 14 bold",
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Round: " + str(self.lvl_counter),
                                    tags="lvl")
 
         t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
         self.bg_canvas.create_text(self.width / 2 + 200, self.height - 760,
-                                   font="Cambria_Math 14 bold",
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text=t, tags="Enemies")
 
@@ -152,24 +152,24 @@ class FightGUI(tk.Toplevel):
         """
         self.bg_canvas.delete("health", "attack", "defense", "medkits")
         self.bg_canvas.create_text(90, self.height - 330, anchor='sw',
-                                   font="Cambria_Math 14 bold",
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Health:\t"
                                    + str(self.player.stats["Health"]) + " / "
                                    + str(self.player.stats["Max Health"]),
                                    tags="health")
         self.bg_canvas.create_text(90, self.height - 300, anchor='sw',
-                                   font="Cambria_Math 14 bold",
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Attack:\t" + str(self.player.attack),
                                    tags="ff0d1d")
         self.bg_canvas.create_text(90, self.height - 270, anchor='sw',
-                                   font="Cambria_Math 14 bold",
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Defense:\t" + str(self.player.defense),
                                    tags="defense")
         self.bg_canvas.create_text(90, self.height - 240,
-                                   anchor='sw', font="Cambria_Math 14 bold",
+                                   anchor='sw', font="Cambria_Math 15 bold",
                                    fill=self.text_color,
                                    justify="center", tags="medkits",
                                    text="Medkits: "
@@ -366,27 +366,27 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.delete("player_txt1", "player_txt2", "enemy_txt1",
                               "enemy_txt2")
         self.bg_canvas.create_text(50, 200, width=200,
-                                   font=('Cambria_Math', 11, 'bold'),
+                                   font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"Last Turn (Turn {self.turn_counter})"
                                    f":\n{self.player_txt2}",
                                    tags="player_txt2")
         self.bg_canvas.create_text(50, 300, width=200,
-                                   font=('Cambria_Math', 11, 'bold'),
+                                   font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"This Turn (Turn "
                                    f"{self.turn_counter + 1})"
                                    f":\nWhat will you do?", tags="player_txt1")
         self.bg_canvas.create_text(250, 200, width=300,
-                                   font=('Cambria_Math', 11, 'bold'),
+                                   font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"Last Turn (Turn {self.turn_counter})"
                                    f":\n{self.enemy_txt1}", tags="enemy_txt1")
         self.bg_canvas.create_text(250, 350, width=300,
-                                   font=('Cambria_Math', 11, 'bold'),
+                                   font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"This Turn (Turn "

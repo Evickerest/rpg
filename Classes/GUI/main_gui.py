@@ -156,7 +156,7 @@ class MainGUI(tk.Tk):
         menu_image = Image.open('Images/LevelOne/info_bg.png').resize((350, 210))
         self.menu_bg = ImageTk.PhotoImage(menu_image)
 
-        self.image_border = Image.open('Images/LevelOne/Button_image.png').resize((650, 270))
+        self.image_border = Image.open('Images/Items/Button_image.png').resize((650, 270))
         self.border = ImageTk.PhotoImage(self.image_border)
 
         if self.lvl_counter == 1:
@@ -217,7 +217,7 @@ class MainGUI(tk.Tk):
         self.button_frame.place(relwidth=0.20, relheight=0.4,
                                 relx=0.78, rely=0.5)
         
-        self.button_image = Image.open('Images/LevelOne/Button_image.png').resize((500, 450))
+        self.button_image = Image.open('Images/Items/Button_image.png').resize((500, 450))
         self.button_background = ImageTk.PhotoImage(self.button_image)
         self.bg_canvas.create_image(890, 400, image=self.button_background, anchor='nw')
 
