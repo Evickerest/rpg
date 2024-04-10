@@ -21,7 +21,6 @@ class ShopGUI(tk.Toplevel):
             player (Player): The Player instance to interact with.
             gameHandler: The game_handler instance.
         """
-    
 
         super().__init__()
         self.title("Shop Inventory")
@@ -69,7 +68,7 @@ class ShopGUI(tk.Toplevel):
         self.knuckle = Image.open('Images/Items/Knuckle Dusters.png').resize((80, 80))
         self.combat_knuckle = ImageTk.PhotoImage(self.knuckle)
 
-        #Icons identifying stats
+        # Icons identifying stats
         self.attack_icon = Image.open('Images/Items/Attack.png').resize((35, 35))
         self.att_stat_icon = ImageTk.PhotoImage(self.attack_icon)
 
@@ -82,9 +81,8 @@ class ShopGUI(tk.Toplevel):
         self.credit_icon = Image.open('Images/Items/Coin2.png').resize((35, 35))
         self.credit_stat_icon = ImageTk.PhotoImage(self.credit_icon)
 
-
         self.bg_canvas.create_image(840, 320, image=self.item_frame, anchor='nw')
-        #self.bg_canvas.create_image(200, 320, image=self.item_frame, anchor='nw')        
+        # self.bg_canvas.create_image(200, 320, image=self.item_frame, anchor='nw')
         
         self.bg_canvas.create_image(880, 420, image=self.combat_boots, anchor='nw')        
         self.bg_canvas.create_image(970, 420, image=self.combat_mace, anchor='nw')
@@ -97,9 +95,8 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.create_image(50, self.height - 390, image=self.deff_stat_icon, anchor='nw')
         self.bg_canvas.create_image(50, self.height - 350, image=self.med_kit_image, anchor='nw')
         self.bg_canvas.create_image(50, self.height - 310, image=self.credit_stat_icon, anchor='nw')
-       
 
-        Button(self, "Close", self.destroy, self.width - 150, 100,font=("Cambria Math",12,"bold"))
+        Button(self, "Close", self.destroy, self.width - 150, 100, font=("Cambria Math", 12, "bold"))
 
         self.bg_canvas.create_text(self.width / 2 - 350, self.height - 650,
                                    font='Cambria_Math 14 bold', fill="#69FAE4", justify="left",
@@ -114,18 +111,24 @@ class ShopGUI(tk.Toplevel):
                                    text=self.shop.name + "'s Shop",
                                    tags="shop_title")
 
-        Button(self, "Unequip Entered Item\nFrom Equipment", self.remove_equipped_item, 20, 620,font=("Cambria Math",12,"bold"))
-        Button(self, "Equip Entered Item\nFrom Equipment", self.equip_item_inventory, 200, 620,font=("Cambria Math",12,"bold"))
-        Button(self, "Purchase Entered Item\nFrom Shop", self.buy_item_from_shop, 360, 620, font=("Cambria Math",12,"bold"))
-        Button(self, "Sell Entered Item", self.sell_item_inventory, 540, 620, font=("Cambria Math",12,"bold"))
-        Button(self, "Buy Medkit\nFor 3 Credits", self.buy_medkits, 700, 620, font=("Cambria Math",12,"bold"))
+        Button(self, "Unequip Entered Item\nFrom Equipment",
+               self.remove_equipped_item, 20, 620,
+               font=("Cambria Math", 12, "bold"))
+        Button(self, "Equip Entered Item\nFrom Equipment",
+               self.equip_item_inventory, 200, 620,
+               font=("Cambria Math", 12, "bold"))
+        Button(self, "Purchase Entered Item\nFrom Shop",
+               self.buy_item_from_shop, 360, 620,
+               font=("Cambria Math", 12, "bold"))
+        Button(self, "Sell Entered Item", self.sell_item_inventory, 540, 620,
+               font=("Cambria Math", 12, "bold"))
+        Button(self, "Buy Medkit\nFor 3 Credits", self.buy_medkits, 700, 620,
+               font=("Cambria Math", 12, "bold"))
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
                                         font='Cambria_Math 10 bold')
-        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 190, 650,
-                                                            anchor='sw',
-                                                            window=self.item_entry_text,
-                                                            tags="item_entry_text")
+        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 190, 650, anchor='sw',
+                                                            window=self.item_entry_text, tags="item_entry_text")
         self.item_entry_box = tk.Entry(self, font='Cambria_Math 12 bold')
         self.bg_canvas.create_window(self.width / 2 - 190, 680, anchor='sw',
                                      window=self.item_entry_box,
@@ -190,8 +193,9 @@ class ShopGUI(tk.Toplevel):
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
         self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450,
-                                   font='Cambria_Math 14 bold', fill="#69FAE4", justify="left",
-                                   text=self.inventory_text, tags="inventory")
+                                   font='Cambria_Math 14 bold', fill="#69FAE4",
+                                   justify="left", text=self.inventory_text,
+                                   tags="inventory")
 
     def shop_grid(self):
         """Creates and updates the ShopRoom instance's items.
@@ -213,11 +217,12 @@ class ShopGUI(tk.Toplevel):
         else:
             self.shop_text = "The Shop Is Empty"
         self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450,
-                                   font='Cambria_Math 14 bold', fill="#69FAE4", justify="left",
-                                   text=self.shop_text, tags="shop")
+                                   font='Cambria_Math 14 bold', fill="#69FAE4",
+                                   justify="left", text=self.shop_text,
+                                   tags="shop")
 
     def update_shop_gui(self):
-        """Calls on and updates the entire display..
+        """Calls on and updates the entire display.
         """
         self.equipment_grid()
         self.inventory_grid()

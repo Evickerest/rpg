@@ -131,32 +131,31 @@ class Map:
     def assign_random_images(self):
         """Method to assign an image path to all rooms in the map.
         """
-        from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
         self.lvl_counter = GameHandler.counter
-
-
 
         button_images1 = []
         button_images2 = []
         button_images3 = []
         
         names = []
-        #Text File created with button names(Room names).
+        # Text File created with button names(Room names).
         with open('Names/ButtonNames.txt',
                   'r', encoding="utf-8") as f:
             reader = csv.reader(f)
             for row in reader:                    
                 names.extend(row)        
 
-        button_images1 = names[:20] #There are 20 Possible Button names
-        button_images2 = names[20:44] #From the 20th to the 45th position extracted for Round 2.
+        button_images1 = names[:20]  # There are 20 Possible Button names
+        button_images2 = names[20:44]
+        # From the 20th to the 45th position extracted for Round 2.
         button_images3 = names[44:]
  
         if self.lvl_counter == 1:
             random.shuffle(button_images1)
             for room in self.rooms:
                 room.set_image_path(f"Images/LevelOneMap/{button_images1.pop()}.jpg")
-
 
         elif self.lvl_counter == 2:
             random.shuffle(button_images2)
@@ -167,7 +166,6 @@ class Map:
             random.shuffle(button_images3)
             for room in self.rooms:
                 room.set_image_path(f"Images/Level3/LevelThreeMap/{button_images3.pop()}.jpg")
-
 
     def print_map(self):
         """Method to print all the rooms in the map and their adjacent rooms.

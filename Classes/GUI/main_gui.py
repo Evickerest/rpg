@@ -26,7 +26,7 @@ class MainGUI(tk.Tk):
         super().__init__()
         self.title("Spaceship Game")
         self.geometry('1300x900')  # Window size is provided by user.
-        self.resizable(False,False)
+        self.resizable(False, False)
         self.minsize(800, 500)  # Minimum size of the window, can be maximized.
         self.iconbitmap('Images/LevelOne/SpaceShip.ico')
         self.width = self.winfo_width()
@@ -44,27 +44,38 @@ class MainGUI(tk.Tk):
         self.create_main_screen()
         self.mainloop()    
 
-    def createText(self, msg: str, x: int, y: int, font: tuple[str, int] = ("Time New Romans", 20), color: str = 'black', anchor: str = "center", tags: str = None, width: int = None, shadow: bool = False, justify="left"):
+    def createText(self, msg: str, x: int, y: int,
+                   font: tuple[str, int] = ("Time New Romans", 20),
+                   color: str = 'black', anchor: str = "center",
+                   tags: str = None, width: int = None, shadow: bool = False,
+                   justify="left"):
         if shadow:
-            self.bg_canvas.create_text(x-5, y+5, text=msg, font=font, fill="black", anchor=anchor, tags=tags, width=width)
-        self.bg_canvas.create_text(x, y, text=msg, font=font, fill=color, anchor=anchor, tags=tags, width=width, justify=justify)
+            self.bg_canvas.create_text(x-5, y+5, text=msg, font=font,
+                                       fill="black", anchor=anchor, tags=tags,
+                                       width=width)
+        self.bg_canvas.create_text(x, y, text=msg, font=font, fill=color,
+                                   anchor=anchor, tags=tags, width=width,
+                                   justify=justify)
 
     def clearGUI(self, img):
-        if (self.bg_canvas != None):
+        if self.bg_canvas is not None:
             self.bg_canvas.destroy()
-        self.bg_canvas = tk.Canvas(self, width=self.screen_width, height=self.screen_height)
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                                   height=self.screen_height)
         self.bg_canvas.pack(fill='both', expand=True)
-        self.img = Image.open(img).resize((self.screen_width, self.screen_height))
+        self.img = Image.open(img).resize((self.screen_width,
+                                           self.screen_height))
         self.image = ImageTk.PhotoImage(self.img)
         self.bg_canvas.create_image(0, 0, image=self.image, anchor='nw')
 
     def create_main_screen(self):
         self.clearGUI("Images/download.jpg")
 
-        self.createText("Game Title", self.screen_width/2, 200, font=("Arial", 40), color="white")
+        self.createText("Game Title", self.screen_width//2, 200,
+                        font=("Arial", 40), color="white")
 
-        Button(self, "New Game", self.create_intro_screen1, self.screen_width/2, 500, font=("Arial", 20))
-        Button(self, "Load Game", self.load_game, self.screen_width/2, 600, font=("Arial", 20))
+        Button(self, "New Game", self.create_intro_screen1, self.screen_width//2, 500, font=("Arial", 20))
+        Button(self, "Load Game", self.load_game, self.screen_width//2, 600, font=("Arial", 20))
 
     def load_game(self):
         self.game_handler.load_game()
@@ -72,19 +83,26 @@ class MainGUI(tk.Tk):
     def save_game(self):
         self.game_handler.save_game()
 
-
     def create_intro_screen1(self):
         self.game_handler.clear_save_file()
         """Creates the title screen."""
         self.clearGUI('Images/LevelOne/bg2.jpeg')
-        self.createText("Are You Ready For a New Adventure?", self.screen_width / 2, self.screen_height / 2, font="Time_New_Roman 45", color='white', shadow=True)
-        self.user_name = tk.Label(self, text='User Name:', font='Time_New_Roman 15')
-        self.user_name_window = self.bg_canvas.create_window(30, 100, anchor='sw', window=self.user_name, tags="Login_Text")
+        self.createText("Are You Ready For a New Adventure?",
+                        self.screen_width // 2, self.screen_height // 2,
+                        font="Time_New_Roman 45", color='white', shadow=True)
+        self.user_name = tk.Label(self, text='User Name:',
+                                  font='Time_New_Roman 15')
+        self.user_name_window = self.bg_canvas.create_window(30, 100,
+                                                             anchor='sw',
+                                                             window=self.user_name, tags="Login_Text")
         self.user_name_entry = tk.Entry(self, font='Time_New_Roman 20')
-        self.bg_canvas.create_window(150, 100, anchor='sw', window=self.user_name_entry, tags="Login Button")
+        self.bg_canvas.create_window(150, 100, anchor='sw',
+                                     window=self.user_name_entry,
+                                     tags="Login Button")
 
         Button(self, "Start Game", self.create_intro_screen2, 30, 200)
-        Button(self, "Exit", self.destroy, self.width-200, self.height-100, font=("Times", 30))
+        Button(self, "Exit", self.destroy, self.width-200, self.height-100,
+               font=("Times", 30))
 
     def create_intro_screen2(self):
         """Destroys the title screen and Creates the game intro screen."""
@@ -97,17 +115,25 @@ class MainGUI(tk.Tk):
             " wrecks that pollute space."
             f"\n\n Welcome, {self.name} to being a"
             f" Space Janitor. \nRise to the top.",
-            self.width/2, self.height-600, font=("Times New Romans", 20), color="white", shadow=True
+            self.width//2, self.height-600, font=("Times New Romans", 20),
+            color="white", shadow=True
         )
-        Button(self, "Click Here to Continue", self.create_intro_screen3, self.width/2, self.height-100, anchor="center")
+        Button(self, "Click Here to Continue", self.create_intro_screen3,
+               self.width//2, self.height-100, anchor="center")
 
     def printPlayerStats(self):
         self.bg_canvas.delete("stats")
         self.createText( 
-            f"{self.player.name}'s Stats:\n\nHealth:{self.player.stats['Health']}/{self.player.stats['Max Health']}" +
-            "".join([f'\n\n{stat[0:3]}: {self.player.stats[stat]}' for stat in ["Strength", "Dexterity", "Vitality", "Intelligence"]]) +
-            f"\n\nFree Points: {self.player.stats['Stat Points']}\n\nMin: 3, Max: 12",
-            self.width/2 - 100, self.height - 500, font=("Time New Romans", 22), color="white", justify="center", tags="stats"
+            f"{self.player.name}'s Stats:\n\nHealth:"
+            f"{self.player.stats['Health']}/{self.player.stats['Max Health']}"
+            + "".join([f'\n\n{stat[0:3]}: {self.player.stats[stat]}'
+                       for stat in ["Strength", "Dexterity",
+                                    "Vitality", "Intelligence"]]) +
+            f"\n\nFree Points: {self.player.stats['Stat Points']}\n\n"
+            f"Min: 3, Max: 12",
+            self.width//2 - 100, self.height - 500,
+            font=("Time New Romans", 22), color="white", justify="center",
+            tags="stats"
         )
 
     def update_init_stats(self, stat: str, amount: int):
@@ -129,31 +155,39 @@ class MainGUI(tk.Tk):
         self.printPlayerStats()
 
     def create_intro_screen3(self):
-        """Creates the character creation screen after deleting the introscreen text."""
+        """Creates the character creation screen after deleting the intro
+         screen text."""
         self.clearGUI('Images/LevelOne/bg.jpg')
-        Button(self,"Start Game", self.create_main_gui, self.width/2, self.height-100, anchor="center" )
+        Button(self, "Start Game", self.create_main_gui, self.width//2,
+               self.height-100, anchor="center")
         self.printPlayerStats()
         
-        for i, stat in enumerate(["Strength", "Dexterity", "Vitality", "Intelligence"]):
+        for i, stat in enumerate(["Strength", "Dexterity",
+                                  "Vitality", "Intelligence"]):
             cmd = lambda s, n: lambda: self.update_init_stats(s, n)
 
-            Button(self, "-", cmd(stat, -1), self.width/2 - 30, self.height - 600 + 70 * i,
-                width=1, height=1, font=("Time New Romans", 20), anchor="center", padding=5)
-            Button(self, "+", cmd(stat, 1), self.width/2, self.height - 600 + 70 * i,
-                width=1, height=1, font=("Time New Romans", 20), anchor="center", padding=5)
-           
-    
+            Button(self, "-", cmd(stat, -1), self.width//2 - 30,
+                   self.height - 600 + 70 * i,
+                   width=1, height=1, font=("Time New Romans", 20),
+                   anchor="center", padding=5)
+            Button(self, "+", cmd(stat, 1), self.width//2,
+                   self.height - 600 + 70 * i,
+                   width=1, height=1, font=("Time New Romans", 20),
+                   anchor="center", padding=5)
+
     def create_main_gui(self):
         self.start_game()
 
         """Deletes the character screen and makes the main screen.
         """
-        from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
         self.lvl_counter = GameHandler.counter
 
         self.clearGUI('Images/LevelOne/HallWay.png')
 
-        menu_image = Image.open('Images/LevelOne/info_bg.png').resize((350, 210))
+        menu_image = Image.open('Images/LevelOne/info_bg.png').resize((350,
+                                                                       210))
         self.menu_bg = ImageTk.PhotoImage(menu_image)
 
         self.image_border = Image.open('Images/Items/Button_image.png').resize((650, 270))
@@ -167,34 +201,45 @@ class MainGUI(tk.Tk):
         elif self.lvl_counter == 2:
             self.original_image = Image.open('Images/LevelTwoMap/Level2.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-      
-        
+
         elif self.lvl_counter == 3:
             self.original_image = Image.open('Images/Level3/LevelThreeMap/Level_3.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
         
         # Create Canvas and Images
-        self.bg_canvas.create_image(self.screen_width - 1280, self.screen_width - 1280, image=self.bg, anchor='nw')
-        self.bg_canvas.create_image(self.screen_width - 1400, self.screen_height -360, image=self.border, anchor='nw')
-        self.bg_canvas.create_image(self.screen_width - 1250, self.screen_height -330 , image=self.menu_bg, anchor='nw')
-        self.createText(f"{self.name}'s Stats", 120, 580, font=("Arial", 20), color="white", anchor="w")
+        self.bg_canvas.create_image(self.screen_width - 1280,
+                                    self.screen_width - 1280,
+                                    image=self.bg, anchor='nw')
+        self.bg_canvas.create_image(self.screen_width - 1400,
+                                    self.screen_height - 360,
+                                    image=self.border, anchor='nw')
+        self.bg_canvas.create_image(self.screen_width - 1250,
+                                    self.screen_height - 330,
+                                    image=self.menu_bg, anchor='nw')
+        self.createText(f"{self.name}'s Stats", 120, 580, font=("Arial", 20),
+                        color="white", anchor="w")
 
-        Button(self,"Character\nDetails", self.open_character_gui, 
-            self.screen_width - 1210, self.screen_height - 275, anchor="nw",width=50,color="#faa19b",hcolor="#f06b62")
-        Button(self,"Inventory\nDetails", self.open_inventory_gui, 
-            self.screen_width - 1060, self.screen_height - 275, anchor="nw", width = 50,color="#faa19b",hcolor="#f06b62")
-        Button(self,"Exit", self.destroy, 20, self.screen_height - 50, anchor="w", font=("Calibri", 20))
-
-
+        Button(self, "Character\nDetails", self.open_character_gui,
+               self.screen_width - 1210, self.screen_height - 275, anchor="nw",
+               width=50, color="#faa19b", hcolor="#f06b62")
+        Button(self, "Inventory\nDetails", self.open_inventory_gui,
+               self.screen_width - 1060, self.screen_height - 275, anchor="nw",
+               width=50, color="#faa19b", hcolor="#f06b62")
+        Button(self, "Exit", self.destroy, 20, self.screen_height - 50,
+               anchor="w", font=("Calibri", 20))
 
         self.createText("\nYou are ready to start cleaning up"
                         " the wreckage. Which wreckage should you"
                         " visit first? Choose a location on the map.\n",
-            450, 350, font=("Times New Roman", 17), color="white", anchor="w", tags="game_text", width=500)
-        self.createText("Choose Next Location", 1010, 400, font=("Arial", 20), color="white", anchor="w")
+                        450, 350, font=("Times New Roman", 17), color="white",
+                        anchor="w", tags="game_text", width=500)
+        self.createText("Choose Next Location", 1010, 400, font=("Arial", 20),
+                        color="white", anchor="w")
 
-        Button(self, "Load Game", self.load_game, self.screen_width - 180, 80, font=("Arial", 20))
-        Button(self, "Save Game", self.save_game, self.screen_width - 180, 130, font=("Arial", 20))
+        Button(self, "Load Game", self.load_game, self.screen_width - 180, 80,
+               font=("Arial", 20))
+        Button(self, "Save Game", self.save_game, self.screen_width - 180, 130,
+               font=("Arial", 20))
 
         self.display_buttons()
 
@@ -219,7 +264,8 @@ class MainGUI(tk.Tk):
         
         self.button_image = Image.open('Images/Items/Button_image.png').resize((500, 450))
         self.button_background = ImageTk.PhotoImage(self.button_image)
-        self.bg_canvas.create_image(890, 400, image=self.button_background, anchor='nw')
+        self.bg_canvas.create_image(890, 400, image=self.button_background,
+                                    anchor='nw')
 
         for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
             test = lambda room: lambda: self.handle_button_input(room)
@@ -228,8 +274,9 @@ class MainGUI(tk.Tk):
             color = "#f69697" if adjacent_room.cleared else "#FFFFFF"
 
             button = customtkinter.CTkButton(
-                self.button_frame, width=200, height=3, font=("Calibri",15), 
-                text_color="black", text=button_text, command=test(adjacent_room), fg_color=color
+                self.button_frame, width=200, height=3, font=("Calibri", 15),
+                text_color="black", text=button_text,
+                command=test(adjacent_room), fg_color=color
             )
             button.pack(pady=5)
 
@@ -318,7 +365,9 @@ class MainGUI(tk.Tk):
                                        " boss!\n", "game_text", tk.END)
 
         # Display End Game Button
-        Button(self, "End Game", partial(self.game_handler.end_game, True), self.width-100,300,anchor="e",width=10, font=("Calibri", 16), height=2)
+        Button(self, "End Game", partial(self.game_handler.end_game, True),
+               self.width-100, 300, anchor="e", width=10, font=("Calibri", 16),
+               height=2)
      
         # Display Text
         self.bg_canvas.create_text(1010, 235, width=300, font=('Arial', 20),
@@ -358,7 +407,8 @@ class MainGUI(tk.Tk):
         """Opens a CharacterGUI instance.
         """
         print("clicking character")
-        print(f"ready: {self.ready}, current: {self.map.get_current_room().get_cleared()}")
+        print(f"ready: {self.ready}, current:"
+              f" {self.map.get_current_room().get_cleared()}")
         print(f"living: {self.player.living}")
         if (self.ready and self.map.get_current_room().get_cleared()
                 and self.player.living):
@@ -378,8 +428,7 @@ class MainGUI(tk.Tk):
         self.bg_canvas.destroy()
 
         # Import Map Background
-        img = Image.open('Images/LevelOne/GameOver.png').resize((self.screen_width,
-                                                        self.screen_height))
+        img = Image.open('Images/LevelOne/GameOver.png').resize((self.screen_width, self.screen_height))
         self.img = ImageTk.PhotoImage(img)
 
         # Create canvas and background
@@ -419,9 +468,11 @@ class MainGUI(tk.Tk):
                                         f'{self.player.stats["Intelligence"]}.'
                                    )
 
-        Button(self, "Retry?", self.game_handler.start_new_game, 700, self.screen_height/2, anchor="nw",width=8,height=3,font=("Calibri", 20))
-        Button(self, "Exit", self.destroy, 550, self.screen_height/2, anchor="w",width=8,height=3,font=("Calibri", 20))
-    
+        Button(self, "Retry?", self.game_handler.start_new_game, 700,
+               self.screen_height//2, anchor="nw", width=8, height=3,
+               font=("Calibri", 20))
+        Button(self, "Exit", self.destroy, 550, self.screen_height//2,
+               anchor="w", width=8, height=3, font=("Calibri", 20))
 
     def display_game_won_gui(self, total_time, enemies_killed, rooms_entered):
         """The screen that shows when you win the game.
@@ -434,8 +485,8 @@ class MainGUI(tk.Tk):
         self.bg_canvas.destroy()
 
         # Import Map Background
-        img = Image.open('Images/LevelOne/GameWon.png').resize((self.screen_width,
-                                                       self.screen_height))
+        img = Image.open('Images/LevelOne/GameWon.png').resize(
+            (self.screen_width, self.screen_height))
         self.img = ImageTk.PhotoImage(img)
 
         # Create canvas and background
@@ -475,5 +526,8 @@ class MainGUI(tk.Tk):
                                         f'{self.player.stats["Intelligence"]}.'
                                    )
 
-        Button(self, "Continue", self.game_handler.start_next_map, 700, self.screen_height/2, anchor="nw",width=8,height=3,font=("Calibri", 20))
-        Button(self, "Exit", self.destroy, 550, self.screen_height/2, anchor="w",width=8,height=3,font=("Calibri", 20))
+        Button(self, "Continue", self.game_handler.start_next_map, 700,
+               self.screen_height//2, anchor="nw", width=8, height=3,
+               font=("Calibri", 20))
+        Button(self, "Exit", self.destroy, 550, self.screen_height//2,
+               anchor="w", width=8, height=3, font=("Calibri", 20))

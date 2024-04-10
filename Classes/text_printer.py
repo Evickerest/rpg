@@ -36,8 +36,7 @@ class TextPrinter:
 
         for char in text:
             # pylint: disable=C3001
-            update_text = lambda s=char: self.tkinter.bg_canvas.insert(text_id,
-                                                                       method_of_printing, s)
+            update_text = lambda s=char: self.tkinter.bg_canvas.insert(text_id, method_of_printing, s)
             self.tkinter.bg_canvas.after(delay, update_text)
             delay += delta
 

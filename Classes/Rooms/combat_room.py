@@ -29,18 +29,11 @@ class CombatRoom(Room):
 
     def __init__(self):
         """Creates the CombatRoom instance.
-        Args:
-            *args: Currently nonfunctional. Meant to take an optional Player
-             instance and scale enemies in room to said Player's level.
         """
         super().__init__()
         if not CombatRoom.ENEMIES:
             CombatRoom.load_enemies()
         self.player = None
-        # if isinstance(args, Player):
-        #     self.player = args
-        #     self.mon_lv = self.player.stats["Level"]
-        # else:
 
         self.mon_lv = 1
         self.enemies = []

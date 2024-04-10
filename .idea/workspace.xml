@@ -6,12 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?">
       <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/rpg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rpg.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/boss_room_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/boss_room_tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/map_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/map_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/character_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/character_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/chest_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/chest_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/inventory_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/inventory_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/main_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/main_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/shop_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/shop_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +25,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "231ving"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Evickerest/rpg.git",
+    "accountId": "a56bda9c-df1b-4cad-8369-bf7efd1b35ca"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -39,36 +54,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Python.Character.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Gui.executor&quot;: &quot;Run&quot;,
-    &quot;Python.character.executor&quot;: &quot;Run&quot;,
-    &quot;Python.dungeon.executor&quot;: &quot;Run&quot;,
-    &quot;Python.fight_gui.executor&quot;: &quot;Run&quot;,
-    &quot;Python.item.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Coverage&quot;,
-    &quot;Python.python.exe.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/afili/OneDrive/Documents/Adrian/GVSU/Winter 2024/CIS_350/Projects/rpg&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python tests.Python tests for map_tests.MapTests.test6_connect_every_room_together.executor": "Run",
+    "Python.Character.executor": "Run",
+    "Python.Gui.executor": "Run",
+    "Python.character.executor": "Run",
+    "Python.dungeon.executor": "Run",
+    "Python.fight_gui.executor": "Run",
+    "Python.item.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_gui.executor": "Run",
+    "Python.python.exe.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/afili/OneDrive/Documents/Adrian/GVSU/Winter 2024/CIS_350/Projects/rpg",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql_aurora_aws&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql_aurora_aws"
     ]
   }
-}</component>
+}]]></component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="rpg" is-module-sdk="true">
@@ -89,8 +106,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
-        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.14494.241" />
       </set>
     </attachedChunks>
   </component>

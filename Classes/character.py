@@ -296,7 +296,8 @@ class Enemy(Character):
             attacker (Player): Player instance that is attacking.
         """
         item = attacker.equipment["Weapon"]
-        damage = item.get_damage_dealt(self) + attacker.get_attack() - self.get_defense() / 2
+        damage = (item.get_damage_dealt(self) + attacker.get_attack()
+                  - self.get_defense() / 2)
         damage = max(int(damage), 1)
         attacker_hit_chance = (random.randint(1, 100) + damage +
                                attacker.stats["Dexterity"]

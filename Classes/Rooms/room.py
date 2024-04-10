@@ -91,9 +91,9 @@ class Room:
         Return:
             name (str): The name of the room.
         """
-    
 
-        from Classes.game_handler import GameHandler  # To import the Level counter from GameHandler
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
         self.lvl_counter = GameHandler.counter
 
         level_1 = []
@@ -107,10 +107,9 @@ class Room:
             for row in reader:                    
                 names.extend(row)        
 
-        level_1 = names[:23] #There are 23 Rooms for Level 1
-        
+        level_1 = names[:23]  # There are 23 Rooms for Level 1
 
-        if len(names) < 10: #Adds the chest rooms to the list.
+        if len(names) < 10:  # Adds the chest rooms to the list.
             level_2 = level_1
             level_3 = level_1
 
@@ -118,7 +117,6 @@ class Room:
             level_2 = names[23:47]
             level_3 = names[47:]
 
-        
         if self.lvl_counter == 1:
             self.name = random.choice(level_1)
 
@@ -127,10 +125,7 @@ class Room:
         
         elif self.lvl_counter == 3:
             self.name = random.choice(level_3)
-
-
         return self.name
-        
 
     def __repr__(self):
         """Representation of the room.

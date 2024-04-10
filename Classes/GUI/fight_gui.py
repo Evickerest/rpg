@@ -64,7 +64,6 @@ class FightGUI(tk.Toplevel):
             'Engine Room': '#95F21C', 'Pod Bay': '#54B851',
             'Life Pod 3': '#00FFFC', 'Bathroom': '#95F21C'
         }
-        
 
         if self.lvl_counter == 1:  
             self.text_color = self.rooms.get(self.room_name)
@@ -80,9 +79,7 @@ class FightGUI(tk.Toplevel):
             self.original_image = Image.open('Images/Level3/LevelThree/' + self.room_name + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
 
-
-
-        #Stats images and image name box.
+        # Stats images and image name box.
         self.health_icon = Image.open('Images/Items/Health.png').resize((30, 30))
         self.health_stat_icon = ImageTk.PhotoImage(self.health_icon)
 
@@ -108,7 +105,6 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_image(30, self.height - 800, image=self.name_box, anchor='nw')
         self.bg_canvas.create_image(self.width / 2 + 80, self.height - 800, image=self.name_box, anchor='nw')
 
-
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 760,
                                    font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
@@ -131,7 +127,6 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_image(50, self.height - 325, image=self.att_stat_icon, anchor='nw')
         self.bg_canvas.create_image(50, self.height - 290, image=self.deff_stat_icon, anchor='nw')
         self.bg_canvas.create_image(50, self.height - 260, image=self.med_kit_image, anchor='nw')
-
 
         # "Partial" binds a parameter to the function, another way to do this
         # without a lambda expression
