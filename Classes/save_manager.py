@@ -28,7 +28,7 @@ class SaveManager:
         """Opens the save file"""
         with open(self.file_name, "rb") as file:
             self.file_contents = load(file)
-    
+
     # Uses pickle module to save dictionary to file
     def write_to_save_file(self, save):
         """Writes to file as bytes.

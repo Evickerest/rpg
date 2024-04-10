@@ -51,7 +51,7 @@ class FightGUI(tk.Toplevel):
         self.enemy_txt2 = ""
         self.lvl_counter = GameHandler.counter
 
-        self.rooms = { 
+        self.rooms = {
             'Weapons Bay': '#95F21C', 'Main Cabin': '#95F21C',
             'Elevator 1': '#D18A00', 'Storage Area': '#95F21C',
             'Kitchen': '#D18A00', 'Barracks': '#D18A00',
@@ -65,7 +65,7 @@ class FightGUI(tk.Toplevel):
             'Life Pod 3': '#00FFFC', 'Bathroom': '#95F21C'
         }
 
-        if self.lvl_counter == 1:  
+        if self.lvl_counter == 1:
             self.text_color = self.rooms.get(self.room_name)
             self.original_image = Image.open('Images/LevelOne/' + self.room_name + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
@@ -73,7 +73,7 @@ class FightGUI(tk.Toplevel):
             self.text_color = 'white'
             self.original_image = Image.open('Images/LevelTwo/' + self.room_name + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
-        
+
         elif self.lvl_counter == 3:
             self.text_color = 'white'
             self.original_image = Image.open('Images/Level3/LevelThree/' + self.room_name + '.jpg').resize((self.width, self.height))
@@ -327,6 +327,10 @@ class FightGUI(tk.Toplevel):
                                 f" did nothing.\n")
 
     def set_enemy_actions(self, enemy: Enemy):
+        """Randomly sets the enemy's actions.
+        Args:
+            enemy (Enemy): The enemy instance to set their action.
+        """
         enemy.randomize_action()
         enemy_predict_resist = (random.randint(1, 100) +
                                 enemy.stats["Intelligence"] +

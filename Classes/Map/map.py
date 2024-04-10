@@ -138,20 +138,20 @@ class Map:
         button_images1 = []
         button_images2 = []
         button_images3 = []
-        
+
         names = []
         # Text File created with button names(Room names).
         with open('Names/ButtonNames.txt',
                   'r', encoding="utf-8") as f:
             reader = csv.reader(f)
-            for row in reader:                    
-                names.extend(row)        
+            for row in reader:
+                names.extend(row)
 
         button_images1 = names[:20]  # There are 20 Possible Button names
         button_images2 = names[20:44]
         # From the 20th to the 45th position extracted for Round 2.
         button_images3 = names[44:]
- 
+
         if self.lvl_counter == 1:
             random.shuffle(button_images1)
             for room in self.rooms:

@@ -83,12 +83,12 @@ class ShopGUI(tk.Toplevel):
 
         self.bg_canvas.create_image(840, 320, image=self.item_frame, anchor='nw')
         # self.bg_canvas.create_image(200, 320, image=self.item_frame, anchor='nw')
-        
-        self.bg_canvas.create_image(880, 420, image=self.combat_boots, anchor='nw')        
+
+        self.bg_canvas.create_image(880, 420, image=self.combat_boots, anchor='nw')
         self.bg_canvas.create_image(970, 420, image=self.combat_mace, anchor='nw')
-        self.bg_canvas.create_image(880, 500, image=self.combat_suit, anchor='nw')        
+        self.bg_canvas.create_image(880, 500, image=self.combat_suit, anchor='nw')
         self.bg_canvas.create_image(970, 500, image=self.combat_helmet, anchor='nw')
-        self.bg_canvas.create_image(880, 580, image=self.combat_gloves, anchor='nw')        
+        self.bg_canvas.create_image(880, 580, image=self.combat_gloves, anchor='nw')
         self.bg_canvas.create_image(970, 580, image=self.combat_knuckle, anchor='nw')
 
         self.bg_canvas.create_image(50, self.height - 440, image=self.att_stat_icon, anchor='nw')

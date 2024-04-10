@@ -29,7 +29,7 @@ class BossRoom(Room):
          """
         for enemy in self.enemies:
             enemy.stats["Level"] += lv_change
-            enemy.stats["Stat Points"] = (lv_change * 5)
+            enemy.stats["Stat Points"] = lv_change * 5
             enemy.update_stats()
             enemy.stats["Health"] = enemy.stats["Max Health"]
             enemy.update_attack()

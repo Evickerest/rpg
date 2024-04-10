@@ -46,7 +46,7 @@ class InventoryGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         Button(self, "Close", self.destroy, self.width - 150, 580, font=("Times New Roman", 15))
-    
+
         self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580,
                                    font="Cambria_Math 12 bold", fill="#FFFFFF",
                                    justify="center",
@@ -57,7 +57,7 @@ class InventoryGUI(tk.Toplevel):
                                    justify="center",
                                    text=self.player.name + "'s Inventory",
                                    tags="inventory_title")
-        
+
         Button(self, "Unequip Entered Item\nFrom Equipment",
                self.remove_equipped_item, 150, 400,
                font=("Times New Roman", 15))

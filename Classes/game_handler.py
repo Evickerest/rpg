@@ -31,7 +31,7 @@ class GameHandler:
         self.round = GameHandler.counter
 
         self.gui = None
-        self.save_manager = SaveManager()  
+        self.save_manager = SaveManager()
         MainGUI(self.player, self)
 
     def start_from_save(self, save):

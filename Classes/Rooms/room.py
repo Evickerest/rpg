@@ -99,13 +99,13 @@ class Room:
         level_1 = []
         level_2 = []
         level_3 = []
-        
+
         names = []
         with open(f'Names/{room_type}RoomNames.txt',
                   'r', encoding="utf-8") as f:
             reader = csv.reader(f)
-            for row in reader:                    
-                names.extend(row)        
+            for row in reader:
+                names.extend(row)
 
         level_1 = names[:23]  # There are 23 Rooms for Level 1
 
@@ -122,7 +122,7 @@ class Room:
 
         elif self.lvl_counter == 2:
             self.name = random.choice(level_2)
-        
+
         elif self.lvl_counter == 3:
             self.name = random.choice(level_3)
         return self.name

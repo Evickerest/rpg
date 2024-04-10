@@ -126,7 +126,7 @@ class Player(Character):
         """Same idea as the parent Character class.
         """
         super().__init__(name, stats)
-        self.stats["Medkits"] = 5  
+        self.stats["Medkits"] = 5
 
         self.equipment = {}
         x = Item(random.choice(Item.ITEMS))

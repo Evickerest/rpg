@@ -86,8 +86,8 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.delete("stats")
         self.bg_canvas.delete("button")
         self.bg_canvas.delete("level_up")
-        
-        self.bg_canvas.create_text( 
+
+        self.bg_canvas.create_text(
             self.width/2 - 50, self.height - 300,
             text=f"{self.player.name}'s Stats:\n\nHealth:" +
             f"\n{self.player.stats['Health']}/"
@@ -101,7 +101,7 @@ class CharacterGUI(tk.Toplevel):
             font=("Cambria", 20, "bold"), fill="#FFFFFF", justify="center",
             tags="stats"
         )
-        
+
         if self.player.stats["Stat Points"] > 0:
             for i, stat in enumerate(["Strength", "Dexterity",
                                       "Vitality", "Intelligence"]):

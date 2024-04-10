@@ -42,13 +42,27 @@ class MainGUI(tk.Tk):
 
         # self.create_intro_screen1()
         self.create_main_screen()
-        self.mainloop()    
+        self.mainloop()
 
     def createText(self, msg: str, x: int, y: int,
                    font: tuple[str, int] = ("Time New Romans", 20),
                    color: str = 'black', anchor: str = "center",
                    tags: str = None, width: int = None, shadow: bool = False,
                    justify="left"):
+        """Creates text using custom formatting
+        Args:
+            msg: The message to print
+            x: The x-location
+            y: The y-position
+            font: The font style and size
+            color: The font color
+            anchor: Where to anchor the text to
+            tags: The tag string to refer it by
+            width: The width of the textbox
+            shadow: Whether to have a background shadow or not
+            justify: How to align the text
+
+        """
         if shadow:
             self.bg_canvas.create_text(x-5, y+5, text=msg, font=font,
                                        fill="black", anchor=anchor, tags=tags,
@@ -58,6 +72,10 @@ class MainGUI(tk.Tk):
                                    justify=justify)
 
     def clearGUI(self, img):
+        """Clears the gui of existing elements
+        Args:
+            img: The image to replace the destroyed screen by
+        """
         if self.bg_canvas is not None:
             self.bg_canvas.destroy()
         self.bg_canvas = tk.Canvas(self, width=self.screen_width,
@@ -69,6 +87,8 @@ class MainGUI(tk.Tk):
         self.bg_canvas.create_image(0, 0, image=self.image, anchor='nw')
 
     def create_main_screen(self):
+        """Creates the main screen graphics.
+        """
         self.clearGUI("Images/download.jpg")
 
         self.createText("Game Title", self.screen_width//2, 200,
@@ -78,14 +98,18 @@ class MainGUI(tk.Tk):
         Button(self, "Load Game", self.load_game, self.screen_width//2, 600, font=("Arial", 20))
 
     def load_game(self):
+        """Loads the game from the save file.
+        """
         self.game_handler.load_game()
 
     def save_game(self):
+        """Saves current game data to a save file.
+        """
         self.game_handler.save_game()
 
     def create_intro_screen1(self):
-        self.game_handler.clear_save_file()
         """Creates the title screen."""
+        self.game_handler.clear_save_file()
         self.clearGUI('Images/LevelOne/bg2.jpeg')
         self.createText("Are You Ready For a New Adventure?",
                         self.screen_width // 2, self.screen_height // 2,
@@ -122,8 +146,10 @@ class MainGUI(tk.Tk):
                self.width//2, self.height-100, anchor="center")
 
     def printPlayerStats(self):
+        """Prints player stats.
+        """
         self.bg_canvas.delete("stats")
-        self.createText( 
+        self.createText(
             f"{self.player.name}'s Stats:\n\nHealth:"
             f"{self.player.stats['Health']}/{self.player.stats['Max Health']}"
             + "".join([f'\n\n{stat[0:3]}: {self.player.stats[stat]}'
@@ -161,7 +187,7 @@ class MainGUI(tk.Tk):
         Button(self, "Start Game", self.create_main_gui, self.width//2,
                self.height-100, anchor="center")
         self.printPlayerStats()
-        
+
         for i, stat in enumerate(["Strength", "Dexterity",
                                   "Vitality", "Intelligence"]):
             cmd = lambda s, n: lambda: self.update_init_stats(s, n)
@@ -176,10 +202,9 @@ class MainGUI(tk.Tk):
                    anchor="center", padding=5)
 
     def create_main_gui(self):
-        self.start_game()
-
         """Deletes the character screen and makes the main screen.
         """
+        self.start_game()
         from Classes.game_handler import GameHandler
         # To import the Level counter from GameHandler
         self.lvl_counter = GameHandler.counter
@@ -197,7 +222,7 @@ class MainGUI(tk.Tk):
 
             self.original_image = Image.open('Images/LevelOneMap/Main.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-        
+
         elif self.lvl_counter == 2:
             self.original_image = Image.open('Images/LevelTwoMap/Level2.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
@@ -205,7 +230,7 @@ class MainGUI(tk.Tk):
         elif self.lvl_counter == 3:
             self.original_image = Image.open('Images/Level3/LevelThreeMap/Level_3.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-        
+
         # Create Canvas and Images
         self.bg_canvas.create_image(self.screen_width - 1280,
                                     self.screen_width - 1280,
@@ -261,7 +286,7 @@ class MainGUI(tk.Tk):
                                      highlightthickness=4)
         self.button_frame.place(relwidth=0.20, relheight=0.4,
                                 relx=0.78, rely=0.5)
-        
+
         self.button_image = Image.open('Images/Items/Button_image.png').resize((500, 450))
         self.button_background = ImageTk.PhotoImage(self.button_image)
         self.bg_canvas.create_image(890, 400, image=self.button_background,
@@ -269,7 +294,7 @@ class MainGUI(tk.Tk):
 
         for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
             test = lambda room: lambda: self.handle_button_input(room)
-            button_text = adjacent_room.name  
+            button_text = adjacent_room.name
 
             color = "#f69697" if adjacent_room.cleared else "#FFFFFF"
 
@@ -368,7 +393,7 @@ class MainGUI(tk.Tk):
         Button(self, "End Game", partial(self.game_handler.end_game, True),
                self.width-100, 300, anchor="e", width=10, font=("Calibri", 16),
                height=2)
-     
+
         # Display Text
         self.bg_canvas.create_text(1010, 235, width=300, font=('Arial', 20),
                                    fill="#FFFFFF", anchor="w",
