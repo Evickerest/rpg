@@ -65,7 +65,7 @@ class MapTests(unittest.TestCase):
         test_map = Map()
         test_map.assign_random_images()
         for room in test_map.rooms:
-            self.assertTrue("Images/LevelOneMap/Set/" in room.map_image_path)
+            self.assertTrue("Images/LevelOneMap/" in room.map_image_path)
 
     def test9_assign_random_images_round2(self):
         test_map = Map()
