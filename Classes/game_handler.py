@@ -3,6 +3,7 @@
 import math
 import time
 import random
+import datetime
 from Classes.GUI.chest_gui import ChestGUI
 from Classes.GUI.fight_gui import FightGUI
 from Classes.GUI.main_gui import MainGUI
@@ -34,10 +35,18 @@ class GameHandler:
         self.save_manager = SaveManager()
         MainGUI(self.player, self)
 
+    
+
     def start_from_save(self, save):
         GameHandler.counter = save["Round_Number"]
+
+        self.total_rooms_entered = save["sessions_stats"]["rooms_entered"]
+        self.total_enemies_killed = save["sessions_stats"]["enemies_killed"]
+
+
         self.player = save["Player"]
         self.map = save["Map"]
+
         self.gui.create_main_gui()
 
     def start_new_game(self):
@@ -165,7 +174,12 @@ class GameHandler:
             {
                 "Round_Number": self.counter,
                 "Map": self.map,
-                "Player": self.player
+                "Player": self.player,
+                "sessions_stats": {
+                    "timestamp": datetime.datetime.now(),
+                    "enemies_killed": self.total_enemies_killed,
+                    "rooms_entered": self.total_rooms_entered
+                }
             }
         )
 
@@ -182,3 +196,6 @@ class GameHandler:
         """Clears previous save data.
         """
         self.save_manager.clear_save_file()
+
+    def is_save_empty(self):
+        return self.save_manager.is_save_empty()

@@ -40,5 +40,15 @@ class SaveManager:
     def clear_save_file(self):
         """Clears bytes in file and replaces it with "".
         """
-        with open(self.file_name, "wb") as file:
-            dump("", file)
+        open(self.file_name, "w").close()
+
+    def is_save_empty(self):
+        """Returns boolean value based on state of save.
+        """
+        with open(self.file_name, "rb") as file:
+            t = file.read(1)
+            if t:
+                return False
+            else:
+                return True
+
