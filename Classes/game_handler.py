@@ -2,6 +2,7 @@
 """
 import math
 import time
+import random
 from Classes.GUI.chest_gui import ChestGUI
 from Classes.GUI.fight_gui import FightGUI
 from Classes.GUI.main_gui import MainGUI
@@ -9,6 +10,7 @@ from Classes.GUI.shop_gui import ShopGUI
 from Classes.character import Player
 from Classes.Map.map import Map
 from Classes.save_manager import SaveManager
+
 
 
 class GameHandler:
@@ -22,7 +24,7 @@ class GameHandler:
         self.player = Player("Default", {"Strength": 5, "Dexterity": 5,
                                          "Vitality": 5, "Intelligence": 5,
                                          "Level": 1, "XP": 0, "Stat Points": 5,
-                                         "Credits": 0})
+                                         "Credits": 1000})
         self.map = Map()
         self.initial_time = time.time()
         self.total_enemies_killed = 0
@@ -35,6 +37,7 @@ class GameHandler:
       
 
     def start_from_save(self, save):
+        GameHandler.counter = save["Round_Number"]
         self.player = save["Player"]
         self.map = save["Map"]
         self.gui.create_main_gui()
@@ -65,6 +68,8 @@ class GameHandler:
 
         GameHandler.counter += 1
         self.round = GameHandler.counter  # Variable to increase each level.
+        if GameHandler.counter > 3:
+            GameHandler.counter = random.randint(1, 3)
 
         self.map = Map()
         self.gui.create_main_gui()

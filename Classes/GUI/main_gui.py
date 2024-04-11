@@ -26,6 +26,7 @@ class MainGUI(tk.Tk):
         super().__init__()
         self.title("Spaceship Game")
         self.geometry('1300x900')  # Window size is provided by user.
+        self.resizable(False,False)
         self.minsize(800, 500)  # Minimum size of the window, can be maximized.
         self.iconbitmap('Images/LevelOne/SpaceShip.ico')
         self.width = self.winfo_width()
@@ -64,7 +65,6 @@ class MainGUI(tk.Tk):
 
         Button(self, "New Game", self.create_intro_screen1, self.screen_width/2, 500, font=("Arial", 20))
         Button(self, "Load Game", self.load_game, self.screen_width/2, 600, font=("Arial", 20))
-        #Button(self, "Save Game", self.save_game, self.screen_width/2, 700, font=("Arial", 20))
 
     def load_game(self):
         self.game_handler.load_game()
@@ -153,40 +153,48 @@ class MainGUI(tk.Tk):
 
         self.clearGUI('Images/LevelOne/HallWay.png')
 
+        menu_image = Image.open('Images/LevelOne/info_bg.png').resize((350, 210))
+        self.menu_bg = ImageTk.PhotoImage(menu_image)
+
+        self.image_border = Image.open('Images/Items/Button_image.png').resize((650, 270))
+        self.border = ImageTk.PhotoImage(self.image_border)
+
         if self.lvl_counter == 1:
 
-            self.original_image = Image.open('Images/LevelOneMap/Set/Main.jpg').resize((300, 400))
+            self.original_image = Image.open('Images/LevelOneMap/Main.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((300, 200))
-            self.menu_bg = ImageTk.PhotoImage(menu_image)
-
+        
         elif self.lvl_counter == 2:
-            self.original_image = Image.open('Images/LevelTwoMap/Level2.jpg').resize((300, 400))
+            self.original_image = Image.open('Images/LevelTwoMap/Level2.jpg').resize((400, 500))
             self.bg = ImageTk.PhotoImage(self.original_image)
-            menu_image = Image.open('Images/LevelOne/info_bg.png').resize((300, 200))
-            self.menu_bg = ImageTk.PhotoImage(menu_image)
-
+      
+        
+        elif self.lvl_counter == 3:
+            self.original_image = Image.open('Images/Level3/LevelThreeMap/Level_3.jpg').resize((400, 500))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+        
         # Create Canvas and Images
         self.bg_canvas.create_image(self.screen_width - 1280, self.screen_width - 1280, image=self.bg, anchor='nw')
-        self.bg_canvas.create_image(self.screen_width - 1280, self.screen_height / 2, image=self.menu_bg, anchor='nw')
-        self.createText(f"{self.name}'s Stats", 70, 485, font=("Arial", 20), color="white", anchor="w")
+        self.bg_canvas.create_image(self.screen_width - 1400, self.screen_height -360, image=self.border, anchor='nw')
+        self.bg_canvas.create_image(self.screen_width - 1250, self.screen_height -330 , image=self.menu_bg, anchor='nw')
+        self.createText(f"{self.name}'s Stats", 120, 580, font=("Arial", 20), color="white", anchor="w")
 
         Button(self,"Character\nDetails", self.open_character_gui, 
-            self.screen_width - 1250, self.screen_height - 385, anchor="nw",width=50,color="#faa19b",hcolor="#f06b62")
+            self.screen_width - 1210, self.screen_height - 275, anchor="nw",width=50,color="#faa19b",hcolor="#f06b62")
         Button(self,"Inventory\nDetails", self.open_inventory_gui, 
-            self.screen_width - 1110, self.screen_height - 385, anchor="nw", width = 50,color="#faa19b",hcolor="#f06b62")
-        Button(self,"Exit", self.destroy, 10, self.screen_height - 150, anchor="w", font=("Calibri", 20))
+            self.screen_width - 1060, self.screen_height - 275, anchor="nw", width = 50,color="#faa19b",hcolor="#f06b62")
+        Button(self,"Exit", self.destroy, 20, self.screen_height - 50, anchor="w", font=("Calibri", 20))
 
 
 
         self.createText("\nYou are ready to start cleaning up"
                         " the wreckage. Which wreckage should you"
                         " visit first? Choose a location on the map.\n",
-            450, 350, font=("Times New Roman", 15), color="white", anchor="w", tags="game_text", width=500)
+            450, 350, font=("Times New Roman", 17), color="white", anchor="w", tags="game_text", width=500)
         self.createText("Choose Next Location", 1010, 400, font=("Arial", 20), color="white", anchor="w")
 
-        Button(self, "Load Game", self.load_game, self.screen_width/2, 600, font=("Arial", 20))
-        Button(self, "Save Game", self.save_game, self.screen_width/2, 700, font=("Arial", 20))
+        Button(self, "Load Game", self.load_game, self.screen_width - 180, 80, font=("Arial", 20))
+        Button(self, "Save Game", self.save_game, self.screen_width - 180, 130, font=("Arial", 20))
 
         self.display_buttons()
 
@@ -203,11 +211,15 @@ class MainGUI(tk.Tk):
     def display_buttons(self):
         """Display available rooms to interact with.
         """
-        self.button_frame = tk.Frame(self.bg_canvas, bg='#0865A0',
+        self.button_frame = tk.Frame(self.bg_canvas, bg='#023552',
                                      borderwidth=3, highlightcolor="white",
                                      highlightthickness=4)
         self.button_frame.place(relwidth=0.20, relheight=0.4,
                                 relx=0.78, rely=0.5)
+        
+        self.button_image = Image.open('Images/Items/Button_image.png').resize((500, 450))
+        self.button_background = ImageTk.PhotoImage(self.button_image)
+        self.bg_canvas.create_image(890, 400, image=self.button_background, anchor='nw')
 
         for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
             test = lambda room: lambda: self.handle_button_input(room)
@@ -236,8 +248,8 @@ class MainGUI(tk.Tk):
         Args:
             room (Room): The Room instance with the associated image.
         """
-        self.original_image = Image.open(room.map_image_path).resize((300,
-                                                                      400))
+        self.original_image = Image.open(room.map_image_path).resize((400,
+                                                                      500))
         self.bg = ImageTk.PhotoImage(self.original_image)
         self.bg_canvas.create_image(self.screen_width - 1280,
                                     self.screen_width - 1280, image=self.bg,

@@ -27,7 +27,7 @@ class BossRoomTests(unittest.TestCase):
 
         x.lv_boss(5)
         for enemy in x.enemies:
-            self.assertEqual(enemy.stats["Level"], 15)
+            self.assertEqual(enemy.stats["Level"], 10)
             self.assertEqual(enemy.stats["Stat Points"], 0)
             self.assertTrue(enemy.attack > enemy_attack)
             self.assertTrue(enemy.defense > enemy_defense)

@@ -40,7 +40,7 @@ class ShopGUI(tk.Toplevel):
         self.inventory_text = ""
         self.shop_text = ""
 
-        self.original_image = Image.open('Images/LevelOne/ShopStore.jpg').resize((self.width, self.height))
+        self.original_image = Image.open('Images/LevelOne/ShopStore2.jpg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
@@ -48,35 +48,86 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        Button(self, "Close", self.destroy, self.width - 100, 50,font=("Cambria Math",8,"bold"))
+        self.frame = Image.open('Images/Items/ShopFrame.jpg').resize((250, 400))
+        self.item_frame = ImageTk.PhotoImage(self.frame)
 
-        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 580,
-                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
+        self.WrkBoots = Image.open('Images/Items/Combat Boots.png').resize((70, 70))
+        self.combat_boots = ImageTk.PhotoImage(self.WrkBoots)
+
+        self.mace = Image.open('Images/Items/Mace.png').resize((70, 70))
+        self.combat_mace = ImageTk.PhotoImage(self.mace)
+
+        self.suit = Image.open('Images/Items/Combat Suit.png').resize((70, 70))
+        self.combat_suit = ImageTk.PhotoImage(self.suit)
+
+        self.helmet = Image.open('Images/Items/Helmet.png').resize((80, 80))
+        self.combat_helmet = ImageTk.PhotoImage(self.helmet)
+
+        self.globes = Image.open('Images/Items/Gloves.png').resize((70, 70))
+        self.combat_gloves = ImageTk.PhotoImage(self.globes)
+
+        self.knuckle = Image.open('Images/Items/Knuckle Dusters.png').resize((80, 80))
+        self.combat_knuckle = ImageTk.PhotoImage(self.knuckle)
+
+        #Icons identifying stats
+        self.attack_icon = Image.open('Images/Items/Attack.png').resize((35, 35))
+        self.att_stat_icon = ImageTk.PhotoImage(self.attack_icon)
+
+        self.def_icon = Image.open('Images/Items/defense.png').resize((35, 35))
+        self.deff_stat_icon = ImageTk.PhotoImage(self.def_icon)
+
+        self.med_image = Image.open('Images/Items/Medkit.png').resize((35, 35))
+        self.med_kit_image = ImageTk.PhotoImage(self.med_image)
+
+        self.credit_icon = Image.open('Images/Items/Coin2.png').resize((35, 35))
+        self.credit_stat_icon = ImageTk.PhotoImage(self.credit_icon)
+
+
+        self.bg_canvas.create_image(840, 320, image=self.item_frame, anchor='nw')
+        #self.bg_canvas.create_image(200, 320, image=self.item_frame, anchor='nw')        
+        
+        self.bg_canvas.create_image(880, 420, image=self.combat_boots, anchor='nw')        
+        self.bg_canvas.create_image(970, 420, image=self.combat_mace, anchor='nw')
+        self.bg_canvas.create_image(880, 500, image=self.combat_suit, anchor='nw')        
+        self.bg_canvas.create_image(970, 500, image=self.combat_helmet, anchor='nw')
+        self.bg_canvas.create_image(880, 580, image=self.combat_gloves, anchor='nw')        
+        self.bg_canvas.create_image(970, 580, image=self.combat_knuckle, anchor='nw')
+
+        self.bg_canvas.create_image(50, self.height - 440, image=self.att_stat_icon, anchor='nw')
+        self.bg_canvas.create_image(50, self.height - 390, image=self.deff_stat_icon, anchor='nw')
+        self.bg_canvas.create_image(50, self.height - 350, image=self.med_kit_image, anchor='nw')
+        self.bg_canvas.create_image(50, self.height - 310, image=self.credit_stat_icon, anchor='nw')
+       
+
+        Button(self, "Close", self.destroy, self.width - 150, 100,font=("Cambria Math",12,"bold"))
+
+        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 650,
+                                   font='Cambria_Math 14 bold', fill="#69FAE4", justify="left",
                                    text=self.player.name + "'s Equipment",
                                    tags="equipment_title")
-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580,
-                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
+        self.bg_canvas.create_text(self.width / 2, self.height - 650,
+                                   font='Cambria_Math 14 bold', fill="#69FAE4", justify="left",
                                    text=self.player.name + "'s Inventory",
                                    tags="inventory_title")
-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580,
-                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
+        self.bg_canvas.create_text(self.width / 2 + 260, self.height - 650,
+                                   font='Cambria_Math 14 bold', fill="#69FAE4", justify="left",
                                    text=self.shop.name + "'s Shop",
                                    tags="shop_title")
 
-        Button(self, "Unequip Entered Item\nFrom Equipment", self.remove_equipped_item, 50, 500,font=("Cambria Math",8,"bold"))
-        Button(self, "Equip Entered Item\nFrom Equipment", self.equip_item_inventory, 250, 500,font=("Cambria Math",8,"bold"))
-        Button(self, "Purchase Entered Item\nFrom Shop", self.buy_item_from_shop, 450, 500, font=("Cambria Math",8,"bold"))
-        Button(self, "Sell Entered Item", self.sell_item_inventory, 650, 500, font=("Cambria Math",8,"bold"))
-        Button(self, "Buy Medkit\nFor 3 Credits", self.buy_medkits, 850, 500, font=("Cambria Math",8,"bold"))
+        Button(self, "Unequip Entered Item\nFrom Equipment", self.remove_equipped_item, 20, 620,font=("Cambria Math",12,"bold"))
+        Button(self, "Equip Entered Item\nFrom Equipment", self.equip_item_inventory, 200, 620,font=("Cambria Math",12,"bold"))
+        Button(self, "Purchase Entered Item\nFrom Shop", self.buy_item_from_shop, 360, 620, font=("Cambria Math",12,"bold"))
+        Button(self, "Sell Entered Item", self.sell_item_inventory, 540, 620, font=("Cambria Math",12,"bold"))
+        Button(self, "Buy Medkit\nFor 3 Credits", self.buy_medkits, 700, 620, font=("Cambria Math",12,"bold"))
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
-                                        font='Cambria_Math 8 bold')
-        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 550,
+                                        font='Cambria_Math 10 bold')
+        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 190, 650,
                                                             anchor='sw',
                                                             window=self.item_entry_text,
                                                             tags="item_entry_text")
-        self.item_entry_box = tk.Entry(self, font='Cambria_Math 8 bold')
-        self.bg_canvas.create_window(self.width / 2 - 100, 580, anchor='sw',
+        self.item_entry_box = tk.Entry(self, font='Cambria_Math 12 bold')
+        self.bg_canvas.create_window(self.width / 2 - 190, 680, anchor='sw',
                                      window=self.item_entry_box,
                                      tags="item_entry")
 
@@ -89,8 +140,8 @@ class ShopGUI(tk.Toplevel):
         self.bg_canvas.delete("equipment")
         if self.player.equipment:
             self.bg_canvas.create_text(self.width / 2 - 300, self.height - 450,
-                                       font="Cambria_Math 13 bold",
-                                       fill="#FFFFFF", justify="left",
+                                       font="Cambria_Math 14 bold",
+                                       fill="#69FAE4", justify="left",
                                        text="\nHead Armor:\t"
                                        + str(self.player.equipment["Head"].stats["name"]) + ":\t+"
                                        + str(self.player.equipment["Head"].stats["defense"])
@@ -109,13 +160,13 @@ class ShopGUI(tk.Toplevel):
                                        + " Defense" + "\nWeapon:\t\t"
                                        + str(self.player.equipment["Weapon"].stats["name"]) + ":\t+"
                                        + str(self.player.equipment["Weapon"].stats["damage"])
-                                       + " Damage" + "\n\nTotal Attack:\t"
+                                       + " Damage" + "\n\n\tTotal Attack:\t"
                                        + str(self.player.get_attack()) +
-                                       "\nTotal Defense:\t"
+                                       "\n\n\tTotal Defense:\t"
                                        + str(self.player.get_defense())
-                                       + "\nMedkits:\t"
+                                       + "\n\n\tMedkits:\t"
                                        + str(self.player.med_kits)
-                                       + "\nCredits:\t"
+                                       + "\n\n\tCredits:\t"
                                        + str(self.player.stats["Credits"]),
                                        tags="equipment")
 
@@ -139,7 +190,7 @@ class ShopGUI(tk.Toplevel):
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
         self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450,
-                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
+                                   font='Cambria_Math 14 bold', fill="#69FAE4", justify="left",
                                    text=self.inventory_text, tags="inventory")
 
     def shop_grid(self):
@@ -162,7 +213,7 @@ class ShopGUI(tk.Toplevel):
         else:
             self.shop_text = "The Shop Is Empty"
         self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450,
-                                   font='Cambria_Math 13 bold', fill="#FFFFFF", justify="left",
+                                   font='Cambria_Math 14 bold', fill="#69FAE4", justify="left",
                                    text=self.shop_text, tags="shop")
 
     def update_shop_gui(self):

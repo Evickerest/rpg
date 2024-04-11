@@ -26,7 +26,7 @@ class FightGUI(tk.Toplevel):
         from Classes.game_handler import GameHandler
 
         self.title("Combat Screen")
-        self.geometry(f'{800}x{600}+400+50')
+        self.geometry(f'{800}x{800}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.
@@ -64,6 +64,7 @@ class FightGUI(tk.Toplevel):
             'Engine Room': '#95F21C', 'Pod Bay': '#54B851',
             'Life Pod 3': '#00FFFC', 'Bathroom': '#95F21C'
         }
+        
 
         if self.lvl_counter == 1:  
             self.text_color = self.rooms.get(self.room_name)
@@ -73,36 +74,71 @@ class FightGUI(tk.Toplevel):
             self.text_color = 'white'
             self.original_image = Image.open('Images/LevelTwo/' + self.room_name + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
+        
+        elif self.lvl_counter == 3:
+            self.text_color = 'white'
+            self.original_image = Image.open('Images/Level3/LevelThree/' + self.room_name + '.jpg').resize((self.width, self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+
+
+        #Stats images and image name box.
+        self.health_icon = Image.open('Images/Items/Health.png').resize((30, 30))
+        self.health_stat_icon = ImageTk.PhotoImage(self.health_icon)
+
+        self.attack_icon = Image.open('Images/Items/Attack.png').resize((30, 30))
+        self.att_stat_icon = ImageTk.PhotoImage(self.attack_icon)
+
+        self.def_icon = Image.open('Images/Items/defense.png').resize((30, 30))
+        self.deff_stat_icon = ImageTk.PhotoImage(self.def_icon)
+
+        self.med_image = Image.open('Images/Items/Medkit.png').resize((30, 30))
+        self.med_kit_image = ImageTk.PhotoImage(self.med_image)
+
+        self.name_b = Image.open('Images/Items/name_bar.png').resize((300, 80))
+        self.name_box = ImageTk.PhotoImage(self.name_b)
+
+        self.enemy_name_bx = self.name_box
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
                                    bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580,
-                                   font="Cambria_Math 14 bold",
+        self.bg_canvas.create_image(30, self.height - 800, image=self.name_box, anchor='nw')
+        self.bg_canvas.create_image(self.width / 2 + 80, self.height - 800, image=self.name_box, anchor='nw')
+
+
+        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 760,
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text=self.player.name + "'s Side",
                                    tags="equipment_title")
 
-        self.bg_canvas.create_text(self.width / 2 - 150, self.height - 580,
-                                   font="Cambria_Math 14 bold",
+        self.bg_canvas.create_text(self.width - 65, self.height - 25,
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Round: " + str(self.lvl_counter),
                                    tags="lvl")
 
         t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580,
-                                   font="Cambria_Math 14 bold",
+        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 760,
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text=t, tags="Enemies")
 
+        self.bg_canvas.create_image(50, self.height - 360, image=self.health_stat_icon, anchor='nw')
+        self.bg_canvas.create_image(50, self.height - 325, image=self.att_stat_icon, anchor='nw')
+        self.bg_canvas.create_image(50, self.height - 290, image=self.deff_stat_icon, anchor='nw')
+        self.bg_canvas.create_image(50, self.height - 260, image=self.med_kit_image, anchor='nw')
+
+
         # "Partial" binds a parameter to the function, another way to do this
         # without a lambda expression
-        Button(self, "Defend", partial(self.defend, self.player), 50, 550,
-               font=("Cambria Math", 9, "bold"), tags="defend_button")
-        Button(self, "Use Medkit", self.use_medkit, 200, 550,
-               font=("Cambria Math", 9, "bold"))
+        Button(self, "Defend", partial(self.defend, self.player), 50, 780,
+               font=("Cambria Math", 12, "bold"), tags="defend_button")
+        Button(self, "Use Medkit", self.use_medkit, 200, 780,
+               font=("Cambria Math", 12, "bold"))
 
         for enemy in self.enemies:
             self.set_enemy_actions(enemy)
@@ -115,25 +151,25 @@ class FightGUI(tk.Toplevel):
         """Creates and updates the player's side of the display.
         """
         self.bg_canvas.delete("health", "attack", "defense", "medkits")
-        self.bg_canvas.create_text(50, self.height - 330, anchor='sw',
-                                   font="Cambria_Math 14 bold",
+        self.bg_canvas.create_text(90, self.height - 330, anchor='sw',
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Health:\t"
                                    + str(self.player.stats["Health"]) + " / "
                                    + str(self.player.stats["Max Health"]),
                                    tags="health")
-        self.bg_canvas.create_text(50, self.height - 300, anchor='sw',
-                                   font="Cambria_Math 14 bold",
+        self.bg_canvas.create_text(90, self.height - 300, anchor='sw',
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Attack:\t" + str(self.player.attack),
                                    tags="ff0d1d")
-        self.bg_canvas.create_text(50, self.height - 270, anchor='sw',
-                                   font="Cambria_Math 14 bold",
+        self.bg_canvas.create_text(90, self.height - 270, anchor='sw',
+                                   font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Defense:\t" + str(self.player.defense),
                                    tags="defense")
-        self.bg_canvas.create_text(50, self.height - 240,
-                                   anchor='sw', font="Cambria_Math 14 bold",
+        self.bg_canvas.create_text(90, self.height - 240,
+                                   anchor='sw', font="Cambria_Math 15 bold",
                                    fill=self.text_color,
                                    justify="center", tags="medkits",
                                    text="Medkits: "
@@ -181,16 +217,16 @@ class FightGUI(tk.Toplevel):
                               "attack_button3", "attack_button4")
         if len(self.enemies) > 0:
             Button(self, "Attack #0", lambda: self.player_attack(self.enemies[0]),
-                   50, 450, font=("Cambria Math", 9), tags="attack_button1")
+                   50, 670, font=("Cambria Math", 12, "bold"), tags="attack_button1")
         if len(self.enemies) > 1:
             Button(self, "Attack #1", lambda: self.player_attack(self.enemies[1]),
-                   200, 450, font=("Cambria Math", 9), tags="attack_button2")
+                   200, 670, font=("Cambria Math", 12, "bold"), tags="attack_button2")
         if len(self.enemies) > 2:
             Button(self, "Attack #2", lambda: self.player_attack(self.enemies[2]),
-                   350, 450, font=("Cambria Math", 9), tags="attack_button3")
+                   350, 670, font=("Cambria Math", 12, "bold"), tags="attack_button3")
         if len(self.enemies) > 3:
             Button(self, "Attack #3", lambda: self.player_attack(self.enemies[0]),
-                   500, 450, font=("Cambria Math", 9), tags="attack_button4")
+                   500, 670, font=("Cambria Math", 12, "bold"), tags="attack_button4")
 
     def player_attack(self, enemy: Enemy):
         """Method governing how a Player attacks a specified target.
@@ -329,28 +365,28 @@ class FightGUI(tk.Toplevel):
         """
         self.bg_canvas.delete("player_txt1", "player_txt2", "enemy_txt1",
                               "enemy_txt2")
-        self.bg_canvas.create_text(50, 100, width=200,
-                                   font=('Cambria_Math', 11, 'bold'),
+        self.bg_canvas.create_text(50, 200, width=200,
+                                   font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"Last Turn (Turn {self.turn_counter})"
                                    f":\n{self.player_txt2}",
                                    tags="player_txt2")
-        self.bg_canvas.create_text(50, 200, width=200,
-                                   font=('Cambria_Math', 11, 'bold'),
+        self.bg_canvas.create_text(50, 300, width=200,
+                                   font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"This Turn (Turn "
                                    f"{self.turn_counter + 1})"
                                    f":\nWhat will you do?", tags="player_txt1")
-        self.bg_canvas.create_text(250, 100, width=300,
-                                   font=('Cambria_Math', 11, 'bold'),
+        self.bg_canvas.create_text(250, 200, width=300,
+                                   font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"Last Turn (Turn {self.turn_counter})"
                                    f":\n{self.enemy_txt1}", tags="enemy_txt1")
-        self.bg_canvas.create_text(250, 250, width=300,
-                                   font=('Cambria_Math', 11, 'bold'),
+        self.bg_canvas.create_text(250, 350, width=300,
+                                   font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"This Turn (Turn "
@@ -363,8 +399,8 @@ class FightGUI(tk.Toplevel):
         """Method to make an exit after the fight is won.
         """
         if not self.enemies:
-            Button(self, "Exit", self.endFight, int(self.width / 2 - 60), 380,
-                   font=("Cambria Math", 9, "bold"))
+            Button(self, "Exit", self.endFight, int(self.width / 2 - 60), 580,
+                   font=("Cambria Math", 12, "bold"))
             self.bg_canvas.delete("attack_button", "defend_button",
                                   "use_item_button", "enemy_entry",
                                   "enemy_entry_text")
@@ -382,4 +418,11 @@ class FightGUI(tk.Toplevel):
         if not self.enemies or not self.player.living:
             self.game_handler.exit_room(self.room)
             self.room.clear_room(True)
+            self.destroy()
+
+    def destroy(self):
+        """Overrides the standard destroy method. Prevents the fight window
+         from being destroyed until the fight ends.
+        """
+        if not self.enemies or not self.player.living:
             super().destroy()
