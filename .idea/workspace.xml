@@ -5,13 +5,257 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?">
-      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/rpg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rpg.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/boss_room_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/boss_room_tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/map_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/map_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/button.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/character_gui.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/chest_gui.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/inventory_gui.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/main_gui.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/shop_gui.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Map/edge.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Map/map.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Map/mapconstants.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/boss_room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/chest_room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/combat_room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/shop_room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Rooms/start_room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/character.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/game_handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/item.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/save_manager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/text_printer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/CharacterGui.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Project Report Template  (2) (4).docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Project Report Template  (2).docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Attack.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Bow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Button_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Circlet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Coin2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Combat Boots.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Combat Leggings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Combat Suit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Gloves.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Health.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Helmet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Jeans.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Knuckle Dusters.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Mace.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/Medkit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/ShopFrame.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/defense.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Items/name_bar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Armory.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Barracks.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Bridge.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Captains Cabin.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Cargo Bay.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Elevator.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Equipment Storage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Escape Pod.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Main Deck.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Medical Bay.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Power Generator.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Restrooms.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Shield Generator.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Starboard Engineering.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Teleporter.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Torpedo Room.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThree/Weapon Pod.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Armory.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Barracks.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Bridge.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Captains Cabin.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Cargo Bay.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Elevator.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Equipment Storage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Escape Pod.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Level_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Main Deck.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Medical Bay.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Original.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Power Generator.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Restrooms.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Shield Generator.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Starboard Engineering.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Teleporter.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Torpedo Room.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Level3/LevelThreeMap/Weapon Pod.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/BackgroundTwo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Barracks.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Bathroom.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Bridge.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Cabin 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Cabin 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Cabin 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Cafeteria.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Captains Cabin.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Docking Port.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Elevator 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Elevator 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Elevator 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Engine Room.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Example1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/GameOver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/GameWon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/HallWay.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Hangar.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Inventory2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Kitchen.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Life Pod 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Life Pod 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Life Pod 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Main Cabin.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/MainGameScreen.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Pod Bay.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/ShopStore.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/ShopStore2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Showers.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Spaceship.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Stats.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Storage Area.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/Weapons Bay.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/bg2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/info_bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/inventory.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOne/mainGameBG.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Barracks.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Bridge.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Cabin 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Cabin 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Cabin 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Cafeteria.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Captains Cabin.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Docking Port.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Elevator 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Elevator 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Elevator 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Engine Room.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Hangar.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Kitchen.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Life Pod 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Life Pod 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Main Cabin.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Main.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Original.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Showers.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Storage Area.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelOneMap/Weapons Bay.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/A-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/A-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Access Shaft 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Access Shaft 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Access Shaft.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Arms Room.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Bridge 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Bridge 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/C-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/C-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Command Module.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Computer.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Freezer.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Infirmary.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Lab.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Living Quarters.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Main Airlock.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Mess.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Power.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Shuttle Dock 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Shuttle Dock 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Storage 2.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Storage 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwo/Storage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/A-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/A-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Access Shaft 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Access Shaft 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Access Shaft.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Arms Room.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Bridge 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Bridge 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/C-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/C-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Command Module.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Computer.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Freezer.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Infirmary.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Lab.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Level2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Living Quarters.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Main Airlock.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Mess.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Power.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Shuttle Dock 1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Shuttle Dock 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Storage 2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Storage 3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/LevelTwoMap/Storage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/download.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/ButtonNames.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/ChestRoomNames.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/CombatRoomNames.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/ShopRoomNames.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/enemy_txt/monster_names" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/items_txt/item_attributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/items_txt/item_types" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names/room_txt/room_names" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saves/save.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/boss_room_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/character_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/chest_room_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/combat_room_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/edge_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/item_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/map_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/room_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/shop_room_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/start_room_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagram_UML.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/CharacterGui.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/ChestGUI.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/FightGUI.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/InventoryGui.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/MainGui.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/ShopGUI.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Map/edge.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Map/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Map/map.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Map/mapconstants.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/boss_room.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/chest_room.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/combat_room.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/room.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/shop_room.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/start_room.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/character.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/gamehandler.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/item.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/textprinter.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/boss_room_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/character_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/chest_room_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/combat_room_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/edge_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/item_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/map_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/room_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/shop_room_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/start_room_tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/rpg/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +266,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;231ving&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Evickerest/rpg.git&quot;,
+    &quot;accountId&quot;: &quot;a56bda9c-df1b-4cad-8369-bf7efd1b35ca&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -42,13 +298,15 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests for map_tests.MapTests.test6_connect_every_room_together.executor&quot;: &quot;Run&quot;,
     &quot;Python.Character.executor&quot;: &quot;Run&quot;,
     &quot;Python.Gui.executor&quot;: &quot;Run&quot;,
     &quot;Python.character.executor&quot;: &quot;Run&quot;,
     &quot;Python.dungeon.executor&quot;: &quot;Run&quot;,
     &quot;Python.fight_gui.executor&quot;: &quot;Run&quot;,
     &quot;Python.item.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Coverage&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_gui.executor&quot;: &quot;Run&quot;,
     &quot;Python.python.exe.executor&quot;: &quot;Run&quot;,
     &quot;Python.test.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -89,8 +347,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
-        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.14494.241" />
       </set>
     </attachedChunks>
   </component>

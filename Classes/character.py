@@ -126,7 +126,7 @@ class Player(Character):
         """Same idea as the parent Character class.
         """
         super().__init__(name, stats)
-        self.stats["Medkits"] = 5  
+        self.stats["Medkits"] = 5
 
         self.equipment = {}
         x = Item(random.choice(Item.ITEMS))
@@ -296,7 +296,8 @@ class Enemy(Character):
             attacker (Player): Player instance that is attacking.
         """
         item = attacker.equipment["Weapon"]
-        damage = item.get_damage_dealt(self) + attacker.get_attack() - self.get_defense() / 2
+        damage = (item.get_damage_dealt(self) + attacker.get_attack()
+                  - self.get_defense() / 2)
         damage = max(int(damage), 1)
         attacker_hit_chance = (random.randint(1, 100) + damage +
                                attacker.stats["Dexterity"]

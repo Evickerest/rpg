@@ -12,7 +12,6 @@ from Classes.Map.map import Map
 from Classes.save_manager import SaveManager
 
 
-
 class GameHandler:
     """Manages the various game events.
     """
@@ -32,9 +31,8 @@ class GameHandler:
         self.round = GameHandler.counter
 
         self.gui = None
-        self.save_manager = SaveManager()  
+        self.save_manager = SaveManager()
         MainGUI(self.player, self)
-      
 
     def start_from_save(self, save):
         GameHandler.counter = save["Round_Number"]
@@ -45,7 +43,6 @@ class GameHandler:
     def start_new_game(self):
         """Starts a new game.
         """
-
 
         old_name = self.player.name
         self.player = Player(old_name, {"Strength": 5, "Dexterity": 5,
@@ -162,6 +159,8 @@ class GameHandler:
                                            self.total_rooms_entered)
 
     def save_game(self):
+        """Saves current game data to a save file.
+        """
         self.save_manager.write_to_save_file(
             {
                 "Round_Number": self.counter,
@@ -171,6 +170,8 @@ class GameHandler:
         )
 
     def load_game(self):
+        """Loads save file data from an existing save file.
+        """
         content = self.save_manager.get_save()
         print(content)
 
@@ -178,4 +179,6 @@ class GameHandler:
         self.start_from_save(content)
 
     def clear_save_file(self):
+        """Clears previous save data.
+        """
         self.save_manager.clear_save_file()

@@ -541,4 +541,3 @@ class EnemyTests(unittest.TestCase):
         enemy.set_actions("dodge")
         self.assertTrue(len(enemy.actions) > enemy_actions)
         self.assertTrue("dodge" in enemy.actions)
-

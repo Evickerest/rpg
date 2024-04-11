@@ -45,27 +45,34 @@ class InventoryGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        Button(self, "Close", self.destroy, self.width-150, 580, font=("Times New Roman", 15))
-    
+        Button(self, "Close", self.destroy, self.width - 150, 580, font=("Times New Roman", 15))
+
         self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580,
-                                   font="Cambria_Math 12 bold", fill="#FFFFFF", justify="center",
+                                   font="Cambria_Math 12 bold", fill="#FFFFFF",
+                                   justify="center",
                                    text=self.player.name + "'s Equipment",
                                    tags="equipment_title")
         self.bg_canvas.create_text(self.width / 2 + 200, self.height - 580,
-                                   font="Cambria_Math 12 bold", fill="#FFFFFF", justify="center",
+                                   font="Cambria_Math 12 bold", fill="#FFFFFF",
+                                   justify="center",
                                    text=self.player.name + "'s Inventory",
                                    tags="inventory_title")
-        
-        Button(self, "Unequip Entered Item\nFrom Equipment", self.remove_equipped_item, 150, 400, font=("Times New Roman", 15))
-        Button(self, "Equip Entered Item\nFrom Inventory", self.equip_item_inventory, 350, 400, font=("Times New Roman", 15))
-        Button(self, "Drop Entered Item\nFrom Inventory", self.drop_item_inventory, 550, 400, font=("Times New Roman", 15))
+
+        Button(self, "Unequip Entered Item\nFrom Equipment",
+               self.remove_equipped_item, 150, 400,
+               font=("Times New Roman", 15))
+        Button(self, "Equip Entered Item\nFrom Inventory",
+               self.equip_item_inventory, 350, 400,
+               font=("Times New Roman", 15))
+        Button(self, "Drop Entered Item\nFrom Inventory",
+               self.drop_item_inventory, 550, 400,
+               font=("Times New Roman", 15))
 
         self.item_entry_text = tk.Label(self, text='Enter Item Below To Start',
-                                        font=('Time_New_Roman 10'))
+                                        font='Time_New_Roman 10')
         self.item_entry_text_window = self.bg_canvas.create_window(150, 450,
                                                                    anchor='sw',
-                                                                   window=self.item_entry_text,
-                                                                   tags="item_entry_text")
+                                                                   window=self.item_entry_text, tags="item_entry_text")
         self.item_entry_box = tk.Entry(self, font='Time_New_Roman 12')
         self.bg_canvas.create_window(150, 480, anchor='sw',
                                      window=self.item_entry_box,
@@ -127,8 +134,9 @@ class InventoryGUI(tk.Toplevel):
         else:
             self.inventory_text = "Your Inventory\nIs Empty"
         self.bg_canvas.create_text(self.width / 2 + 200, self.height - 450,
-                                   font="Cambria_Math 12 bold", fill="#FFFFFF", justify="center",
-                                   text=self.inventory_text, tags="inventory")
+                                   font="Cambria_Math 12 bold", fill="#FFFFFF",
+                                   justify="center", text=self.inventory_text,
+                                   tags="inventory")
 
     def update_inventory_gui(self):
         """Method to update the entire display.

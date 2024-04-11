@@ -51,7 +51,7 @@ class FightGUI(tk.Toplevel):
         self.enemy_txt2 = ""
         self.lvl_counter = GameHandler.counter
 
-        self.rooms = { 
+        self.rooms = {
             'Weapons Bay': '#95F21C', 'Main Cabin': '#95F21C',
             'Elevator 1': '#D18A00', 'Storage Area': '#95F21C',
             'Kitchen': '#D18A00', 'Barracks': '#D18A00',
@@ -64,9 +64,8 @@ class FightGUI(tk.Toplevel):
             'Engine Room': '#95F21C', 'Pod Bay': '#54B851',
             'Life Pod 3': '#00FFFC', 'Bathroom': '#95F21C'
         }
-        
 
-        if self.lvl_counter == 1:  
+        if self.lvl_counter == 1:
             self.text_color = self.rooms.get(self.room_name)
             self.original_image = Image.open('Images/LevelOne/' + self.room_name + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
@@ -74,15 +73,13 @@ class FightGUI(tk.Toplevel):
             self.text_color = 'white'
             self.original_image = Image.open('Images/LevelTwo/' + self.room_name + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
-        
+
         elif self.lvl_counter == 3:
             self.text_color = 'white'
             self.original_image = Image.open('Images/Level3/LevelThree/' + self.room_name + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
 
-
-
-        #Stats images and image name box.
+        # Stats images and image name box.
         self.health_icon = Image.open('Images/Items/Health.png').resize((30, 30))
         self.health_stat_icon = ImageTk.PhotoImage(self.health_icon)
 
@@ -108,7 +105,6 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_image(30, self.height - 800, image=self.name_box, anchor='nw')
         self.bg_canvas.create_image(self.width / 2 + 80, self.height - 800, image=self.name_box, anchor='nw')
 
-
         self.bg_canvas.create_text(self.width / 2 - 250, self.height - 760,
                                    font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
@@ -131,7 +127,6 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_image(50, self.height - 325, image=self.att_stat_icon, anchor='nw')
         self.bg_canvas.create_image(50, self.height - 290, image=self.deff_stat_icon, anchor='nw')
         self.bg_canvas.create_image(50, self.height - 260, image=self.med_kit_image, anchor='nw')
-
 
         # "Partial" binds a parameter to the function, another way to do this
         # without a lambda expression
@@ -332,6 +327,10 @@ class FightGUI(tk.Toplevel):
                                 f" did nothing.\n")
 
     def set_enemy_actions(self, enemy: Enemy):
+        """Randomly sets the enemy's actions.
+        Args:
+            enemy (Enemy): The enemy instance to set their action.
+        """
         enemy.randomize_action()
         enemy_predict_resist = (random.randint(1, 100) +
                                 enemy.stats["Intelligence"] +
