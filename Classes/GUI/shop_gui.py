@@ -24,7 +24,7 @@ class ShopGUI(tk.Toplevel):
 
         super().__init__()
         self.title("Shop Inventory")
-        self.geometry(f'{1100}x{700}+580+290')
+        self.geometry(f'{1100}x{700}+150+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.

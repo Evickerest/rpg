@@ -95,10 +95,14 @@ class MainGUI(tk.Tk):
         self.createText("Space Adventure RPG", self.screen_width//2, 200,
                         font=("Arial", 80), color="white")
 
-        Button(self, "New Game", self.create_intro_screen1, self.screen_width//2 - 100, 500, font=("Arial", 40), hcolor="#ff6700",width=250)
+        Button(self, "New Game", self.create_intro_screen1,
+               self.screen_width//2 - 100, 500, font=("Arial", 40),
+               hcolor="#ff6700", width=250)
 
-        if( not self.game_handler.is_save_empty()):
-            Button(self, "Load Game", self.load_game, self.screen_width//2 - 100, 600, font=("Arial", 40), hcolor="#FF00FF", width=250, tags="load")
+        if not self.game_handler.is_save_empty():
+            Button(self, "Load Game", self.load_game,
+                   self.screen_width//2 - 100, 600, font=("Arial", 40),
+                   hcolor="#FF00FF", width=250, tags="load")
 
     def load_game(self):
         """Loads the game from the save file.
@@ -115,7 +119,6 @@ class MainGUI(tk.Tk):
 
         # Delete save file
         self.game_handler.clear_save_file()
-
 
         self.game_handler.clear_save_file()
         self.clearGUI('Images/LevelOne/bg2.jpeg')
@@ -145,13 +148,13 @@ class MainGUI(tk.Tk):
             "You are a new  Space Janitor sent to"
             " salvage the numerous asteroids and ship"
             " wrecks that pollute space."
-            f"\n\n Welcome, {self.name} to being a"
-            f" Space Janitor. \nRise to the top.",
-            self.width//2, self.height-600, font=("Times New Romans", 20),
+            f"\n\nWelcome, {self.name} to being a"
+            f" Space Janitor.\nRise to the top.",
+            self.width//2, self.height-700, font=("Times New Romans", 20),
             color="white", shadow=True
         )
         Button(self, "Click Here to Continue", self.create_intro_screen3,
-               self.width//2, self.height-100, anchor="center")
+               self.width//2, self.height-300, anchor="center")
 
     def printPlayerStats(self):
         """Prints player stats.
@@ -165,7 +168,7 @@ class MainGUI(tk.Tk):
                                     "Vitality", "Intelligence"]]) +
             f"\n\nFree Points: {self.player.stats['Stat Points']}\n\n"
             f"Min: 3, Max: 12",
-            self.width//2 - 100, self.height - 500,
+            self.width//2, self.height - 600,
             font=("Time New Romans", 22), color="white", justify="center",
             tags="stats"
         )
@@ -193,19 +196,19 @@ class MainGUI(tk.Tk):
          screen text."""
         self.clearGUI('Images/LevelOne/bg.jpg')
         Button(self, "Start Game", self.create_main_gui, self.width//2,
-               self.height-100, anchor="center")
+               self.height-300, anchor="center")
         self.printPlayerStats()
 
         for i, stat in enumerate(["Strength", "Dexterity",
                                   "Vitality", "Intelligence"]):
             cmd = lambda s, n: lambda: self.update_init_stats(s, n)
 
-            Button(self, "-", cmd(stat, -1), self.width//2 - 30,
-                   self.height - 600 + 70 * i,
+            Button(self, "-", cmd(stat, -1), self.width//2 + 70,
+                   self.height - 700 + 70 * i,
                    width=1, height=1, font=("Time New Romans", 20),
                    anchor="center", padding=5)
-            Button(self, "+", cmd(stat, 1), self.width//2,
-                   self.height - 600 + 70 * i,
+            Button(self, "+", cmd(stat, 1), self.width//2 + 100,
+                   self.height - 700 + 70 * i,
                    width=1, height=1, font=("Time New Romans", 20),
                    anchor="center", padding=5)
 
@@ -568,7 +571,6 @@ class MainGUI(tk.Tk):
                anchor="w", width=8, height=3, font=("Calibri", 20))
         
     def destroy(self):
-        if( self.is_game_started and self.player.living ):
+        if self.is_game_started and self.player.living:
             self.game_handler.save_game()
         super().destroy()
-

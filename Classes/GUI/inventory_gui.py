@@ -23,7 +23,7 @@ class InventoryGUI(tk.Toplevel):
 
         super().__init__()
         self.title("Character Inventory")
-        self.geometry(f'{1000}x{600}+400+50')
+        self.geometry(f'{1000}x{600}+150+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.
