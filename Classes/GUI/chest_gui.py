@@ -37,17 +37,22 @@ class ChestGUI(tk.Toplevel):
         self.original_image = Image.open('Images/LevelOne/bg2.jpeg').resize((self.width, self.height))
         self.bg = ImageTk.PhotoImage(self.original_image)
 
+        self.chest = Image.open('Images/Items/chest_image.png').resize((200, 200))
+        self.item_chest = ImageTk.PhotoImage(self.chest)
+        
+
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
                                    bg="#043F5B")
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+        self.bg_canvas.create_image(35, 95, image=self.item_chest, anchor='nw')
 
         if self.room.item:
             Button(self, f"Take {self.room.item.stats['name']}",
-                   self.loot_chest, 100, 200,
+                   self.loot_chest, 75, 100,
                    font=("Times New Roman", 12, "bold"), tags="loot_button")
             Button(self, f"Scrap It For {self.room.item.stats['value']}"
-                         f" Credits", self.scrap_chest, 100, 300,
+                         f" Credits", self.scrap_chest, 75, 350,
                    font=("Cambria Math",12,"bold"), tags="scrap_button")
 
     def loot_chest(self):

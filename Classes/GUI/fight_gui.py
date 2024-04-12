@@ -26,7 +26,7 @@ class FightGUI(tk.Toplevel):
         from Classes.game_handler import GameHandler
 
         self.title("Combat Screen")
-        self.geometry(f'{800}x{800}+400+50')
+        self.geometry(f'{1000}x{800}+580+290')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.
@@ -52,31 +52,32 @@ class FightGUI(tk.Toplevel):
         self.lvl_counter = GameHandler.counter
 
         self.rooms = {
-            'Weapons Bay': '#95F21C', 'Main Cabin': '#95F21C',
-            'Elevator 1': '#D18A00', 'Storage Area': '#95F21C',
-            'Kitchen': '#D18A00', 'Barracks': '#D18A00',
-            'Cafeteria': '#54B851', 'Life Pod 1': '#95F21C',
-            'Cabin 2': '#54B851', 'Showers': '#95F21C', 'Cabin 1': '#BE0000',
-            'Docking Port': '#95F21C', 'Bridge': '#95F21C',
-            'Elevator 3': '#95F21C', 'Elevator 2': '#D18A00',
-            'Cabin 3': '#95F21C', 'Captains Cabin': '#D18A00',
-            'Hangar': '#FFF000', 'Life Pod 2': '#95F21C',
-            'Engine Room': '#95F21C', 'Pod Bay': '#54B851',
+            'Weapons Bay': '#95F21C', 'Main Cabin': '#95F21C', 'Elevator 1': '#D18A00',
+            'Storage Area': '#95F21C', 'Kitchen': '#D18A00', 'Barracks': '#D18A00', 
+            'Cafeteria': '#54B851', 'Life Pod 1': '#95F21C', 'Cabin 2': '#54B851',
+            'Showers': '#95F21C', 'Cabin 1': '#BE0000', 'Docking Port': '#95F21C', 
+            'Bridge': '#95F21C', 'Elevator 3': '#95F21C', 'Elevator 2': '#D18A00',
+            'Cabin 3': '#95F21C', 'Captains Cabin': '#D18A00', 'Hangar': '#FFF000', 
+            'Life Pod 2': '#95F21C', 'Engine Room': '#95F21C', 'Pod Bay': '#54B851',
             'Life Pod 3': '#00FFFC', 'Bathroom': '#95F21C'
         }
+        self.simple_colors = ['#FAFF00', '#FDD800', '#ACFF42', '#FFFFFF']
 
         if self.lvl_counter == 1:
             self.text_color = self.rooms.get(self.room_name)
-            self.original_image = Image.open('Images/LevelOne/' + self.room_name + '.jpg').resize((self.width, self.height))
+            self.original_image = Image.open('Images/LevelOne/' + self.room_name
+                                             + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
         elif self.lvl_counter == 2:
-            self.text_color = 'white'
-            self.original_image = Image.open('Images/LevelTwo/' + self.room_name + '.jpg').resize((self.width, self.height))
+            self.text_color = random.choice(self.simple_colors)
+            self.original_image = Image.open('Images/LevelTwo/' + self.room_name
+                                             + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
 
         elif self.lvl_counter == 3:
-            self.text_color = 'white'
-            self.original_image = Image.open('Images/Level3/LevelThree/' + self.room_name + '.jpg').resize((self.width, self.height))
+            self.text_color = random.choice(self.simple_colors)
+            self.original_image = Image.open('Images/Level3/LevelThree/' + self.room_name
+                                             + '.jpg').resize((self.width, self.height))
             self.bg = ImageTk.PhotoImage(self.original_image)
 
         # Stats images and image name box.
@@ -103,9 +104,9 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
         self.bg_canvas.create_image(30, self.height - 800, image=self.name_box, anchor='nw')
-        self.bg_canvas.create_image(self.width / 2 + 80, self.height - 800, image=self.name_box, anchor='nw')
+        self.bg_canvas.create_image(self.width / 2 + 170, self.height - 800, image=self.name_box, anchor='nw')
 
-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 760,
+        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 760,
                                    font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text=self.player.name + "'s Side",
@@ -118,7 +119,7 @@ class FightGUI(tk.Toplevel):
                                    tags="lvl")
 
         t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
-        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 760,
+        self.bg_canvas.create_text(self.width / 2 + 300, self.height - 760,
                                    font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text=t, tags="Enemies")
@@ -196,11 +197,11 @@ class FightGUI(tk.Toplevel):
                                      + " | Health: "
                                      + str(enemy.stats["Health"]) + "\n  "
                                      + str(enemy.get_attack()) + " Damage | "
-                                     + str(enemy.get_defense()) + " Defense")
+                                     + str(enemy.get_defense()) + " Defense\n\n")
                 self.count += 1
         else:
             self.enemies_txt = "No Enemies Remain"
-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 430,
+        self.bg_canvas.create_text(self.width / 2 + 370, self.height - 500,
                                    font="Cambria_Math 12 bold",
                                    fill=self.text_color, justify="center",
                                    text=self.enemies_txt, tags="enemies")
@@ -378,13 +379,13 @@ class FightGUI(tk.Toplevel):
                                    text=f"This Turn (Turn "
                                    f"{self.turn_counter + 1})"
                                    f":\nWhat will you do?", tags="player_txt1")
-        self.bg_canvas.create_text(250, 200, width=300,
+        self.bg_canvas.create_text(self.width / 3, 200, width=300,
                                    font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
                                    text=f"Last Turn (Turn {self.turn_counter})"
                                    f":\n{self.enemy_txt1}", tags="enemy_txt1")
-        self.bg_canvas.create_text(250, 350, width=300,
+        self.bg_canvas.create_text(self.width / 3, 350, width=300,
                                    font=('Cambria_Math', 13, 'bold'),
                                    fill=self.text_color,
                                    justify="left", anchor="w",
@@ -398,7 +399,7 @@ class FightGUI(tk.Toplevel):
         """Method to make an exit after the fight is won.
         """
         if not self.enemies:
-            Button(self, "Exit", self.endFight, int(self.width / 2 - 60), 580,
+            Button(self, "Exit", self.end_fight, int(self.width / 2 - 60), 580,
                    font=("Cambria Math", 12, "bold"))
             self.bg_canvas.delete("attack_button", "defend_button",
                                   "use_item_button", "enemy_entry",
@@ -411,8 +412,8 @@ class FightGUI(tk.Toplevel):
         super().destroy()
         self.game_handler.end_game(False)
 
-    def endFight(self):
-        """Method handling when the instance can he exited and what happens.
+    def end_fight(self):
+        """Method handling when the instance can be exited and what happens.
         """
         if not self.enemies or not self.player.living:
             self.game_handler.exit_room(self.room)

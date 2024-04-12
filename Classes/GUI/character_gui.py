@@ -23,7 +23,7 @@ class CharacterGUI(tk.Toplevel):
 
         super().__init__()
         self.title("Character Screen")
-        self.geometry(f'{300}x{500}+400+50')
+        self.geometry(f'{400}x{600}+400+50')
         self.width = self.winfo_width()
         self.height = self.winfo_height()
         self.minsize(self.width, self.height)  # Min size, can be maximized.
@@ -44,7 +44,7 @@ class CharacterGUI(tk.Toplevel):
         self.bg_canvas.pack(fill='both', expand=True)
         self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
 
-        Button(self, "Close", self.destroy, int(self.width / 2 + 40), 475,
+        Button(self, "Close", self.destroy, int(self.width / 2 + 40), self.height - 30,
                font=("Cambria", 20, "bold"))
 
         self.update_character_gui()
@@ -98,7 +98,7 @@ class CharacterGUI(tk.Toplevel):
             f"\nLevel: {self.player.stats['Level']}" +
             f"\nXP: {self.player.stats['XP']}/"
             f"{self.player.stats['Level'] * 10}",
-            font=("Cambria", 20, "bold"), fill="#FFFFFF", justify="center",
+            font=("Cambria", 18, "bold"), fill="#FFFFFF", justify="center",
             tags="stats"
         )
 
@@ -114,8 +114,8 @@ class CharacterGUI(tk.Toplevel):
 
         if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
             Button(self, "LV Up", lambda: self.level_up(),
-                   self.width // 2 + 60, self.height - 360 + 300,
-                   width=1, height=1, font=("Time New Romans", 20),
+                   self.width // 2 + 140, self.height - 360 + 250,
+                   width=1, height=1, font=("Cambria", 20, "bold"),
                    anchor="center", tags="level_up")
 
     def destroy(self):

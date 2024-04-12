@@ -241,7 +241,7 @@ class MainGUI(tk.Tk):
         self.bg_canvas.create_image(self.screen_width - 1250,
                                     self.screen_height - 330,
                                     image=self.menu_bg, anchor='nw')
-        self.createText(f"{self.name}'s Stats", 120, 580, font=("Arial", 20),
+        self.createText(f"{self.name}'s Stats", 120, 590, font=("Time_New_Roman", 20, "bold"),
                         color="white", anchor="w")
 
         Button(self, "Character\nDetails", self.open_character_gui,
@@ -258,7 +258,7 @@ class MainGUI(tk.Tk):
                         " visit first? Choose a location on the map.\n",
                         450, 350, font=("Times New Roman", 17), color="white",
                         anchor="w", tags="game_text", width=500)
-        self.createText("Choose Next Location", 1010, 400, font=("Arial", 20),
+        self.createText("Choose Next Location", 1010, 400, font=("Time_New_Roman", 20),
                         color="white", anchor="w")
 
         Button(self, "Load Game", self.load_game, self.screen_width - 180, 80,
@@ -285,11 +285,11 @@ class MainGUI(tk.Tk):
                                      borderwidth=3, highlightcolor="white",
                                      highlightthickness=4)
         self.button_frame.place(relwidth=0.20, relheight=0.4,
-                                relx=0.78, rely=0.5)
+                                relx=0.77, rely=0.5)
 
         self.button_image = Image.open('Images/Items/Button_image.png').resize((500, 450))
         self.button_background = ImageTk.PhotoImage(self.button_image)
-        self.bg_canvas.create_image(890, 400, image=self.button_background,
+        self.bg_canvas.create_image(self.width - 420, self.height - 495, image=self.button_background,
                                     anchor='nw')
 
         for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
