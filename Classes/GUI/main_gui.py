@@ -39,6 +39,7 @@ class MainGUI(tk.Tk):
         self.ready = True
         self.bg = None
         self.bg_canvas = None
+        self.is_game_started = False
 
         # self.create_intro_screen1()
         self.create_main_screen()
@@ -91,11 +92,13 @@ class MainGUI(tk.Tk):
         """
         self.clearGUI("Images/download.jpg")
 
-        self.createText("Game Title", self.screen_width//2, 200,
-                        font=("Arial", 40), color="white")
+        self.createText("Space Adventure RPG", self.screen_width//2, 200,
+                        font=("Arial", 80), color="white")
 
-        Button(self, "New Game", self.create_intro_screen1, self.screen_width//2, 500, font=("Arial", 20))
-        Button(self, "Load Game", self.load_game, self.screen_width//2, 600, font=("Arial", 20))
+        Button(self, "New Game", self.create_intro_screen1, self.screen_width//2 - 100, 500, font=("Arial", 40), hcolor="#ff6700",width=250)
+
+        if( not self.game_handler.is_save_empty()):
+            Button(self, "Load Game", self.load_game, self.screen_width//2 - 100, 600, font=("Arial", 40), hcolor="#FF00FF", width=250, tags="load")
 
     def load_game(self):
         """Loads the game from the save file.
@@ -109,6 +112,11 @@ class MainGUI(tk.Tk):
 
     def create_intro_screen1(self):
         """Creates the title screen."""
+
+        # Delete save file
+        self.game_handler.clear_save_file()
+
+
         self.game_handler.clear_save_file()
         self.clearGUI('Images/LevelOne/bg2.jpeg')
         self.createText("Are You Ready For a New Adventure?",
@@ -208,6 +216,7 @@ class MainGUI(tk.Tk):
         from Classes.game_handler import GameHandler
         # To import the Level counter from GameHandler
         self.lvl_counter = GameHandler.counter
+        self.is_game_started = True
 
         self.clearGUI('Images/LevelOne/HallWay.png')
 
@@ -261,10 +270,10 @@ class MainGUI(tk.Tk):
         self.createText("Choose Next Location", 1010, 400, font=("Time_New_Roman", 20),
                         color="white", anchor="w")
 
-        Button(self, "Load Game", self.load_game, self.screen_width - 180, 80,
-               font=("Arial", 20))
-        Button(self, "Save Game", self.save_game, self.screen_width - 180, 130,
-               font=("Arial", 20))
+        # Button(self, "Load Game", self.load_game, self.screen_width - 180, 80,
+        #        font=("Arial", 20))
+        # Button(self, "Save Game", self.save_game, self.screen_width - 180, 130,
+        #        font=("Arial", 20))
 
         self.display_buttons()
 
@@ -555,4 +564,11 @@ class MainGUI(tk.Tk):
                self.screen_height//2, anchor="nw", width=8, height=3,
                font=("Calibri", 20))
         Button(self, "Exit", self.destroy, 550, self.screen_height//2,
+
                anchor="w", width=8, height=3, font=("Calibri", 20))
+        
+    def destroy(self):
+        if( self.is_game_started and self.player.living ):
+            self.game_handler.save_game()
+        super().destroy()
+
