@@ -33,11 +33,11 @@
 import random
 import csv
 from Classes.Rooms.room import Room
-from Classes.character import Enemy, Player
+from Classes.character import Enemy
 
 
 class CombatRoom(Room):
-    &#34;&#34;&#34;Specialzed Room that contains the generic non-boss enemy encounters.
+    &#34;&#34;&#34;Specialized Room that contains the generic non-boss enemy encounters.
     Attributes:
         ENEMIES (list): Contains the names of all potential enemies
     &#34;&#34;&#34;
@@ -46,29 +46,25 @@ class CombatRoom(Room):
 
     @staticmethod
     def load_enemies() -&gt; None:
-        &#34;&#34;&#34;Static method to load the different types of items from a specified file.
+        &#34;&#34;&#34;Static method to load the different types of items from a specified
+         file.
         &#34;&#34;&#34;
         if not CombatRoom.ENEMIES:
-            with open(&#39;Names/enemy_txt/monster_names&#39;, &#39;r&#39;) as f:
+            with (open(&#39;Names/enemy_txt/monster_names&#39;, &#39;r&#39;, encoding=&#34;utf-8&#34;)
+                  as f):
                 reader = csv.reader(f)
                 for row in reader:
                     CombatRoom.ENEMIES.append(row)
 
-    def __init__(self, *args):
+    def __init__(self):
         &#34;&#34;&#34;Creates the CombatRoom instance.
-        Args:
-            *args: Currently nonfunctional. Meant to take an optional Player instance
-             and scale enemies in room to said Player&#39;s level.
         &#34;&#34;&#34;
         super().__init__()
         if not CombatRoom.ENEMIES:
             CombatRoom.load_enemies()
         self.player = None
-        if isinstance(args, Player):
-            self.player = args
-            self.mon_lv = self.player.stats[&#34;Level&#34;]
-        else:
-            self.mon_lv = 1
+
+        self.mon_lv = 1
         self.enemies = []
         self.generate_enemies()
         self.name = self.generate_name(&#34;Combat&#34;)
@@ -83,7 +79,7 @@ class CombatRoom(Room):
         num = random.randint(1, 4)
         if self.player:
             self.mon_lv = self.player.stats[&#34;Level&#34;]
-        for i in range(0, num):
+        for _ in range(0, num):
             mon_name = random.choice(CombatRoom.ENEMIES)
             self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))
 
@@ -94,8 +90,12 @@ class CombatRoom(Room):
         for enemy in self.enemies:
             if self.player:
                 enemy.stats[&#34;Level&#34;] = self.player.stats[&#34;Level&#34;]
-                enemy.stats[&#34;Stat Points&#34;] = (self.player.stats[&#34;Level&#34;] - 1) * 5
-                enemy.update_stats()</code></pre>
+                enemy.stats[&#34;Stat Points&#34;] = ((self.player.stats[&#34;Level&#34;] - 1)
+                                              * 5)
+                enemy.update_stats()
+                enemy.stats[&#34;Health&#34;] = enemy.stats[&#34;Max Health&#34;]
+                enemy.update_attack()
+                enemy.update_defense()</code></pre>
 </details>
 </section>
 <section>
@@ -109,28 +109,21 @@ class CombatRoom(Room):
 <dl>
 <dt id="rpg.Classes.Rooms.combat_room.CombatRoom"><code class="flex name class">
 <span>class <span class="ident">CombatRoom</span></span>
-<span>(</span><span>*args)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Specialzed Room that contains the generic non-boss enemy encounters.</p>
+<div class="desc"><p>Specialized Room that contains the generic non-boss enemy encounters.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>ENEMIES</code></strong> :&ensp;<code>list</code></dt>
 <dd>Contains the names of all potential enemies</dd>
 </dl>
-<p>Creates the CombatRoom instance.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>*args</code></strong></dt>
-<dd>Currently nonfunctional. Meant to take an optional Player instance</dd>
-</dl>
-<p>and scale enemies in room to said Player's level.</p></div>
+<p>Creates the CombatRoom instance.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class CombatRoom(Room):
-    &#34;&#34;&#34;Specialzed Room that contains the generic non-boss enemy encounters.
+    &#34;&#34;&#34;Specialized Room that contains the generic non-boss enemy encounters.
     Attributes:
         ENEMIES (list): Contains the names of all potential enemies
     &#34;&#34;&#34;
@@ -139,29 +132,25 @@ class CombatRoom(Room):
 
     @staticmethod
     def load_enemies() -&gt; None:
-        &#34;&#34;&#34;Static method to load the different types of items from a specified file.
+        &#34;&#34;&#34;Static method to load the different types of items from a specified
+         file.
         &#34;&#34;&#34;
         if not CombatRoom.ENEMIES:
-            with open(&#39;Names/enemy_txt/monster_names&#39;, &#39;r&#39;) as f:
+            with (open(&#39;Names/enemy_txt/monster_names&#39;, &#39;r&#39;, encoding=&#34;utf-8&#34;)
+                  as f):
                 reader = csv.reader(f)
                 for row in reader:
                     CombatRoom.ENEMIES.append(row)
 
-    def __init__(self, *args):
+    def __init__(self):
         &#34;&#34;&#34;Creates the CombatRoom instance.
-        Args:
-            *args: Currently nonfunctional. Meant to take an optional Player instance
-             and scale enemies in room to said Player&#39;s level.
         &#34;&#34;&#34;
         super().__init__()
         if not CombatRoom.ENEMIES:
             CombatRoom.load_enemies()
         self.player = None
-        if isinstance(args, Player):
-            self.player = args
-            self.mon_lv = self.player.stats[&#34;Level&#34;]
-        else:
-            self.mon_lv = 1
+
+        self.mon_lv = 1
         self.enemies = []
         self.generate_enemies()
         self.name = self.generate_name(&#34;Combat&#34;)
@@ -176,7 +165,7 @@ class CombatRoom(Room):
         num = random.randint(1, 4)
         if self.player:
             self.mon_lv = self.player.stats[&#34;Level&#34;]
-        for i in range(0, num):
+        for _ in range(0, num):
             mon_name = random.choice(CombatRoom.ENEMIES)
             self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))
 
@@ -187,8 +176,12 @@ class CombatRoom(Room):
         for enemy in self.enemies:
             if self.player:
                 enemy.stats[&#34;Level&#34;] = self.player.stats[&#34;Level&#34;]
-                enemy.stats[&#34;Stat Points&#34;] = (self.player.stats[&#34;Level&#34;] - 1) * 5
-                enemy.update_stats()</code></pre>
+                enemy.stats[&#34;Stat Points&#34;] = ((self.player.stats[&#34;Level&#34;] - 1)
+                                              * 5)
+                enemy.update_stats()
+                enemy.stats[&#34;Health&#34;] = enemy.stats[&#34;Max Health&#34;]
+                enemy.update_attack()
+                enemy.update_defense()</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -207,17 +200,20 @@ class CombatRoom(Room):
 <span>def <span class="ident">load_enemies</span></span>(<span>) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Static method to load the different types of items from a specified file.</p></div>
+<div class="desc"><p>Static method to load the different types of items from a specified
+file.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
 def load_enemies() -&gt; None:
-    &#34;&#34;&#34;Static method to load the different types of items from a specified file.
+    &#34;&#34;&#34;Static method to load the different types of items from a specified
+     file.
     &#34;&#34;&#34;
     if not CombatRoom.ENEMIES:
-        with open(&#39;Names/enemy_txt/monster_names&#39;, &#39;r&#39;) as f:
+        with (open(&#39;Names/enemy_txt/monster_names&#39;, &#39;r&#39;, encoding=&#34;utf-8&#34;)
+              as f):
             reader = csv.reader(f)
             for row in reader:
                 CombatRoom.ENEMIES.append(row)</code></pre>
@@ -241,7 +237,7 @@ def load_enemies() -&gt; None:
     num = random.randint(1, 4)
     if self.player:
         self.mon_lv = self.player.stats[&#34;Level&#34;]
-    for i in range(0, num):
+    for _ in range(0, num):
         mon_name = random.choice(CombatRoom.ENEMIES)
         self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))</code></pre>
 </details>
@@ -263,8 +259,12 @@ with the Combat Room.</p></div>
     for enemy in self.enemies:
         if self.player:
             enemy.stats[&#34;Level&#34;] = self.player.stats[&#34;Level&#34;]
-            enemy.stats[&#34;Stat Points&#34;] = (self.player.stats[&#34;Level&#34;] - 1) * 5
-            enemy.update_stats()</code></pre>
+            enemy.stats[&#34;Stat Points&#34;] = ((self.player.stats[&#34;Level&#34;] - 1)
+                                          * 5)
+            enemy.update_stats()
+            enemy.stats[&#34;Health&#34;] = enemy.stats[&#34;Max Health&#34;]
+            enemy.update_attack()
+            enemy.update_defense()</code></pre>
 </details>
 </dd>
 </dl>

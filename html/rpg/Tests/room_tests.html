@@ -36,14 +36,8 @@ from Classes.Rooms.room import Room
 class RoomTests(unittest.TestCase):
     &#34;&#34;&#34;Testcase for the Room class.
     &#34;&#34;&#34;
-    def test_1make_room(self):
+    def test_1room_init(self):
         &#34;&#34;&#34;Test for the Room initialization.
-        &#34;&#34;&#34;
-        x = Room()
-        self.assertTrue(isinstance(x, Room))
-
-    def test_2room_stats(self):
-        &#34;&#34;&#34;Test for the Room attributes.
         &#34;&#34;&#34;
         x = Room()
         self.assertEqual(x.adjacent_rooms, [])
@@ -51,11 +45,12 @@ class RoomTests(unittest.TestCase):
         self.assertEqual(x.has_entered, False)
         self.assertEqual(x.cleared, False)
         self.assertEqual(x.name, None)
+        self.assertEqual(x.map_image_path, None)
         self.assertEqual(x.edges, [])
         self.assertEqual(x.pos_x, None)
         self.assertEqual(x.pos_y, None)
 
-    def test_3set_coordinates(self):
+    def test_2set_coordinates(self):
         &#34;&#34;&#34;Test for the set_coordinates method.
         &#34;&#34;&#34;
         x = Room()
@@ -65,7 +60,7 @@ class RoomTests(unittest.TestCase):
         self.assertEqual(x.pos_x, 50)
         self.assertEqual(x.pos_y, 88)
 
-    def test_4get_coordinates(self):
+    def test_3get_coordinates(self):
         &#34;&#34;&#34;Test for the get_coordinates method.
         &#34;&#34;&#34;
         x = Room()
@@ -73,20 +68,20 @@ class RoomTests(unittest.TestCase):
         x.set_coordinates(50, 88)
         self.assertEqual(x.get_coordinates(), [50, 88])
 
-    def test_5clear_room(self):
+    def test_4clear_room(self):
         &#34;&#34;&#34;Test for the clear_room method.
         &#34;&#34;&#34;
         x = Room()
         x.clear_room(True)
         self.assertTrue(x.cleared)
 
-    def test_6get_cleared(self):
+    def test_5get_cleared(self):
         &#34;&#34;&#34;Test for the get_cleared method.
         &#34;&#34;&#34;
         x = Room()
         self.assertFalse(x.get_cleared())
 
-    def test_7create_adjacency(self):
+    def test_6create_adjacency(self):
         &#34;&#34;&#34;Test for the create_adjacency method.
         &#34;&#34;&#34;
         x = Room()
@@ -95,8 +90,9 @@ class RoomTests(unittest.TestCase):
         self.assertTrue(y in x.adjacent_rooms)
         self.assertTrue(x in y.adjacent_rooms)
 
-    def test_8create_adjacency_alreadyadjacent(self):
-        &#34;&#34;&#34;Test for the create_adjacency method if the rooms are already adjacent.
+    def test_7create_adjacency_alreadyadjacent(self):
+        &#34;&#34;&#34;Test for the create_adjacency method if the rooms
+         are already adjacent.
         &#34;&#34;&#34;
         x = Room()
         y = Room()
@@ -105,7 +101,7 @@ class RoomTests(unittest.TestCase):
         self.assertEqual(x.adjacent_rooms.count(y), 1)
         self.assertEqual(y.adjacent_rooms.count(x), 1)
 
-    def test_9add_adjacent_room(self):
+    def test_8add_adjacent_room(self):
         &#34;&#34;&#34;Test for the add_adjacent_room method.
         &#34;&#34;&#34;
         x = Room()
@@ -114,7 +110,7 @@ class RoomTests(unittest.TestCase):
         self.assertTrue(y in x.adjacent_rooms)
         self.assertFalse(x in y.adjacent_rooms)
 
-    def test_10get_adjacent_rooms(self):
+    def test_9get_adjacent_rooms(self):
         &#34;&#34;&#34;Test for the get_adjacent_rooms method.
         &#34;&#34;&#34;
         x = Room()
@@ -125,7 +121,7 @@ class RoomTests(unittest.TestCase):
         self.assertEqual(x.get_adjacent_rooms(), [y])
         self.assertEqual(y.get_adjacent_rooms(), [x])
 
-    def test_11generate_name(self):
+    def test_10generate_name(self):
         &#34;&#34;&#34;Test for the generate_name method.
         &#34;&#34;&#34;
         x = Room()
@@ -135,21 +131,26 @@ class RoomTests(unittest.TestCase):
         x = Room()
         self.assertTrue(x.generate_name(&#34;Chest&#34;))
 
+    def test_11generate_name_round2(self):
+        &#34;&#34;&#34;Test for the generate_name method if it&#39;s Round 2.
+        &#34;&#34;&#34;
+        self.skipTest(&#34;Currently no difference&#34;)
+
     def test_12__repr__(self):
         &#34;&#34;&#34;Test for the __repr__ method.
         &#34;&#34;&#34;
         x = Room()
         x_name = x.generate_name(&#34;Combat&#34;)
-        self.assertEqual(x.__repr__(), x_name)
+        self.assertEqual(repr(x), x_name)
 
     def test_13__eq__(self):
         &#34;&#34;&#34;Test for the __eq__ method.
         &#34;&#34;&#34;
         x = Room()
         y = Room()
-        self.assertTrue(x.__eq__(y))
+        self.assertTrue(x == y)
         x.set_coordinates(5, 1)
-        self.assertFalse(x.__eq__(y))</code></pre>
+        self.assertFalse(x == y)</code></pre>
 </details>
 </section>
 <section>
@@ -177,14 +178,8 @@ not have a method with the specified name.</p></div>
 <pre><code class="python">class RoomTests(unittest.TestCase):
     &#34;&#34;&#34;Testcase for the Room class.
     &#34;&#34;&#34;
-    def test_1make_room(self):
+    def test_1room_init(self):
         &#34;&#34;&#34;Test for the Room initialization.
-        &#34;&#34;&#34;
-        x = Room()
-        self.assertTrue(isinstance(x, Room))
-
-    def test_2room_stats(self):
-        &#34;&#34;&#34;Test for the Room attributes.
         &#34;&#34;&#34;
         x = Room()
         self.assertEqual(x.adjacent_rooms, [])
@@ -192,11 +187,12 @@ not have a method with the specified name.</p></div>
         self.assertEqual(x.has_entered, False)
         self.assertEqual(x.cleared, False)
         self.assertEqual(x.name, None)
+        self.assertEqual(x.map_image_path, None)
         self.assertEqual(x.edges, [])
         self.assertEqual(x.pos_x, None)
         self.assertEqual(x.pos_y, None)
 
-    def test_3set_coordinates(self):
+    def test_2set_coordinates(self):
         &#34;&#34;&#34;Test for the set_coordinates method.
         &#34;&#34;&#34;
         x = Room()
@@ -206,7 +202,7 @@ not have a method with the specified name.</p></div>
         self.assertEqual(x.pos_x, 50)
         self.assertEqual(x.pos_y, 88)
 
-    def test_4get_coordinates(self):
+    def test_3get_coordinates(self):
         &#34;&#34;&#34;Test for the get_coordinates method.
         &#34;&#34;&#34;
         x = Room()
@@ -214,20 +210,20 @@ not have a method with the specified name.</p></div>
         x.set_coordinates(50, 88)
         self.assertEqual(x.get_coordinates(), [50, 88])
 
-    def test_5clear_room(self):
+    def test_4clear_room(self):
         &#34;&#34;&#34;Test for the clear_room method.
         &#34;&#34;&#34;
         x = Room()
         x.clear_room(True)
         self.assertTrue(x.cleared)
 
-    def test_6get_cleared(self):
+    def test_5get_cleared(self):
         &#34;&#34;&#34;Test for the get_cleared method.
         &#34;&#34;&#34;
         x = Room()
         self.assertFalse(x.get_cleared())
 
-    def test_7create_adjacency(self):
+    def test_6create_adjacency(self):
         &#34;&#34;&#34;Test for the create_adjacency method.
         &#34;&#34;&#34;
         x = Room()
@@ -236,8 +232,9 @@ not have a method with the specified name.</p></div>
         self.assertTrue(y in x.adjacent_rooms)
         self.assertTrue(x in y.adjacent_rooms)
 
-    def test_8create_adjacency_alreadyadjacent(self):
-        &#34;&#34;&#34;Test for the create_adjacency method if the rooms are already adjacent.
+    def test_7create_adjacency_alreadyadjacent(self):
+        &#34;&#34;&#34;Test for the create_adjacency method if the rooms
+         are already adjacent.
         &#34;&#34;&#34;
         x = Room()
         y = Room()
@@ -246,7 +243,7 @@ not have a method with the specified name.</p></div>
         self.assertEqual(x.adjacent_rooms.count(y), 1)
         self.assertEqual(y.adjacent_rooms.count(x), 1)
 
-    def test_9add_adjacent_room(self):
+    def test_8add_adjacent_room(self):
         &#34;&#34;&#34;Test for the add_adjacent_room method.
         &#34;&#34;&#34;
         x = Room()
@@ -255,7 +252,7 @@ not have a method with the specified name.</p></div>
         self.assertTrue(y in x.adjacent_rooms)
         self.assertFalse(x in y.adjacent_rooms)
 
-    def test_10get_adjacent_rooms(self):
+    def test_9get_adjacent_rooms(self):
         &#34;&#34;&#34;Test for the get_adjacent_rooms method.
         &#34;&#34;&#34;
         x = Room()
@@ -266,7 +263,7 @@ not have a method with the specified name.</p></div>
         self.assertEqual(x.get_adjacent_rooms(), [y])
         self.assertEqual(y.get_adjacent_rooms(), [x])
 
-    def test_11generate_name(self):
+    def test_10generate_name(self):
         &#34;&#34;&#34;Test for the generate_name method.
         &#34;&#34;&#34;
         x = Room()
@@ -276,21 +273,26 @@ not have a method with the specified name.</p></div>
         x = Room()
         self.assertTrue(x.generate_name(&#34;Chest&#34;))
 
+    def test_11generate_name_round2(self):
+        &#34;&#34;&#34;Test for the generate_name method if it&#39;s Round 2.
+        &#34;&#34;&#34;
+        self.skipTest(&#34;Currently no difference&#34;)
+
     def test_12__repr__(self):
         &#34;&#34;&#34;Test for the __repr__ method.
         &#34;&#34;&#34;
         x = Room()
         x_name = x.generate_name(&#34;Combat&#34;)
-        self.assertEqual(x.__repr__(), x_name)
+        self.assertEqual(repr(x), x_name)
 
     def test_13__eq__(self):
         &#34;&#34;&#34;Test for the __eq__ method.
         &#34;&#34;&#34;
         x = Room()
         y = Room()
-        self.assertTrue(x.__eq__(y))
+        self.assertTrue(x == y)
         x.set_coordinates(5, 1)
-        self.assertFalse(x.__eq__(y))</code></pre>
+        self.assertFalse(x == y)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -298,29 +300,8 @@ not have a method with the specified name.</p></div>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="rpg.Tests.room_tests.RoomTests.test_10get_adjacent_rooms"><code class="name flex">
-<span>def <span class="ident">test_10get_adjacent_rooms</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Test for the get_adjacent_rooms method.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_10get_adjacent_rooms(self):
-    &#34;&#34;&#34;Test for the get_adjacent_rooms method.
-    &#34;&#34;&#34;
-    x = Room()
-    y = Room()
-    self.assertEqual(x.get_adjacent_rooms(), [])
-    self.assertEqual(y.get_adjacent_rooms(), [])
-    x.create_adjacency(y)
-    self.assertEqual(x.get_adjacent_rooms(), [y])
-    self.assertEqual(y.get_adjacent_rooms(), [x])</code></pre>
-</details>
-</dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_11generate_name"><code class="name flex">
-<span>def <span class="ident">test_11generate_name</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_10generate_name"><code class="name flex">
+<span>def <span class="ident">test_10generate_name</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the generate_name method.</p></div>
@@ -328,7 +309,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_11generate_name(self):
+<pre><code class="python">def test_10generate_name(self):
     &#34;&#34;&#34;Test for the generate_name method.
     &#34;&#34;&#34;
     x = Room()
@@ -337,6 +318,21 @@ not have a method with the specified name.</p></div>
     self.assertTrue(x.generate_name(&#34;Shop&#34;))
     x = Room()
     self.assertTrue(x.generate_name(&#34;Chest&#34;))</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.room_tests.RoomTests.test_11generate_name_round2"><code class="name flex">
+<span>def <span class="ident">test_11generate_name_round2</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the generate_name method if it's Round 2.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_11generate_name_round2(self):
+    &#34;&#34;&#34;Test for the generate_name method if it&#39;s Round 2.
+    &#34;&#34;&#34;
+    self.skipTest(&#34;Currently no difference&#34;)</code></pre>
 </details>
 </dd>
 <dt id="rpg.Tests.room_tests.RoomTests.test_12__repr__"><code class="name flex">
@@ -353,7 +349,7 @@ not have a method with the specified name.</p></div>
     &#34;&#34;&#34;
     x = Room()
     x_name = x.generate_name(&#34;Combat&#34;)
-    self.assertEqual(x.__repr__(), x_name)</code></pre>
+    self.assertEqual(repr(x), x_name)</code></pre>
 </details>
 </dd>
 <dt id="rpg.Tests.room_tests.RoomTests.test_13__eq__"><code class="name flex">
@@ -370,13 +366,13 @@ not have a method with the specified name.</p></div>
     &#34;&#34;&#34;
     x = Room()
     y = Room()
-    self.assertTrue(x.__eq__(y))
+    self.assertTrue(x == y)
     x.set_coordinates(5, 1)
-    self.assertFalse(x.__eq__(y))</code></pre>
+    self.assertFalse(x == y)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_1make_room"><code class="name flex">
-<span>def <span class="ident">test_1make_room</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_1room_init"><code class="name flex">
+<span>def <span class="ident">test_1room_init</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the Room initialization.</p></div>
@@ -384,24 +380,8 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_1make_room(self):
+<pre><code class="python">def test_1room_init(self):
     &#34;&#34;&#34;Test for the Room initialization.
-    &#34;&#34;&#34;
-    x = Room()
-    self.assertTrue(isinstance(x, Room))</code></pre>
-</details>
-</dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_2room_stats"><code class="name flex">
-<span>def <span class="ident">test_2room_stats</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Test for the Room attributes.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_2room_stats(self):
-    &#34;&#34;&#34;Test for the Room attributes.
     &#34;&#34;&#34;
     x = Room()
     self.assertEqual(x.adjacent_rooms, [])
@@ -409,13 +389,14 @@ not have a method with the specified name.</p></div>
     self.assertEqual(x.has_entered, False)
     self.assertEqual(x.cleared, False)
     self.assertEqual(x.name, None)
+    self.assertEqual(x.map_image_path, None)
     self.assertEqual(x.edges, [])
     self.assertEqual(x.pos_x, None)
     self.assertEqual(x.pos_y, None)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_3set_coordinates"><code class="name flex">
-<span>def <span class="ident">test_3set_coordinates</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_2set_coordinates"><code class="name flex">
+<span>def <span class="ident">test_2set_coordinates</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the set_coordinates method.</p></div>
@@ -423,7 +404,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_3set_coordinates(self):
+<pre><code class="python">def test_2set_coordinates(self):
     &#34;&#34;&#34;Test for the set_coordinates method.
     &#34;&#34;&#34;
     x = Room()
@@ -434,8 +415,8 @@ not have a method with the specified name.</p></div>
     self.assertEqual(x.pos_y, 88)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_4get_coordinates"><code class="name flex">
-<span>def <span class="ident">test_4get_coordinates</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_3get_coordinates"><code class="name flex">
+<span>def <span class="ident">test_3get_coordinates</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the get_coordinates method.</p></div>
@@ -443,7 +424,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_4get_coordinates(self):
+<pre><code class="python">def test_3get_coordinates(self):
     &#34;&#34;&#34;Test for the get_coordinates method.
     &#34;&#34;&#34;
     x = Room()
@@ -452,8 +433,8 @@ not have a method with the specified name.</p></div>
     self.assertEqual(x.get_coordinates(), [50, 88])</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_5clear_room"><code class="name flex">
-<span>def <span class="ident">test_5clear_room</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_4clear_room"><code class="name flex">
+<span>def <span class="ident">test_4clear_room</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the clear_room method.</p></div>
@@ -461,7 +442,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_5clear_room(self):
+<pre><code class="python">def test_4clear_room(self):
     &#34;&#34;&#34;Test for the clear_room method.
     &#34;&#34;&#34;
     x = Room()
@@ -469,8 +450,8 @@ not have a method with the specified name.</p></div>
     self.assertTrue(x.cleared)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_6get_cleared"><code class="name flex">
-<span>def <span class="ident">test_6get_cleared</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_5get_cleared"><code class="name flex">
+<span>def <span class="ident">test_5get_cleared</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the get_cleared method.</p></div>
@@ -478,15 +459,15 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_6get_cleared(self):
+<pre><code class="python">def test_5get_cleared(self):
     &#34;&#34;&#34;Test for the get_cleared method.
     &#34;&#34;&#34;
     x = Room()
     self.assertFalse(x.get_cleared())</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_7create_adjacency"><code class="name flex">
-<span>def <span class="ident">test_7create_adjacency</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_6create_adjacency"><code class="name flex">
+<span>def <span class="ident">test_6create_adjacency</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the create_adjacency method.</p></div>
@@ -494,7 +475,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_7create_adjacency(self):
+<pre><code class="python">def test_6create_adjacency(self):
     &#34;&#34;&#34;Test for the create_adjacency method.
     &#34;&#34;&#34;
     x = Room()
@@ -504,17 +485,19 @@ not have a method with the specified name.</p></div>
     self.assertTrue(x in y.adjacent_rooms)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_8create_adjacency_alreadyadjacent"><code class="name flex">
-<span>def <span class="ident">test_8create_adjacency_alreadyadjacent</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_7create_adjacency_alreadyadjacent"><code class="name flex">
+<span>def <span class="ident">test_7create_adjacency_alreadyadjacent</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Test for the create_adjacency method if the rooms are already adjacent.</p></div>
+<div class="desc"><p>Test for the create_adjacency method if the rooms
+are already adjacent.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_8create_adjacency_alreadyadjacent(self):
-    &#34;&#34;&#34;Test for the create_adjacency method if the rooms are already adjacent.
+<pre><code class="python">def test_7create_adjacency_alreadyadjacent(self):
+    &#34;&#34;&#34;Test for the create_adjacency method if the rooms
+     are already adjacent.
     &#34;&#34;&#34;
     x = Room()
     y = Room()
@@ -524,8 +507,8 @@ not have a method with the specified name.</p></div>
     self.assertEqual(y.adjacent_rooms.count(x), 1)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.room_tests.RoomTests.test_9add_adjacent_room"><code class="name flex">
-<span>def <span class="ident">test_9add_adjacent_room</span></span>(<span>self)</span>
+<dt id="rpg.Tests.room_tests.RoomTests.test_8add_adjacent_room"><code class="name flex">
+<span>def <span class="ident">test_8add_adjacent_room</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the add_adjacent_room method.</p></div>
@@ -533,7 +516,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_9add_adjacent_room(self):
+<pre><code class="python">def test_8add_adjacent_room(self):
     &#34;&#34;&#34;Test for the add_adjacent_room method.
     &#34;&#34;&#34;
     x = Room()
@@ -541,6 +524,27 @@ not have a method with the specified name.</p></div>
     x.add_adjacent_room(y)
     self.assertTrue(y in x.adjacent_rooms)
     self.assertFalse(x in y.adjacent_rooms)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.room_tests.RoomTests.test_9get_adjacent_rooms"><code class="name flex">
+<span>def <span class="ident">test_9get_adjacent_rooms</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the get_adjacent_rooms method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_9get_adjacent_rooms(self):
+    &#34;&#34;&#34;Test for the get_adjacent_rooms method.
+    &#34;&#34;&#34;
+    x = Room()
+    y = Room()
+    self.assertEqual(x.get_adjacent_rooms(), [])
+    self.assertEqual(y.get_adjacent_rooms(), [])
+    x.create_adjacency(y)
+    self.assertEqual(x.get_adjacent_rooms(), [y])
+    self.assertEqual(y.get_adjacent_rooms(), [x])</code></pre>
 </details>
 </dd>
 </dl>
@@ -564,19 +568,19 @@ not have a method with the specified name.</p></div>
 <li>
 <h4><code><a title="rpg.Tests.room_tests.RoomTests" href="#rpg.Tests.room_tests.RoomTests">RoomTests</a></code></h4>
 <ul class="">
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_10get_adjacent_rooms" href="#rpg.Tests.room_tests.RoomTests.test_10get_adjacent_rooms">test_10get_adjacent_rooms</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_11generate_name" href="#rpg.Tests.room_tests.RoomTests.test_11generate_name">test_11generate_name</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_10generate_name" href="#rpg.Tests.room_tests.RoomTests.test_10generate_name">test_10generate_name</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_11generate_name_round2" href="#rpg.Tests.room_tests.RoomTests.test_11generate_name_round2">test_11generate_name_round2</a></code></li>
 <li><code><a title="rpg.Tests.room_tests.RoomTests.test_12__repr__" href="#rpg.Tests.room_tests.RoomTests.test_12__repr__">test_12__repr__</a></code></li>
 <li><code><a title="rpg.Tests.room_tests.RoomTests.test_13__eq__" href="#rpg.Tests.room_tests.RoomTests.test_13__eq__">test_13__eq__</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_1make_room" href="#rpg.Tests.room_tests.RoomTests.test_1make_room">test_1make_room</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_2room_stats" href="#rpg.Tests.room_tests.RoomTests.test_2room_stats">test_2room_stats</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_3set_coordinates" href="#rpg.Tests.room_tests.RoomTests.test_3set_coordinates">test_3set_coordinates</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_4get_coordinates" href="#rpg.Tests.room_tests.RoomTests.test_4get_coordinates">test_4get_coordinates</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_5clear_room" href="#rpg.Tests.room_tests.RoomTests.test_5clear_room">test_5clear_room</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_6get_cleared" href="#rpg.Tests.room_tests.RoomTests.test_6get_cleared">test_6get_cleared</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_7create_adjacency" href="#rpg.Tests.room_tests.RoomTests.test_7create_adjacency">test_7create_adjacency</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_8create_adjacency_alreadyadjacent" href="#rpg.Tests.room_tests.RoomTests.test_8create_adjacency_alreadyadjacent">test_8create_adjacency_alreadyadjacent</a></code></li>
-<li><code><a title="rpg.Tests.room_tests.RoomTests.test_9add_adjacent_room" href="#rpg.Tests.room_tests.RoomTests.test_9add_adjacent_room">test_9add_adjacent_room</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_1room_init" href="#rpg.Tests.room_tests.RoomTests.test_1room_init">test_1room_init</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_2set_coordinates" href="#rpg.Tests.room_tests.RoomTests.test_2set_coordinates">test_2set_coordinates</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_3get_coordinates" href="#rpg.Tests.room_tests.RoomTests.test_3get_coordinates">test_3get_coordinates</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_4clear_room" href="#rpg.Tests.room_tests.RoomTests.test_4clear_room">test_4clear_room</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_5get_cleared" href="#rpg.Tests.room_tests.RoomTests.test_5get_cleared">test_5get_cleared</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_6create_adjacency" href="#rpg.Tests.room_tests.RoomTests.test_6create_adjacency">test_6create_adjacency</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_7create_adjacency_alreadyadjacent" href="#rpg.Tests.room_tests.RoomTests.test_7create_adjacency_alreadyadjacent">test_7create_adjacency_alreadyadjacent</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_8add_adjacent_room" href="#rpg.Tests.room_tests.RoomTests.test_8add_adjacent_room">test_8add_adjacent_room</a></code></li>
+<li><code><a title="rpg.Tests.room_tests.RoomTests.test_9get_adjacent_rooms" href="#rpg.Tests.room_tests.RoomTests.test_9get_adjacent_rooms">test_9get_adjacent_rooms</a></code></li>
 </ul>
 </li>
 </ul>

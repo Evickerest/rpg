@@ -32,7 +32,7 @@ Run Tests from Here. Do not run the test files in the Test Folder.
 &#34;&#34;&#34;
 
 import unittest
-from Tests import map_tests
+from Tests.map_tests import MapTests
 from Tests.edge_tests import EdgeTests
 from Tests.item_tests import ItemTests
 from Tests.character_tests import CharacterTests, PlayerTests, EnemyTests
@@ -48,60 +48,91 @@ test_suite = unittest.TestSuite()
 
 # Add to suite for each method in test class
 # Map Tests
-test_suite.addTests([map_tests.MapTests(&#39;test1&#39;), map_tests.MapTests(&#39;test2&#39;)])
+test_suite.addTests([MapTests(&#39;test1_map_init&#39;),
+                     MapTests(&#39;test2_generate_map&#39;),
+                     MapTests(&#39;test3_get_current_room&#39;),
+                     MapTests(&#39;test4_set_current_room&#39;),
+                     MapTests(&#39;test5_generate_random_rooms&#39;),
+                     MapTests(&#39;test6_connect_every_room_together&#39;),
+                     MapTests(&#39;test7_prims_algorithm&#39;),
+                     MapTests(&#39;test8_assign_random_images&#39;),
+                     MapTests(&#39;test9_assign_random_images_round2&#39;),
+                     MapTests(&#39;test10_print_map&#39;)])
 # Edge Tests
-test_suite.addTests([EdgeTests(&#39;test1&#39;), EdgeTests(&#39;test2&#39;), EdgeTests(&#39;test3&#39;)])
+test_suite.addTests([EdgeTests(&#39;test1&#39;), EdgeTests(&#39;test2&#39;),
+                     EdgeTests(&#39;test3&#39;)])
 # Item Tests
-test_suite.addTests([ItemTests(&#39;test_1load_items1&#39;), ItemTests(&#39;test_2load_items2&#39;),
-                     ItemTests(&#39;test_3load_items3&#39;), ItemTests(&#39;test_4load_items4&#39;),
-                     ItemTests(&#39;test_5make_item1&#39;), ItemTests(&#39;test_6item_stats1&#39;),
-                     ItemTests(&#39;test_7item_assign_stats&#39;), ItemTests(&#39;test_8item_get_damage&#39;),
-                     ItemTests(&#39;test_9item_notitem&#39;)])
+test_suite.addTests([ItemTests(&#39;test_1load_items1&#39;),
+                     ItemTests(&#39;test_2load_items2&#39;),
+                     ItemTests(&#39;test_3load_items3&#39;),
+                     ItemTests(&#39;test_4load_items4&#39;),
+                     ItemTests(&#39;test_5item_init&#39;),
+                     ItemTests(&#39;test_6item_assign_stats&#39;),
+                     ItemTests(&#39;test_7item_get_damage&#39;),
+                     ItemTests(&#39;test_8item_notitem&#39;)])
 # Character Tests
-test_suite.addTests([CharacterTests(&#39;test_1make_character&#39;),
-                     CharacterTests(&#39;test_2character_stats&#39;),
-                     CharacterTests(&#39;test_3set_living&#39;), CharacterTests(&#39;test_4add_item&#39;),
-                     CharacterTests(&#39;test_5drop_item&#39;), CharacterTests(&#39;test_6lv_up&#39;),
+test_suite.addTests([CharacterTests(&#39;test_1character_init&#39;),
+                     CharacterTests(&#39;test_2character_init2&#39;),
+                     CharacterTests(&#39;test_3set_living&#39;),
+                     CharacterTests(&#39;test_4add_item&#39;),
+                     CharacterTests(&#39;test_5drop_item&#39;),
+                     CharacterTests(&#39;test_6lv_up&#39;),
                      CharacterTests(&#39;test_7update_max_health&#39;),
-                     CharacterTests(&#39;test_8update_health&#39;), CharacterTests(&#39;test_9get_defense&#39;),
-                     CharacterTests(&#39;test_10get_attack&#39;), CharacterTests(&#39;test_11defend_action&#39;)])
+                     CharacterTests(&#39;test_8update_health&#39;),
+                     CharacterTests(&#39;test_9get_defense&#39;),
+                     CharacterTests(&#39;test_10get_attack&#39;),
+                     CharacterTests(&#39;test_11defend_action&#39;)])
 # Player Tests
-test_suite.addTests([PlayerTests(&#39;test_1make_player&#39;), PlayerTests(&#39;test_2player_stats&#39;),
+test_suite.addTests([PlayerTests(&#39;test_1player_init1&#39;),
+                     PlayerTests(&#39;test_2player_init2&#39;),
                      PlayerTests(&#39;test3_equip_item_real&#39;),
                      PlayerTests(&#39;test4_equip_item_none_item&#39;),
-                     PlayerTests(&#39;test_5unequip_item_real&#39;), PlayerTests(&#39;test_6unequip_item_none&#39;),
-                     PlayerTests(&#39;test_7use_medkits&#39;), PlayerTests(&#39;test_8get_medkits&#39;),
-                     PlayerTests(&#39;test_9set_medkits&#39;), PlayerTests(&#39;test_10change_name&#39;),
-                     PlayerTests(&#39;test_11update_defense&#39;), PlayerTests(&#39;test_12update_attack&#39;),
-                     PlayerTests(&#39;test_13take_damage&#39;)])
+                     PlayerTests(&#39;test_5unequip_item_real&#39;),
+                     PlayerTests(&#39;test_6unequip_item_none&#39;),
+                     PlayerTests(&#39;test_7use_medkits&#39;),
+                     PlayerTests(&#39;test_8get_medkits&#39;),
+                     PlayerTests(&#39;test_9set_medkits&#39;),
+                     PlayerTests(&#39;test_10change_name&#39;),
+                     PlayerTests(&#39;test_11update_defense&#39;),
+                     PlayerTests(&#39;test_12update_attack&#39;),
+                     PlayerTests(&#39;test_13take_damage&#39;),
+                     PlayerTests(&#39;test_14take_damage_killed&#39;)])
 # Enemy Tests
-test_suite.addTests([EnemyTests(&#39;test_1make_enemy&#39;), EnemyTests(&#39;test_2enemy_stats&#39;),
-                     EnemyTests(&#39;test_3take_damage&#39;), EnemyTests(&#39;test_4update_defense&#39;),
-                     EnemyTests(&#39;test_5update_attack&#39;), EnemyTests(&#39;test_6update_stats&#39;)])
+test_suite.addTests([EnemyTests(&#39;test_1enemy_init1&#39;),
+                     EnemyTests(&#39;test_2enemy_init2&#39;),
+                     EnemyTests(&#39;test_3take_damage&#39;),
+                     EnemyTests(&#39;test_4update_defense&#39;),
+                     EnemyTests(&#39;test_5update_attack&#39;),
+                     EnemyTests(&#39;test_6update_stats&#39;),
+                     EnemyTests(&#39;test_7randomize_action&#39;),
+                     EnemyTests(&#39;test_8set_action&#39;)])
 # Room Tests
-test_suite.addTests([RoomTests(&#39;test_1make_room&#39;), RoomTests(&#39;test_2room_stats&#39;),
-                     RoomTests(&#39;test_3set_coordinates&#39;), RoomTests(&#39;test_4get_coordinates&#39;),
-                     RoomTests(&#39;test_5clear_room&#39;), RoomTests(&#39;test_6get_cleared&#39;),
-                     RoomTests(&#39;test_7create_adjacency&#39;),
-                     RoomTests(&#39;test_8create_adjacency_alreadyadjacent&#39;),
-                     RoomTests(&#39;test_9add_adjacent_room&#39;), RoomTests(&#39;test_10get_adjacent_rooms&#39;),
-                     RoomTests(&#39;test_11generate_name&#39;), RoomTests(&#39;test_12__repr__&#39;),
+test_suite.addTests([RoomTests(&#39;test_1room_init&#39;),
+                     RoomTests(&#39;test_2set_coordinates&#39;),
+                     RoomTests(&#39;test_3get_coordinates&#39;),
+                     RoomTests(&#39;test_4clear_room&#39;),
+                     RoomTests(&#39;test_5get_cleared&#39;),
+                     RoomTests(&#39;test_6create_adjacency&#39;),
+                     RoomTests(&#39;test_7create_adjacency_alreadyadjacent&#39;),
+                     RoomTests(&#39;test_8add_adjacent_room&#39;),
+                     RoomTests(&#39;test_9get_adjacent_rooms&#39;),
+                     RoomTests(&#39;test_10generate_name&#39;),
+                     RoomTests(&#39;test_11generate_name_round2&#39;),
+                     RoomTests(&#39;test_12__repr__&#39;),
                      RoomTests(&#39;test_13__eq__&#39;)])
 # ChestRoom Tests
-test_suite.addTests([ChestRoomTests(&#39;test_1make_chestroom&#39;),
-                     ChestRoomTests(&#39;test_2chestroom_stats&#39;)])
+test_suite.addTest(ChestRoomTests(&#39;test_1chestroom_init&#39;))
 # CombatRoom Tests
-test_suite.addTests([CombatRoomTests(&#39;test_1make_combatroom&#39;),
-                     CombatRoomTests(&#39;test_2combatroom_stats&#39;),
-                     CombatRoomTests(&#39;test_3generate_enemies&#39;),
+test_suite.addTests([CombatRoomTests(&#39;test_1combatroom_init&#39;),
+                     CombatRoomTests(&#39;test_2generate_enemies&#39;),
+                     CombatRoomTests(&#39;test_3generate_enemies_player_exists&#39;),
                      CombatRoomTests(&#39;test_4lv_enemies&#39;)])
 # ShopRoom Tests
-test_suite.addTests([ShopRoomTests(&#39;test_1make_shoproom&#39;), ShopRoomTests(&#39;test_2shoproom_stats&#39;)])
+test_suite.addTest(ShopRoomTests(&#39;test_1shoproom_init&#39;))
 # StartRoom Tests
-test_suite.addTests([StartRoomTests(&#39;test_1make_startroom&#39;),
-                     StartRoomTests(&#39;test_2startroom_stats&#39;)])
+test_suite.addTest(StartRoomTests(&#39;test_1startroom_init&#39;))
 # BossRoom Tests
-test_suite.addTests([BossRoomTests(&#39;test_1make_bossroom&#39;), BossRoomTests(&#39;test_2bossroom_stats&#39;)])
+test_suite.addTests([BossRoomTests(&#39;test_1bossroom_init&#39;), BossRoomTests(&#39;test_2lv_boss&#39;)])
 # ...
 
 runner = unittest.TextTestRunner(verbosity=2)

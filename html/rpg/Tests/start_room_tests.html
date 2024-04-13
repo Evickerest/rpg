@@ -36,14 +36,9 @@ from Classes.Rooms.start_room import StartRoom
 class StartRoomTests(unittest.TestCase):
     &#34;&#34;&#34;Testcase for the StartRoom class.
     &#34;&#34;&#34;
-    def test_1make_startroom(self):
-        &#34;&#34;&#34;Test for the StartRoom initialization.
-        &#34;&#34;&#34;
-        x = StartRoom()
-        self.assertTrue(isinstance(x, StartRoom))
 
-    def test_2startroom_stats(self):
-        &#34;&#34;&#34;Test for the StartRoom instance variables.
+    def test_1startroom_init(self):
+        &#34;&#34;&#34;Test for the StartRoom initialization.
         &#34;&#34;&#34;
         x = StartRoom()
         self.assertEqual(x.room_type, &#34;Start&#34;)
@@ -76,14 +71,9 @@ not have a method with the specified name.</p></div>
 <pre><code class="python">class StartRoomTests(unittest.TestCase):
     &#34;&#34;&#34;Testcase for the StartRoom class.
     &#34;&#34;&#34;
-    def test_1make_startroom(self):
-        &#34;&#34;&#34;Test for the StartRoom initialization.
-        &#34;&#34;&#34;
-        x = StartRoom()
-        self.assertTrue(isinstance(x, StartRoom))
 
-    def test_2startroom_stats(self):
-        &#34;&#34;&#34;Test for the StartRoom instance variables.
+    def test_1startroom_init(self):
+        &#34;&#34;&#34;Test for the StartRoom initialization.
         &#34;&#34;&#34;
         x = StartRoom()
         self.assertEqual(x.room_type, &#34;Start&#34;)
@@ -96,8 +86,8 @@ not have a method with the specified name.</p></div>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="rpg.Tests.start_room_tests.StartRoomTests.test_1make_startroom"><code class="name flex">
-<span>def <span class="ident">test_1make_startroom</span></span>(<span>self)</span>
+<dt id="rpg.Tests.start_room_tests.StartRoomTests.test_1startroom_init"><code class="name flex">
+<span>def <span class="ident">test_1startroom_init</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test for the StartRoom initialization.</p></div>
@@ -105,24 +95,8 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_1make_startroom(self):
+<pre><code class="python">def test_1startroom_init(self):
     &#34;&#34;&#34;Test for the StartRoom initialization.
-    &#34;&#34;&#34;
-    x = StartRoom()
-    self.assertTrue(isinstance(x, StartRoom))</code></pre>
-</details>
-</dd>
-<dt id="rpg.Tests.start_room_tests.StartRoomTests.test_2startroom_stats"><code class="name flex">
-<span>def <span class="ident">test_2startroom_stats</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Test for the StartRoom instance variables.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_2startroom_stats(self):
-    &#34;&#34;&#34;Test for the StartRoom instance variables.
     &#34;&#34;&#34;
     x = StartRoom()
     self.assertEqual(x.room_type, &#34;Start&#34;)
@@ -151,8 +125,7 @@ not have a method with the specified name.</p></div>
 <li>
 <h4><code><a title="rpg.Tests.start_room_tests.StartRoomTests" href="#rpg.Tests.start_room_tests.StartRoomTests">StartRoomTests</a></code></h4>
 <ul class="">
-<li><code><a title="rpg.Tests.start_room_tests.StartRoomTests.test_1make_startroom" href="#rpg.Tests.start_room_tests.StartRoomTests.test_1make_startroom">test_1make_startroom</a></code></li>
-<li><code><a title="rpg.Tests.start_room_tests.StartRoomTests.test_2startroom_stats" href="#rpg.Tests.start_room_tests.StartRoomTests.test_2startroom_stats">test_2startroom_stats</a></code></li>
+<li><code><a title="rpg.Tests.start_room_tests.StartRoomTests.test_1startroom_init" href="#rpg.Tests.start_room_tests.StartRoomTests.test_1startroom_init">test_1startroom_init</a></code></li>
 </ul>
 </li>
 </ul>

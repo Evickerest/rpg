@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>rpg.Tests.edge_tests API documentation</title>
-<meta name="description" content="Module containing the unittests for the Edge class." />
+<title>rpg.Classes.GUI.button API documentation</title>
+<meta name="description" content="Module for creating a custom button." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,56 +19,47 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>rpg.Tests.edge_tests</code></h1>
+<h1 class="title">Module <code>rpg.Classes.GUI.button</code></h1>
 </header>
 <section id="section-intro">
-<p>Module containing the unittests for the Edge class.</p>
+<p>Module for creating a custom button.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Module containing the unittests for the Edge class.
+<pre><code class="python">&#34;&#34;&#34;Module for creating a custom button.
 &#34;&#34;&#34;
-import unittest
-import math
-from Classes.Map.edge import Edge
-from Classes.Rooms.combat_room import CombatRoom
+
+import customtkinter
 
 
-class EdgeTests(unittest.TestCase):
-    &#34;&#34;&#34;Testcase for the Edge class.
-    &#34;&#34;&#34;
-    def test1(self):
-        &#34;&#34;&#34;Test that the Edge instance is made correctly.
+class Button:
+    &#34;&#34;&#34;Custom buttons.&#34;&#34;&#34;
+    def __init__(self, container, msg: str, command: callable, x: int, y: int,
+                 anchor: str = &#34;sw&#34;,
+                 font: tuple[str, int] = (&#34;Time New Romans&#34;, 20), width=140,
+                 height=28, padding=10, color=&#34;white&#34;, hcolor=&#34;#CCCCCC&#34;,
+                 tags=&#34;&#34;):
+        &#34;&#34;&#34;Initialize a custom button. Uses the same format as a regular button.
+        Args:
+            container: The Tkinter window to place the button in
+            msg (str): The msg displayed on the button
+            command (callable): The command to do when the button is clicked
+            x (int): The x-position
+            y (int): The y-position
+            anchor (str): Where to anchor the button to
+            font (tuple[str, int]): The font and font size of the text
+            width (int): The width of the button
+            height (int): The height of the button
+            padding (int): The amount of pixel padding to add
+            color (str): The color of the msg text itself
+            hcolor (str): The highlight color to use
+            tags (str): The tag associated with this button
         &#34;&#34;&#34;
-        room1 = CombatRoom()
-        room1.set_coordinates(5, 10)
-        room2 = CombatRoom()
-        room2.set_coordinates(10, 5)
-        edge = Edge(room1, room2)
-        self.assertEqual(edge.rooms, (room1, room2))
-        self.assertEqual(edge.weight, math.dist(room1.get_coordinates(), room2.get_coordinates()))
-
-    def test2(self):
-        &#34;&#34;&#34;Test for the get_weight method.
-        &#34;&#34;&#34;
-        room1 = CombatRoom()
-        room1.set_coordinates(5, 10)
-        room2 = CombatRoom()
-        room2.set_coordinates(10, 5)
-        edge = Edge(room1, room2)
-        self.assertTrue(edge.get_weight())
-
-    def test3(self):
-        &#34;&#34;&#34;Test for the __repr__ method.
-        &#34;&#34;&#34;
-        room1 = CombatRoom()
-        room1.set_coordinates(5, 10)
-        room2 = CombatRoom()
-        room2.set_coordinates(10, 5)
-        edge = Edge(room1, room2)
-        x = repr(edge)
-        self.assertEqual(x, f&#34;{room1} &lt;-&gt; {room2} | {edge.weight}&#34;)</code></pre>
+        button = customtkinter.CTkButton(
+            container, font=font, text=msg, command=command, corner_radius=0, text_color=&#34;black&#34;, hover_color=hcolor,
+            border_spacing=padding, fg_color=color, width=width, height=height, bg_color=color)
+        container.bg_canvas.create_window(x, y, anchor=anchor, window=button, tags=tags)</code></pre>
 </details>
 </section>
 <section>
@@ -80,123 +71,74 @@ class EdgeTests(unittest.TestCase):
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="rpg.Tests.edge_tests.EdgeTests"><code class="flex name class">
-<span>class <span class="ident">EdgeTests</span></span>
-<span>(</span><span>methodName='runTest')</span>
+<dt id="rpg.Classes.GUI.button.Button"><code class="flex name class">
+<span>class <span class="ident">Button</span></span>
+<span>(</span><span>container, msg: str, command: <built-in function callable>, x: int, y: int, anchor: str = 'sw', font: tuple[str, int] = ('Time New Romans', 20), width=140, height=28, padding=10, color='white', hcolor='#CCCCCC', tags='')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Testcase for the Edge class.</p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class EdgeTests(unittest.TestCase):
-    &#34;&#34;&#34;Testcase for the Edge class.
-    &#34;&#34;&#34;
-    def test1(self):
-        &#34;&#34;&#34;Test that the Edge instance is made correctly.
-        &#34;&#34;&#34;
-        room1 = CombatRoom()
-        room1.set_coordinates(5, 10)
-        room2 = CombatRoom()
-        room2.set_coordinates(10, 5)
-        edge = Edge(room1, room2)
-        self.assertEqual(edge.rooms, (room1, room2))
-        self.assertEqual(edge.weight, math.dist(room1.get_coordinates(), room2.get_coordinates()))
-
-    def test2(self):
-        &#34;&#34;&#34;Test for the get_weight method.
-        &#34;&#34;&#34;
-        room1 = CombatRoom()
-        room1.set_coordinates(5, 10)
-        room2 = CombatRoom()
-        room2.set_coordinates(10, 5)
-        edge = Edge(room1, room2)
-        self.assertTrue(edge.get_weight())
-
-    def test3(self):
-        &#34;&#34;&#34;Test for the __repr__ method.
-        &#34;&#34;&#34;
-        room1 = CombatRoom()
-        room1.set_coordinates(5, 10)
-        room2 = CombatRoom()
-        room2.set_coordinates(10, 5)
-        edge = Edge(room1, room2)
-        x = repr(edge)
-        self.assertEqual(x, f&#34;{room1} &lt;-&gt; {room2} | {edge.weight}&#34;)</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>unittest.case.TestCase</li>
-</ul>
-<h3>Methods</h3>
+<div class="desc"><p>Custom buttons.</p>
+<p>Initialize a custom button. Uses the same format as a regular button.</p>
+<h2 id="args">Args</h2>
 <dl>
-<dt id="rpg.Tests.edge_tests.EdgeTests.test1"><code class="name flex">
-<span>def <span class="ident">test1</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Test that the Edge instance is made correctly.</p></div>
+<dt><strong><code>container</code></strong></dt>
+<dd>The Tkinter window to place the button in</dd>
+<dt><strong><code>msg</code></strong> :&ensp;<code>str</code></dt>
+<dd>The msg displayed on the button</dd>
+<dt><strong><code>command</code></strong> :&ensp;<code>callable</code></dt>
+<dd>The command to do when the button is clicked</dd>
+<dt><strong><code>x</code></strong> :&ensp;<code>int</code></dt>
+<dd>The x-position</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>int</code></dt>
+<dd>The y-position</dd>
+<dt><strong><code>anchor</code></strong> :&ensp;<code>str</code></dt>
+<dd>Where to anchor the button to</dd>
+<dt><strong><code>font</code></strong> :&ensp;<code>tuple[str, int]</code></dt>
+<dd>The font and font size of the text</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>int</code></dt>
+<dd>The width of the button</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>int</code></dt>
+<dd>The height of the button</dd>
+<dt><strong><code>padding</code></strong> :&ensp;<code>int</code></dt>
+<dd>The amount of pixel padding to add</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>str</code></dt>
+<dd>The color of the msg text itself</dd>
+<dt><strong><code>hcolor</code></strong> :&ensp;<code>str</code></dt>
+<dd>The highlight color to use</dd>
+<dt><strong><code>tags</code></strong> :&ensp;<code>str</code></dt>
+<dd>The tag associated with this button</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test1(self):
-    &#34;&#34;&#34;Test that the Edge instance is made correctly.
-    &#34;&#34;&#34;
-    room1 = CombatRoom()
-    room1.set_coordinates(5, 10)
-    room2 = CombatRoom()
-    room2.set_coordinates(10, 5)
-    edge = Edge(room1, room2)
-    self.assertEqual(edge.rooms, (room1, room2))
-    self.assertEqual(edge.weight, math.dist(room1.get_coordinates(), room2.get_coordinates()))</code></pre>
+<pre><code class="python">class Button:
+    &#34;&#34;&#34;Custom buttons.&#34;&#34;&#34;
+    def __init__(self, container, msg: str, command: callable, x: int, y: int,
+                 anchor: str = &#34;sw&#34;,
+                 font: tuple[str, int] = (&#34;Time New Romans&#34;, 20), width=140,
+                 height=28, padding=10, color=&#34;white&#34;, hcolor=&#34;#CCCCCC&#34;,
+                 tags=&#34;&#34;):
+        &#34;&#34;&#34;Initialize a custom button. Uses the same format as a regular button.
+        Args:
+            container: The Tkinter window to place the button in
+            msg (str): The msg displayed on the button
+            command (callable): The command to do when the button is clicked
+            x (int): The x-position
+            y (int): The y-position
+            anchor (str): Where to anchor the button to
+            font (tuple[str, int]): The font and font size of the text
+            width (int): The width of the button
+            height (int): The height of the button
+            padding (int): The amount of pixel padding to add
+            color (str): The color of the msg text itself
+            hcolor (str): The highlight color to use
+            tags (str): The tag associated with this button
+        &#34;&#34;&#34;
+        button = customtkinter.CTkButton(
+            container, font=font, text=msg, command=command, corner_radius=0, text_color=&#34;black&#34;, hover_color=hcolor,
+            border_spacing=padding, fg_color=color, width=width, height=height, bg_color=color)
+        container.bg_canvas.create_window(x, y, anchor=anchor, window=button, tags=tags)</code></pre>
 </details>
-</dd>
-<dt id="rpg.Tests.edge_tests.EdgeTests.test2"><code class="name flex">
-<span>def <span class="ident">test2</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Test for the get_weight method.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test2(self):
-    &#34;&#34;&#34;Test for the get_weight method.
-    &#34;&#34;&#34;
-    room1 = CombatRoom()
-    room1.set_coordinates(5, 10)
-    room2 = CombatRoom()
-    room2.set_coordinates(10, 5)
-    edge = Edge(room1, room2)
-    self.assertTrue(edge.get_weight())</code></pre>
-</details>
-</dd>
-<dt id="rpg.Tests.edge_tests.EdgeTests.test3"><code class="name flex">
-<span>def <span class="ident">test3</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Test for the <strong>repr</strong> method.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test3(self):
-    &#34;&#34;&#34;Test for the __repr__ method.
-    &#34;&#34;&#34;
-    room1 = CombatRoom()
-    room1.set_coordinates(5, 10)
-    room2 = CombatRoom()
-    room2.set_coordinates(10, 5)
-    edge = Edge(room1, room2)
-    x = repr(edge)
-    self.assertEqual(x, f&#34;{room1} &lt;-&gt; {room2} | {edge.weight}&#34;)</code></pre>
-</details>
-</dd>
-</dl>
 </dd>
 </dl>
 </section>
@@ -209,18 +151,13 @@ not have a method with the specified name.</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="rpg.Tests" href="index.html">rpg.Tests</a></code></li>
+<li><code><a title="rpg.Classes.GUI" href="index.html">rpg.Classes.GUI</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="rpg.Tests.edge_tests.EdgeTests" href="#rpg.Tests.edge_tests.EdgeTests">EdgeTests</a></code></h4>
-<ul class="">
-<li><code><a title="rpg.Tests.edge_tests.EdgeTests.test1" href="#rpg.Tests.edge_tests.EdgeTests.test1">test1</a></code></li>
-<li><code><a title="rpg.Tests.edge_tests.EdgeTests.test2" href="#rpg.Tests.edge_tests.EdgeTests.test2">test2</a></code></li>
-<li><code><a title="rpg.Tests.edge_tests.EdgeTests.test3" href="#rpg.Tests.edge_tests.EdgeTests.test3">test3</a></code></li>
-</ul>
+<h4><code><a title="rpg.Classes.GUI.button.Button" href="#rpg.Classes.GUI.button.Button">Button</a></code></h4>
 </li>
 </ul>
 </li>

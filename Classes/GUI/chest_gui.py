@@ -39,7 +39,7 @@ class ChestGUI(tk.Toplevel):
 
         self.chest = Image.open('Images/Items/chest_image.png').resize((200, 200))
         self.item_chest = ImageTk.PhotoImage(self.chest)
-        
+
 
         self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
                                    bg="#043F5B")

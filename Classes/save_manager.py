@@ -51,4 +51,3 @@ class SaveManager:
                 return False
             else:
                 return True
-

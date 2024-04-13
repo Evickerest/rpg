@@ -569,7 +569,7 @@ class MainGUI(tk.Tk):
         Button(self, "Exit", self.destroy, 550, self.screen_height//2,
 
                anchor="w", width=8, height=3, font=("Calibri", 20))
-        
+
     def destroy(self):
         if self.is_game_started and self.player.living:
             self.game_handler.save_game()

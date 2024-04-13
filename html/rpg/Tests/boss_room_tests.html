@@ -38,21 +38,28 @@ class BossRoomTests(unittest.TestCase):
     &#34;&#34;&#34;Testcase for the BossRoom.
     &#34;&#34;&#34;
 
-    def test_1make_bossroom(self):
+    def test_1bossroom_init(self):
         &#34;&#34;&#34;Check that the BossRoom initializes.
-        &#34;&#34;&#34;
-        x = BossRoom()
-        self.assertTrue(isinstance(x, BossRoom))
-
-    def test_2bossroom_stats(self):
-        &#34;&#34;&#34;Check the BossRoom&#39;s instance attributes.
         &#34;&#34;&#34;
         x = BossRoom()
         self.assertEqual(x.room_type, &#34;Boss&#34;)
         self.assertTrue(x.name)
         self.assertTrue(x.is_boss_room)
+        self.assertEqual(x.enemies_killed, 0)
         self.assertTrue(x.enemies)
-        self.assertEqual(x.enemies[0].name, &#34;BOSS&#34;)</code></pre>
+        self.assertEqual(x.enemies[0].name, &#34;BOSS&#34;)
+
+    def test_2lv_boss(self):
+        x = BossRoom()
+        enemy_attack = x.enemies[0].attack
+        enemy_defense = x.enemies[0].defense
+
+        x.lv_boss(5)
+        for enemy in x.enemies:
+            self.assertEqual(enemy.stats[&#34;Level&#34;], 10)
+            self.assertEqual(enemy.stats[&#34;Stat Points&#34;], 0)
+            self.assertTrue(enemy.attack &gt; enemy_attack)
+            self.assertTrue(enemy.defense &gt; enemy_defense)</code></pre>
 </details>
 </section>
 <section>
@@ -81,21 +88,28 @@ not have a method with the specified name.</p></div>
     &#34;&#34;&#34;Testcase for the BossRoom.
     &#34;&#34;&#34;
 
-    def test_1make_bossroom(self):
+    def test_1bossroom_init(self):
         &#34;&#34;&#34;Check that the BossRoom initializes.
-        &#34;&#34;&#34;
-        x = BossRoom()
-        self.assertTrue(isinstance(x, BossRoom))
-
-    def test_2bossroom_stats(self):
-        &#34;&#34;&#34;Check the BossRoom&#39;s instance attributes.
         &#34;&#34;&#34;
         x = BossRoom()
         self.assertEqual(x.room_type, &#34;Boss&#34;)
         self.assertTrue(x.name)
         self.assertTrue(x.is_boss_room)
+        self.assertEqual(x.enemies_killed, 0)
         self.assertTrue(x.enemies)
-        self.assertEqual(x.enemies[0].name, &#34;BOSS&#34;)</code></pre>
+        self.assertEqual(x.enemies[0].name, &#34;BOSS&#34;)
+
+    def test_2lv_boss(self):
+        x = BossRoom()
+        enemy_attack = x.enemies[0].attack
+        enemy_defense = x.enemies[0].defense
+
+        x.lv_boss(5)
+        for enemy in x.enemies:
+            self.assertEqual(enemy.stats[&#34;Level&#34;], 10)
+            self.assertEqual(enemy.stats[&#34;Stat Points&#34;], 0)
+            self.assertTrue(enemy.attack &gt; enemy_attack)
+            self.assertTrue(enemy.defense &gt; enemy_defense)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -103,8 +117,8 @@ not have a method with the specified name.</p></div>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="rpg.Tests.boss_room_tests.BossRoomTests.test_1make_bossroom"><code class="name flex">
-<span>def <span class="ident">test_1make_bossroom</span></span>(<span>self)</span>
+<dt id="rpg.Tests.boss_room_tests.BossRoomTests.test_1bossroom_init"><code class="name flex">
+<span>def <span class="ident">test_1bossroom_init</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Check that the BossRoom initializes.</p></div>
@@ -112,31 +126,38 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_1make_bossroom(self):
+<pre><code class="python">def test_1bossroom_init(self):
     &#34;&#34;&#34;Check that the BossRoom initializes.
-    &#34;&#34;&#34;
-    x = BossRoom()
-    self.assertTrue(isinstance(x, BossRoom))</code></pre>
-</details>
-</dd>
-<dt id="rpg.Tests.boss_room_tests.BossRoomTests.test_2bossroom_stats"><code class="name flex">
-<span>def <span class="ident">test_2bossroom_stats</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Check the BossRoom's instance attributes.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_2bossroom_stats(self):
-    &#34;&#34;&#34;Check the BossRoom&#39;s instance attributes.
     &#34;&#34;&#34;
     x = BossRoom()
     self.assertEqual(x.room_type, &#34;Boss&#34;)
     self.assertTrue(x.name)
     self.assertTrue(x.is_boss_room)
+    self.assertEqual(x.enemies_killed, 0)
     self.assertTrue(x.enemies)
     self.assertEqual(x.enemies[0].name, &#34;BOSS&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.boss_room_tests.BossRoomTests.test_2lv_boss"><code class="name flex">
+<span>def <span class="ident">test_2lv_boss</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_2lv_boss(self):
+    x = BossRoom()
+    enemy_attack = x.enemies[0].attack
+    enemy_defense = x.enemies[0].defense
+
+    x.lv_boss(5)
+    for enemy in x.enemies:
+        self.assertEqual(enemy.stats[&#34;Level&#34;], 10)
+        self.assertEqual(enemy.stats[&#34;Stat Points&#34;], 0)
+        self.assertTrue(enemy.attack &gt; enemy_attack)
+        self.assertTrue(enemy.defense &gt; enemy_defense)</code></pre>
 </details>
 </dd>
 </dl>
@@ -160,8 +181,8 @@ not have a method with the specified name.</p></div>
 <li>
 <h4><code><a title="rpg.Tests.boss_room_tests.BossRoomTests" href="#rpg.Tests.boss_room_tests.BossRoomTests">BossRoomTests</a></code></h4>
 <ul class="">
-<li><code><a title="rpg.Tests.boss_room_tests.BossRoomTests.test_1make_bossroom" href="#rpg.Tests.boss_room_tests.BossRoomTests.test_1make_bossroom">test_1make_bossroom</a></code></li>
-<li><code><a title="rpg.Tests.boss_room_tests.BossRoomTests.test_2bossroom_stats" href="#rpg.Tests.boss_room_tests.BossRoomTests.test_2bossroom_stats">test_2bossroom_stats</a></code></li>
+<li><code><a title="rpg.Tests.boss_room_tests.BossRoomTests.test_1bossroom_init" href="#rpg.Tests.boss_room_tests.BossRoomTests.test_1bossroom_init">test_1bossroom_init</a></code></li>
+<li><code><a title="rpg.Tests.boss_room_tests.BossRoomTests.test_2lv_boss" href="#rpg.Tests.boss_room_tests.BossRoomTests.test_2lv_boss">test_2lv_boss</a></code></li>
 </ul>
 </li>
 </ul>

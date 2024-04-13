@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>rpg.Classes.character API documentation</title>
-<meta name="description" content="The Character Module. Contains the generic Character class, the Player class, and the Enemy class." />
+<meta name="description" content="The Character Module. Contains the generic Character class, the Player class,
+and the Enemy class." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,13 +23,15 @@
 <h1 class="title">Module <code>rpg.Classes.character</code></h1>
 </header>
 <section id="section-intro">
-<p>The Character Module. Contains the generic Character class, the Player class, and the Enemy class.</p>
+<p>The Character Module. Contains the generic Character class, the Player class,
+and the Enemy class.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-The Character Module. Contains the generic Character class, the Player class, and the Enemy class.
+The Character Module. Contains the generic Character class, the Player class,
+ and the Enemy class.
 &#34;&#34;&#34;
 
 import random
@@ -52,11 +55,13 @@ class Character:
         &#34;&#34;&#34;
         if stats is None:
             stats = {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
-                     &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5, &#34;Credits&#34;: 0}
+                     &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                     &#34;Credits&#34;: 0}
         self.name = name
         self.inventory = []
         self.stats = stats
-        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]))
+        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                              + self.stats[&#34;Level&#34;]))
         self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
         self.attack = 0  # Pull item attack + character strength?
         self.defense = 0  # Pull item defense + character vitality?
@@ -93,9 +98,9 @@ class Character:
         if self.stats[&#34;Stat Points&#34;] &gt; 0:
             self.stats[stat] += amount
             self.stats[&#34;Stat Points&#34;] -= amount
-        if stat == &#34;Vitality&#34;:
-            self.update_max_health()
-            self.update_health(5 * amount)
+            if stat == &#34;Vitality&#34;:
+                self.update_max_health()
+                self.update_health(5 * amount)
 
     def lv_up(self):
         &#34;&#34;&#34;Tries to level up the character if they have enough XP.
@@ -108,7 +113,8 @@ class Character:
 
     def update_max_health(self):
         &#34;&#34;&#34;Recalculates the character&#39;s Max Health.&#34;&#34;&#34;
-        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]))
+        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                              + self.stats[&#34;Level&#34;]))
         if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
             self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
 
@@ -124,14 +130,16 @@ class Character:
     def get_defense(self):
         &#34;&#34;&#34;Getter for the character&#39;s defense attribute.
         Returns:
-            defense (int): The character&#39;s defense, including equipment bonuses.
+            defense (int): The character&#39;s defense, including
+             equipment bonuses.
         &#34;&#34;&#34;
         return self.defense
 
     def get_attack(self):
         &#34;&#34;&#34;Getter for the character&#39;s attack attribute.
                 Returns:
-                    attack (int): The character&#39;s attack, including weapon bonuses.
+                    attack (int): The character&#39;s attack, including
+                     weapon bonuses.
                 &#34;&#34;&#34;
         return self.attack
 
@@ -180,7 +188,8 @@ class Player(Character):
             item (Item): The item to be equipped from the Player&#39;s inventory.
         &#34;&#34;&#34;
         if item in self.inventory:
-            for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;, &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+            for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;,
+                              &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
                 if item.stats[&#34;type&#34;] == item_type:
                     if self.equipment[item_type].stats[&#34;name&#34;] == &#34;None&#34;:
                         self.equipment[item_type] = item
@@ -202,14 +211,16 @@ class Player(Character):
             if item.stats[&#34;type&#34;] == item_type:
                 if item.stats[&#34;name&#34;] != &#34;None&#34;:
                     self.add_item((self.equipment[item_type]))
-                self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0, 0, 0, 0.8])
+                self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0,
+                                                  0, 0, 0.8])
         self.update_attack()
         self.update_defense()
 
     def use_medkits(self):
         &#34;&#34;&#34;Method to heal by spending a medkit.
         Returns:
-            amt (int): The amount the medkit healed the Player for. 0 if no medkit was used.
+            amt (int): The amount the medkit healed the Player for. 0 if no
+             medkit was used.
         &#34;&#34;&#34;
         amt = 0
         if self.med_kits &gt; 0:
@@ -221,7 +232,8 @@ class Player(Character):
                 self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
             else:
                 self.stats[&#34;Health&#34;] = tmp
-            print(self.name + &#34; used a med kit and healed for &#34; + str(amt) + &#34; health.&#34;)
+            print(self.name + &#34; used a med kit and healed for &#34; + str(amt)
+                  + &#34; health.&#34;)
         else:
             print(&#34;No med kits left.&#34;)
         return amt
@@ -254,29 +266,39 @@ class Player(Character):
     def update_defense(self):
         &#34;&#34;&#34;Updates the Player&#39;s defense attribute.
         &#34;&#34;&#34;
-        self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 5)
+        self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 3)
         for equipment in self.equipment.values():
             self.defense += equipment.stats[&#34;defense&#34;]
 
     def update_attack(self):
         &#34;&#34;&#34;Updates the Player&#39;s attack attribute.
         &#34;&#34;&#34;
-        self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 5)
+        self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 3)
         for equipment in self.equipment.values():
             self.attack += equipment.stats[&#34;damage&#34;]
 
     def take_damage(self, attacker: Character):
         &#34;&#34;&#34;Method used when a Player takes damage.
         Args:
-            attacker (Character): The Character object that is attacking the Player.
+            attacker (Character): The Character object that is attacking
+             the Player.
         &#34;&#34;&#34;
-        damage = attacker.get_attack()
-        self.stats[&#34;Health&#34;] -= int(damage)
+        damage = attacker.get_attack() - self.get_defense() / 3
+        damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats[&#34;Dexterity&#34;]
+                               + attacker.stats[&#34;Level&#34;])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+        if attacker_hit_chance &gt; defender_dodge_chance:
+            self.stats[&#34;Health&#34;] -= int(damage)
+        else:
+            damage = 0
 
-        # Return state of character
+        # Set state of character
         if self.stats[&#34;Health&#34;] &lt;= 0:
-            return True
-        return False
+            self.set_living(False)
+        return damage
 
 
 class Enemy(Character):
@@ -291,10 +313,13 @@ class Enemy(Character):
         super().__init__(name, stats)
         self.stats[&#34;Level&#34;] = enemy_lv
         self.stats[&#34;Stat Points&#34;] = self.stats[&#34;Level&#34;] * 5
-        self.name = name
+        self.action = &#34;nothing&#34;
+        self.actions = [&#34;attack&#34;, &#34;defend&#34;, &#34;nothing&#34;]
         self.update_stats()
+        self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
         self.update_attack()
         self.update_defense()
+        self.randomize_action()
 
     def take_damage(self, attacker: Player):
         &#34;&#34;&#34;Method for the Enemy to take damage.
@@ -302,26 +327,53 @@ class Enemy(Character):
             attacker (Player): Player instance that is attacking.
         &#34;&#34;&#34;
         item = attacker.equipment[&#34;Weapon&#34;]
-        damage = item.get_damage_dealt(self) + attacker.get_attack()
-        damage = max(damage, 1)
-        self.stats[&#34;Health&#34;] -= int(damage)
+        damage = (item.get_damage_dealt(self) + attacker.get_attack()
+                  - self.get_defense() / 2)
+        damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats[&#34;Dexterity&#34;]
+                               + attacker.stats[&#34;Level&#34;])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+        if attacker_hit_chance &gt; defender_dodge_chance:
+            self.stats[&#34;Health&#34;] -= int(damage)
+        else:
+            damage = 0
+        self.stats[&#34;Health&#34;] -= damage
+        return damage
 
     def update_defense(self):
         &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
         &#34;&#34;&#34;
-        self.defense = int((self.stats[&#34;Vitality&#34;] / 5) + self.stats[&#34;Level&#34;])
+        self.defense = int((self.stats[&#34;Vitality&#34;] / 3) + self.stats[&#34;Level&#34;])
 
     def update_attack(self):
         &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
         &#34;&#34;&#34;
-        self.attack = int((self.stats[&#34;Strength&#34;] / 5) + self.stats[&#34;Level&#34;])
+        self.attack = int((self.stats[&#34;Strength&#34;] / 3) + self.stats[&#34;Level&#34;])
 
     def update_stats(self):
-        &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out of Stat Points.
+        &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out
+         of Stat Points.
         &#34;&#34;&#34;
-        while self.stats[&#34;Stat Points&#34;] &gt; 1:
-            stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;, &#39;Vitality&#39;, &#39;Intelligence&#39;])
-            self.upgrade_stats(stat, 1)</code></pre>
+        while self.stats[&#34;Stat Points&#34;] &gt;= 1:
+            stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;,
+                                  &#39;Vitality&#39;, &#39;Intelligence&#39;])
+            self.upgrade_stats(stat, 1)
+
+    def randomize_action(self):
+        &#34;&#34;&#34;Randomize the Enemy instance&#39;s chosen action.
+        &#34;&#34;&#34;
+        self.action = random.choice(self.actions)
+
+    def set_actions(self, action: str):
+        &#34;&#34;&#34;Adds new action to the Enemy instance&#39;s choices.
+        Args:
+            action (str): The action to be added. Action functionality is not
+             guaranteed without a corresponding method.
+        &#34;&#34;&#34;
+        if isinstance(action, str):
+            self.actions.append(action)</code></pre>
 </details>
 </section>
 <section>
@@ -362,11 +414,13 @@ A dictionary lets you make a character of a higher level.</p></div>
         &#34;&#34;&#34;
         if stats is None:
             stats = {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
-                     &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5, &#34;Credits&#34;: 0}
+                     &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                     &#34;Credits&#34;: 0}
         self.name = name
         self.inventory = []
         self.stats = stats
-        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]))
+        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                              + self.stats[&#34;Level&#34;]))
         self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
         self.attack = 0  # Pull item attack + character strength?
         self.defense = 0  # Pull item defense + character vitality?
@@ -403,9 +457,9 @@ A dictionary lets you make a character of a higher level.</p></div>
         if self.stats[&#34;Stat Points&#34;] &gt; 0:
             self.stats[stat] += amount
             self.stats[&#34;Stat Points&#34;] -= amount
-        if stat == &#34;Vitality&#34;:
-            self.update_max_health()
-            self.update_health(5 * amount)
+            if stat == &#34;Vitality&#34;:
+                self.update_max_health()
+                self.update_health(5 * amount)
 
     def lv_up(self):
         &#34;&#34;&#34;Tries to level up the character if they have enough XP.
@@ -418,7 +472,8 @@ A dictionary lets you make a character of a higher level.</p></div>
 
     def update_max_health(self):
         &#34;&#34;&#34;Recalculates the character&#39;s Max Health.&#34;&#34;&#34;
-        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]))
+        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                              + self.stats[&#34;Level&#34;]))
         if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
             self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
 
@@ -434,14 +489,16 @@ A dictionary lets you make a character of a higher level.</p></div>
     def get_defense(self):
         &#34;&#34;&#34;Getter for the character&#39;s defense attribute.
         Returns:
-            defense (int): The character&#39;s defense, including equipment bonuses.
+            defense (int): The character&#39;s defense, including
+             equipment bonuses.
         &#34;&#34;&#34;
         return self.defense
 
     def get_attack(self):
         &#34;&#34;&#34;Getter for the character&#39;s attack attribute.
                 Returns:
-                    attack (int): The character&#39;s attack, including weapon bonuses.
+                    attack (int): The character&#39;s attack, including
+                     weapon bonuses.
                 &#34;&#34;&#34;
         return self.attack
 
@@ -522,7 +579,8 @@ A dictionary lets you make a character of a higher level.</p></div>
 <dd>
 <div class="desc"><p>Getter for the character's attack attribute.</p>
 <h2 id="returns">Returns</h2>
-<p>attack (int): The character's attack, including weapon bonuses.</p></div>
+<p>attack (int): The character's attack, including
+weapon bonuses.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -530,7 +588,8 @@ A dictionary lets you make a character of a higher level.</p></div>
 <pre><code class="python">def get_attack(self):
     &#34;&#34;&#34;Getter for the character&#39;s attack attribute.
             Returns:
-                attack (int): The character&#39;s attack, including weapon bonuses.
+                attack (int): The character&#39;s attack, including
+                 weapon bonuses.
             &#34;&#34;&#34;
     return self.attack</code></pre>
 </details>
@@ -541,7 +600,8 @@ A dictionary lets you make a character of a higher level.</p></div>
 <dd>
 <div class="desc"><p>Getter for the character's defense attribute.</p>
 <h2 id="returns">Returns</h2>
-<p>defense (int): The character's defense, including equipment bonuses.</p></div>
+<p>defense (int): The character's defense, including
+equipment bonuses.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -549,7 +609,8 @@ A dictionary lets you make a character of a higher level.</p></div>
 <pre><code class="python">def get_defense(self):
     &#34;&#34;&#34;Getter for the character&#39;s defense attribute.
     Returns:
-        defense (int): The character&#39;s defense, including equipment bonuses.
+        defense (int): The character&#39;s defense, including
+         equipment bonuses.
     &#34;&#34;&#34;
     return self.defense</code></pre>
 </details>
@@ -631,7 +692,8 @@ Adds unassigned stat points if they do.</p></div>
 </summary>
 <pre><code class="python">def update_max_health(self):
     &#34;&#34;&#34;Recalculates the character&#39;s Max Health.&#34;&#34;&#34;
-    self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]))
+    self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                          + self.stats[&#34;Level&#34;]))
     if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
         self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]</code></pre>
 </details>
@@ -661,9 +723,9 @@ Adds unassigned stat points if they do.</p></div>
     if self.stats[&#34;Stat Points&#34;] &gt; 0:
         self.stats[stat] += amount
         self.stats[&#34;Stat Points&#34;] -= amount
-    if stat == &#34;Vitality&#34;:
-        self.update_max_health()
-        self.update_health(5 * amount)</code></pre>
+        if stat == &#34;Vitality&#34;:
+            self.update_max_health()
+            self.update_health(5 * amount)</code></pre>
 </details>
 </dd>
 </dl>
@@ -694,10 +756,13 @@ enemy_lv (int): The level the enemy is scaled to.</p></div>
         super().__init__(name, stats)
         self.stats[&#34;Level&#34;] = enemy_lv
         self.stats[&#34;Stat Points&#34;] = self.stats[&#34;Level&#34;] * 5
-        self.name = name
+        self.action = &#34;nothing&#34;
+        self.actions = [&#34;attack&#34;, &#34;defend&#34;, &#34;nothing&#34;]
         self.update_stats()
+        self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
         self.update_attack()
         self.update_defense()
+        self.randomize_action()
 
     def take_damage(self, attacker: Player):
         &#34;&#34;&#34;Method for the Enemy to take damage.
@@ -705,26 +770,53 @@ enemy_lv (int): The level the enemy is scaled to.</p></div>
             attacker (Player): Player instance that is attacking.
         &#34;&#34;&#34;
         item = attacker.equipment[&#34;Weapon&#34;]
-        damage = item.get_damage_dealt(self) + attacker.get_attack()
-        damage = max(damage, 1)
-        self.stats[&#34;Health&#34;] -= int(damage)
+        damage = (item.get_damage_dealt(self) + attacker.get_attack()
+                  - self.get_defense() / 2)
+        damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats[&#34;Dexterity&#34;]
+                               + attacker.stats[&#34;Level&#34;])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+        if attacker_hit_chance &gt; defender_dodge_chance:
+            self.stats[&#34;Health&#34;] -= int(damage)
+        else:
+            damage = 0
+        self.stats[&#34;Health&#34;] -= damage
+        return damage
 
     def update_defense(self):
         &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
         &#34;&#34;&#34;
-        self.defense = int((self.stats[&#34;Vitality&#34;] / 5) + self.stats[&#34;Level&#34;])
+        self.defense = int((self.stats[&#34;Vitality&#34;] / 3) + self.stats[&#34;Level&#34;])
 
     def update_attack(self):
         &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
         &#34;&#34;&#34;
-        self.attack = int((self.stats[&#34;Strength&#34;] / 5) + self.stats[&#34;Level&#34;])
+        self.attack = int((self.stats[&#34;Strength&#34;] / 3) + self.stats[&#34;Level&#34;])
 
     def update_stats(self):
-        &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out of Stat Points.
+        &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out
+         of Stat Points.
         &#34;&#34;&#34;
-        while self.stats[&#34;Stat Points&#34;] &gt; 1:
-            stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;, &#39;Vitality&#39;, &#39;Intelligence&#39;])
-            self.upgrade_stats(stat, 1)</code></pre>
+        while self.stats[&#34;Stat Points&#34;] &gt;= 1:
+            stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;,
+                                  &#39;Vitality&#39;, &#39;Intelligence&#39;])
+            self.upgrade_stats(stat, 1)
+
+    def randomize_action(self):
+        &#34;&#34;&#34;Randomize the Enemy instance&#39;s chosen action.
+        &#34;&#34;&#34;
+        self.action = random.choice(self.actions)
+
+    def set_actions(self, action: str):
+        &#34;&#34;&#34;Adds new action to the Enemy instance&#39;s choices.
+        Args:
+            action (str): The action to be added. Action functionality is not
+             guaranteed without a corresponding method.
+        &#34;&#34;&#34;
+        if isinstance(action, str):
+            self.actions.append(action)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -732,6 +824,46 @@ enemy_lv (int): The level the enemy is scaled to.</p></div>
 </ul>
 <h3>Methods</h3>
 <dl>
+<dt id="rpg.Classes.character.Enemy.randomize_action"><code class="name flex">
+<span>def <span class="ident">randomize_action</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Randomize the Enemy instance's chosen action.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def randomize_action(self):
+    &#34;&#34;&#34;Randomize the Enemy instance&#39;s chosen action.
+    &#34;&#34;&#34;
+    self.action = random.choice(self.actions)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Enemy.set_actions"><code class="name flex">
+<span>def <span class="ident">set_actions</span></span>(<span>self, action: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adds new action to the Enemy instance's choices.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
+<dd>The action to be added. Action functionality is not</dd>
+</dl>
+<p>guaranteed without a corresponding method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_actions(self, action: str):
+    &#34;&#34;&#34;Adds new action to the Enemy instance&#39;s choices.
+    Args:
+        action (str): The action to be added. Action functionality is not
+         guaranteed without a corresponding method.
+    &#34;&#34;&#34;
+    if isinstance(action, str):
+        self.actions.append(action)</code></pre>
+</details>
+</dd>
 <dt id="rpg.Classes.character.Enemy.take_damage"><code class="name flex">
 <span>def <span class="ident">take_damage</span></span>(<span>self, attacker: <a title="rpg.Classes.character.Player" href="#rpg.Classes.character.Player">Player</a>)</span>
 </code></dt>
@@ -749,9 +881,20 @@ enemy_lv (int): The level the enemy is scaled to.</p></div>
         attacker (Player): Player instance that is attacking.
     &#34;&#34;&#34;
     item = attacker.equipment[&#34;Weapon&#34;]
-    damage = item.get_damage_dealt(self) + attacker.get_attack()
-    damage = max(damage, 1)
-    self.stats[&#34;Health&#34;] -= int(damage)</code></pre>
+    damage = (item.get_damage_dealt(self) + attacker.get_attack()
+              - self.get_defense() / 2)
+    damage = max(int(damage), 1)
+    attacker_hit_chance = (random.randint(1, 100) + damage +
+                           attacker.stats[&#34;Dexterity&#34;]
+                           + attacker.stats[&#34;Level&#34;])
+    defender_dodge_chance = (random.randint(1, 100) + damage +
+                             self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+    if attacker_hit_chance &gt; defender_dodge_chance:
+        self.stats[&#34;Health&#34;] -= int(damage)
+    else:
+        damage = 0
+    self.stats[&#34;Health&#34;] -= damage
+    return damage</code></pre>
 </details>
 </dd>
 <dt id="rpg.Classes.character.Enemy.update_attack"><code class="name flex">
@@ -766,7 +909,7 @@ enemy_lv (int): The level the enemy is scaled to.</p></div>
 <pre><code class="python">def update_attack(self):
     &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
     &#34;&#34;&#34;
-    self.attack = int((self.stats[&#34;Strength&#34;] / 5) + self.stats[&#34;Level&#34;])</code></pre>
+    self.attack = int((self.stats[&#34;Strength&#34;] / 3) + self.stats[&#34;Level&#34;])</code></pre>
 </details>
 </dd>
 <dt id="rpg.Classes.character.Enemy.update_defense"><code class="name flex">
@@ -781,23 +924,26 @@ enemy_lv (int): The level the enemy is scaled to.</p></div>
 <pre><code class="python">def update_defense(self):
     &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
     &#34;&#34;&#34;
-    self.defense = int((self.stats[&#34;Vitality&#34;] / 5) + self.stats[&#34;Level&#34;])</code></pre>
+    self.defense = int((self.stats[&#34;Vitality&#34;] / 3) + self.stats[&#34;Level&#34;])</code></pre>
 </details>
 </dd>
 <dt id="rpg.Classes.character.Enemy.update_stats"><code class="name flex">
 <span>def <span class="ident">update_stats</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Randomly increases the Enemy's stats until they're out of Stat Points.</p></div>
+<div class="desc"><p>Randomly increases the Enemy's stats until they're out
+of Stat Points.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def update_stats(self):
-    &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out of Stat Points.
+    &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out
+     of Stat Points.
     &#34;&#34;&#34;
-    while self.stats[&#34;Stat Points&#34;] &gt; 1:
-        stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;, &#39;Vitality&#39;, &#39;Intelligence&#39;])
+    while self.stats[&#34;Stat Points&#34;] &gt;= 1:
+        stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;,
+                              &#39;Vitality&#39;, &#39;Intelligence&#39;])
         self.upgrade_stats(stat, 1)</code></pre>
 </details>
 </dd>
@@ -871,7 +1017,8 @@ Adds medkits for healing and the ability to use equipment.</p>
             item (Item): The item to be equipped from the Player&#39;s inventory.
         &#34;&#34;&#34;
         if item in self.inventory:
-            for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;, &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+            for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;,
+                              &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
                 if item.stats[&#34;type&#34;] == item_type:
                     if self.equipment[item_type].stats[&#34;name&#34;] == &#34;None&#34;:
                         self.equipment[item_type] = item
@@ -893,14 +1040,16 @@ Adds medkits for healing and the ability to use equipment.</p>
             if item.stats[&#34;type&#34;] == item_type:
                 if item.stats[&#34;name&#34;] != &#34;None&#34;:
                     self.add_item((self.equipment[item_type]))
-                self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0, 0, 0, 0.8])
+                self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0,
+                                                  0, 0, 0.8])
         self.update_attack()
         self.update_defense()
 
     def use_medkits(self):
         &#34;&#34;&#34;Method to heal by spending a medkit.
         Returns:
-            amt (int): The amount the medkit healed the Player for. 0 if no medkit was used.
+            amt (int): The amount the medkit healed the Player for. 0 if no
+             medkit was used.
         &#34;&#34;&#34;
         amt = 0
         if self.med_kits &gt; 0:
@@ -912,7 +1061,8 @@ Adds medkits for healing and the ability to use equipment.</p>
                 self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
             else:
                 self.stats[&#34;Health&#34;] = tmp
-            print(self.name + &#34; used a med kit and healed for &#34; + str(amt) + &#34; health.&#34;)
+            print(self.name + &#34; used a med kit and healed for &#34; + str(amt)
+                  + &#34; health.&#34;)
         else:
             print(&#34;No med kits left.&#34;)
         return amt
@@ -945,29 +1095,39 @@ Adds medkits for healing and the ability to use equipment.</p>
     def update_defense(self):
         &#34;&#34;&#34;Updates the Player&#39;s defense attribute.
         &#34;&#34;&#34;
-        self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 5)
+        self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 3)
         for equipment in self.equipment.values():
             self.defense += equipment.stats[&#34;defense&#34;]
 
     def update_attack(self):
         &#34;&#34;&#34;Updates the Player&#39;s attack attribute.
         &#34;&#34;&#34;
-        self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 5)
+        self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 3)
         for equipment in self.equipment.values():
             self.attack += equipment.stats[&#34;damage&#34;]
 
     def take_damage(self, attacker: Character):
         &#34;&#34;&#34;Method used when a Player takes damage.
         Args:
-            attacker (Character): The Character object that is attacking the Player.
+            attacker (Character): The Character object that is attacking
+             the Player.
         &#34;&#34;&#34;
-        damage = attacker.get_attack()
-        self.stats[&#34;Health&#34;] -= int(damage)
+        damage = attacker.get_attack() - self.get_defense() / 3
+        damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats[&#34;Dexterity&#34;]
+                               + attacker.stats[&#34;Level&#34;])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+        if attacker_hit_chance &gt; defender_dodge_chance:
+            self.stats[&#34;Health&#34;] -= int(damage)
+        else:
+            damage = 0
 
-        # Return state of character
+        # Set state of character
         if self.stats[&#34;Health&#34;] &lt;= 0:
-            return True
-        return False</code></pre>
+            self.set_living(False)
+        return damage</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1035,7 +1195,8 @@ def med_kits(self) -&gt; int:
         item (Item): The item to be equipped from the Player&#39;s inventory.
     &#34;&#34;&#34;
     if item in self.inventory:
-        for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;, &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+        for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;,
+                          &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
             if item.stats[&#34;type&#34;] == item_type:
                 if self.equipment[item_type].stats[&#34;name&#34;] == &#34;None&#34;:
                     self.equipment[item_type] = item
@@ -1056,8 +1217,9 @@ def med_kits(self) -&gt; int:
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>attacker</code></strong> :&ensp;<code><a title="rpg.Classes.character.Character" href="#rpg.Classes.character.Character">Character</a></code></dt>
-<dd>The Character object that is attacking the Player.</dd>
-</dl></div>
+<dd>The Character object that is attacking</dd>
+</dl>
+<p>the Player.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1065,15 +1227,25 @@ def med_kits(self) -&gt; int:
 <pre><code class="python">def take_damage(self, attacker: Character):
     &#34;&#34;&#34;Method used when a Player takes damage.
     Args:
-        attacker (Character): The Character object that is attacking the Player.
+        attacker (Character): The Character object that is attacking
+         the Player.
     &#34;&#34;&#34;
-    damage = attacker.get_attack()
-    self.stats[&#34;Health&#34;] -= int(damage)
+    damage = attacker.get_attack() - self.get_defense() / 3
+    damage = max(int(damage), 1)
+    attacker_hit_chance = (random.randint(1, 100) + damage +
+                           attacker.stats[&#34;Dexterity&#34;]
+                           + attacker.stats[&#34;Level&#34;])
+    defender_dodge_chance = (random.randint(1, 100) + damage +
+                             self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+    if attacker_hit_chance &gt; defender_dodge_chance:
+        self.stats[&#34;Health&#34;] -= int(damage)
+    else:
+        damage = 0
 
-    # Return state of character
+    # Set state of character
     if self.stats[&#34;Health&#34;] &lt;= 0:
-        return True
-    return False</code></pre>
+        self.set_living(False)
+    return damage</code></pre>
 </details>
 </dd>
 <dt id="rpg.Classes.character.Player.unequip_item"><code class="name flex">
@@ -1101,7 +1273,8 @@ and place it into their inventory.</p>
         if item.stats[&#34;type&#34;] == item_type:
             if item.stats[&#34;name&#34;] != &#34;None&#34;:
                 self.add_item((self.equipment[item_type]))
-            self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0, 0, 0, 0.8])
+            self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0,
+                                              0, 0, 0.8])
     self.update_attack()
     self.update_defense()</code></pre>
 </details>
@@ -1118,7 +1291,7 @@ and place it into their inventory.</p>
 <pre><code class="python">def update_attack(self):
     &#34;&#34;&#34;Updates the Player&#39;s attack attribute.
     &#34;&#34;&#34;
-    self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 5)
+    self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 3)
     for equipment in self.equipment.values():
         self.attack += equipment.stats[&#34;damage&#34;]</code></pre>
 </details>
@@ -1135,7 +1308,7 @@ and place it into their inventory.</p>
 <pre><code class="python">def update_defense(self):
     &#34;&#34;&#34;Updates the Player&#39;s defense attribute.
     &#34;&#34;&#34;
-    self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 5)
+    self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 3)
     for equipment in self.equipment.values():
         self.defense += equipment.stats[&#34;defense&#34;]</code></pre>
 </details>
@@ -1146,7 +1319,8 @@ and place it into their inventory.</p>
 <dd>
 <div class="desc"><p>Method to heal by spending a medkit.</p>
 <h2 id="returns">Returns</h2>
-<p>amt (int): The amount the medkit healed the Player for. 0 if no medkit was used.</p></div>
+<p>amt (int): The amount the medkit healed the Player for. 0 if no
+medkit was used.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1154,7 +1328,8 @@ and place it into their inventory.</p>
 <pre><code class="python">def use_medkits(self):
     &#34;&#34;&#34;Method to heal by spending a medkit.
     Returns:
-        amt (int): The amount the medkit healed the Player for. 0 if no medkit was used.
+        amt (int): The amount the medkit healed the Player for. 0 if no
+         medkit was used.
     &#34;&#34;&#34;
     amt = 0
     if self.med_kits &gt; 0:
@@ -1166,7 +1341,8 @@ and place it into their inventory.</p>
             self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
         else:
             self.stats[&#34;Health&#34;] = tmp
-        print(self.name + &#34; used a med kit and healed for &#34; + str(amt) + &#34; health.&#34;)
+        print(self.name + &#34; used a med kit and healed for &#34; + str(amt)
+              + &#34; health.&#34;)
     else:
         print(&#34;No med kits left.&#34;)
     return amt</code></pre>
@@ -1224,7 +1400,9 @@ and place it into their inventory.</p>
 </li>
 <li>
 <h4><code><a title="rpg.Classes.character.Enemy" href="#rpg.Classes.character.Enemy">Enemy</a></code></h4>
-<ul class="">
+<ul class="two-column">
+<li><code><a title="rpg.Classes.character.Enemy.randomize_action" href="#rpg.Classes.character.Enemy.randomize_action">randomize_action</a></code></li>
+<li><code><a title="rpg.Classes.character.Enemy.set_actions" href="#rpg.Classes.character.Enemy.set_actions">set_actions</a></code></li>
 <li><code><a title="rpg.Classes.character.Enemy.take_damage" href="#rpg.Classes.character.Enemy.take_damage">take_damage</a></code></li>
 <li><code><a title="rpg.Classes.character.Enemy.update_attack" href="#rpg.Classes.character.Enemy.update_attack">update_attack</a></code></li>
 <li><code><a title="rpg.Classes.character.Enemy.update_defense" href="#rpg.Classes.character.Enemy.update_defense">update_defense</a></code></li>

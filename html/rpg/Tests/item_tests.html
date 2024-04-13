@@ -42,7 +42,7 @@ class ItemTests(unittest.TestCase):
     def test_1load_items1(self):
         &#34;&#34;&#34;Test that the list of item details loads properly.
         &#34;&#34;&#34;
-        self.assertNotEquals(Item.ITEMS, [])
+        self.assertFalse(not Item.ITEMS)
 
     def test_2load_items2(self):
         &#34;&#34;&#34;Test that the list of item details exists.
@@ -64,18 +64,8 @@ class ItemTests(unittest.TestCase):
         Item.load_items()
         self.assertEqual(len(Item.ITEMS), x)
 
-    def test_5make_item1(self):
+    def test_5item_init(self):
         &#34;&#34;&#34;Test that the Item instance initializes properly.
-        &#34;&#34;&#34;
-        x = None
-        Item.load_items()
-        self.assertFalse(x)
-        x = Item(random.choice(Item.ITEMS))
-        self.assertTrue(x)
-        self.assertTrue(isinstance(x, Item))
-
-    def test_6item_stats1(self):
-        &#34;&#34;&#34;Test that Item instance attributes are correct.
         &#34;&#34;&#34;
         Item.load_items()
         stats = random.choice(Item.ITEMS)
@@ -93,7 +83,7 @@ class ItemTests(unittest.TestCase):
         self.assertEqual(x.stats[&#34;value&#34;], value)
         self.assertEqual(x.stats[&#34;damagePercent&#34;], damagepercent)
 
-    def test_7item_assign_stats(self):
+    def test_6item_assign_stats(self):
         &#34;&#34;&#34;Test that the assignStats method works.
         &#34;&#34;&#34;
         Item.load_items()
@@ -106,7 +96,7 @@ class ItemTests(unittest.TestCase):
         self.assertEqual(x.stats[&#34;critPercent&#34;], x.crit_percent)
         self.assertEqual(x.stats[&#34;damagePercent&#34;], x.damage_percent)
 
-    def test_8item_get_damage(self):
+    def test_7item_get_damage(self):
         &#34;&#34;&#34;Test that the get_damage_dealt method works.
         &#34;&#34;&#34;
         Item.load_items()
@@ -115,7 +105,7 @@ class ItemTests(unittest.TestCase):
         enemy = Enemy(&#34;Tester&#34;, None, 1)
         self.assertTrue(x.get_damage_dealt(enemy))
 
-    def test_9item_notitem(self):
+    def test_8item_notitem(self):
         &#34;&#34;&#34;Test that a new Item instance doesn&#39;t duplicate the ITEMS list.
         &#34;&#34;&#34;
         stats = random.choice(Item.ITEMS)
@@ -153,7 +143,7 @@ not have a method with the specified name.</p></div>
     def test_1load_items1(self):
         &#34;&#34;&#34;Test that the list of item details loads properly.
         &#34;&#34;&#34;
-        self.assertNotEquals(Item.ITEMS, [])
+        self.assertFalse(not Item.ITEMS)
 
     def test_2load_items2(self):
         &#34;&#34;&#34;Test that the list of item details exists.
@@ -175,18 +165,8 @@ not have a method with the specified name.</p></div>
         Item.load_items()
         self.assertEqual(len(Item.ITEMS), x)
 
-    def test_5make_item1(self):
+    def test_5item_init(self):
         &#34;&#34;&#34;Test that the Item instance initializes properly.
-        &#34;&#34;&#34;
-        x = None
-        Item.load_items()
-        self.assertFalse(x)
-        x = Item(random.choice(Item.ITEMS))
-        self.assertTrue(x)
-        self.assertTrue(isinstance(x, Item))
-
-    def test_6item_stats1(self):
-        &#34;&#34;&#34;Test that Item instance attributes are correct.
         &#34;&#34;&#34;
         Item.load_items()
         stats = random.choice(Item.ITEMS)
@@ -204,7 +184,7 @@ not have a method with the specified name.</p></div>
         self.assertEqual(x.stats[&#34;value&#34;], value)
         self.assertEqual(x.stats[&#34;damagePercent&#34;], damagepercent)
 
-    def test_7item_assign_stats(self):
+    def test_6item_assign_stats(self):
         &#34;&#34;&#34;Test that the assignStats method works.
         &#34;&#34;&#34;
         Item.load_items()
@@ -217,7 +197,7 @@ not have a method with the specified name.</p></div>
         self.assertEqual(x.stats[&#34;critPercent&#34;], x.crit_percent)
         self.assertEqual(x.stats[&#34;damagePercent&#34;], x.damage_percent)
 
-    def test_8item_get_damage(self):
+    def test_7item_get_damage(self):
         &#34;&#34;&#34;Test that the get_damage_dealt method works.
         &#34;&#34;&#34;
         Item.load_items()
@@ -226,7 +206,7 @@ not have a method with the specified name.</p></div>
         enemy = Enemy(&#34;Tester&#34;, None, 1)
         self.assertTrue(x.get_damage_dealt(enemy))
 
-    def test_9item_notitem(self):
+    def test_8item_notitem(self):
         &#34;&#34;&#34;Test that a new Item instance doesn&#39;t duplicate the ITEMS list.
         &#34;&#34;&#34;
         stats = random.choice(Item.ITEMS)
@@ -252,7 +232,7 @@ not have a method with the specified name.</p></div>
 <pre><code class="python">def test_1load_items1(self):
     &#34;&#34;&#34;Test that the list of item details loads properly.
     &#34;&#34;&#34;
-    self.assertNotEquals(Item.ITEMS, [])</code></pre>
+    self.assertFalse(not Item.ITEMS)</code></pre>
 </details>
 </dd>
 <dt id="rpg.Tests.item_tests.ItemTests.test_2load_items2"><code class="name flex">
@@ -305,8 +285,8 @@ not have a method with the specified name.</p></div>
     self.assertEqual(len(Item.ITEMS), x)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.item_tests.ItemTests.test_5make_item1"><code class="name flex">
-<span>def <span class="ident">test_5make_item1</span></span>(<span>self)</span>
+<dt id="rpg.Tests.item_tests.ItemTests.test_5item_init"><code class="name flex">
+<span>def <span class="ident">test_5item_init</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test that the Item instance initializes properly.</p></div>
@@ -314,28 +294,8 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_5make_item1(self):
+<pre><code class="python">def test_5item_init(self):
     &#34;&#34;&#34;Test that the Item instance initializes properly.
-    &#34;&#34;&#34;
-    x = None
-    Item.load_items()
-    self.assertFalse(x)
-    x = Item(random.choice(Item.ITEMS))
-    self.assertTrue(x)
-    self.assertTrue(isinstance(x, Item))</code></pre>
-</details>
-</dd>
-<dt id="rpg.Tests.item_tests.ItemTests.test_6item_stats1"><code class="name flex">
-<span>def <span class="ident">test_6item_stats1</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Test that Item instance attributes are correct.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_6item_stats1(self):
-    &#34;&#34;&#34;Test that Item instance attributes are correct.
     &#34;&#34;&#34;
     Item.load_items()
     stats = random.choice(Item.ITEMS)
@@ -354,8 +314,8 @@ not have a method with the specified name.</p></div>
     self.assertEqual(x.stats[&#34;damagePercent&#34;], damagepercent)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.item_tests.ItemTests.test_7item_assign_stats"><code class="name flex">
-<span>def <span class="ident">test_7item_assign_stats</span></span>(<span>self)</span>
+<dt id="rpg.Tests.item_tests.ItemTests.test_6item_assign_stats"><code class="name flex">
+<span>def <span class="ident">test_6item_assign_stats</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test that the assignStats method works.</p></div>
@@ -363,7 +323,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_7item_assign_stats(self):
+<pre><code class="python">def test_6item_assign_stats(self):
     &#34;&#34;&#34;Test that the assignStats method works.
     &#34;&#34;&#34;
     Item.load_items()
@@ -377,8 +337,8 @@ not have a method with the specified name.</p></div>
     self.assertEqual(x.stats[&#34;damagePercent&#34;], x.damage_percent)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.item_tests.ItemTests.test_8item_get_damage"><code class="name flex">
-<span>def <span class="ident">test_8item_get_damage</span></span>(<span>self)</span>
+<dt id="rpg.Tests.item_tests.ItemTests.test_7item_get_damage"><code class="name flex">
+<span>def <span class="ident">test_7item_get_damage</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test that the get_damage_dealt method works.</p></div>
@@ -386,7 +346,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_8item_get_damage(self):
+<pre><code class="python">def test_7item_get_damage(self):
     &#34;&#34;&#34;Test that the get_damage_dealt method works.
     &#34;&#34;&#34;
     Item.load_items()
@@ -396,8 +356,8 @@ not have a method with the specified name.</p></div>
     self.assertTrue(x.get_damage_dealt(enemy))</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.item_tests.ItemTests.test_9item_notitem"><code class="name flex">
-<span>def <span class="ident">test_9item_notitem</span></span>(<span>self)</span>
+<dt id="rpg.Tests.item_tests.ItemTests.test_8item_notitem"><code class="name flex">
+<span>def <span class="ident">test_8item_notitem</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test that a new Item instance doesn't duplicate the ITEMS list.</p></div>
@@ -405,7 +365,7 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_9item_notitem(self):
+<pre><code class="python">def test_8item_notitem(self):
     &#34;&#34;&#34;Test that a new Item instance doesn&#39;t duplicate the ITEMS list.
     &#34;&#34;&#34;
     stats = random.choice(Item.ITEMS)
@@ -439,11 +399,10 @@ not have a method with the specified name.</p></div>
 <li><code><a title="rpg.Tests.item_tests.ItemTests.test_2load_items2" href="#rpg.Tests.item_tests.ItemTests.test_2load_items2">test_2load_items2</a></code></li>
 <li><code><a title="rpg.Tests.item_tests.ItemTests.test_3load_items3" href="#rpg.Tests.item_tests.ItemTests.test_3load_items3">test_3load_items3</a></code></li>
 <li><code><a title="rpg.Tests.item_tests.ItemTests.test_4load_items4" href="#rpg.Tests.item_tests.ItemTests.test_4load_items4">test_4load_items4</a></code></li>
-<li><code><a title="rpg.Tests.item_tests.ItemTests.test_5make_item1" href="#rpg.Tests.item_tests.ItemTests.test_5make_item1">test_5make_item1</a></code></li>
-<li><code><a title="rpg.Tests.item_tests.ItemTests.test_6item_stats1" href="#rpg.Tests.item_tests.ItemTests.test_6item_stats1">test_6item_stats1</a></code></li>
-<li><code><a title="rpg.Tests.item_tests.ItemTests.test_7item_assign_stats" href="#rpg.Tests.item_tests.ItemTests.test_7item_assign_stats">test_7item_assign_stats</a></code></li>
-<li><code><a title="rpg.Tests.item_tests.ItemTests.test_8item_get_damage" href="#rpg.Tests.item_tests.ItemTests.test_8item_get_damage">test_8item_get_damage</a></code></li>
-<li><code><a title="rpg.Tests.item_tests.ItemTests.test_9item_notitem" href="#rpg.Tests.item_tests.ItemTests.test_9item_notitem">test_9item_notitem</a></code></li>
+<li><code><a title="rpg.Tests.item_tests.ItemTests.test_5item_init" href="#rpg.Tests.item_tests.ItemTests.test_5item_init">test_5item_init</a></code></li>
+<li><code><a title="rpg.Tests.item_tests.ItemTests.test_6item_assign_stats" href="#rpg.Tests.item_tests.ItemTests.test_6item_assign_stats">test_6item_assign_stats</a></code></li>
+<li><code><a title="rpg.Tests.item_tests.ItemTests.test_7item_get_damage" href="#rpg.Tests.item_tests.ItemTests.test_7item_get_damage">test_7item_get_damage</a></code></li>
+<li><code><a title="rpg.Tests.item_tests.ItemTests.test_8item_notitem" href="#rpg.Tests.item_tests.ItemTests.test_8item_notitem">test_8item_notitem</a></code></li>
 </ul>
 </li>
 </ul>

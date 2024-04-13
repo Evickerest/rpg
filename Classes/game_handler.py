@@ -35,9 +35,11 @@ class GameHandler:
         self.save_manager = SaveManager()
         MainGUI(self.player, self)
 
-    
-
     def start_from_save(self, save):
+        """Starts a game from a save instead of creating a new game.
+        Args:
+            save: The save file to get the data from
+        """
         GameHandler.counter = save["Round_Number"]
 
         self.total_rooms_entered = save["sessions_stats"]["rooms_entered"]
@@ -198,4 +200,6 @@ class GameHandler:
         self.save_manager.clear_save_file()
 
     def is_save_empty(self):
+        """Checks if the save is empty.
+        """
         return self.save_manager.is_save_empty()

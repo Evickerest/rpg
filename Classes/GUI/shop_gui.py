@@ -1,12 +1,13 @@
 """Module containing the ShopGUI class.
 """
+import csv
+import random
 import tkinter as tk
 from PIL import ImageTk, Image
 from Classes.GUI.button import Button
 from Classes.character import Player
 from Classes.Rooms.shop_room import ShopRoom
-import csv
-import random
+
 
 
 class ShopGUI(tk.Toplevel):
@@ -64,13 +65,13 @@ class ShopGUI(tk.Toplevel):
         self.photo_images = []
 
         for counter, name in enumerate(self.armory_names):
-            image = Image.open(f'Images/Items/{name}.png').resize((60, 60))            
+            image = Image.open(f'Images/Items/{name}.png').resize((60, 60))
             photo_image = ImageTk.PhotoImage(image)
 
             #   Adds  each image to the list and adds it on the Canvas.
-            self.photo_images.append(photo_image)            
+            self.photo_images.append(photo_image)
             self.bg_canvas.create_image(self.width - 110, self.image_space, image=photo_image, anchor='nw')
-            
+
             #   Increment the test variable for the next image position
             self.image_space += 60
 
@@ -86,7 +87,7 @@ class ShopGUI(tk.Toplevel):
 
         self.credit_icon = Image.open('Images/Items/Coin2.png').resize((30, 30))
         self.credit_stat_icon = ImageTk.PhotoImage(self.credit_icon)
- 
+
         self.bg_canvas.create_image(50, self.height - 450, image=self.att_stat_icon, anchor='nw')
         self.bg_canvas.create_image(50, self.height - 410, image=self.deff_stat_icon, anchor='nw')
         self.bg_canvas.create_image(50, self.height - 370, image=self.med_kit_image, anchor='nw')

@@ -30,7 +30,7 @@
 <pre><code class="python">&#34;&#34;&#34;Module for the Map class.
 &#34;&#34;&#34;
 
-import math
+import csv
 import random
 from Classes.Map.edge import Edge
 from Classes.Map.mapconstants import MapConstants
@@ -68,7 +68,7 @@ class Map:
             current_room (Room): The Room the player is in.
         &#34;&#34;&#34;
         return self.current_room
-    
+
     def set_current_room(self, room):
         &#34;&#34;&#34;Setter for the current room of the map.
         Args:
@@ -85,7 +85,8 @@ class Map:
         # Loop through each room type
         for room_type in MapConstants.ROOM_TYPES:
             # Loop for the desired number of rooms
-            for _ in range(MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
+            for _ in range(
+                    MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
                 random_x = random.random()
                 random_y = random.random()
 
@@ -93,7 +94,6 @@ class Map:
                 room = MapConstants.ROOM_TYPES[room_type][&#34;room&#34;]()
                 # room.image = randomImage()
 
-                # TODO: delete later
                 room.number = str(counter)
                 counter += 1
 
@@ -111,10 +111,12 @@ class Map:
                     room.edges.append(Edge(room, other_room))
 
     # Implementation of Prim&#39;s Algorithm
-    # Takes a graph of nodes (rooms) and edges, and constructs a minimum spanning tree
-    # Downside is that a mst doesn&#39;t produce cycles, so additional edges will have to be added in
+    # Takes a graph of nodes (rooms) and edges, and constructs a minimum
+    # spanning tree. Downside is that a mst doesn&#39;t produce cycles, so
+    # additional edges will have to be added in.
     def prims_algorithm(self):
-        &#34;&#34;&#34;Method to create a minimum spanning tree to connect all rooms together.
+        &#34;&#34;&#34;Method to create a minimum spanning tree to connect all
+         rooms together.
         &#34;&#34;&#34;
         seen_rooms = [self.rooms[0]]
         default_edge = Edge(self.rooms[0], self.rooms[1])
@@ -126,43 +128,73 @@ class Map:
             for seenroom in seen_rooms:
                 for edge in seenroom.edges:
 
-                    if edge.rooms[0] in seen_rooms and edge.rooms[1] not in seen_rooms:
+                    if (edge.rooms[0] in seen_rooms and edge.rooms[1]
+                            not in seen_rooms):
                         available_edges.append(edge)
 
-            minimum_edge = min(available_edges, key=lambda edge: edge.weight, default=default_edge)
+            minimum_edge = min(available_edges, key=lambda edge: edge.weight,
+                               default=default_edge)
             seen_rooms.append(minimum_edge.rooms[1])
             mst.append(minimum_edge)
 
             # Throw random edges in
             while (random.random() &lt; MapConstants.CHANCE_FOR_NEW_EDGE
                    and len(available_edges) != 0):
-                
+
                 random_edge = random.choice(available_edges)
                 # Max of 6 room connections per room
                 if (len(random_edge.rooms[0].get_adjacent_rooms()) &lt; 6 and
                         len(random_edge.rooms[1].get_adjacent_rooms()) &lt; 6):
                     mst.append(random_edge)
 
-        # From what was created from Prim&#39;s algorithm, create adjacency between rooms
+        # From what was created from Prim&#39;s algorithm, create adjacency between
+        # rooms.
         # Edges and adjacency are kinda redundant tbh
         for edge in mst:
             edge.rooms[0].create_adjacency(edge.rooms[1])
 
         # Create Start room
         self.start_room.add_adjacent_room(self.rooms[0])
+        self.start_room.cleared = True
 
     def assign_random_images(self):
         &#34;&#34;&#34;Method to assign an image path to all rooms in the map.
         &#34;&#34;&#34;
-        button_images = [&#34;Weapons Bay&#34;, &#34;Main Cabin&#34;, &#34;Elevator 1&#34;, &#34;Storage Area&#34;, &#34;Kitchen&#34;,
-                         &#34;Barracks&#34;, &#34;Cafeteria&#34;, &#34;Life Pod 1&#34;, &#34;Cabin 2&#34;, &#34;Showers&#34;, &#34;Cabin 1&#34;,
-                         &#34;Docking Port&#34;, &#34;Bridge&#34;, &#34;Elevator 3&#34;, &#34;Elevator 2&#34;, &#34;Cabin 3&#34;,
-                         &#34;Captains Cabin&#34;, &#34;Hangar&#34;, &#34;Life Pod 2&#34;, &#34;Engine Room&#34;]
-        
-        random.shuffle(button_images)
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
 
-        for room in self.rooms:
-            room.set_image_path(f&#34;Map/Set/{button_images.pop()}.jpg&#34;)
+        button_images1 = []
+        button_images2 = []
+        button_images3 = []
+
+        names = []
+        # Text File created with button names(Room names).
+        with open(&#39;Names/ButtonNames.txt&#39;,
+                  &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
+            reader = csv.reader(f)
+            for row in reader:
+                names.extend(row)
+
+        button_images1 = names[:20]  # There are 20 Possible Button names
+        button_images2 = names[20:44]
+        # From the 20th to the 45th position extracted for Round 2.
+        button_images3 = names[44:]
+
+        if self.lvl_counter == 1:
+            random.shuffle(button_images1)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/LevelOneMap/{button_images1.pop()}.jpg&#34;)
+
+        elif self.lvl_counter == 2:
+            random.shuffle(button_images2)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/LevelTwoMap/{button_images2.pop()}.jpg&#34;)
+
+        elif self.lvl_counter == 3:
+            random.shuffle(button_images3)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/Level3/LevelThreeMap/{button_images3.pop()}.jpg&#34;)
 
     def print_map(self):
         &#34;&#34;&#34;Method to print all the rooms in the map and their adjacent rooms.
@@ -170,15 +202,7 @@ class Map:
         print(f&#34;{self.start_room} is adjacent to:&#34;
               f&#34; {self.start_room.get_adjacent_rooms()}\n\n&#34;)
         for room in self.rooms:
-            print(f&#34;{room} is adjacent to: {room.get_adjacent_rooms()}\n\n&#34;)
-
-    # def resetGame(self):
-    #     self.rooms = None
-    #     self.current_room = None
-    #     self.edges = []
-    #     self.start_room = StartRoom()
-    #     self.generate_map()
-        </code></pre>
+            print(f&#34;{room} is adjacent to: {room.get_adjacent_rooms()}\n\n&#34;)</code></pre>
 </details>
 </section>
 <section>
@@ -229,7 +253,7 @@ class Map:
             current_room (Room): The Room the player is in.
         &#34;&#34;&#34;
         return self.current_room
-    
+
     def set_current_room(self, room):
         &#34;&#34;&#34;Setter for the current room of the map.
         Args:
@@ -246,7 +270,8 @@ class Map:
         # Loop through each room type
         for room_type in MapConstants.ROOM_TYPES:
             # Loop for the desired number of rooms
-            for _ in range(MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
+            for _ in range(
+                    MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
                 random_x = random.random()
                 random_y = random.random()
 
@@ -254,7 +279,6 @@ class Map:
                 room = MapConstants.ROOM_TYPES[room_type][&#34;room&#34;]()
                 # room.image = randomImage()
 
-                # TODO: delete later
                 room.number = str(counter)
                 counter += 1
 
@@ -272,10 +296,12 @@ class Map:
                     room.edges.append(Edge(room, other_room))
 
     # Implementation of Prim&#39;s Algorithm
-    # Takes a graph of nodes (rooms) and edges, and constructs a minimum spanning tree
-    # Downside is that a mst doesn&#39;t produce cycles, so additional edges will have to be added in
+    # Takes a graph of nodes (rooms) and edges, and constructs a minimum
+    # spanning tree. Downside is that a mst doesn&#39;t produce cycles, so
+    # additional edges will have to be added in.
     def prims_algorithm(self):
-        &#34;&#34;&#34;Method to create a minimum spanning tree to connect all rooms together.
+        &#34;&#34;&#34;Method to create a minimum spanning tree to connect all
+         rooms together.
         &#34;&#34;&#34;
         seen_rooms = [self.rooms[0]]
         default_edge = Edge(self.rooms[0], self.rooms[1])
@@ -287,43 +313,73 @@ class Map:
             for seenroom in seen_rooms:
                 for edge in seenroom.edges:
 
-                    if edge.rooms[0] in seen_rooms and edge.rooms[1] not in seen_rooms:
+                    if (edge.rooms[0] in seen_rooms and edge.rooms[1]
+                            not in seen_rooms):
                         available_edges.append(edge)
 
-            minimum_edge = min(available_edges, key=lambda edge: edge.weight, default=default_edge)
+            minimum_edge = min(available_edges, key=lambda edge: edge.weight,
+                               default=default_edge)
             seen_rooms.append(minimum_edge.rooms[1])
             mst.append(minimum_edge)
 
             # Throw random edges in
             while (random.random() &lt; MapConstants.CHANCE_FOR_NEW_EDGE
                    and len(available_edges) != 0):
-                
+
                 random_edge = random.choice(available_edges)
                 # Max of 6 room connections per room
                 if (len(random_edge.rooms[0].get_adjacent_rooms()) &lt; 6 and
                         len(random_edge.rooms[1].get_adjacent_rooms()) &lt; 6):
                     mst.append(random_edge)
 
-        # From what was created from Prim&#39;s algorithm, create adjacency between rooms
+        # From what was created from Prim&#39;s algorithm, create adjacency between
+        # rooms.
         # Edges and adjacency are kinda redundant tbh
         for edge in mst:
             edge.rooms[0].create_adjacency(edge.rooms[1])
 
         # Create Start room
         self.start_room.add_adjacent_room(self.rooms[0])
+        self.start_room.cleared = True
 
     def assign_random_images(self):
         &#34;&#34;&#34;Method to assign an image path to all rooms in the map.
         &#34;&#34;&#34;
-        button_images = [&#34;Weapons Bay&#34;, &#34;Main Cabin&#34;, &#34;Elevator 1&#34;, &#34;Storage Area&#34;, &#34;Kitchen&#34;,
-                         &#34;Barracks&#34;, &#34;Cafeteria&#34;, &#34;Life Pod 1&#34;, &#34;Cabin 2&#34;, &#34;Showers&#34;, &#34;Cabin 1&#34;,
-                         &#34;Docking Port&#34;, &#34;Bridge&#34;, &#34;Elevator 3&#34;, &#34;Elevator 2&#34;, &#34;Cabin 3&#34;,
-                         &#34;Captains Cabin&#34;, &#34;Hangar&#34;, &#34;Life Pod 2&#34;, &#34;Engine Room&#34;]
-        
-        random.shuffle(button_images)
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
 
-        for room in self.rooms:
-            room.set_image_path(f&#34;Map/Set/{button_images.pop()}.jpg&#34;)
+        button_images1 = []
+        button_images2 = []
+        button_images3 = []
+
+        names = []
+        # Text File created with button names(Room names).
+        with open(&#39;Names/ButtonNames.txt&#39;,
+                  &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
+            reader = csv.reader(f)
+            for row in reader:
+                names.extend(row)
+
+        button_images1 = names[:20]  # There are 20 Possible Button names
+        button_images2 = names[20:44]
+        # From the 20th to the 45th position extracted for Round 2.
+        button_images3 = names[44:]
+
+        if self.lvl_counter == 1:
+            random.shuffle(button_images1)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/LevelOneMap/{button_images1.pop()}.jpg&#34;)
+
+        elif self.lvl_counter == 2:
+            random.shuffle(button_images2)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/LevelTwoMap/{button_images2.pop()}.jpg&#34;)
+
+        elif self.lvl_counter == 3:
+            random.shuffle(button_images3)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/Level3/LevelThreeMap/{button_images3.pop()}.jpg&#34;)
 
     def print_map(self):
         &#34;&#34;&#34;Method to print all the rooms in the map and their adjacent rooms.
@@ -331,14 +387,7 @@ class Map:
         print(f&#34;{self.start_room} is adjacent to:&#34;
               f&#34; {self.start_room.get_adjacent_rooms()}\n\n&#34;)
         for room in self.rooms:
-            print(f&#34;{room} is adjacent to: {room.get_adjacent_rooms()}\n\n&#34;)
-
-    # def resetGame(self):
-    #     self.rooms = None
-    #     self.current_room = None
-    #     self.edges = []
-    #     self.start_room = StartRoom()
-    #     self.generate_map()</code></pre>
+            print(f&#34;{room} is adjacent to: {room.get_adjacent_rooms()}\n\n&#34;)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -354,15 +403,41 @@ class Map:
 <pre><code class="python">def assign_random_images(self):
     &#34;&#34;&#34;Method to assign an image path to all rooms in the map.
     &#34;&#34;&#34;
-    button_images = [&#34;Weapons Bay&#34;, &#34;Main Cabin&#34;, &#34;Elevator 1&#34;, &#34;Storage Area&#34;, &#34;Kitchen&#34;,
-                     &#34;Barracks&#34;, &#34;Cafeteria&#34;, &#34;Life Pod 1&#34;, &#34;Cabin 2&#34;, &#34;Showers&#34;, &#34;Cabin 1&#34;,
-                     &#34;Docking Port&#34;, &#34;Bridge&#34;, &#34;Elevator 3&#34;, &#34;Elevator 2&#34;, &#34;Cabin 3&#34;,
-                     &#34;Captains Cabin&#34;, &#34;Hangar&#34;, &#34;Life Pod 2&#34;, &#34;Engine Room&#34;]
-    
-    random.shuffle(button_images)
+    from Classes.game_handler import GameHandler
+    # To import the Level counter from GameHandler
+    self.lvl_counter = GameHandler.counter
 
-    for room in self.rooms:
-        room.set_image_path(f&#34;Map/Set/{button_images.pop()}.jpg&#34;)</code></pre>
+    button_images1 = []
+    button_images2 = []
+    button_images3 = []
+
+    names = []
+    # Text File created with button names(Room names).
+    with open(&#39;Names/ButtonNames.txt&#39;,
+              &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
+        reader = csv.reader(f)
+        for row in reader:
+            names.extend(row)
+
+    button_images1 = names[:20]  # There are 20 Possible Button names
+    button_images2 = names[20:44]
+    # From the 20th to the 45th position extracted for Round 2.
+    button_images3 = names[44:]
+
+    if self.lvl_counter == 1:
+        random.shuffle(button_images1)
+        for room in self.rooms:
+            room.set_image_path(f&#34;Images/LevelOneMap/{button_images1.pop()}.jpg&#34;)
+
+    elif self.lvl_counter == 2:
+        random.shuffle(button_images2)
+        for room in self.rooms:
+            room.set_image_path(f&#34;Images/LevelTwoMap/{button_images2.pop()}.jpg&#34;)
+
+    elif self.lvl_counter == 3:
+        random.shuffle(button_images3)
+        for room in self.rooms:
+            room.set_image_path(f&#34;Images/Level3/LevelThreeMap/{button_images3.pop()}.jpg&#34;)</code></pre>
 </details>
 </dd>
 <dt id="rpg.Classes.Map.map.Map.connect_every_room_together"><code class="name flex">
@@ -421,7 +496,8 @@ class Map:
     # Loop through each room type
     for room_type in MapConstants.ROOM_TYPES:
         # Loop for the desired number of rooms
-        for _ in range(MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
+        for _ in range(
+                MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
             random_x = random.random()
             random_y = random.random()
 
@@ -429,7 +505,6 @@ class Map:
             room = MapConstants.ROOM_TYPES[room_type][&#34;room&#34;]()
             # room.image = randomImage()
 
-            # TODO: delete later
             room.number = str(counter)
             counter += 1
 
@@ -461,13 +536,15 @@ class Map:
 <span>def <span class="ident">prims_algorithm</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Method to create a minimum spanning tree to connect all rooms together.</p></div>
+<div class="desc"><p>Method to create a minimum spanning tree to connect all
+rooms together.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def prims_algorithm(self):
-    &#34;&#34;&#34;Method to create a minimum spanning tree to connect all rooms together.
+    &#34;&#34;&#34;Method to create a minimum spanning tree to connect all
+     rooms together.
     &#34;&#34;&#34;
     seen_rooms = [self.rooms[0]]
     default_edge = Edge(self.rooms[0], self.rooms[1])
@@ -479,30 +556,34 @@ class Map:
         for seenroom in seen_rooms:
             for edge in seenroom.edges:
 
-                if edge.rooms[0] in seen_rooms and edge.rooms[1] not in seen_rooms:
+                if (edge.rooms[0] in seen_rooms and edge.rooms[1]
+                        not in seen_rooms):
                     available_edges.append(edge)
 
-        minimum_edge = min(available_edges, key=lambda edge: edge.weight, default=default_edge)
+        minimum_edge = min(available_edges, key=lambda edge: edge.weight,
+                           default=default_edge)
         seen_rooms.append(minimum_edge.rooms[1])
         mst.append(minimum_edge)
 
         # Throw random edges in
         while (random.random() &lt; MapConstants.CHANCE_FOR_NEW_EDGE
                and len(available_edges) != 0):
-            
+
             random_edge = random.choice(available_edges)
             # Max of 6 room connections per room
             if (len(random_edge.rooms[0].get_adjacent_rooms()) &lt; 6 and
                     len(random_edge.rooms[1].get_adjacent_rooms()) &lt; 6):
                 mst.append(random_edge)
 
-    # From what was created from Prim&#39;s algorithm, create adjacency between rooms
+    # From what was created from Prim&#39;s algorithm, create adjacency between
+    # rooms.
     # Edges and adjacency are kinda redundant tbh
     for edge in mst:
         edge.rooms[0].create_adjacency(edge.rooms[1])
 
     # Create Start room
-    self.start_room.add_adjacent_room(self.rooms[0])</code></pre>
+    self.start_room.add_adjacent_room(self.rooms[0])
+    self.start_room.cleared = True</code></pre>
 </details>
 </dd>
 <dt id="rpg.Classes.Map.map.Map.print_map"><code class="name flex">

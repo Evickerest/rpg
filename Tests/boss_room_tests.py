@@ -21,6 +21,8 @@ class BossRoomTests(unittest.TestCase):
         self.assertEqual(x.enemies[0].name, "BOSS")
 
     def test_2lv_boss(self):
+        """Check that the lv_boss method works.
+        """
         x = BossRoom()
         enemy_attack = x.enemies[0].attack
         enemy_defense = x.enemies[0].defense

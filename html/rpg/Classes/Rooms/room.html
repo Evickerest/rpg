@@ -80,7 +80,7 @@ class Room:
             cleared (bool): The room&#39;s cleared status.
         &#34;&#34;&#34;
         return self.cleared
-    
+
     def set_image_path(self, path):
         &#34;&#34;&#34;Setter for the room&#39;s image.
         Args:
@@ -111,29 +111,58 @@ class Room:
             adjacentRooms (list): The list of adjacent Room isntances.
         &#34;&#34;&#34;
         return self.adjacent_rooms
-    
+
     def generate_name(self, room_type):
         &#34;&#34;&#34;Setter for the room&#39;s name based on its type.
         Args:
-            room_type (str): The room&#39;s type. &#34;Chest&#34;, &#34;Boss&#34;, &#34;Combat&#34;, &#34;Shop&#34;, or &#34;Start&#34;.
+            room_type (str): The room&#39;s type. &#34;Chest&#34;, &#34;Boss&#34;, &#34;Combat&#34;,
+             &#34;Shop&#34;, or &#34;Start&#34;.
         Return:
             name (str): The name of the room.
         &#34;&#34;&#34;
+
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+
+        level_1 = []
+        level_2 = []
+        level_3 = []
+
         names = []
-        with open(f&#39;Names/{room_type}RoomNames.txt&#39;, &#39;r&#39;) as f:
+        with open(f&#39;Names/{room_type}RoomNames.txt&#39;,
+                  &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
             reader = csv.reader(f)
             for row in reader:
-                names.append(row)
-        self.name = random.choice(*names)
+                names.extend(row)
+
+        level_1 = names[:23]  # There are 23 Rooms for Level 1
+
+        if len(names) &lt; 10:  # Adds the chest rooms to the list.
+            level_2 = level_1
+            level_3 = level_1
+
+        else:
+            level_2 = names[23:47]
+            level_3 = names[47:]
+
+        if self.lvl_counter == 1:
+            self.name = random.choice(level_1)
+
+        elif self.lvl_counter == 2:
+            self.name = random.choice(level_2)
+
+        elif self.lvl_counter == 3:
+            self.name = random.choice(level_3)
         return self.name
-    
+
     def __repr__(self):
         &#34;&#34;&#34;Representation of the room.
         Returns:
             name (str): The name of the room.
         &#34;&#34;&#34;
         return self.name
-    
+
     def __eq__(self, other):
         &#34;&#34;&#34;Checks whether two rooms are overlapping.
         Args:
@@ -209,7 +238,7 @@ class Room:
             cleared (bool): The room&#39;s cleared status.
         &#34;&#34;&#34;
         return self.cleared
-    
+
     def set_image_path(self, path):
         &#34;&#34;&#34;Setter for the room&#39;s image.
         Args:
@@ -240,29 +269,58 @@ class Room:
             adjacentRooms (list): The list of adjacent Room isntances.
         &#34;&#34;&#34;
         return self.adjacent_rooms
-    
+
     def generate_name(self, room_type):
         &#34;&#34;&#34;Setter for the room&#39;s name based on its type.
         Args:
-            room_type (str): The room&#39;s type. &#34;Chest&#34;, &#34;Boss&#34;, &#34;Combat&#34;, &#34;Shop&#34;, or &#34;Start&#34;.
+            room_type (str): The room&#39;s type. &#34;Chest&#34;, &#34;Boss&#34;, &#34;Combat&#34;,
+             &#34;Shop&#34;, or &#34;Start&#34;.
         Return:
             name (str): The name of the room.
         &#34;&#34;&#34;
+
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+
+        level_1 = []
+        level_2 = []
+        level_3 = []
+
         names = []
-        with open(f&#39;Names/{room_type}RoomNames.txt&#39;, &#39;r&#39;) as f:
+        with open(f&#39;Names/{room_type}RoomNames.txt&#39;,
+                  &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
             reader = csv.reader(f)
             for row in reader:
-                names.append(row)
-        self.name = random.choice(*names)
+                names.extend(row)
+
+        level_1 = names[:23]  # There are 23 Rooms for Level 1
+
+        if len(names) &lt; 10:  # Adds the chest rooms to the list.
+            level_2 = level_1
+            level_3 = level_1
+
+        else:
+            level_2 = names[23:47]
+            level_3 = names[47:]
+
+        if self.lvl_counter == 1:
+            self.name = random.choice(level_1)
+
+        elif self.lvl_counter == 2:
+            self.name = random.choice(level_2)
+
+        elif self.lvl_counter == 3:
+            self.name = random.choice(level_3)
         return self.name
-    
+
     def __repr__(self):
         &#34;&#34;&#34;Representation of the room.
         Returns:
             name (str): The name of the room.
         &#34;&#34;&#34;
         return self.name
-    
+
     def __eq__(self, other):
         &#34;&#34;&#34;Checks whether two rooms are overlapping.
         Args:
@@ -351,8 +409,9 @@ class Room:
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>room_type</code></strong> :&ensp;<code>str</code></dt>
-<dd>The room's type. "Chest", "Boss", "Combat", "Shop", or "Start".</dd>
+<dd>The room's type. "Chest", "Boss", "Combat",</dd>
 </dl>
+<p>"Shop", or "Start".</p>
 <h2 id="return">Return</h2>
 <p>name (str): The name of the room.</p></div>
 <details class="source">
@@ -362,16 +421,45 @@ class Room:
 <pre><code class="python">def generate_name(self, room_type):
     &#34;&#34;&#34;Setter for the room&#39;s name based on its type.
     Args:
-        room_type (str): The room&#39;s type. &#34;Chest&#34;, &#34;Boss&#34;, &#34;Combat&#34;, &#34;Shop&#34;, or &#34;Start&#34;.
+        room_type (str): The room&#39;s type. &#34;Chest&#34;, &#34;Boss&#34;, &#34;Combat&#34;,
+         &#34;Shop&#34;, or &#34;Start&#34;.
     Return:
         name (str): The name of the room.
     &#34;&#34;&#34;
+
+    from Classes.game_handler import GameHandler
+    # To import the Level counter from GameHandler
+    self.lvl_counter = GameHandler.counter
+
+    level_1 = []
+    level_2 = []
+    level_3 = []
+
     names = []
-    with open(f&#39;Names/{room_type}RoomNames.txt&#39;, &#39;r&#39;) as f:
+    with open(f&#39;Names/{room_type}RoomNames.txt&#39;,
+              &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
         reader = csv.reader(f)
         for row in reader:
-            names.append(row)
-    self.name = random.choice(*names)
+            names.extend(row)
+
+    level_1 = names[:23]  # There are 23 Rooms for Level 1
+
+    if len(names) &lt; 10:  # Adds the chest rooms to the list.
+        level_2 = level_1
+        level_3 = level_1
+
+    else:
+        level_2 = names[23:47]
+        level_3 = names[47:]
+
+    if self.lvl_counter == 1:
+        self.name = random.choice(level_1)
+
+    elif self.lvl_counter == 2:
+        self.name = random.choice(level_2)
+
+    elif self.lvl_counter == 3:
+        self.name = random.choice(level_3)
     return self.name</code></pre>
 </details>
 </dd>

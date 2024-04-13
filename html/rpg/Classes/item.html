@@ -42,10 +42,12 @@ class Item:
 
     @staticmethod
     def load_items() -&gt; None:
-        &#34;&#34;&#34;Static method to load the different types of items from a specified file.
+        &#34;&#34;&#34;Static method to load the different types of items
+         from a specified file.
         &#34;&#34;&#34;
         if not Item.ITEMS:
-            with open(&#39;Names/items_txt/item_types&#39;, &#39;r&#39;) as f:
+            with open(&#39;Names/items_txt/item_types&#39;, &#39;r&#39;,
+                      encoding=&#34;utf-8&#34;) as f:
                 reader = csv.reader(f)
                 for row in reader:
                     Item.ITEMS.append(row)
@@ -53,15 +55,16 @@ class Item:
     def __init__(self, stats: list):
         &#34;&#34;&#34;Creates the Item instance.
         Args:
-            stats (list): The 5-element list of item details. Must follow the format below.
+            stats (list): The 5-element list of item details.
+             Must follow the format below.
         &#34;&#34;&#34;
         if not Item.ITEMS:
             Item.load_items()
 
-        self.stats = {&#34;type&#34;: stats[0], &#34;name&#34;: stats[1], &#34;damage&#34;: int(stats[2]),
-                      &#34;defense&#34;: int(stats[3]), &#34;value&#34;: int(stats[4]),
-                      &#34;damagePercent&#34;: float(stats[5]), &#34;critPercent&#34;: 0.1,
-                      &#34;armorBreakPercent&#34;: 0.1}
+        self.stats = {&#34;type&#34;: stats[0], &#34;name&#34;: stats[1],
+                      &#34;damage&#34;: int(stats[2]), &#34;defense&#34;: int(stats[3]),
+                      &#34;value&#34;: int(stats[4]), &#34;damagePercent&#34;: float(stats[5]),
+                      &#34;critPercent&#34;: 0.1, &#34;armorBreakPercent&#34;: 0.1}
         self.name = &#34;None&#34;
         self.damage = 0
         self.damage_percent = 0
@@ -94,14 +97,15 @@ class Item:
         Returns:
             float: The calculated damage dealt by this Item.
         &#34;&#34;&#34;
-        damage_range_value = random.uniform(1 - self.damage_percent, 1 + self.damage_percent)
+        damage_range_value = random.uniform(1 - self.damage_percent,
+                                            1 + self.damage_percent)
         base_damage_dealt = self.damage * damage_range_value
 
         applied_damage = base_damage_dealt
         if random.random() &lt; self.crit_percent:
             applied_damage *= 2
 
-        # If crit is 
+        # If crit is
         enemy_defense_reducer = 1
         if random.random() &lt; self.armor_break_percent:
             enemy_defense_reducer = 0.5
@@ -131,8 +135,9 @@ ITEMS is the list containing all possible item details.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>stats</code></strong> :&ensp;<code>list</code></dt>
-<dd>The 5-element list of item details. Must follow the format below.</dd>
-</dl></div>
+<dd>The 5-element list of item details.</dd>
+</dl>
+<p>Must follow the format below.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -146,10 +151,12 @@ ITEMS is the list containing all possible item details.</p>
 
     @staticmethod
     def load_items() -&gt; None:
-        &#34;&#34;&#34;Static method to load the different types of items from a specified file.
+        &#34;&#34;&#34;Static method to load the different types of items
+         from a specified file.
         &#34;&#34;&#34;
         if not Item.ITEMS:
-            with open(&#39;Names/items_txt/item_types&#39;, &#39;r&#39;) as f:
+            with open(&#39;Names/items_txt/item_types&#39;, &#39;r&#39;,
+                      encoding=&#34;utf-8&#34;) as f:
                 reader = csv.reader(f)
                 for row in reader:
                     Item.ITEMS.append(row)
@@ -157,15 +164,16 @@ ITEMS is the list containing all possible item details.</p>
     def __init__(self, stats: list):
         &#34;&#34;&#34;Creates the Item instance.
         Args:
-            stats (list): The 5-element list of item details. Must follow the format below.
+            stats (list): The 5-element list of item details.
+             Must follow the format below.
         &#34;&#34;&#34;
         if not Item.ITEMS:
             Item.load_items()
 
-        self.stats = {&#34;type&#34;: stats[0], &#34;name&#34;: stats[1], &#34;damage&#34;: int(stats[2]),
-                      &#34;defense&#34;: int(stats[3]), &#34;value&#34;: int(stats[4]),
-                      &#34;damagePercent&#34;: float(stats[5]), &#34;critPercent&#34;: 0.1,
-                      &#34;armorBreakPercent&#34;: 0.1}
+        self.stats = {&#34;type&#34;: stats[0], &#34;name&#34;: stats[1],
+                      &#34;damage&#34;: int(stats[2]), &#34;defense&#34;: int(stats[3]),
+                      &#34;value&#34;: int(stats[4]), &#34;damagePercent&#34;: float(stats[5]),
+                      &#34;critPercent&#34;: 0.1, &#34;armorBreakPercent&#34;: 0.1}
         self.name = &#34;None&#34;
         self.damage = 0
         self.damage_percent = 0
@@ -198,14 +206,15 @@ ITEMS is the list containing all possible item details.</p>
         Returns:
             float: The calculated damage dealt by this Item.
         &#34;&#34;&#34;
-        damage_range_value = random.uniform(1 - self.damage_percent, 1 + self.damage_percent)
+        damage_range_value = random.uniform(1 - self.damage_percent,
+                                            1 + self.damage_percent)
         base_damage_dealt = self.damage * damage_range_value
 
         applied_damage = base_damage_dealt
         if random.random() &lt; self.crit_percent:
             applied_damage *= 2
 
-        # If crit is 
+        # If crit is
         enemy_defense_reducer = 1
         if random.random() &lt; self.armor_break_percent:
             enemy_defense_reducer = 0.5
@@ -227,17 +236,20 @@ ITEMS is the list containing all possible item details.</p>
 <span>def <span class="ident">load_items</span></span>(<span>) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Static method to load the different types of items from a specified file.</p></div>
+<div class="desc"><p>Static method to load the different types of items
+from a specified file.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
 def load_items() -&gt; None:
-    &#34;&#34;&#34;Static method to load the different types of items from a specified file.
+    &#34;&#34;&#34;Static method to load the different types of items
+     from a specified file.
     &#34;&#34;&#34;
     if not Item.ITEMS:
-        with open(&#39;Names/items_txt/item_types&#39;, &#39;r&#39;) as f:
+        with open(&#39;Names/items_txt/item_types&#39;, &#39;r&#39;,
+                  encoding=&#34;utf-8&#34;) as f:
             reader = csv.reader(f)
             for row in reader:
                 Item.ITEMS.append(row)</code></pre>
@@ -299,14 +311,15 @@ def load_items() -&gt; None:
     Returns:
         float: The calculated damage dealt by this Item.
     &#34;&#34;&#34;
-    damage_range_value = random.uniform(1 - self.damage_percent, 1 + self.damage_percent)
+    damage_range_value = random.uniform(1 - self.damage_percent,
+                                        1 + self.damage_percent)
     base_damage_dealt = self.damage * damage_range_value
 
     applied_damage = base_damage_dealt
     if random.random() &lt; self.crit_percent:
         applied_damage *= 2
 
-    # If crit is 
+    # If crit is
     enemy_defense_reducer = 1
     if random.random() &lt; self.armor_break_percent:
         enemy_defense_reducer = 0.5

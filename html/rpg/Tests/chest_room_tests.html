@@ -31,25 +31,22 @@
 &#34;&#34;&#34;
 import unittest
 from Classes.Rooms.chest_room import ChestRoom
+from Classes.item import Item
 
 
 class ChestRoomTests(unittest.TestCase):
     &#34;&#34;&#34;Testcase for ChestRoom.
     &#34;&#34;&#34;
 
-    def test_1make_chestroom(self):
+    def test_1chestroom_init(self):
         &#34;&#34;&#34;Test that the instance is made correctly.
-        &#34;&#34;&#34;
-        x = ChestRoom()
-        self.assertTrue(isinstance(x, ChestRoom))
-
-    def test_2chestroom_stats(self):
-        &#34;&#34;&#34;Test to check for specific instance attributes.
         &#34;&#34;&#34;
         x = ChestRoom()
         self.assertEqual(x.room_type, &#34;Chest&#34;)
         self.assertTrue(x.name)
-        self.assertEqual(x.text, &#34;You have entered a Chest room. Prepare to open a chest.&#34;)</code></pre>
+        self.assertEqual(x.text, &#34;You have entered a Chest room.&#34;
+                                 &#34; Prepare to open a chest.&#34;)
+        self.assertTrue(isinstance(x.item, Item))</code></pre>
 </details>
 </section>
 <section>
@@ -78,19 +75,15 @@ not have a method with the specified name.</p></div>
     &#34;&#34;&#34;Testcase for ChestRoom.
     &#34;&#34;&#34;
 
-    def test_1make_chestroom(self):
+    def test_1chestroom_init(self):
         &#34;&#34;&#34;Test that the instance is made correctly.
-        &#34;&#34;&#34;
-        x = ChestRoom()
-        self.assertTrue(isinstance(x, ChestRoom))
-
-    def test_2chestroom_stats(self):
-        &#34;&#34;&#34;Test to check for specific instance attributes.
         &#34;&#34;&#34;
         x = ChestRoom()
         self.assertEqual(x.room_type, &#34;Chest&#34;)
         self.assertTrue(x.name)
-        self.assertEqual(x.text, &#34;You have entered a Chest room. Prepare to open a chest.&#34;)</code></pre>
+        self.assertEqual(x.text, &#34;You have entered a Chest room.&#34;
+                                 &#34; Prepare to open a chest.&#34;)
+        self.assertTrue(isinstance(x.item, Item))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -98,8 +91,8 @@ not have a method with the specified name.</p></div>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="rpg.Tests.chest_room_tests.ChestRoomTests.test_1make_chestroom"><code class="name flex">
-<span>def <span class="ident">test_1make_chestroom</span></span>(<span>self)</span>
+<dt id="rpg.Tests.chest_room_tests.ChestRoomTests.test_1chestroom_init"><code class="name flex">
+<span>def <span class="ident">test_1chestroom_init</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Test that the instance is made correctly.</p></div>
@@ -107,29 +100,15 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_1make_chestroom(self):
+<pre><code class="python">def test_1chestroom_init(self):
     &#34;&#34;&#34;Test that the instance is made correctly.
-    &#34;&#34;&#34;
-    x = ChestRoom()
-    self.assertTrue(isinstance(x, ChestRoom))</code></pre>
-</details>
-</dd>
-<dt id="rpg.Tests.chest_room_tests.ChestRoomTests.test_2chestroom_stats"><code class="name flex">
-<span>def <span class="ident">test_2chestroom_stats</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Test to check for specific instance attributes.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_2chestroom_stats(self):
-    &#34;&#34;&#34;Test to check for specific instance attributes.
     &#34;&#34;&#34;
     x = ChestRoom()
     self.assertEqual(x.room_type, &#34;Chest&#34;)
     self.assertTrue(x.name)
-    self.assertEqual(x.text, &#34;You have entered a Chest room. Prepare to open a chest.&#34;)</code></pre>
+    self.assertEqual(x.text, &#34;You have entered a Chest room.&#34;
+                             &#34; Prepare to open a chest.&#34;)
+    self.assertTrue(isinstance(x.item, Item))</code></pre>
 </details>
 </dd>
 </dl>
@@ -153,8 +132,7 @@ not have a method with the specified name.</p></div>
 <li>
 <h4><code><a title="rpg.Tests.chest_room_tests.ChestRoomTests" href="#rpg.Tests.chest_room_tests.ChestRoomTests">ChestRoomTests</a></code></h4>
 <ul class="">
-<li><code><a title="rpg.Tests.chest_room_tests.ChestRoomTests.test_1make_chestroom" href="#rpg.Tests.chest_room_tests.ChestRoomTests.test_1make_chestroom">test_1make_chestroom</a></code></li>
-<li><code><a title="rpg.Tests.chest_room_tests.ChestRoomTests.test_2chestroom_stats" href="#rpg.Tests.chest_room_tests.ChestRoomTests.test_2chestroom_stats">test_2chestroom_stats</a></code></li>
+<li><code><a title="rpg.Tests.chest_room_tests.ChestRoomTests.test_1chestroom_init" href="#rpg.Tests.chest_room_tests.ChestRoomTests.test_1chestroom_init">test_1chestroom_init</a></code></li>
 </ul>
 </li>
 </ul>

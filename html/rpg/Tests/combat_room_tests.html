@@ -32,36 +32,46 @@
 
 import unittest
 from Classes.Rooms.combat_room import CombatRoom
-from Classes.character import Player
+from Classes.character import Player, Enemy
 
 
 class CombatRoomTests(unittest.TestCase):
     &#34;&#34;&#34;Testcase for CombatRoom.
     &#34;&#34;&#34;
-    def test_1make_combatroom(self):
+    def test_1combatroom_init(self):
         &#34;&#34;&#34;Check that the CombatRoom initializes.
-        &#34;&#34;&#34;
-        x = CombatRoom()
-        self.assertTrue(isinstance(x, CombatRoom))
-        self.assertEqual(x.player, None)
-
-    def test_2combatroom_stats(self):
-        &#34;&#34;&#34;Check that the CombatRoom&#39;s instance attributes are correct.
         &#34;&#34;&#34;
         x = CombatRoom()
         self.assertEqual(x.room_type, &#34;Combat&#34;)
         self.assertTrue(x.name)
-        self.assertEqual(x.text, &#34;You have entered a Combat room. Prepare to fight.&#34;)
+        self.assertFalse(x.player)
+        self.assertFalse(x.is_boss_room)
         self.assertEqual(x.mon_lv, 1)
+        self.assertEqual(x.text, &#34;You have entered a Combat room. Prepare to fight.&#34;)
         self.assertTrue(x.enemies)
+        self.assertEqual(x.enemies_killed, 0)
+        for enemy in x.enemies:
+            self.assertIsInstance(enemy, Enemy)
 
-    def test_3generate_enemies(self):
+    def test_2generate_enemies(self):
         &#34;&#34;&#34;Check that the CombatRoom correctly generates enemies at LV 1.
         &#34;&#34;&#34;
         x = CombatRoom()
         self.assertTrue(x.enemies)
         for enemy in x.enemies:
             self.assertEqual(enemy.stats[&#34;Level&#34;], 1)
+
+    def test_3generate_enemies_player_exists(self):
+        &#34;&#34;&#34;Check that the CombatRoom correctly generates enemies at player&#39;s lv.
+        &#34;&#34;&#34;
+        x = CombatRoom()
+        player = Player(&#34;Default&#34;, None)
+        player.stats[&#34;Level&#34;] = 5
+        x.player = player
+        x.enemies = []
+        x.generate_enemies()
+        for enemy in x.enemies:
+            self.assertEqual(enemy.stats[&#34;Level&#34;], player.stats[&#34;Level&#34;])
 
     def test_4lv_enemies(self):
         &#34;&#34;&#34;Check that the CombatRoom correctly updates enemy levels.
@@ -72,7 +82,8 @@ class CombatRoomTests(unittest.TestCase):
         x.player = character
         x.lv_enemies()
         for enemy in x.enemies:
-            self.assertEqual(enemy.stats[&#34;Level&#34;], x.player.stats[&#34;Level&#34;])</code></pre>
+            self.assertEqual(enemy.stats[&#34;Level&#34;], x.player.stats[&#34;Level&#34;])
+        self.assertEqual(x.player, character)</code></pre>
 </details>
 </section>
 <section>
@@ -100,30 +111,40 @@ not have a method with the specified name.</p></div>
 <pre><code class="python">class CombatRoomTests(unittest.TestCase):
     &#34;&#34;&#34;Testcase for CombatRoom.
     &#34;&#34;&#34;
-    def test_1make_combatroom(self):
+    def test_1combatroom_init(self):
         &#34;&#34;&#34;Check that the CombatRoom initializes.
-        &#34;&#34;&#34;
-        x = CombatRoom()
-        self.assertTrue(isinstance(x, CombatRoom))
-        self.assertEqual(x.player, None)
-
-    def test_2combatroom_stats(self):
-        &#34;&#34;&#34;Check that the CombatRoom&#39;s instance attributes are correct.
         &#34;&#34;&#34;
         x = CombatRoom()
         self.assertEqual(x.room_type, &#34;Combat&#34;)
         self.assertTrue(x.name)
-        self.assertEqual(x.text, &#34;You have entered a Combat room. Prepare to fight.&#34;)
+        self.assertFalse(x.player)
+        self.assertFalse(x.is_boss_room)
         self.assertEqual(x.mon_lv, 1)
+        self.assertEqual(x.text, &#34;You have entered a Combat room. Prepare to fight.&#34;)
         self.assertTrue(x.enemies)
+        self.assertEqual(x.enemies_killed, 0)
+        for enemy in x.enemies:
+            self.assertIsInstance(enemy, Enemy)
 
-    def test_3generate_enemies(self):
+    def test_2generate_enemies(self):
         &#34;&#34;&#34;Check that the CombatRoom correctly generates enemies at LV 1.
         &#34;&#34;&#34;
         x = CombatRoom()
         self.assertTrue(x.enemies)
         for enemy in x.enemies:
             self.assertEqual(enemy.stats[&#34;Level&#34;], 1)
+
+    def test_3generate_enemies_player_exists(self):
+        &#34;&#34;&#34;Check that the CombatRoom correctly generates enemies at player&#39;s lv.
+        &#34;&#34;&#34;
+        x = CombatRoom()
+        player = Player(&#34;Default&#34;, None)
+        player.stats[&#34;Level&#34;] = 5
+        x.player = player
+        x.enemies = []
+        x.generate_enemies()
+        for enemy in x.enemies:
+            self.assertEqual(enemy.stats[&#34;Level&#34;], player.stats[&#34;Level&#34;])
 
     def test_4lv_enemies(self):
         &#34;&#34;&#34;Check that the CombatRoom correctly updates enemy levels.
@@ -134,7 +155,8 @@ not have a method with the specified name.</p></div>
         x.player = character
         x.lv_enemies()
         for enemy in x.enemies:
-            self.assertEqual(enemy.stats[&#34;Level&#34;], x.player.stats[&#34;Level&#34;])</code></pre>
+            self.assertEqual(enemy.stats[&#34;Level&#34;], x.player.stats[&#34;Level&#34;])
+        self.assertEqual(x.player, character)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -142,8 +164,8 @@ not have a method with the specified name.</p></div>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="rpg.Tests.combat_room_tests.CombatRoomTests.test_1make_combatroom"><code class="name flex">
-<span>def <span class="ident">test_1make_combatroom</span></span>(<span>self)</span>
+<dt id="rpg.Tests.combat_room_tests.CombatRoomTests.test_1combatroom_init"><code class="name flex">
+<span>def <span class="ident">test_1combatroom_init</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Check that the CombatRoom initializes.</p></div>
@@ -151,36 +173,24 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_1make_combatroom(self):
+<pre><code class="python">def test_1combatroom_init(self):
     &#34;&#34;&#34;Check that the CombatRoom initializes.
-    &#34;&#34;&#34;
-    x = CombatRoom()
-    self.assertTrue(isinstance(x, CombatRoom))
-    self.assertEqual(x.player, None)</code></pre>
-</details>
-</dd>
-<dt id="rpg.Tests.combat_room_tests.CombatRoomTests.test_2combatroom_stats"><code class="name flex">
-<span>def <span class="ident">test_2combatroom_stats</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Check that the CombatRoom's instance attributes are correct.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_2combatroom_stats(self):
-    &#34;&#34;&#34;Check that the CombatRoom&#39;s instance attributes are correct.
     &#34;&#34;&#34;
     x = CombatRoom()
     self.assertEqual(x.room_type, &#34;Combat&#34;)
     self.assertTrue(x.name)
-    self.assertEqual(x.text, &#34;You have entered a Combat room. Prepare to fight.&#34;)
+    self.assertFalse(x.player)
+    self.assertFalse(x.is_boss_room)
     self.assertEqual(x.mon_lv, 1)
-    self.assertTrue(x.enemies)</code></pre>
+    self.assertEqual(x.text, &#34;You have entered a Combat room. Prepare to fight.&#34;)
+    self.assertTrue(x.enemies)
+    self.assertEqual(x.enemies_killed, 0)
+    for enemy in x.enemies:
+        self.assertIsInstance(enemy, Enemy)</code></pre>
 </details>
 </dd>
-<dt id="rpg.Tests.combat_room_tests.CombatRoomTests.test_3generate_enemies"><code class="name flex">
-<span>def <span class="ident">test_3generate_enemies</span></span>(<span>self)</span>
+<dt id="rpg.Tests.combat_room_tests.CombatRoomTests.test_2generate_enemies"><code class="name flex">
+<span>def <span class="ident">test_2generate_enemies</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Check that the CombatRoom correctly generates enemies at LV 1.</p></div>
@@ -188,13 +198,35 @@ not have a method with the specified name.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_3generate_enemies(self):
+<pre><code class="python">def test_2generate_enemies(self):
     &#34;&#34;&#34;Check that the CombatRoom correctly generates enemies at LV 1.
     &#34;&#34;&#34;
     x = CombatRoom()
     self.assertTrue(x.enemies)
     for enemy in x.enemies:
         self.assertEqual(enemy.stats[&#34;Level&#34;], 1)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.combat_room_tests.CombatRoomTests.test_3generate_enemies_player_exists"><code class="name flex">
+<span>def <span class="ident">test_3generate_enemies_player_exists</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check that the CombatRoom correctly generates enemies at player's lv.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_3generate_enemies_player_exists(self):
+    &#34;&#34;&#34;Check that the CombatRoom correctly generates enemies at player&#39;s lv.
+    &#34;&#34;&#34;
+    x = CombatRoom()
+    player = Player(&#34;Default&#34;, None)
+    player.stats[&#34;Level&#34;] = 5
+    x.player = player
+    x.enemies = []
+    x.generate_enemies()
+    for enemy in x.enemies:
+        self.assertEqual(enemy.stats[&#34;Level&#34;], player.stats[&#34;Level&#34;])</code></pre>
 </details>
 </dd>
 <dt id="rpg.Tests.combat_room_tests.CombatRoomTests.test_4lv_enemies"><code class="name flex">
@@ -215,7 +247,8 @@ not have a method with the specified name.</p></div>
     x.player = character
     x.lv_enemies()
     for enemy in x.enemies:
-        self.assertEqual(enemy.stats[&#34;Level&#34;], x.player.stats[&#34;Level&#34;])</code></pre>
+        self.assertEqual(enemy.stats[&#34;Level&#34;], x.player.stats[&#34;Level&#34;])
+    self.assertEqual(x.player, character)</code></pre>
 </details>
 </dd>
 </dl>
@@ -239,9 +272,9 @@ not have a method with the specified name.</p></div>
 <li>
 <h4><code><a title="rpg.Tests.combat_room_tests.CombatRoomTests" href="#rpg.Tests.combat_room_tests.CombatRoomTests">CombatRoomTests</a></code></h4>
 <ul class="">
-<li><code><a title="rpg.Tests.combat_room_tests.CombatRoomTests.test_1make_combatroom" href="#rpg.Tests.combat_room_tests.CombatRoomTests.test_1make_combatroom">test_1make_combatroom</a></code></li>
-<li><code><a title="rpg.Tests.combat_room_tests.CombatRoomTests.test_2combatroom_stats" href="#rpg.Tests.combat_room_tests.CombatRoomTests.test_2combatroom_stats">test_2combatroom_stats</a></code></li>
-<li><code><a title="rpg.Tests.combat_room_tests.CombatRoomTests.test_3generate_enemies" href="#rpg.Tests.combat_room_tests.CombatRoomTests.test_3generate_enemies">test_3generate_enemies</a></code></li>
+<li><code><a title="rpg.Tests.combat_room_tests.CombatRoomTests.test_1combatroom_init" href="#rpg.Tests.combat_room_tests.CombatRoomTests.test_1combatroom_init">test_1combatroom_init</a></code></li>
+<li><code><a title="rpg.Tests.combat_room_tests.CombatRoomTests.test_2generate_enemies" href="#rpg.Tests.combat_room_tests.CombatRoomTests.test_2generate_enemies">test_2generate_enemies</a></code></li>
+<li><code><a title="rpg.Tests.combat_room_tests.CombatRoomTests.test_3generate_enemies_player_exists" href="#rpg.Tests.combat_room_tests.CombatRoomTests.test_3generate_enemies_player_exists">test_3generate_enemies_player_exists</a></code></li>
 <li><code><a title="rpg.Tests.combat_room_tests.CombatRoomTests.test_4lv_enemies" href="#rpg.Tests.combat_room_tests.CombatRoomTests.test_4lv_enemies">test_4lv_enemies</a></code></li>
 </ul>
 </li>
