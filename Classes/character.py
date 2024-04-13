@@ -35,6 +35,7 @@ class Character:
         self.attack = 0  # Pull item attack + character strength?
         self.defense = 0  # Pull item defense + character vitality?
         self.living = True
+        self.is_in_combat = False
 
     def set_living(self, _bool):
         """Setter for the living attribute.

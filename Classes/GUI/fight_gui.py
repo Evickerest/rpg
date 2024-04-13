@@ -35,6 +35,7 @@ class FightGUI(tk.Toplevel):
         self.height = self.winfo_height()
 
         self.player = player
+        self.player.is_in_combat = True
         self.room = room
         self.enemies = room.enemies
         self.room_name = room.__repr__()
@@ -106,20 +107,20 @@ class FightGUI(tk.Toplevel):
         self.bg_canvas.create_image(30, self.height - 800, image=self.name_box, anchor='nw')
         self.bg_canvas.create_image(self.width / 2 + 170, self.height - 800, image=self.name_box, anchor='nw')
 
-        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 660,
+        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 760,
                                    font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text=self.player.name + "'s Side",
                                    tags="equipment_title")
 
-        self.bg_canvas.create_text(self.width / 2 - 65, self.height - 660,
+        self.bg_canvas.create_text(self.width / 2 - 65, self.height - 760,
                                    font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text="Ship #" + str(self.lvl_counter),
                                    tags="lvl")
 
         t = "Enemies' Side" if not self.room.is_boss_room else "Boss Side"
-        self.bg_canvas.create_text(self.width / 2 + 350, self.height - 660,
+        self.bg_canvas.create_text(self.width / 2 + 350, self.height - 760,
                                    font="Cambria_Math 15 bold",
                                    fill=self.text_color, justify="center",
                                    text=t, tags="Enemies")
@@ -131,9 +132,9 @@ class FightGUI(tk.Toplevel):
 
         # "Partial" binds a parameter to the function, another way to do this
         # without a lambda expression
-        Button(self, "Defend", partial(self.defend, self.player), 50, 680,
+        Button(self, "Defend", partial(self.defend, self.player), 50, 780,
                font=("Cambria Math", 12, "bold"), tags="defend_button")
-        Button(self, "Use Medkit", self.use_medkit, 200, 680,
+        Button(self, "Use Medkit", self.use_medkit, 200, 780,
                font=("Cambria Math", 12, "bold"))
 
         for enemy in self.enemies:
@@ -213,16 +214,16 @@ class FightGUI(tk.Toplevel):
                               "attack_button3", "attack_button4")
         if len(self.enemies) > 0:
             Button(self, "Attack #0", lambda: self.player_attack(self.enemies[0]),
-                   50, 580, font=("Cambria Math", 12, "bold"), tags="attack_button1")
+                   50, 680, font=("Cambria Math", 12, "bold"), tags="attack_button1")
         if len(self.enemies) > 1:
             Button(self, "Attack #1", lambda: self.player_attack(self.enemies[1]),
-                   200, 580, font=("Cambria Math", 12, "bold"), tags="attack_button2")
+                   200, 680, font=("Cambria Math", 12, "bold"), tags="attack_button2")
         if len(self.enemies) > 2:
             Button(self, "Attack #2", lambda: self.player_attack(self.enemies[2]),
-                   350, 580, font=("Cambria Math", 12, "bold"), tags="attack_button3")
+                   350, 680, font=("Cambria Math", 12, "bold"), tags="attack_button3")
         if len(self.enemies) > 3:
             Button(self, "Attack #3", lambda: self.player_attack(self.enemies[0]),
-                   500, 580, font=("Cambria Math", 12, "bold"), tags="attack_button4")
+                   500, 680, font=("Cambria Math", 12, "bold"), tags="attack_button4")
 
     def player_attack(self, enemy: Enemy):
         """Method governing how a Player attacks a specified target.
@@ -409,6 +410,7 @@ class FightGUI(tk.Toplevel):
         """Display GUI if character dies during combat.
         """
         print("Character is dead")
+        self.player.is_in_combat = False
         super().destroy()
         self.game_handler.end_game(False)
 
@@ -425,4 +427,5 @@ class FightGUI(tk.Toplevel):
          from being destroyed until the fight ends.
         """
         if not self.enemies or not self.player.living:
+            self.player.is_in_combat = False
             super().destroy()

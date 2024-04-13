@@ -34,6 +34,8 @@ class TextPrinter:
         # Offset textbox as text height is constantly changing
         self.offset_text_box(text_id, -21)
 
+        print(f"\ntext {text} is being printed\n")
+
         for char in text:
             # pylint: disable=C3001
             update_text = lambda s=char: self.tkinter.bg_canvas.insert(text_id, method_of_printing, s)

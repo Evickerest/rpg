@@ -510,6 +510,12 @@ class MainGUI(tk.Tk):
                font=("Calibri", 20))
         Button(self, "Exit", self.destroy, 550, self.screen_height//2,
                anchor="w", width=8, height=3, font=("Calibri", 20))
+        
+        print(f"save is: {self.game_handler.is_save_empty}")
+        if not self.game_handler.is_save_empty:
+            Button(self, "Reload from Save",self.load_game, 550, 
+            self.screen_height//2, 800, anchor="w", width = 15, height = 3,
+             font=("Calibri", 20))
 
     def display_game_won_gui(self, total_time, enemies_killed, rooms_entered):
         """The screen that shows when you win the game.
@@ -571,6 +577,6 @@ class MainGUI(tk.Tk):
                anchor="w", width=8, height=3, font=("Calibri", 20))
 
     def destroy(self):
-        if self.is_game_started and self.player.living:
+        if self.is_game_started and self.player.living and not self.player.is_in_combat:
             self.game_handler.save_game()
         super().destroy()
