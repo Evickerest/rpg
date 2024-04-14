@@ -5,58 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge?">
-      <change afterPath="$PROJECT_DIR$/.coverage.Vinh-Laptop.20924.XntvUbQx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.coverage.Vinh-Laptop.22588.XGRsTASx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/GUI/button.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/GUI/character_gui.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/GUI/chest_gui.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/GUI/fight_gui.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/GUI/inventory_gui.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/GUI/main_gui.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/GUI/shop_gui.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/game_handler.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/save_manager.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/rpg/Classes/text_printer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/chest_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/chest_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/fight_gui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/GUI/main_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/main_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/GUI/shop_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/GUI/shop_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/game_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/game_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/save_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/save_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Saves/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Saves/save.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/boss_room_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/boss_room_tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/CharacterGui.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/ChestGUI.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/FightGUI.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/InventoryGui.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/MainGui.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/ShopGUI.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/GUI/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/GUI/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Map/edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/Map/edge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Map/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/Map/map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Map/mapconstants.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/Map/mapconstants.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/boss_room.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/Rooms/boss_room.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/combat_room.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/Rooms/combat_room.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/room.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/Rooms/room.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/Rooms/shop_room.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/Rooms/shop_room.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/character.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/character.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/gamehandler.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/item.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Classes/item.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Classes/textprinter.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/boss_room_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/boss_room_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/character_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/character_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/chest_room_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/chest_room_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/combat_room_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/combat_room_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/edge_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/edge_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/item_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/item_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/map_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/map_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/room_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/room_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/shop_room_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/shop_room_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/Tests/start_room_tests.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/Tests/start_room_tests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/rpg/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/rpg/test.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

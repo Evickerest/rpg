@@ -3,11 +3,11 @@
 
 import random
 import tkinter as tk
+from functools import partial
 from PIL import ImageTk, Image
 from Classes.GUI.button import Button
 from Classes.character import Player, Enemy, Character
 from Classes.Rooms.combat_room import CombatRoom
-from functools import partial
 
 
 class FightGUI(tk.Toplevel):

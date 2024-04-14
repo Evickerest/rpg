@@ -3,13 +3,12 @@
 
 from functools import partial
 import tkinter as tk
+import customtkinter
 from PIL import ImageTk, Image
 from Classes.GUI.button import Button
 from Classes.GUI.character_gui import CharacterGUI
 from Classes.GUI.inventory_gui import InventoryGUI
 from Classes.text_printer import TextPrinter
-
-import customtkinter
 
 
 class MainGUI(tk.Tk):
@@ -510,12 +509,12 @@ class MainGUI(tk.Tk):
                font=("Calibri", 20))
         Button(self, "Exit", self.destroy, 550, self.screen_height//2,
                anchor="w", width=8, height=3, font=("Calibri", 20))
-        
+
         print(f"save is: {self.game_handler.is_save_empty}")
         if not self.game_handler.is_save_empty:
-            Button(self, "Reload from Save",self.load_game, 550, 
-            self.screen_height//2, 800, anchor="w", width = 15, height = 3,
-             font=("Calibri", 20))
+            Button(self, "Reload from Save",self.load_game, 550,
+                   self.screen_height//2, 800, anchor="w", width = 15,
+                   height = 3, font=("Calibri", 20))
 
     def display_game_won_gui(self, total_time, enemies_killed, rooms_entered):
         """The screen that shows when you win the game.
